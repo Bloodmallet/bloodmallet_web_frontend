@@ -1,0 +1,24 @@
+
+$class-color-death-knight: #c41f3b;
+$class-color-demon-hunter: #a330c9;
+$class-color-druid: #ff7d0a;
+$class-color-hunter: #abd473;
+$class-color-mage: #69ccf0;
+$class-color-monk: #00ff96;
+$class-color-paladin: #f58cba;
+$class-color-priest: #ffffff;
+$class-color-rogue: #fff569;
+$class-color-shaman: #0070de;
+$class-color-warlock: #9482c9;
+$class-color-warrior: #c79c6e;
+
+$darkest-color: #232227;
+$dark-color: #343a40;
+$light-color: #999999;
+$lightest-color: #f8f9fa;
+
+
+$body-bg: $dark-color;
+$body-color: $lightest-color;
+
+@import "general_website/bootstrap/scss/bootstrap";

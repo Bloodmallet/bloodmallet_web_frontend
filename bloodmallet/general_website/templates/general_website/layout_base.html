@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    {% include 'general_website/layout_head.html' %}
+<body>
+    {% include 'general_website/layout_top_nav.html' %}
+
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% include 'general_website/layout_bottom_nav.html' %}
+
+    {# importer of js scripts #}
+    {% include 'general_website/layout_script_importer.html' %}
+</body>
+</html>
