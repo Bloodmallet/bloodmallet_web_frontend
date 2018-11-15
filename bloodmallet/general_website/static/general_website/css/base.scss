@@ -21,4 +21,35 @@ $lightest-color: #f8f9fa;
 $body-bg: $dark-color;
 $body-color: $lightest-color;
 
+$primary:       $class-color-shaman !default;
+$secondary:     $light-color !default;
+$success:       $class-color-monk !default;
+$info:          $class-color-mage !default;
+$warning:       $class-color-rogue !default;
+$danger:        $class-color-death-knight !default;
+$light:         $lightest-color !default;
+$dark:          $dark-color !default;
+
+$border-radius:               0rem !default;
+$border-radius-lg:            0rem !default;
+$border-radius-sm:            0rem !default;
+
+
+// Links
+//
+// Style anchor elements.
+$link-color:                lighten($primary, 15%) !default;
+$link-decoration:           none !default;
+$link-hover-color:          $primary !default;
+$link-hover-decoration:     underline !default;
+
+// General text
+$font-size-base: 1.1rem;
+
+
 @import "general_website/bootstrap/scss/bootstrap";
+
+
+.bg-dark {
+    background-color: $darkest-color !important;
+}
