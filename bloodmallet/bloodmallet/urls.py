@@ -20,3 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('bloodmallet.com/', include('general_website.urls')),
 ]
+
+handler400 = 'general_website.views.handler404'
+handler403 = 'general_website.views.handler404'
+handler404 = 'general_website.views.handler404'
+handler500 = 'general_website.views.handler500'
