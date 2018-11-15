@@ -1,0 +1,19 @@
+{% extends 'general_website/layout_base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<form action="{% url 'login' %}" method="post" style="top: 30vh; position: relative;">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" name="" id="username" aria-describedby="helpId" placeholder="Enter your username/email here...">
+      <small id="helpId" class="form-text text-muted">I couldn't care less about your data. Nothing is shared with others.</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password here...">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+{% endblock %}

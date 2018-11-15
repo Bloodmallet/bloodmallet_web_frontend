@@ -21,4 +21,7 @@ def handler500(request, exception, template_name='general_website/error.html'):
 
 
 def index(request):
-    return render(request, 'general_website/default.html', {'text': "Sir!", 'form': NameForm()})
+    return render(request, 'general_website/index.html', {'text': "Sir!", 'form': NameForm()})
+
+def login(request):
+    return render(request, 'general_website/login.html')
