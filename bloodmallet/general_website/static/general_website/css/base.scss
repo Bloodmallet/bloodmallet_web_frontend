@@ -67,9 +67,52 @@ $font-size-base: 1.1rem;
 
 @import "general_website/bootstrap/scss/bootstrap";
 
+// container for primary page content
+main {
+    min-height: 93vh;
+    bottom:0;
+    right:0;
+    left:0;
+}
+// bloodmallet hammer background image
+#background_image {
+    position: fixed;
+    bottom: 80px;
+    right: 40px;
+    width: 40%;
+    height: 25%;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.2;
+}
+// container for bottom navigation
+footer {
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    margin-top: 2em;
+}
+.top-nav, .bottom-nav {
+    min-height: 7vh;
+}
+// Footer icons
+.svg-icon {
+    display: inline-block;
+    padding-right: 0px;
+    width: 23px;
+    height: 23px;
+    fill: currentColor;
+    vertical-align: text-top;
+}
+a:hover .svg-icon {
+    fill: currentColor;
+}
 
 .bg-dark {
-    background-color: $darkest-color !important;
+    background-color: $darkest-color!important;
 }
 
 // hide brand name on medium screens to leave room for class options
