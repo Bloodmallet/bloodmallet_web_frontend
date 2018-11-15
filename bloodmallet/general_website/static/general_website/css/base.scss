@@ -1,4 +1,6 @@
+// Something something introduction
 
+// list of all class colors
 $class-color-death-knight: #c41f3b;
 $class-color-demon-hunter: #a330c9;
 $class-color-druid: #ff7d0a;
@@ -11,6 +13,22 @@ $class-color-rogue: #fff569;
 $class-color-shaman: #0070de;
 $class-color-warlock: #9482c9;
 $class-color-warrior: #c79c6e;
+
+$class-colors: () !default;
+$class-colors: map-merge((
+  "death_knight":   $class-color-death-knight,
+  "demon_hunter":   $class-color-demon-hunter,
+  "druid":          $class-color-druid,
+  "hunter":         $class-color-hunter,
+  "mage":           $class-color-mage,
+  "monk":           $class-color-monk,
+  "paladin":        $class-color-paladin,
+  "priest":         $class-color-priest,
+  "rogue":          $class-color-rogue,
+  "shaman":         $class-color-shaman,
+  "warlock":        $class-color-warlock,
+  "warrior":        $class-color-warrior
+), $class-colors);
 
 $darkest-color: #232227;
 $dark-color: #343a40;
@@ -53,3 +71,63 @@ $font-size-base: 1.1rem;
 .bg-dark {
     background-color: $darkest-color !important;
 }
+
+// hide brand name on medium screens to leave room for class options
+@media only screen and (max-width: 1499px) and (min-width: 990px) {
+    #brand-name {
+        display: none;
+    }
+}
+
+.dropdown-menu {
+    background-color: $darkest-color;
+    padding: 0rem;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: $darkest-color;
+}
+
+// create necessary class specific css for nav and tables
+@each $class, $color-value in $class-colors {
+    .#{$class}-color {
+        color: $color-value!important;
+    }
+    .#{$class}-menu-border {
+        border-top: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        transition: border-bottom .05s ease-in;
+        &:hover {
+            border-bottom: 3px solid $color-value;
+            transition: border-bottom .0s ease-in;
+        }
+        &:active {
+            border-bottom: 3px solid $color-value;
+        }
+    }
+    .#{$class}-border-top {
+        border-top: 3px solid $color-value;
+    }
+    .#{$class}-border-bottom {
+        border-bottom: 3px solid $color-value;
+    }
+
+    // Hide the bottom border if the sub menu is active
+    .show .#{$class}-menu-border:hover, .show .#{$class}-menu-border.active {
+        border-bottom: 3px solid transparent;
+    }
+
+    .#{$class}-button {
+        color: $color-value;
+        border-right: 5px solid $darkest-color;
+        border-left: 5px solid $darkest-color;
+        transition: border .05s ease-in;
+        &:hover, &:active {
+            color: $color-value;
+            border-left: 5px solid $color-value;
+            transition: border .0s ease-in;
+        }
+    }
+}
+
+
+
