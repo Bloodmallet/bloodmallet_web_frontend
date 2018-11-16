@@ -3,11 +3,11 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'login' %}" style="top: 15vh; position: relative;">
+<form method="post" action="{% url 'signup' %}" style="top: 15vh; position: relative;">
     {% csrf_token %}
-    {{ login_form|crispy }}
+    {{ signup_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Sign up</button>
     <small id="dataDisclaimer" class="form-text text-muted">I couldn't care less about your data. Nothing is shared with others.</small>
 </form>
 
