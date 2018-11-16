@@ -201,3 +201,5 @@ LOGGING = {
 
 # we can either use crispy or bootstrap4
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # automatic bootstrap form frontend generator
+
+LOGIN_URL = 'login'
