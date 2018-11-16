@@ -2,5 +2,6 @@ env/
 *.pyc
 .vscode/
 *.zip
-base.css
-base.css.map
+debug.log
+bloodmallet/general_website/static/general_website/css/base.css
+bloodmallet/general_website/static/general_website/css/base.css.map
