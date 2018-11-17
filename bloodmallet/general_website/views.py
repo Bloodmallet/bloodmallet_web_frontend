@@ -40,9 +40,10 @@ def index(request):
         [type] -- [description]
     """
 
+    logger.info("index")
+
     if request.user.is_authenticated:
         logger.info("authenticated user '{}' found.".format(request.user.username))
-        #auth_logout(request)
         pass
 
     return render(request, 'general_website/index.html', {'text': "Sir!"})
@@ -80,6 +81,20 @@ def login(request):
         login_form = UserLoginForm()
         pass
     return render(request, 'general_website/login.html', {'login_form': login_form})
+
+
+def logout(request):
+    """Logs out the user and returns him to the front page.
+
+    Arguments:
+        request {[type]} -- [description]
+
+    Returns:
+        [type] -- [description]
+    """
+
+    auth_logout(request)
+    return redirect('index')
 
 
 def signup(request):
