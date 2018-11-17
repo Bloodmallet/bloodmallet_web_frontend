@@ -1,52 +1,16 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import UserLoginForm, SignUpForm
+from general_website.forms import UserLoginForm, SignUpForm
 
 import logging
 
 logger = logging.getLogger(__name__)
-
-@login_required
-def error(request, code: int=404, message: str="Page not found"):
-    error = {
-        'error': {
-            'code': code,
-            'text': message
-        }
-    }
-    return render(request, 'general_website/error.html', error, status=code)
-
-
-# define custom error pages
-def handler404(request, exception, template_name='general_website/error.html'):
-    return error(request, 404, "Page not found")
-
-
-def handler500(request, exception, template_name='general_website/error.html'):
-    return error(request, 500, "Something went wrong. Try again later")
-
-
-def index(request):
-    """View to either see the spec selection table or get a chart directly.
-
-    Arguments:
-        request {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
-    """
-
-    logger.info("index")
-
-    if request.user.is_authenticated:
-        logger.info("authenticated user '{}' found.".format(request.user.username))
-        pass
-
-    return render(request, 'general_website/index.html', {'text': "Sir!"})
 
 
 def login(request):
@@ -118,3 +82,8 @@ def signup(request):
     else:
         signup_form = SignUpForm()
     return render(request, 'general_website/signup.html', {'signup_form': signup_form})
+
+
+@login_required
+def account(request):
+    pass
