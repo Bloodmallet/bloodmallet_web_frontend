@@ -181,4 +181,17 @@ a:hover .svg-icon {
 
 #navBarDataMenu {
     border-top: $border-width solid $light-color;
+    visibility: visible;
+    -webkit-animation: fadein_class_nav 0.5s;
+    animation: fadein_class_nav 0.5s;
+}
+
+@-webkit-keyframes fadein_class_nav {
+  from {top: -6vh; opacity: 0;}
+  to {top: 0vh; opacity: 1;}
+}
+
+@keyframes fadein_class_nav {
+  from {top: -6vh; opacity: 0;}
+  to {top: 0vh; opacity: 1;}
 }

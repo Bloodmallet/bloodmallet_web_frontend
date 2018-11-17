@@ -1,22 +1,46 @@
 {% extends 'general_website/layout_base.html' %}
+{% load static %}
+{% load replace_underscore_with_space %}
+
+{% block precontent%}
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu">
+    <!-- Menu button if device is too small for full menu -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu" aria-controls="navbarClassMenu"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Menu list -->
+    <div class="collapse navbar-collapse" id="navbarClassMenu">
+        <!-- Wow classes -->
+        <ul class="navbar-nav">
+
+            {# create a list of all specs and autogenerate the standard links #}
+            {% with "death_knight demon_hunter druid hunter mage monk paladin priest rogue shaman warlock warrior" as specs %}
+                {% for spec in specs.split %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ spec }}-color {{ spec }}-menu-border translate_{{ spec }}" href="#{{ spec }}" id="navbar_{{ spec }}_menu">{{ spec|title|replace_underscore_with_space }}</a>
+                    </li>
+                {% endfor %}
+            {% endwith %}
+
+        </ul>
+
+    </div>
+</nav>
+<script src="{% static 'general_website/js/navbarClassMenu.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
 
-Hello World! {{ text }}
+{% if not request.user.is_authenticated  %}
+<p>Hello World! {{ text }}</p>
 
-{% load bootstrap4 %}
-
-{# Display a form #}
-
-<form action="/url/to/submit/" method="post" class="form">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    {% endbuttons %}
-</form>
-<a href="something.html">here is nothing</a>
-Something something
+<p><a href="something.html">here is nothing</a></p>
+<p>Something something</p>
 <p>Something could be here too</p>
-
+<p>but nothing of importance is</p>
+{% else %}
+Bonjour {{ request.user.username }}
+{% endif %}
 {% endblock %}

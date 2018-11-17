@@ -7,6 +7,9 @@
 <body>
     {% include 'general_website/layout_top_nav.html' %}
 
+    {% block precontent %}
+    {% endblock %}
+
     <main>
         <div class="container-fluid">
             <div class="row">
@@ -24,6 +27,10 @@
             </div>
         </div>
     </main>
+
+    {% block postcontent %}
+    {% endblock %}
+
     <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet.svg'%}');"></div>
     {% include 'general_website/layout_bottom_nav.html' %}
 
