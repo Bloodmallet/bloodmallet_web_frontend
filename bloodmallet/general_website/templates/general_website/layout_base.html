@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap4 %}
 
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,7 @@
                     {# free real estate #}
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-10">
+                    {% bootstrap_messages %}
                     {% block content %}
                     {% endblock %}
                 </div>
