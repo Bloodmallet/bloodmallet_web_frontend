@@ -48,6 +48,7 @@ $danger:        $class-color-death-knight !default;
 $light:         $lightest-color !default;
 $dark:          $dark-color !default;
 
+$border-width:                1px;
 $border-radius:               0rem !default;
 $border-radius-lg:            0rem !default;
 $border-radius-sm:            0rem !default;
@@ -63,6 +64,9 @@ $link-hover-decoration:     underline !default;
 
 // General text
 $font-size-base: 1.1rem;
+$input-color: $lightest-color;
+$input-bg: $darkest-color;
+$input-border-color: $light-color;
 
 
 @import "general_website/bootstrap/scss/bootstrap";
@@ -96,7 +100,7 @@ footer {
     margin-top: 2em;
 }
 .top-nav, .bottom-nav {
-    min-height: 7vh;
+    min-height: 6vh;
 }
 // Footer icons
 .svg-icon {
@@ -116,11 +120,11 @@ a:hover .svg-icon {
 }
 
 // hide brand name on medium screens to leave room for class options
-@media only screen and (max-width: 1499px) and (min-width: 990px) {
-    #brand-name {
-        display: none;
-    }
-}
+// @media only screen and (max-width: 1499px) and (min-width: 990px) {
+//     #brand-name {
+//         display: none;
+//     }
+// }
 
 .dropdown-menu {
     background-color: $darkest-color;
@@ -136,7 +140,7 @@ a:hover .svg-icon {
         color: $color-value!important;
     }
     .#{$class}-menu-border {
-        border-top: 3px solid transparent;
+        // border-top: 3px solid transparent;
         border-bottom: 3px solid transparent;
         transition: border-bottom .05s ease-in;
         &:hover {
@@ -146,6 +150,9 @@ a:hover .svg-icon {
         &:active {
             border-bottom: 3px solid $color-value;
         }
+    }
+    .#{$class}-menu-border.active {
+        border-bottom: 3px solid $color-value;
     }
     .#{$class}-border-top {
         border-top: 3px solid $color-value;
@@ -170,4 +177,8 @@ a:hover .svg-icon {
             transition: border .0s ease-in;
         }
     }
+}
+
+#navBarDataMenu {
+    border-top: $border-width solid $light-color;
 }
