@@ -1,8 +1,14 @@
+import os
 
-from .common import *
+from bloodmallet.settings.common import *
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.join(BASE_DIR, '..')
+
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -23,7 +29,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'D:/Programme/bloodmallet2/debug.log',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
         },
         'console': {
             'class': 'logging.StreamHandler',
