@@ -3,5 +3,4 @@ env/
 .vscode/
 *.zip
 debug.log
-bloodmallet/general_website/static/general_website/css/base.css
-bloodmallet/general_website/static/general_website/css/base.css.map
+secrets.py
