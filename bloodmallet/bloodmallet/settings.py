@@ -170,8 +170,9 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(asctime)s %(levelname)s %(module)s: "%(message)s"',
-        },
+            'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s - %(message)s',
+        }, # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
+
     },
     'handlers': {
         'file': {
@@ -182,7 +183,7 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'default',
-            'level': 'INFO'
+            'level': 'DEBUG' if DEBUG else 'INFO'
         },
     },
     'loggers': {
@@ -193,7 +194,7 @@ LOGGING = {
         },
         'general_website': { # add app to logger!
             'handlers': ['console', 'file'],
-            'level': 'DEBUG',
+            'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         }
     },
