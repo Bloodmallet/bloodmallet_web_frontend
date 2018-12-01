@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -55,7 +54,9 @@ ROOT_URLCONF = 'bloodmallet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth') # allauth templates
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,8 +129,6 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 
 # TODO: Check https://django-allauth.readthedocs.io/en/latest/faq.html for patreon connection
-
-
 # django-allauth
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -144,4 +143,5 @@ SITE_ID = 1
 # we can either use crispy or bootstrap4
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # automatic bootstrap form frontend generator
 
+# from where is this?
 LOGIN_URL = 'login'
