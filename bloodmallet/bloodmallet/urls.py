@@ -19,7 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bloodmallet.com/', include('general_website.urls')),
-    path('accounts/', include('allauth.urls')),
 ]
 
 handler400 = 'general_website.views.handler404'

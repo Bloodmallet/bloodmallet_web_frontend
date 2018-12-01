@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -7,6 +7,9 @@ urlpatterns = [
     path('index.html', views.index, name='index_long'),
     path('index', views.index, name='index'),
     path('error', views.error, name='error'),
+
+    # allauth account actions
+    path('accounts/', include('allauth.urls')),
 
     # account actions
     path('login', views.login, name='login'),
