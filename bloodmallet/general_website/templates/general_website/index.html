@@ -3,7 +3,7 @@
 {% load replace_underscore_with_space %}
 
 {% block precontent%}
-<nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu">
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu" hidden style="top:60px;">
     <!-- Menu button if device is too small for full menu -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu" aria-controls="navbarClassMenu"
         aria-expanded="false" aria-label="Toggle navigation">
@@ -27,13 +27,14 @@
 
     </div>
 </nav>
-<script src="{% static 'general_website/js/navbarClassMenu.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
 
-{% if not request.user.is_authenticated  %}
+<h1 class="display-4 text-center" id="primary_headline">bloodmallet</h1>
+
+{% if not request.user.is_authenticated %}
 <p>Hello World! {{ text }}</p>
 
 <p><a href="something.html">here is nothing</a></p>
@@ -41,6 +42,62 @@
 <p>Something could be here too</p>
 <p>but nothing of importance is</p>
 {% else %}
-Bonjour {{ request.user.username }}
+<p>Bonjour {{ request.user.username }}</p>
 {% endif %}
+
+<p id="translate_main_paragraph">
+This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft using
+<a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a>'s default profiles. These overviews are an entry point. For indepth information about your
+spec use your theorycrafters resources linked below the charts.
+</p>
+
+
+<div class="row text-center" id="spec_table"></div>
+
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+<p>hello</p>
+
+<script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
+<script src="{% static 'general_website/js/class_spec_table.js' %}"></script>
 {% endblock %}
