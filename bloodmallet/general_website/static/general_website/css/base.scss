@@ -100,7 +100,14 @@ footer {
     margin-top: 2em;
 }
 .top-nav, .bottom-nav {
-    min-height: 6vh;
+    min-height: 60px;
+}
+#navbarTopMenu {
+    z-index: 50;
+    background: $darkest-color;
+}
+#navBarDataMenu {
+    z-index: 45;
 }
 // Footer icons
 .svg-icon {
@@ -160,10 +167,20 @@ a:hover .svg-icon {
     .#{$class}-border-bottom {
         border-bottom: 3px solid $color-value;
     }
+    @media only screen and (max-width: 767px) {
+        .#{$class}-menu-border {
+            border-bottom: 0px solid transparent;
+        }
+        .#{$class}-border-bottom, .#{$class}-menu-border.active {
+            border-bottom: 0px solid transparent;
+            border-left: 3px solid $color-value;
+            padding-left: 5px;
+        }
+    }
 
     // Hide the bottom border if the sub menu is active
     .show .#{$class}-menu-border:hover, .show .#{$class}-menu-border.active {
-        border-bottom: 3px solid transparent;
+        border-bottom: 0px solid transparent;
     }
 
     .#{$class}-button {
@@ -194,4 +211,86 @@ a:hover .svg-icon {
 @keyframes fadein_class_nav {
   from {top: -6vh; opacity: 0;}
   to {top: 0vh; opacity: 1;}
+}
+
+// Styles for the class-spec table
+/* styles the wow class table headers */
+.wow-class-header-content {
+    font-weight: 600;
+    background-color: $darkest-color;
+    padding-top: 3px;
+    padding-bottom: 7px;
+    font-size: 1.4rem;
+  }
+/* enforces a small free space between border and content */
+.spec-cell {
+    padding-right: 21px;
+    margin-bottom: 30px;
+}
+@media only screen and (min-width: 1281px) {
+    .spec-cell {
+        padding-right: 40px;
+    }
+}
+.btn-data {
+    background-color: $darkest-color;
+    border: 0px solid transparent;
+    border-bottom-width: 3px;
+    border-top-width: 3px;
+    color: $lightest-color;
+    font-weight: 400;
+    min-width: 120px;
+    padding: .375rem .75rem;
+    cursor: pointer;
+}
+.spec-btn {
+    background-color: $darkest-color;
+    //color: $lightest-color;
+    display: block;
+    font-weight: 500;
+    width: 100%;
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+        //color: $lightest-color;
+    }
+}
+/* Mobile devices */
+@media only screen and (max-width: 500px) {
+    .spec-btn {
+        padding: 5px 5px;
+    }
+}
+/* Desktop sizes */
+@media only screen and (min-width: 501px) {
+    .spec-btn {
+        padding: 10px 15px;
+    }
+}
+#spec_table {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+// petreon
+.patreon-div {
+    position: fixed;
+    right: 24px;
+    top: 70px;
+    z-index: 47;
+}
+
+@media only screen and (max-width: 767px) {
+    .patreon-div {
+        display: none;
+    }
+    .navbar-spacer {
+        display: none;
+    }
+}
+
+// we're a straight line style
+// if anyone sees this: feel free to restyle radio buttons to squares instead of circles too
+ul {
+    list-style-type: square;
 }
