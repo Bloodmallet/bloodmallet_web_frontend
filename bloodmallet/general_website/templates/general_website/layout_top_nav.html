@@ -1,6 +1,6 @@
 {% load static %}
-<header>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top top-nav">
+{% comment %} <header> {% endcomment %}
+    <nav class="navbar sticky-top navbar-expand-lg bg-dark navbar-dark top-nav">
         <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'general_website/assets/bloodmallet.svg' %}" style="width: 35px; vertical-align:top;" /> <span id="brand-name">bloodmallet</span>
         </a>
@@ -26,7 +26,7 @@
             <ul class="navbar-nav ml-auto">
                 {% if not request.user.is_authenticated %}
                     <a class="nav-link" href="{% url 'login' %}" id="navbarLogin">Login</a>
-                    <a class="nav-link" href="{% url 'signup' %}" id="navbarSignup">Signup</a>
+                    <a class="nav-link" href="{% url 'signup' %}" id="navbarSignup">Register</a>
                 {% endif %}
                 <a class="nav-link dropdown-toggle" href="" id="navbarSettingsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings
                 </a>
@@ -72,10 +72,10 @@
                     </div>
                 </form>
                 {% if request.user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'login' %}" id="navbarLogin">Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}" id="navbarLogin">Logout</a>
                 {% endif %}
             </ul>
         </div>
     </nav>
 
-</header>
+{% comment %} </header> {% endcomment %}
