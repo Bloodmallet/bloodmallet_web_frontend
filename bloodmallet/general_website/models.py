@@ -17,7 +17,10 @@ def update_pledge_level(sender, sociallogin, **kwargs):
 
     print(sender)
     print(sociallogin)
-    print(sociallogin.account) # read social allauth models.py
+    try:
+        print(sociallogin.account) # read social allauth models.py
+    except Exception:
+        print("No social.account could be found yet. Probably linking in progress.")
 
 #https://stackoverflow.com/questions/40684838/django-django-allauth-save-extra-data-from-social-login-in-signal
 
