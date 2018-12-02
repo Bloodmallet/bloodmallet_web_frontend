@@ -108,6 +108,19 @@ footer {
 }
 #navBarDataMenu {
     z-index: 45;
+    border-top: $border-width solid $light-color;
+    visibility: visible;
+    -webkit-animation: fadein_class_nav 0.5s;
+    animation: fadein_class_nav 0.5s;
+}
+// there was an animation here...it somehow broke. maybe due to "sticky-top" class
+@-webkit-keyframes fadein_class_nav {
+  from {top: -60px; opacity: 0;}
+  to {top: 0px; opacity: 1;}
+}
+@keyframes fadein_class_nav {
+  from {top: -60px; opacity: 0;}
+  to {top: 0px; opacity: 1;}
 }
 // Footer icons
 .svg-icon {
@@ -194,23 +207,6 @@ a:hover .svg-icon {
             transition: border .0s ease-in;
         }
     }
-}
-
-#navBarDataMenu {
-    border-top: $border-width solid $light-color;
-    visibility: visible;
-    -webkit-animation: fadein_class_nav 0.5s;
-    animation: fadein_class_nav 0.5s;
-}
-
-@-webkit-keyframes fadein_class_nav {
-  from {top: -6vh; opacity: 0;}
-  to {top: 0vh; opacity: 1;}
-}
-
-@keyframes fadein_class_nav {
-  from {top: -6vh; opacity: 0;}
-  to {top: 0vh; opacity: 1;}
 }
 
 // Styles for the class-spec table
