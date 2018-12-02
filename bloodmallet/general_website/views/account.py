@@ -32,7 +32,8 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                messages.info(request, "Welcome {}".format(username))
+                # don't display an annoying login message
+                # messages.info(request, "Welcome {}".format(username))
                 n = 'index'
                 # TODO: get query string parameter 'next' which has the actual destination
                 return redirect(n)
@@ -87,3 +88,7 @@ def signup(request):
 @login_required
 def account(request):
     pass
+
+
+def settings(request):
+    return render(request, 'general_website/settings.html', {})
