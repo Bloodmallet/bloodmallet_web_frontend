@@ -4,3 +4,4 @@ env/
 *.zip
 debug.log
 secrets.py
+bloodmallet/db.sqlite3
