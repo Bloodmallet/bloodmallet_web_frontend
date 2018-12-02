@@ -110,8 +110,8 @@ footer {
     z-index: 45;
     border-top: $border-width solid $light-color;
     visibility: visible;
-    -webkit-animation: fadein_class_nav 0.5s;
-    animation: fadein_class_nav 0.5s;
+    //-webkit-animation: fadein_class_nav 0.5s;
+    //animation: fadein_class_nav 0.5s;
 }
 // there was an animation here...it somehow broke. maybe due to "sticky-top" class
 @-webkit-keyframes fadein_class_nav {
