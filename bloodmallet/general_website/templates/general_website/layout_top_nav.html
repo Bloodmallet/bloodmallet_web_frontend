@@ -30,47 +30,7 @@
                 {% endif %}
                 <a class="nav-link dropdown-toggle" href="" id="navbarSettingsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings
                 </a>
-                <form class="dropdown-menu btn-full dropdown-menu-right p-4" aria-labelledby="navbarSettingsMenu" id="settingsDropDown">
-                    <!-- dark mode checkbox, ml-auto is margin-left auto max -->
-                    <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="darkModeCheckbox" style="cursor: pointer" checked>
-                        <label class="form-check-label" style="cursor: pointer" id="translate_dark_mode" for="darkModeCheckbox">
-                        dark mode
-                        </label>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                    <label class="form-control-label" id="translate_language" for="languageSelector">Language:</label>
-                    <br/>
-                    <select id="languageSelector" title="Language">
-                        <option value="CN">简体中文</option>
-                        <option value="DE">Deutsch</option>
-                        <option value="EN" selected>English</option>
-                        <option value="ES">Español</option>
-                        <option value="FR">Français</option>
-                        <option value="IT">Italiano</option>
-                        <option value="KO">한국어</option>
-                        <option value="PT">Português Brasileiro</option>
-                        <option value="RU">Русский</option>
-                    </select>
-                    </div>
-                    <div class="form-group">
-                    <label class="form-control-label" for="value_style_selector">Chart mode:</label>
-                    <br/>
-                    <select id="value_style_selector" title="Chart value style">
-                        <option value="absolute_gain" selected>Δ - absolute dps gain</option>
-                        <option value="relative_gain">% - relative dps gain</option>
-                        <option value="absolute_value">|x| - absolute value</option>
-                    </select>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="inconized_charts_checkbox" style="cursor: pointer">
-                    <label class="form-check-label" style="cursor: pointer" id="translate_iconize_chart" for="inconized_charts_checkbox">
-                        show icons in chart
-                    </label>
-                    </div>
-                </form>
+                <a class="nav-link" href="{% url 'settings' %}" id="navbarLogin">Settings</a>
                 {% if request.user.is_authenticated %}
                     <a class="nav-link" href="{% url 'logout' %}" id="navbarLogin">Logout</a>
                 {% endif %}
