@@ -1,0 +1,65 @@
+{% extends 'general_website/layout_base.html' %}
+{% load static %}
+{% load replace_underscore_with_space %}
+
+{% block precontent%}
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="display-4 text-center" id="primary_headline">Portals</h1>
+
+<p>Ever wondered what portals exist in the game? So did I. Here is a list of them. Let me know about more fixed position portals. This list is NOT intended to include teleporting items or skills.</p>
+
+{# Faction buttons #}
+<p>
+{% for faction, teleporters in factions.items %}
+    <button class="btn btn-primary" id="{{ faction }}_button" data-toggle="collapse" data-target="#{{ faction }}_teleporters" aria-expanded="{% if faction == "alliance" %}true{% else %}false{% endif %}" aria-controls="{{ faction }}_teleporters">
+        {{ faction | title }} ({{ teleporters | length }})
+    </button>
+{% endfor %}
+</p>
+
+{# Faction content #}
+{% for faction, teleporters in factions.items %}
+<div class="collapse table-responsive{% if faction == "alliance" %} show{% endif %}" id="{{ faction }}_teleporters">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Target</th>
+                <th>Location</th>
+                <th>Coordinates</th>
+                <th>More information</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for teleporter in teleporters %}
+            <tr>
+                <td scope="row">{{ teleporter.target }}</td>
+                <td>{{ teleporter.location }}</td>
+                <td>{{ teleporter.coordinates.0 }}, {{ teleporter.coordinates.1 }}</td>
+                <td>{{ teleporter.additional_information }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+
+<script>
+    // Hide the opposite faction on click
+    document.addEventListener("DOMContentLoaded", function () {
+        try {
+            document.getElementById("alliance_button").addEventListener('click', function () {
+                $('#horde_teleporters').collapse('hide');
+            });
+            document.getElementById("horde_button").addEventListener('click', function () {
+                $('#alliance_teleporters').collapse('hide');
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+</script>
+{% endblock %}

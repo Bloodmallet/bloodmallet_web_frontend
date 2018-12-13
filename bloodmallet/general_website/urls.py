@@ -9,6 +9,7 @@ urlpatterns = [
     path('index.html', views.index, name='index_long'),
     path('index', views.index, name='index'),
     path('error', views.error, name='error'),
+    path('portals', views.portals, name='portals'),
     path('settings/general', views.settings, name='settings'),
 
     # allauth account actions
