@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_forms',
     'general_website',
+    'compute_api',
 ]
 
 MIDDLEWARE = [
