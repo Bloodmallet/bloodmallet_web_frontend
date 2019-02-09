@@ -111,9 +111,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# used to serve files from this path in non-debug production
-STATIC_ROOT = 'd:/Programme/bloodmallet2/bloodmallet/general_website/static/'
-
 # location of the sass files (css with logic)
 # SASS_PROCESSOR_ROOT = ''
 
@@ -122,11 +119,6 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
-
-# SASS settings
-SASS_PRECISION = 8
-SASS_PROCESSOR_ROOT = STATIC_ROOT
-# SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 
 
 # TODO: Check https://django-allauth.readthedocs.io/en/latest/faq.html for patreon connection

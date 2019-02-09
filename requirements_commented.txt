@@ -1,3 +1,5 @@
+# This requirements file is a commented mirror of bloodmallet/requirements.txt, which is needed where it is for deployment. Furthermore due to the deployment the requirements file can't have comments for now.
+
 # Attention!
 # Make sure to use 'python -m pip install --upgrade pip setuptools wheel' before trying to use 'pip install -U -r requirements.txt'
 
@@ -18,3 +20,6 @@ django-bootstrap4~=0.0.7
 
 # google api for the secret app
 google-api-python-client~=1.7.7
+
+# google example uses this adapter for mysql
+pymysql

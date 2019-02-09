@@ -1,6 +1,11 @@
+import os
 
-# from .production import *
-from .development import *
+from .common import *
+
+if os.getenv('GAE_APPLICATION', None):
+  from .production import *
+else:
+  from .development import *
 
 # secrets
 try:
