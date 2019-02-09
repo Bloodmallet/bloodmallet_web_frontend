@@ -3,29 +3,31 @@
 {% load replace_underscore_with_space %}
 
 {% block precontent%}
-<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu" hidden style="top:60px;">
-    <!-- Menu button if device is too small for full menu -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu" aria-controls="navbarClassMenu"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Menu list -->
-    <div class="collapse navbar-collapse" id="navbarClassMenu">
-        <!-- Wow classes -->
-        <ul class="navbar-nav">
+<div id="navBarDataMenuPlaceholder" class="sticky-top">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu" hidden>
+        <!-- Menu button if device is too small for full menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu" aria-controls="navbarClassMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Menu list -->
+        <div class="collapse navbar-collapse" id="navbarClassMenu">
+            <!-- Wow classes -->
+            <ul class="navbar-nav">
 
-            {# create a list of all specs and autogenerate the standard links #}
-            {% with "death_knight demon_hunter druid hunter mage monk paladin priest rogue shaman warlock warrior" as specs %}
-                {% for spec in specs.split %}
-                    <li class="nav-item">
-                        <a class="nav-link {{ spec }}-color {{ spec }}-menu-border translate_{{ spec }}" href="#{{ spec }}" id="navbar_{{ spec }}_menu">{{ spec|title|replace_underscore_with_space }}</a>
-                    </li>
-                {% endfor %}
-            {% endwith %}
+                {# create a list of all specs and autogenerate the standard links #}
+                {% with "death_knight demon_hunter druid hunter mage monk paladin priest rogue shaman warlock warrior" as specs %}
+                    {% for spec in specs.split %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ spec }}-color {{ spec }}-menu-border translate_{{ spec }}" href="#{{ spec }}" id="navbar_{{ spec }}_menu">{{ spec|title|replace_underscore_with_space }}</a>
+                        </li>
+                    {% endfor %}
+                {% endwith %}
 
-        </ul>
-    </div>
-</nav>
+            </ul>
+        </div>
+    </nav>
+</div>
 {% endblock %}
 
 

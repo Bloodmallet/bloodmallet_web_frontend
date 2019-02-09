@@ -6066,19 +6066,27 @@ footer {
 .top-nav, .bottom-nav {
   min-height: 60px; }
 
+.light-border-bottom {
+  border-bottom: 1px solid #999999; }
+
 #navbarTopMenu {
-  z-index: 50;
   background: #232227; }
+
+#navBarDataMenuPlaceholder {
+  top: 60px;
+  height: 62px;
+  z-index: 500; }
 
 #navBarDataMenu {
   z-index: 45;
-  border-top: 1px solid #999999;
-  visibility: visible; }
+  top: 0px;
+  -webkit-animation: fadein_class_nav 0.6s;
+  animation: fadein_class_nav 0.6s; }
 
 @-webkit-keyframes fadein_class_nav {
   from {
     top: -60px;
-    opacity: 0; }
+    opacity: 1; }
   to {
     top: 0px;
     opacity: 1; } }
@@ -6086,7 +6094,7 @@ footer {
 @keyframes fadein_class_nav {
   from {
     top: -60px;
-    opacity: 0; }
+    opacity: 1; }
   to {
     top: 0px;
     opacity: 1; } }
@@ -6667,7 +6675,7 @@ a:hover .svg-icon {
   position: fixed;
   right: 24px;
   top: 70px;
-  z-index: 47; }
+  z-index: 750; }
 
 @media only screen and (max-width: 767px) {
   .patreon-div {
@@ -6677,3 +6685,5 @@ a:hover .svg-icon {
 
 ul {
   list-style-type: square; }
+
+/*# sourceMappingURL=base.css.map */

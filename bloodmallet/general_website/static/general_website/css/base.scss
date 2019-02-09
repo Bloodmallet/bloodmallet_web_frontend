@@ -102,24 +102,31 @@ footer {
 .top-nav, .bottom-nav {
     min-height: 60px;
 }
+.light-border-bottom {
+    border-bottom: $border-width solid $light-color;
+}
 #navbarTopMenu {
-    z-index: 50;
     background: $darkest-color;
+}
+#navBarDataMenuPlaceholder {
+    top: 60px;
+    height: 62px;
+    z-index: 500;
 }
 #navBarDataMenu {
     z-index: 45;
-    border-top: $border-width solid $light-color;
-    visibility: visible;
-    //-webkit-animation: fadein_class_nav 0.5s;
-    //animation: fadein_class_nav 0.5s;
+    top: 0px;
+    // visibility: visible;
+    -webkit-animation: fadein_class_nav 0.6s;
+    animation: fadein_class_nav 0.6s;
 }
 // there was an animation here...it somehow broke. maybe due to "sticky-top" class
 @-webkit-keyframes fadein_class_nav {
-  from {top: -60px; opacity: 0;}
+  from {top: -60px; opacity: 1;}
   to {top: 0px; opacity: 1;}
 }
 @keyframes fadein_class_nav {
-  from {top: -60px; opacity: 0;}
+  from {top: -60px; opacity: 1;}
   to {top: 0px; opacity: 1;}
 }
 // Footer icons
@@ -269,7 +276,7 @@ a:hover .svg-icon {
     position: fixed;
     right: 24px;
     top: 70px;
-    z-index: 47;
+    z-index: 750;
 }
 
 @media only screen and (max-width: 767px) {
