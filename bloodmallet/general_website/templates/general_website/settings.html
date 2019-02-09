@@ -14,7 +14,7 @@
 <h1>Settings</h1>
 <p>A settings page...what did you expect?</p>
 
-<form>
+<form class="container-fluid">
     {# Die in fire #}
     <!-- --/> <div class="form-group row">
         <legend class="col-sm-4 col-md-3">Dark mode</legend>
@@ -109,13 +109,13 @@
 
     <div class="form-group row">
         <legend>Chart icons</legend>
-        <label class="offset-sm-2 form-check-label" style="cursor: pointer" id="translate_iconize_chart" for="inconized_charts_checkbox">
+        <label class="offset-sm-2 form-check" style="cursor: pointer" id="translate_iconize_chart" for="inconized_charts_checkbox">
             <input class="form-check-input" type="checkbox" id="inconized_charts_checkbox" style="cursor: pointer">
             active
         </label>
     </div>
 
-    <button type="button" class="btn btn-primary" id="apply_changes">Apply changes</button>
+    <button type="button" class="btn btn-primary row" id="apply_changes">Apply changes</button>
 </form>
 
 

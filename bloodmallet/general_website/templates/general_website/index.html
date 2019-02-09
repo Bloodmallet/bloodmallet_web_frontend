@@ -53,7 +53,9 @@ are an entry point. For indepth information about your spec use your theorycraft
 </p>
 
 
-<div class="row text-center" id="spec_table"></div>
+<div class="container-fluid">
+    <div class="row text-center" id="spec_table"></div>
+</div>
 
 <p>hello</p>
 <p>hello</p>
@@ -74,60 +76,61 @@ are an entry point. For indepth information about your spec use your theorycraft
 
 
 {# Chart manipulators / options #}
-<div class="row">
-    <span>General Data Type:</span>
-    <button class="btn-data btn-secondary translate_trinkets" id="show_trinkets_data">Trinkets</button>
-    <button class="btn-data btn-secondary translate_azerite_traits" id="show_azerite_traits_data" >Azerite</button>
-    <button class="btn-data btn-secondary translate_races" id="show_races_data" >Races</button>
-    <button class="btn-data btn-secondary translate_secondary_distributions" id="show_secondary_distributions_data">Secondary distributions</button>
-</div>
-<div class="row d-flex justify-content-center">
-    <span hidden>Specific Data Type:</span>
-    <button class="btn-data btn-secondary translate_trait_stacking" id="chart_type_trait_stacking"
-    hidden>Trait stacking</button>
-    <button class="btn-data btn-secondary translate_itemlevel" id="chart_type_itemlevel"
-    hidden>Itemlevel</button>
-    <button class="btn-data btn-secondary translate_head" id="chart_type_head"  hidden>Head</button>
-    <button class="btn-data translate_shoulders" id="chart_type_shoulders"
-    hidden>Shoulders</button>
-    <button class="btn-data btn-secondary translate_chest" id="chart_type_chest"  hidden>Chest</button>
-</div>
-<div class="row d-flex justify-content-center">
-    <span>Fight Style:</span>
-    <button class="btn-data btn-secondary translate_patchwerk" id="fight_style_patchwerk" >Patchwerk</button>
-    <!-- <button class="btn-data translate_beastlord" id="fight_style_beastlord" style="margin-right: 0.6rem;">Beastlord</button> -->
-    <button class="btn-data btn-secondary translate_hecticaddcleave" id="fight_style_hecticaddcleave" >HecticAddCleave</button>
-</div>
-<div class="row d-flex justify-content-center">
-    <label id="talent_selector_label" for="talent_combination_selector translate_talent_combination" style="margin-top: 0.6rem; padding-top: 9px; margin-right: 0.6rem;" hidden>Talent combination: </label>
-    <select class="btn-data" id="talent_combination_selector"  hidden></select>
-</div>
-<div class="row d-flex justify-content-center">
-    <button class="btn-data btn-secondary" id="azerite_traits_tier_3"  hidden>
-        <svg class="tier-icon">
-            <use xlink:href="assets/icons.svg#azerite_tier1"></use>
-        </svg>
-        <span class="translate_tier_3">Tier 3 & 4</span>
-    </button>
-    <button class="btn-data btn-secondary" id="azerite_traits_tier_2"  hidden>
-        <svg class="tier-icon">
-            <use xlink:href="assets/icons.svg#azerite_tier2"></use>
-        </svg>
-        <span class="translate_tier_2">Tier 2</span>
-    </button>
-</div>
-<div class="row d-flex justify-content-center">
-    <button class="btn-data btn-secondary dropdown-toggle" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button" >
-    Advanced Options
-    </button>
-</div>
-<div class="row">
-    <div class="collapse" id="advanced_chart_options_area" style="margin-top: 0.6rem;">
-        <div class="card card-body" id="advanced_chart_options" >
+<div class="container-fluid">
+    <div class="row">
+        <span>General Data Type:</span>
+        <button class="btn-data btn-secondary translate_trinkets" id="show_trinkets_data">Trinkets</button>
+        <button class="btn-data btn-secondary translate_azerite_traits" id="show_azerite_traits_data" >Azerite</button>
+        <button class="btn-data btn-secondary translate_races" id="show_races_data" >Races</button>
+        <button class="btn-data btn-secondary translate_secondary_distributions" id="show_secondary_distributions_data">Secondary distributions</button>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <span hidden>Specific Data Type:</span>
+        <button class="btn-data btn-secondary translate_trait_stacking" id="chart_type_trait_stacking"
+        hidden>Trait stacking</button>
+        <button class="btn-data btn-secondary translate_itemlevel" id="chart_type_itemlevel"
+        hidden>Itemlevel</button>
+        <button class="btn-data btn-secondary translate_head" id="chart_type_head"  hidden>Head</button>
+        <button class="btn-data translate_shoulders" id="chart_type_shoulders"
+        hidden>Shoulders</button>
+        <button class="btn-data btn-secondary translate_chest" id="chart_type_chest"  hidden>Chest</button>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <span>Fight Style:</span>
+        <button class="btn-data btn-secondary translate_patchwerk" id="fight_style_patchwerk" >Patchwerk</button>
+        <!-- <button class="btn-data translate_beastlord" id="fight_style_beastlord" style="margin-right: 0.6rem;">Beastlord</button> -->
+        <button class="btn-data btn-secondary translate_hecticaddcleave" id="fight_style_hecticaddcleave" >HecticAddCleave</button>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <label id="talent_selector_label" for="talent_combination_selector translate_talent_combination" style="margin-top: 0.6rem; padding-top: 9px; margin-right: 0.6rem;" hidden>Talent combination: </label>
+        <select class="btn-data" id="talent_combination_selector"  hidden></select>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <button class="btn-data btn-secondary" id="azerite_traits_tier_3"  hidden>
+            <svg class="tier-icon">
+                <use xlink:href="assets/icons.svg#azerite_tier1"></use>
+            </svg>
+            <span class="translate_tier_3">Tier 3 & 4</span>
+        </button>
+        <button class="btn-data btn-secondary" id="azerite_traits_tier_2"  hidden>
+            <svg class="tier-icon">
+                <use xlink:href="assets/icons.svg#azerite_tier2"></use>
+            </svg>
+            <span class="translate_tier_2">Tier 2</span>
+        </button>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <button class="btn-data btn-secondary dropdown-toggle" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button" >
+        Advanced Options
+        </button>
+    </div>
+    <div class="row">
+        <div class="collapse" id="advanced_chart_options_area" style="margin-top: 0.6rem;">
+            <div class="card card-body" id="advanced_chart_options" >
+            </div>
         </div>
     </div>
 </div>
-
 
 <p>hello</p>
 <p>hello</p>
