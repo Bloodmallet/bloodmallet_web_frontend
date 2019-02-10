@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -68,6 +69,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 import pymysql
 pymysql.install_as_MySQLdb()
 from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -76,6 +78,9 @@ DATABASES = {
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
     }
 }
 

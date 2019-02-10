@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -49,7 +50,6 @@ LOGGING = {
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 import pymysql
 pymysql.install_as_MySQLdb()
 from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
@@ -61,6 +61,10 @@ DATABASES = {
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
+
     }
 }
 
