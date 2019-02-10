@@ -29,7 +29,7 @@ function update_navbarClassMenu(wow_class, wow_spec) {
             ul_nav.appendChild(li_nav_item);
             let a_nav_link = document.createElement("a");
             a_nav_link.className = "nav-link " + tmp_class + "-color " + tmp_class + "-menu-border translate_" + tmp_class
-            a_nav_link.href = "#" + tmp_class;
+            a_nav_link.href = "#" + tmp_class + "_" + classes_specs[tmp_class][0];
             a_nav_link.id = "navbar_" + tmp_class + "_menu";
             a_nav_link.innerText = capitalize_first_letters(tmp_class).replace("_", " ");
             li_nav_item.appendChild(a_nav_link);
@@ -60,7 +60,7 @@ function update_navbarClassMenu(wow_class, wow_spec) {
         for (tmp_class of Object.keys(classes_specs)) {
             let a_nav_link = document.createElement("a");
             a_nav_link.className = "dropdown-item " + tmp_class + "-button translate_" + tmp_class;
-            a_nav_link.href = "#" + tmp_class;
+            a_nav_link.href = "#" + tmp_class + "_" + classes_specs[tmp_class][0];
             a_nav_link.id = "navbar_" + tmp_class + "_selector";
             a_nav_link.innerText = capitalize_first_letters(tmp_class).replace("_", " ");
             div_dropdown.appendChild(a_nav_link);
@@ -69,7 +69,6 @@ function update_navbarClassMenu(wow_class, wow_spec) {
         // add all classes to the dropdown
         li_nav_item_class.appendChild(div_dropdown);
 
-
         // add ">" sign
         let li_greater_then = document.createElement("li");
         li_greater_then.className = "navbar-text " + wow_class + "-color navbar-spacer";
@@ -77,7 +76,6 @@ function update_navbarClassMenu(wow_class, wow_spec) {
 
         ul_nav.appendChild(li_greater_then);
         //ul_nav.appendChild(li_greater_then.cloneNode(true));
-
 
         // add spec selection (horizontal list)
         // get default spec if none was selected yet
