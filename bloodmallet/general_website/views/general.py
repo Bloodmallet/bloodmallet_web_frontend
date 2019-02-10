@@ -22,8 +22,12 @@ def index(request):
 
     content = {
         'text': "Sir!",
-        'bloodyfiller': 'stats'
+        'bloodyfiller': ''
     }
+    try:
+        content['bloodyfiller'] = request.user.profile.bloodyfiller
+    except Exception:
+        pass
 
     return render(request, 'general_website/index.html', content)
 
