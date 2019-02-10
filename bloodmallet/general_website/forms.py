@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
+
+from general_website.models import Profile
 
 # class UserLoginForm(forms.ModelForm):
 #     class Meta:
@@ -32,3 +35,20 @@ class SignUpForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
     pass
+
+
+class UserUpdateForm(PasswordChangeForm):
+    """Settings form for the user to update his own profile.
+    """
+    pass
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ('bloodyfiller', )
+
+        help_texts = {
+            'bloodyfiller': "Allow others to see your short message in the title. \"Bloody( [Bloodyfiller] )\"",
+        }
+
