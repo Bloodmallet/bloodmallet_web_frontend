@@ -20,11 +20,12 @@ def index(request):
 
     logger.info("index")
 
-    if request.user.is_authenticated:
-        logger.info("authenticated user '{}' found.".format(request.user.username))
-        pass
+    content = {
+        'text': "Sir!",
+        'bloodyfiller': 'stats'
+    }
 
-    return render(request, 'general_website/index.html', {'text': "Sir!"})
+    return render(request, 'general_website/index.html', content)
 
 def portals(request):
     """View to show all available teleporters and where to find them.
