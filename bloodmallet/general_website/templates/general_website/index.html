@@ -33,7 +33,7 @@
 
 {% block content %}
 
-<h1 class="display-4 text-center" id="primary_headline">blood{% if not request.user.profile.bloodyfiller %}mallet{% else %}y( {{bloodyfiller}} ){% endif %}</h1>
+<h1 class="display-4 text-center" id="primary_headline">blood{% if not bloodyfiller %}mallet{% else %}y( {{bloodyfiller}} ){% endif %}</h1>
 
 {% comment %}
     {% if not request.user.is_authenticated %}

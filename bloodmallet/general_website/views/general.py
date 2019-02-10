@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.shortcuts import render
+
+from random import randint
 
 import logging
 
@@ -22,10 +25,16 @@ def index(request):
 
     content = {
         'text': "Sir!",
-        'bloodyfiller': ''
     }
+
+    # add bloodyfiller
+    profiles = User.objects.filter(profile__bloodyfiller__isnull=False)
+    filler_list = []
+    for profile in profiles:
+        # TODO: Add multiplier for patreon level and other bonuses
+        filler_list.append(profile.profile.bloodyfiller)
     try:
-        content['bloodyfiller'] = request.user.profile.bloodyfiller
+        content['bloodyfiller'] = filler_list[randint(0, len(filler_list) - 1)]
     except Exception:
         pass
 
