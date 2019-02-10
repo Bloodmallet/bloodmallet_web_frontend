@@ -63,11 +63,14 @@ $link-hover-color:          $primary !default;
 $link-hover-decoration:     underline !default;
 
 // General text
-$font-size-base: 1.1rem;
-$input-color: $lightest-color;
-$input-bg: $darkest-color;
-$input-border-color: $light-color;
+$font-size-base:        1.1rem;
+$input-color:           $lightest-color;
+$input-bg:              $darkest-color;
+$input-border-color:    $light-color;
 
+// card style override
+$card-bg: $body-bg;
+$card-border-color: $light-color;
 
 @import "general_website/bootstrap/scss/bootstrap";
 
@@ -138,6 +141,15 @@ footer {
     fill: currentColor;
     vertical-align: text-top;
 }
+.tier-icon {
+    display: inline-block;
+    padding-right: 0px;
+    margin-right: 3px;
+    width: 23px;
+    height: 23px;
+    stroke: currentColor;
+    vertical-align: text-top;
+}
 a:hover .svg-icon {
     fill: currentColor;
 }
@@ -145,13 +157,6 @@ a:hover .svg-icon {
 .bg-dark {
     background-color: $darkest-color!important;
 }
-
-// hide brand name on medium screens to leave room for class options
-// @media only screen and (max-width: 1499px) and (min-width: 990px) {
-//     #brand-name {
-//         display: none;
-//     }
-// }
 
 .dropdown-menu {
     background-color: $darkest-color;
@@ -235,9 +240,12 @@ a:hover .svg-icon {
         padding-right: 40px;
     }
 }
+.btn-data-label {
+    margin-right: $spacer;
+}
 .btn-data {
     background-color: $darkest-color;
-    border: 0px solid transparent;
+    border: 0px solid $darkest-color;
     border-bottom-width: 3px;
     border-top-width: 3px;
     color: $lightest-color;
@@ -245,6 +253,13 @@ a:hover .svg-icon {
     min-width: 120px;
     padding: .375rem .75rem;
     cursor: pointer;
+    &:focus {
+        border-bottom-color: inherit;
+        border-top-color: $darkest-color;
+    }
+    &:hover {
+        border-bottom-color: inherit;
+    }
 }
 .spec-btn {
     background-color: $darkest-color;
@@ -292,4 +307,11 @@ a:hover .svg-icon {
 // if anyone sees this: feel free to restyle radio buttons to squares instead of circles too
 ul {
     list-style-type: square;
+}
+select {
+    // -webkit-appearance: none;
+    -moz-appearance: none;
+}
+select:after {
+    // build an arrow down here...damn firefox and edge
 }

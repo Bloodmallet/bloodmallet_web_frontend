@@ -2947,9 +2947,9 @@ tbody.collapse.show {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #343a40;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid #999999;
   border-radius: 0rem; }
   .card > hr {
     margin-right: 0;
@@ -2985,7 +2985,7 @@ tbody.collapse.show {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
+  border-bottom: 1px solid #999999; }
   .card-header:first-child {
     border-radius: calc(0rem - 1px) calc(0rem - 1px) 0 0; }
   .card-header + .list-group .list-group-item:first-child {
@@ -2994,7 +2994,7 @@ tbody.collapse.show {
 .card-footer {
   padding: 0.75rem 1.25rem;
   background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.125); }
+  border-top: 1px solid #999999; }
   .card-footer:last-child {
     border-radius: 0 0 calc(0rem - 1px) calc(0rem - 1px); }
 
@@ -6107,6 +6107,15 @@ footer {
   fill: currentColor;
   vertical-align: text-top; }
 
+.tier-icon {
+  display: inline-block;
+  padding-right: 0px;
+  margin-right: 3px;
+  width: 23px;
+  height: 23px;
+  stroke: currentColor;
+  vertical-align: text-top; }
+
 a:hover .svg-icon {
   fill: currentColor; }
 
@@ -6641,9 +6650,12 @@ a:hover .svg-icon {
   .spec-cell {
     padding-right: 40px; } }
 
+.btn-data-label {
+  margin-right: 1rem; }
+
 .btn-data {
   background-color: #232227;
-  border: 0px solid transparent;
+  border: 0px solid #232227;
   border-bottom-width: 3px;
   border-top-width: 3px;
   color: #f8f9fa;
@@ -6651,6 +6663,11 @@ a:hover .svg-icon {
   min-width: 120px;
   padding: .375rem .75rem;
   cursor: pointer; }
+  .btn-data:focus {
+    border-bottom-color: inherit;
+    border-top-color: #232227; }
+  .btn-data:hover {
+    border-bottom-color: inherit; }
 
 .spec-btn {
   background-color: #232227;
@@ -6685,5 +6702,8 @@ a:hover .svg-icon {
 
 ul {
   list-style-type: square; }
+
+select {
+  -moz-appearance: none; }
 
 /*# sourceMappingURL=base.css.map */
