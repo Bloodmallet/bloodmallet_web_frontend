@@ -1,126 +1,22 @@
-let debug = true;
+// let debug = false;
 
 document.addEventListener("DOMContentLoaded", function () {
     if (debug) {
         console.log("DOMContentLoaded");
     }
     if (window.location.hash) {
-        console.log("found hash!");
-        check_hash_for_data();
+        let state = check_hash_for_data();
+        update_navbarClassMenu(state.wow_class, state.wow_spec);
     }
 });
 
-
-window.onhashchange = function () {
-    if (debug) {
-        console.log("window.onhashchange");
-    }
-    check_hash_for_data();
-};
-
-
-function check_hash_for_data() {
-    if (debug) {
-        console.log("check_hash_for_data");
-    }
-    let hash = window.location.hash;
-    let wow_class = "";
-    let wow_spec = "";
-    let data_type = "trinkets";
-    let fight_style = "patchwerk";
-    let tier = "3";
-
-    // helper variable
-    let class_spec = "";
-
-    if (hash.indexOf("?") > -1) {
-        class_spec = hash.slice(1, hash.indexOf("?"));
-    } else if (hash.indexOf("&") > -1) {
-        class_spec = hash.slice(1, hash.indexOf("&"));
-    } else {
-        class_spec = hash.slice(1);
-    }
-    if (class_spec.indexOf("death_knight") > -1 || class_spec.indexOf("demon_hunter") > -1) {
-        if (class_spec.indexOf("_") !== class_spec.lastIndexOf("_")) {
-            wow_class = class_spec.slice(0, class_spec.lastIndexOf("_"));
-            wow_spec = class_spec.slice(class_spec.lastIndexOf("_") + 1);
-        } else {
-            wow_class = class_spec;
-        }
-    } else {
-        if (class_spec.indexOf("_") > -1) {
-            wow_class = class_spec.slice(0, class_spec.indexOf("_"));
-            wow_spec = class_spec.slice(class_spec.indexOf("_") + 1);
-        } else {
-            wow_class = class_spec;
-        }
-    }
-
-    if (hash.indexOf("?") !== -1) {
-
-        const params = hash.split("?")[1].split("&");
-
-        for (const param of params) {
-            const key = param.split("=")[0];
-            const value = param.split("=")[1];
-            if (key === "data_type") {
-                data_type = value;
-            } else if (key === "fight_style") {
-                fight_style = value;
-            } else if (key === "tier") {
-                tier = value;
-            }
-        }
-    }
-    update_navbarClassMenu(wow_class, wow_spec, data_type, fight_style, tier);
-}
-
-
-function update_navbarClassMenu(wow_class, wow_spec, data_type, fight_style, tier) {
+function update_navbarClassMenu(wow_class, wow_spec) {
     if (debug) {
         console.log("update_navbarClassMenu");
     }
     document.getElementById('navBarDataMenu').hidden = false;
 
     let navbarClassMenu = document.getElementById("navbarClassMenu");
-    let classes_specs = {
-        "death_knight": [
-            "blood", "frost", "unholy"
-        ],
-        "demon_hunter": [
-            "havoc", "vengeance"
-        ],
-        "druid": [
-            "feral", "guardian", "balance"
-        ],
-        "hunter": [
-            "beast_mastery", "marksmanship", "survival"
-        ],
-        "mage": [
-            "arcane", "fire", "frost"
-        ],
-        "monk": [
-            "brewmaster", "windwalker"
-        ],
-        "paladin": [
-            "protection", "retribution"
-        ],
-        "priest": [
-            "holy", "shadow"
-        ],
-        "rogue": [
-            "assassination", "outlaw", "subtlety"
-        ],
-        "shaman": [
-            "elemental", "enhancement"
-        ],
-        "warlock": [
-            "affliction", "demonology", "destruction"
-        ],
-        "warrior": [
-            "arms", "fury"
-        ]
-    };
 
     let ul_nav = document.createElement("ul");
     ul_nav.className = "navbar-nav";
@@ -215,31 +111,13 @@ function update_navbarClassMenu(wow_class, wow_spec, data_type, fight_style, tie
 
     }
 
+    // replace old navigation with new styled one
     while (navbarClassMenu.firstChild) {
         navbarClassMenu.removeChild(navbarClassMenu.firstChild);
     }
     navbarClassMenu.appendChild(ul_nav);
 
-
 }
-
-
-// {/* <a class="nav-link" href="{% url 'login' %}" id="navbarLogin">Login</a> */}
-
-
-// <!-- Death Knight -->
-// <li class="nav-item dropdown">
-//     <a class="nav-link dropdown-toggle death_knight-color death_knight-menu-border translate_death_knight" href="" id="navbarDeathKnightMenu"
-//     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Death Knight
-//     </a>
-//     <div class="dropdown-menu death_knight-border-top" aria-labelledby="navbarDeathKnightMenu">
-//     <a class="dropdown-item death_knight-button translate_blood" href="{% url 'index' %}#death_knight_blood">Blood</a>
-//     <a class="dropdown-item death_knight-button translate_frost" href="{% url 'index' %}#death_knight_frost">Frost</a>
-//     <a class="dropdown-item death_knight-button translate_unholy" href="{% url 'index' %}#death_knight_unholy">Unholy</a>
-//     </div>
-// </li>
-
-
 
 /**
  * Capitalize all first letters in a string.
