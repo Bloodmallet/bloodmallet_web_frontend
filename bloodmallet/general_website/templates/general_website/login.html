@@ -7,6 +7,8 @@
     {% csrf_token %}
     {{ login_form|crispy }}
 
+    {% comment %} Add reset PW link here {% endcomment %}
+
     <button type="submit" class="btn btn-primary">Login</button>
     <small id="dataDisclaimer" class="form-text text-muted">I couldn't care less about what data you enter. Nothing is shared with others.</small>
 </form>

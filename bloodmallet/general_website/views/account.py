@@ -4,9 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from general_website.forms import UserLoginForm, SignUpForm
+from general_website.forms import UserLoginForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 
 import logging
 
@@ -86,8 +88,46 @@ def signup(request):
 
 
 @login_required
-def account(request):
-    pass
+def profile(request):
+    if request.method == 'POST':
+        profile_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        if profile_form.is_valid():
+
+            profile_form.save()
+            messages.success(request, "Profile was updated!")
+
+            return redirect('profile')
+
+    else:
+        user_form = UserUpdateForm(user=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    content = {
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+
+    return render(request, 'general_website/profile.html', content)
+
+
+@login_required
+def change_password(request):
+    """Receives UserUpdateForm as POST.
+    Changes user password if valid.
+    Redirects to 'profile'
+    """
+
+    if request.method != 'POST':
+        messages.error(request, "POST requests only!")
+    else:
+        user_form = UserUpdateForm(request.user, request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            messages.error(request, "Changing password failed. Check what you entered.")
+    return redirect('profile')
 
 
 def settings(request):
