@@ -33,20 +33,13 @@
 
 {% block content %}
 
-<h1 class="display-4 text-center" id="primary_headline">bloodmallet</h1>
+<h1 class="display-4 text-center" id="primary_headline">blood{% if not request.user.profile.bloodyfiller %}mallet{% else %}y( {{bloodyfiller}} ){% endif %}</h1>
 
-{% if not request.user.is_authenticated %}
-<p>Hello World! {{ text }}</p>
-
-<h2>Congratulations for finding the dev page! Nothing here works and everything will be wiped regularly!</h2>
-
-<p><a href="something.html">here is nothing</a></p>
-<p>Something something</p>
-<p>Something could be here too</p>
-<p>but nothing of importance is</p>
-{% else %}
-<p>Bonjour {{ request.user.username }}</p>
-{% endif %}
+{% comment %}
+    {% if not request.user.is_authenticated %}
+    {% else %}
+    {% endif %}
+{% endcomment %}
 
 <p id="translate_main_paragraph">
 This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft
@@ -59,31 +52,13 @@ are an entry point. For indepth information about your spec use your theorycraft
     <div class="row text-center" id="spec_table"></div>
 </div>
 
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-
-
 {# Chart manipulators / options #}
-<div class="container-fluid">
+<div class="container-fluid" hidden>
     <div class="row">
         <span>General Data Type:</span>
         <button class="btn-data btn-secondary translate_trinkets" id="show_trinkets_data">Trinkets</button>
-        <button class="btn-data btn-secondary translate_azerite_traits" id="show_azerite_traits_data" >Azerite</button>
-        <button class="btn-data btn-secondary translate_races" id="show_races_data" >Races</button>
+        <button class="btn-data btn-secondary translate_azerite_traits" id="show_azerite_traits_data">Azerite</button>
+        <button class="btn-data btn-secondary translate_races" id="show_races_data">Races</button>
         <button class="btn-data btn-secondary translate_secondary_distributions" id="show_secondary_distributions_data">Secondary distributions</button>
     </div>
     <div class="row d-flex justify-content-center">
@@ -134,33 +109,6 @@ are an entry point. For indepth information about your spec use your theorycraft
     </div>
 </div>
 
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
-<p>hello</p>
 
 <script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
 <script src="{% static 'general_website/js/class_spec_table.js' %}"></script>
