@@ -1,44 +1,5 @@
 // let debug = true;
 
-let classes_specs = {
-    "death_knight": [
-        "blood", "frost", "unholy"
-    ],
-    "demon_hunter": [
-        "havoc", "vengeance"
-    ],
-    "druid": [
-        "feral", "guardian", "balance"
-    ],
-    "hunter": [
-        "beast_mastery", "marksmanship", "survival"
-    ],
-    "mage": [
-        "arcane", "fire", "frost"
-    ],
-    "monk": [
-        "brewmaster", "windwalker"
-    ],
-    "paladin": [
-        "protection", "retribution"
-    ],
-    "priest": [
-        "holy", "shadow"
-    ],
-    "rogue": [
-        "assassination", "outlaw", "subtlety"
-    ],
-    "shaman": [
-        "elemental", "enhancement"
-    ],
-    "warlock": [
-        "affliction", "demonology", "destruction"
-    ],
-    "warrior": [
-        "arms", "fury"
-    ]
-};
-
 document.addEventListener("DOMContentLoaded", function () {
     if (debug) {
         console.log("DOMContentLoaded");
@@ -52,6 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+/**
+ * Create the Spec choice table on the data index page.
+ * Needs element with id 'spec_table'
+ */
 function build_table() {
     if (debug) {
         console.log("build_table");
@@ -61,7 +26,6 @@ function build_table() {
     // start creating table cells for each class
     for (const wow_class of Object.keys(classes_specs)) {
         // fill class cell
-        console.log(wow_class);
         let div_class_cell = document.createElement('div');
         div_class_cell.className = 'col-md-3 col-4 spec-cell';
 
@@ -90,6 +54,9 @@ function build_table() {
 }
 
 
+/**
+ * Hide 'spec_table'.
+ */
 function hide_class_spec_table() {
     if (debug) {
         console.log("hide_class_spec_table");
@@ -98,11 +65,16 @@ function hide_class_spec_table() {
     element.hidden = true;
 }
 
+/**
+ * Register hide_class_spec_table click event on all 'spec-btn'.
+ */
 function register_class_spec_hiders() {
     let elements = document.getElementsByClassName('spec-btn');
 
-    for (const element of elements) {
-        console.log("registering click event")
+    for (const element of Array.from(elements)) {
+        if (debug) {
+            console.log("registering click event")
+        }
         element.addEventListener('click', function () {
             hide_class_spec_table();
         });
