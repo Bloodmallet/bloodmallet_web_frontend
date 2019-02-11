@@ -6657,15 +6657,13 @@ a:hover .svg-icon {
   background-color: #232227;
   border: 0px solid #232227;
   border-bottom-width: 3px;
-  border-top-width: 3px;
   color: #f8f9fa;
   font-weight: 400;
   min-width: 120px;
   padding: .375rem .75rem;
   cursor: pointer; }
   .btn-data:focus {
-    border-bottom-color: inherit;
-    border-top-color: #232227; }
+    border-bottom-color: inherit; }
   .btn-data:hover {
     border-bottom-color: inherit; }
 
@@ -6704,6 +6702,31 @@ ul {
   list-style-type: square; }
 
 select {
-  -moz-appearance: none; }
+  /* reset */
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* create arrow down */
+  background-image: linear-gradient(45deg, transparent 50%, #f8f9fa 50%), linear-gradient(135deg, #f8f9fa 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat; }
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000; }
+
+select::-ms-expand {
+  display: none; }
+
+.bottom-spacer {
+  margin-bottom: 1rem; }
+
+.force-bottom {
+  position: absolute;
+  bottom: 0px; }
 
 /*# sourceMappingURL=base.css.map */

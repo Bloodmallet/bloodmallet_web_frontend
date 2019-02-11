@@ -55,34 +55,23 @@ are an entry point. For indepth information about your spec use your theorycraft
 {# Chart manipulators / options #}
 <div id="chart_options" hidden>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-xl-4 bottom-spacer">
             <label class="btn-data-label" for="options_data_type">Data Type</label>
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-            <div class="dropdown-menu" id="options_data_type">
-                <a class="dropdown-item" >Trinkets</a>
-                <a class="dropdown-item" >Azerite</a>
-                <a class="dropdown-item" >Races</a>
-                <a class="dropdown-item" >Secondary distributions</a>
-            </div>
-
-             {% comment %} <select class="form-control btn-data" id="options_data_type">
+            <select class="form-control btn-data" id="options_data_type">
                 <option value="trinkets">Trinkets</option>
                 <option value="azerite">Azerite</option>
                 <option value="races">Races</option>
                 <option value="secondary_distributions">Secondary distributions</option>
-            </select> {% endcomment %}
+            </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xl-4 bottom-spacer">
             <label class="btn-data-label" for="fight_style">Fight Style</label>
             <select class="form-control btn-data" id="fight_style">
                 <option value="patchwerk">Patchwerk</option>
                 <option value="hecticaddcleave">HecticAddCleave</option>
             </select>
         </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-xl-4 bottom-spacer">
             <label class="btn-data-label" for="options_data_specification">Type Specification</label>
             <select class="form-control btn-data dropdown-toggle" id="options_data_specification">
                 <option value="trait_stacking">Trait stacking</option>
@@ -92,7 +81,7 @@ are an entry point. For indepth information about your spec use your theorycraft
                 <option value="chest">Chest</option>
             </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xl-4 bottom-spacer">
             <label class="btn-data-label" for="tier">Azerite Tier
             <svg class="tier-icon">
                 <use xlink:href="{% static 'general_website/assets/icons.svg' %}#azerite_tier3" id="tier_icon"></use>
@@ -105,15 +94,11 @@ are an entry point. For indepth information about your spec use your theorycraft
                 <option value="2">Tier 2</option>
             </select>
         </div>
-    </div>
-    <br/>
-    <div class="row">
-    <div class="col-md-6">
-            <button class="btn-data druid-menu-border" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button">
+        <div class="col-md-6 col-xl-4 bottom-spacer">
+            <button class="btn-data force-bottom druid-menu-border" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button">
             Show Advanced Options
             </button>
-    </div>
-
+        </div>
     </div>
     <div class="row">
         <div class="collapse col-md-12" id="advanced_chart_options_area">

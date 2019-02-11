@@ -247,7 +247,7 @@ a:hover .svg-icon {
     background-color: $darkest-color;
     border: 0px solid $darkest-color;
     border-bottom-width: 3px;
-    border-top-width: 3px;
+    // border-top-width: 3px;
     color: $lightest-color;
     font-weight: 400;
     min-width: 120px;
@@ -255,7 +255,7 @@ a:hover .svg-icon {
     cursor: pointer;
     &:focus {
         border-bottom-color: inherit;
-        border-top-color: $darkest-color;
+        // border-top-color: $darkest-color;
     }
     &:hover {
         border-bottom-color: inherit;
@@ -309,9 +309,38 @@ ul {
     list-style-type: square;
 }
 select {
-    // -webkit-appearance: none;
+    /* reset */
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
     -moz-appearance: none;
+
+    /* create arrow down */
+    background-image:
+        linear-gradient(45deg, transparent 50%, $lightest-color 50%),
+        linear-gradient(135deg, $lightest-color 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px);
+    background-size:
+        5px 5px,
+        5px 5px;
+    background-repeat: no-repeat;
 }
-select:after {
-    // build an arrow down here...damn firefox and edge
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+select::-ms-expand {
+    display: none;
+}
+
+.bottom-spacer {
+    margin-bottom: $spacer;
+}
+.force-bottom {
+    position: absolute;
+    bottom: 0px;
 }
