@@ -6725,8 +6725,4 @@ select::-ms-expand {
 .bottom-spacer {
   margin-bottom: 1rem; }
 
-.force-bottom {
-  position: absolute;
-  bottom: 0px; }
-
 /*# sourceMappingURL=base.css.map */
