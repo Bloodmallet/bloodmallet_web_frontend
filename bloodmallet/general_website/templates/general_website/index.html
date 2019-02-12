@@ -56,25 +56,25 @@ are an entry point. For indepth information about your spec use your theorycraft
 <div id="chart_options" hidden>
     <div class="row">
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="options_data_type">Data Type</label>
-            <select class="form-control btn-data" id="options_data_type">
-                <option value="trinkets">Trinkets</option>
+            <label class="btn-data-label" for="data_type">Data Type</label>
+            <select class="form-control btn-data" id="data_type">
+                <option value="trinkets" selected>Trinkets</option>
                 <option value="azerite">Azerite</option>
                 <option value="races">Races</option>
-                <option value="secondary_distributions">Secondary distributions</option>
+                {% comment %} <option value="secondary_distributions">Secondary distributions</option> {% endcomment %}
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
             <label class="btn-data-label" for="fight_style">Fight Style</label>
             <select class="form-control btn-data" id="fight_style">
-                <option value="patchwerk">Patchwerk</option>
+                <option value="patchwerk" selected>Patchwerk</option>
                 <option value="hecticaddcleave">HecticAddCleave</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="options_data_specification">Type Specification</label>
-            <select class="form-control btn-data dropdown-toggle" id="options_data_specification">
-                <option value="trait_stacking">Trait stacking</option>
+            <label class="btn-data-label" for="data_specification">Type Specification</label>
+            <select class="form-control btn-data dropdown-toggle" id="data_specification">
+                <option value="trait_stacking" selected>Trait stacking</option>
                 <option value="itemlevel">Itemlevel</option>
                 <option value="head">Head</option>
                 <option value="shoulders">Shoulders</option>
@@ -88,7 +88,7 @@ are an entry point. For indepth information about your spec use your theorycraft
             </svg>
             </label>
             <select class="form-control btn-data" id="tier">
-                <option value="3">
+                <option value="3" selected>
                 Tier 3 & 4
                 </option>
                 <option value="2">Tier 2</option>

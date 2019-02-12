@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("DOMContentLoaded");
     }
     if (window.location.hash) {
-        let state = check_hash_for_data();
+        update_state_from_hash();
         update_navbarClassMenu(state.wow_class, state.wow_spec);
     }
 });

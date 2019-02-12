@@ -9,10 +9,10 @@ window.onhashchange = function () {
     if (debug) {
         console.log("window.onhashchange");
     }
-    let state = check_hash_for_data();
+    update_state_from_hash();
     update_navbarClassMenu(state.wow_class, state.wow_spec);
     show_chart_options(state);
-    update_chart_options(state);
+    style_chart_options(state);
 };
 
 
@@ -20,17 +20,11 @@ window.onhashchange = function () {
 /**
  * Checks url hash for data and returns all provided information or default values.
  */
-function check_hash_for_data() {
+function update_state_from_hash() {
     if (debug) {
-        console.log("check_hash_for_data");
+        console.log("update_state_from_hash");
     }
-    let state = {};
     let hash = window.location.hash;
-    state.wow_class = "";
-    state.wow_spec = "";
-    state.data_type = "trinkets";
-    state.fight_style = "patchwerk";
-    state.tier = "3";
 
     // helper variable
     let class_spec = "";
@@ -65,17 +59,62 @@ function check_hash_for_data() {
         for (const param of params) {
             const key = param.split("=")[0];
             const value = param.split("=")[1];
+
             if (key === "data_type") {
                 state.data_type = value;
             } else if (key === "fight_style") {
                 state.fight_style = value;
             } else if (key === "tier") {
                 state.tier = value;
+            } else if (key === "data_specification") {
+                state.data_specification = value;
             }
         }
     }
+}
 
-    return state;
+/**
+ * Updates the state and thus hash of the website to reflect the options selection.
+ * @param {*} key
+ * @param {*} value
+ */
+function update_state(key, value) {
+    if (debug) {
+        console.log(key, value);
+    }
+
+    state[key] = value;
+
+    history.pushState({ id: 'index' }, state.wow_spec + " " + state.wow_class + " | " + state.data_type + " | " + state.fight_style, create_link(state));
+}
+
+function create_link(state) {
+
+    var path = window.location.origin;
+    path += window.location.pathname;
+
+    if (state.wow_class === "" && state.wow_spec === "") {
+        return path;
+    }
+
+    path += "#" + state.wow_class;
+    path += "_" + state.wow_spec;
+
+    if (state.data_type === "trinkets" && state.fight_style === "patchwerk") {
+        return path;
+    }
+    path += "?data_type=" + state.data_type;
+    if (state.fight_style !== "patchwerk") {
+        path += "&fight_style=" + state.fight_style;
+    }
+    if (state.data_type == "azerite") {
+        path += "&type=" + state.data_specification;
+        if (state.data_specification === "itemlevel" || state.data_specification === "trait_stacking") {
+            path += "&tier=" + state.tier;
+        }
+    }
+
+    return path;
 }
 
 
@@ -116,4 +155,13 @@ let classes_specs = {
     "warrior": [
         "arms", "fury", "protection"
     ]
+};
+
+let state = {
+    wow_class: "",
+    wow_spec: "",
+    data_type: "trinkets",
+    fight_style: "patchwerk",
+    tier: "3",
+    data_specification: "trait_stacking"
 };
