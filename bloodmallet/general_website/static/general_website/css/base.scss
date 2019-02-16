@@ -308,7 +308,8 @@ a:hover .svg-icon {
 ul {
     list-style-type: square;
 }
-select {
+select { // https://www.lugolabs.com/articles/style-select-html-element-with-css redo with this?
+    // or this https://codepen.io/raubaca/pen/VejpQP
     /* reset */
     margin: 0;
     -webkit-box-sizing: border-box;
@@ -341,3 +342,7 @@ select::-ms-expand {
     margin-bottom: $spacer;
 }
 
+// ensure that highchart tooltips are in the front
+.highcharts-tooltip {
+    z-index: 400;
+  }

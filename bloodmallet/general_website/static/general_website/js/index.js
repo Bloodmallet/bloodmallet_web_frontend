@@ -3,7 +3,7 @@
  * Which will be the page-name as json.
  */
 
-let debug = true;
+let debug = false;
 
 window.onhashchange = function () {
     if (debug) {
@@ -11,8 +11,9 @@ window.onhashchange = function () {
     }
     update_state_from_hash();
     update_navbarClassMenu(state.wow_class, state.wow_spec);
-    show_chart_options(state);
-    style_chart_options(state);
+    show_chart_options();
+    style_chart_options();
+    update_chart_from_state();
 };
 
 
@@ -86,6 +87,11 @@ function update_state(key, value) {
     state[key] = value;
 
     history.pushState({ id: 'index' }, state.wow_spec + " " + state.wow_class + " | " + state.data_type + " | " + state.fight_style, create_link(state));
+
+    update_navbarClassMenu(state.wow_class, state.wow_spec);
+    style_chart_options();
+    update_chart_from_state();
+
 }
 
 function create_link(state) {
@@ -109,7 +115,7 @@ function create_link(state) {
     }
     if (state.data_type == "azerite") {
         path += "&type=" + state.data_specification;
-        if (state.data_specification === "itemlevel" || state.data_specification === "trait_stacking") {
+        if (["itemlevel", "stacking"].includes(state.data_specification)) {
             path += "&tier=" + state.tier;
         }
     }
@@ -163,5 +169,5 @@ let state = {
     data_type: "trinkets",
     fight_style: "patchwerk",
     tier: "3",
-    data_specification: "trait_stacking"
+    data_specification: "stacking"
 };

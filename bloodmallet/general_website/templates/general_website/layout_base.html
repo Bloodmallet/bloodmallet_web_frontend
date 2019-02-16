@@ -7,11 +7,13 @@
 <body>
     {% include 'general_website/layout_top_nav.html' %}
 
+    {% comment %} {% if not request.user.is_authenticated %} {% endcomment %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
             <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="Become a Patron button" height="42" style="vertical-align: text-top;" />
         </a>
     </div>
+    {% comment %} {% endif %} {% endcomment %}
 
 
     {% block precontent %}

@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     add_select_event_listeners();
+
+    update_chart_from_state(false);
 });
 
 
@@ -55,7 +57,9 @@ function style_chart_options() {
 }
 
 function style_element_with_class_color(element) {
-    console.log("restyle element", element);
+    if (debug) {
+        console.log("restyle element", element);
+    }
     let style_classes = "";
     try {
         style_classes = element.className.split(" ");
@@ -99,7 +103,9 @@ function add_select_event_listeners() {
 
 }
 
-
+/**
+ * Applies state to options.
+ */
 function update_options_from_state() {
     if (debug) {
         console.log("update_options_from_state");
@@ -114,14 +120,53 @@ function update_options_from_state() {
                     element.selectedIndex = i;
                 } else {
                     if (debug) {
-                        console.log(option, option.value, state[thing]);
+                        // console.log(option, option.value, state[thing]);
                     }
                 }
             }
-        } catch (error) {
+        } catch (error) { // wow_class, wow_spec
             if (debug) {
-                console.log(error);
+                console.log(error, thing, state);
             }
+        }
+    }
+}
+
+
+function update_chart_from_state(chart_rerendering = true) {
+    if (debug) {
+        console.log("update_chart_from_state");
+    }
+    let chart = document.getElementById("chart");
+
+    for (let data in state) {
+        // console.log(data, state[data]);
+        if (data === "wow_class") {
+            chart.dataset.wowClass = state[data];
+        } else if (data === "wow_spec") {
+            chart.dataset.wowSpec = state[data];
+        } else if (data === "data_type") {
+            if (state[data] === "azerite" && ["stacking", "itemlevel"].includes(state["data_specification"])) {
+                chart.dataset.type = state[data] + "_traits_" + state["data_specification"];
+            } else if (state[data] === "azerite") {
+                chart.dataset.type = state[data] + "_items_" + state["data_specification"];
+            } else {
+                chart.dataset.type = state[data];
+            }
+        } else if (data === "fight_style") {
+            chart.dataset.fightStyle = state[data];
+        } else if (data === "tier") {
+            chart.dataset.azeriteTier = state[data];
+        }
+    }
+    chart.dataset.backgroundColor = "transparent";
+    // chart
+    if (state.wow_class && state.wow_spec) {
+        chart.hidden = false;
+        chart.className = "bloodmallet_chart";
+        if (chart_rerendering) {
+            bloodmallet_chart_import();
+            $WowheadPower.refreshLinks();
         }
     }
 }

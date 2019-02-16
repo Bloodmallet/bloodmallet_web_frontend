@@ -6725,4 +6725,7 @@ select::-ms-expand {
 .bottom-spacer {
   margin-bottom: 1rem; }
 
+.highcharts-tooltip {
+  z-index: 400; }
+
 /*# sourceMappingURL=base.css.map */
