@@ -5,6 +5,7 @@ env/
 debug.log
 secrets.py
 compute_api/
+bloodmallet/db.sqlite3
 bloodmallet/static/
 .gcloudignore
 __pycache__/
