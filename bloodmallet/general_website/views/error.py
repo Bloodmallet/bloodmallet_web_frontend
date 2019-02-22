@@ -8,13 +8,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def error(request, code: int=404, message: str="Page not found"):
-    error = {
-        'error': {
-            'code': code,
-            'text': message
-        }
-    }
+def error(request, code: int = 404, message: str = "Page not found"):
+    error = {'error': {'code': code, 'text': message}}
     return render(request, 'general_website/error.html', error, status=code)
 
 

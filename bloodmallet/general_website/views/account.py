@@ -102,10 +102,7 @@ def profile(request):
         user_form = UserUpdateForm(user=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
 
-    content = {
-        'user_form': user_form,
-        'profile_form': profile_form
-    }
+    content = {'user_form': user_form, 'profile_form': profile_form}
 
     return render(request, 'general_website/profile.html', content)
 

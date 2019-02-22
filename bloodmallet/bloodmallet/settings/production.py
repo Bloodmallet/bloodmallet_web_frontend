@@ -2,9 +2,7 @@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '*'
-]
+ALLOWED_HOSTS = ['*']
 
 # logging
 LOGGING = {
@@ -47,7 +45,6 @@ LOGGING = {
     },
 }
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 import pymysql
@@ -55,17 +52,17 @@ pymysql.install_as_MySQLdb()
 from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '/cloudsql/{}'.format(DB_HOST),
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'OPTIONS': {
-            'charset': 'utf8mb4'
-        },
-
-    }
+    'default':
+        {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/{}'.format(DB_HOST),
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'OPTIONS': {
+                'charset': 'utf8mb4'
+            },
+        }
 }
 
 # used to serve files from this path in non-debug production

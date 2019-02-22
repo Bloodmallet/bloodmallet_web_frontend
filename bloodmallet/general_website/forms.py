@@ -30,7 +30,12 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', )
+        fields = (
+            'username',
+            'email',
+            'password1',
+            'password2',
+        )
 
 
 class UserLoginForm(AuthenticationForm):
@@ -42,13 +47,13 @@ class UserUpdateForm(PasswordChangeForm):
     """
     pass
 
+
 class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('bloodyfiller', )
+        fields = ('bloodyfiller',)
 
         help_texts = {
             'bloodyfiller': "Allow others to see your short message in the title. \"Bloody( [Bloodyfiller] )\"",
         }
-

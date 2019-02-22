@@ -7,7 +7,6 @@ DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.join(BASE_DIR, '..')
 
-
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -63,7 +62,6 @@ LOGGING = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 import pymysql
@@ -71,17 +69,18 @@ pymysql.install_as_MySQLdb()
 from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'OPTIONS': {
-            'charset': 'utf8mb4'
-        },
-    }
+    'default':
+        {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'OPTIONS': {
+                'charset': 'utf8mb4'
+            },
+        }
 }
 
 # used to serve files from this path in non-debug production

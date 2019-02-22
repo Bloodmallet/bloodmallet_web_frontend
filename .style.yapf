@@ -1,0 +1,8 @@
+[style]
+based_on_style = chromium
+indent_width = 4
+BLANK_LINE_BEFORE_NESTED_CLASS_OR_DEF = true
+DEDENT_CLOSING_BRACKETS = true
+JOIN_MULTIPLE_LINES = true
+CONTINUATION_INDENT_WIDTH = 4
+COLUMN_LIMIT = 119

@@ -10,6 +10,7 @@ from typing import Tuple
 
 # Create your models here.
 
+
 @receiver([pre_social_login, social_account_updated])
 def update_pledge_level(sender, sociallogin, **kwargs):
     """Checks kwargs for pledge level in account data.
@@ -23,11 +24,13 @@ def update_pledge_level(sender, sociallogin, **kwargs):
     print(sender)
     print(sociallogin)
     try:
-        print(sociallogin.account) # read social allauth models.py
+        print(sociallogin.account)  # read social allauth models.py
     except Exception:
         print("No social.account could be found yet. Probably linking in progress.")
 
+
 #https://stackoverflow.com/questions/40684838/django-django-allauth-save-extra-data-from-social-login-in-signal
+
 
 @receiver(user_logged_in)
 def update_user_information(sender, request, user, **kwargs):
@@ -45,13 +48,17 @@ def update_user_information(sender, request, user, **kwargs):
     print(request)
     print(user)
     print(user.email)
+
+
 # https://docs.patreon.com/#fetching-a-patron-39-s-profile-info
+
 
 class Faction(models.Model):
     """Collection of Wow Factions...two, duh.
     """
 
     name = models.CharField(max_length=30)
+
 
 class Teleporter(models.Model):
     """Collection of fixed position Teleporters.
@@ -74,6 +81,7 @@ class Teleporter(models.Model):
 
         return (self.x, self.y)
 
+
 class Profile(models.Model):
     """Extension of the standard Django User
 
@@ -84,10 +92,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bloodyfiller = models.CharField(max_length=10, null=True, blank=True)
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(user=instance)  # pylint: disable=no-member
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -105,5 +115,5 @@ def emergency_create_user_profile(sender, request, user, **kwargs):
     """
     try:
         user.profile
-    except Exception as e:
-        Profile.objects.create(user=user)
+    except Exception:
+        Profile.objects.create(user=user)  # pylint: disable=no-member
