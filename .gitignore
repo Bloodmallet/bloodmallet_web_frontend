@@ -4,7 +4,6 @@ env/
 *.zip
 debug.log
 secrets.py
-bloodmallet/db.sqlite3
 compute_api/
 bloodmallet/static/
 .gcloudignore
