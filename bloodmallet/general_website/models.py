@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.models import User
 
@@ -117,3 +118,80 @@ def emergency_create_user_profile(sender, request, user, **kwargs):
         user.profile
     except Exception:
         Profile.objects.create(user=user)  # pylint: disable=no-member
+
+
+class Race(models.Model):
+    """Wow race like dwarf, troll, pandaren
+    """
+
+    faction = models.ForeignKey(Faction, on_delete=models.CASCADE, related_name='races')
+    name = models.CharField(max_length=32)
+
+
+class WowClass(models.Model):
+    """Wow classes like death knight, rogue, mage
+    """
+
+    races = models.ManyToManyField(Race, related_name='classes')
+    name = models.CharField(max_length=16)
+
+
+class WowSpec(models.Model):
+    """Wow spec like feral, fire, frost
+    """
+
+    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='wow_specs')
+    name = models.CharField(max_length=16)
+
+
+class FightStyle(models.Model):
+    """SimulationCraft fight_style inputs.
+    """
+    name = models.CharField(max_length=16)
+    description = models.TextField(max_length=512, blank=True)
+
+
+class SimulationType(models.Model):
+    """Essentially already implemented commands/modes for bloodytools.
+    """
+
+
+class Simulation(models.Model):
+    """Data necessary to do a simulation.
+    """
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='simulations')
+    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='simulations')
+    wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
+    simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='simulations')
+    fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='simulations')
+    character_input = models.TextField(
+        max_length=2048,
+        blank=True,
+        help_text="Define your own character here, instead of using the standard profile (your input will overwrite the standard profile)."
+    )
+    fight_style_input = models.TextField(max_length=2048, blank=True, help_text="Define your own fight_style.")
+    simc_hash = models.CharField(
+        max_length=40,
+        blank=True,
+        help_text="SimulationCraft commit hash to identify the used version. (Allows reproduction of a result.)"
+    )
+
+
+class SimulationQueue(models.Model):
+    """Waiting for a worker to pick it up.
+    """
+    simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
+    state = models.CharField(max_length=16, blank=True, help_text="Pending, in progress, done, aborted, crashed.")
+    progress = models.SmallIntegerField(
+        help_text="0-100, but 100 doesn't mean, that the data is available. Simulation reached 100%, though."
+    )
+    log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
+
+
+class SimulationResult(models.Model):
+    """Result of a simulation
+    """
+
+    simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
+    result = models.FilePathField(path=settings.FILE_PATH_FIELD_DIRECTORY)
