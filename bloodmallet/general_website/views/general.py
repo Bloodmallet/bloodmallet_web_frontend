@@ -28,11 +28,11 @@ def index(request):
     }
 
     # add bloodyfiller
-    profiles = User.objects.filter(profile__bloodyfiller__isnull=False)
+    users = User.objects.filter(profile__bloodyfiller__isnull=False)
     filler_list = []
-    for profile in profiles:
+    for user in users:
         # TODO: Add multiplier for patreon level and other bonuses
-        filler_list.append(profile.profile.bloodyfiller)
+        filler_list.append(user.profile.bloodyfiller)
     try:
         content['bloodyfiller'] = filler_list[randint(0, len(filler_list) - 1)]
     except Exception:
