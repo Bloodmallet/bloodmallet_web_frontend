@@ -1,6 +1,7 @@
 [style]
 based_on_style = chromium
 indent_width = 4
+SPACES_BEFORE_COMMENT = 5
 BLANK_LINE_BEFORE_NESTED_CLASS_OR_DEF = true
 DEDENT_CLOSING_BRACKETS = true
 JOIN_MULTIPLE_LINES = true
