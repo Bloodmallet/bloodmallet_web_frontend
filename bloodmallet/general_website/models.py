@@ -98,7 +98,7 @@ class Profile(models.Model):
     bloodyfiller = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username     # pylint: disable=no-member
 
 
 @receiver(post_save, sender=User)
