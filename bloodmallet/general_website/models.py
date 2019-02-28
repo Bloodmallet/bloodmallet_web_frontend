@@ -98,7 +98,7 @@ class Profile(models.Model):
     bloodyfiller = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username     # pylint: disable=no-member
 
 
 @receiver(post_save, sender=User)
@@ -241,6 +241,20 @@ class Queue(models.Model):
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
 
 
+def save_simulation_result(instance, filename) -> str:
+    """Create URL of savelocation for simulation result.
+
+    Arguments:
+        instance {[type]} -- [description]
+        filename {[type]} -- [description]
+
+    Returns:
+        str -- [description]
+    """
+
+    return "{}{}/".format(settings.FILE_PATH_FIELD_DIRECTORY, instance.simulation.user)
+
+
 class Result(models.Model):
     """Result of a simulation
     """
@@ -249,7 +263,7 @@ class Result(models.Model):
     uuid = models.UUIDField(
         default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
     )
-    result = models.FileField(upload_to=save_result)
+    result = models.FileField(upload_to=save_simulation_result)
     simc_hash = models.CharField(
         max_length=40,
         blank=True,
@@ -258,9 +272,6 @@ class Result(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # file upload/save: https://cloud.google.com/python/getting-started/using-cloud-storage
-
-    def save_result(self, instance, filename):
-        return instance.simulation.user
 
     def __str__(self):
         return self.simulation
