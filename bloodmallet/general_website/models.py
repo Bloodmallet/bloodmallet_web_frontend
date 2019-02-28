@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
 
 from typing import Tuple
+import uuid
 
 # Create your models here.
 
@@ -25,7 +26,7 @@ def update_pledge_level(sender, sociallogin, **kwargs):
     print(sender)
     print(sociallogin)
     try:
-        print(sociallogin.account)  # read social allauth models.py
+        print(sociallogin.account)     # read social allauth models.py
     except Exception:
         print("No social.account could be found yet. Probably linking in progress.")
 
@@ -60,6 +61,9 @@ class Faction(models.Model):
 
     name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
 
 class Teleporter(models.Model):
     """Collection of fixed position Teleporters.
@@ -82,22 +86,25 @@ class Teleporter(models.Model):
 
         return (self.x, self.y)
 
+    def __str__(self):
+        return "{} -> {}".format(self.location, self.target)
+
 
 class Profile(models.Model):
     """Extension of the standard Django User
-
-    Arguments:
-        models {[type]} -- [description]
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bloodyfiller = models.CharField(max_length=10, null=True, blank=True)
 
+    def __str__(self):
+        return self.user
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)  # pylint: disable=no-member
+        Profile.objects.create(user=instance)     # pylint: disable=no-member
 
 
 @receiver(post_save, sender=User)
@@ -117,7 +124,7 @@ def emergency_create_user_profile(sender, request, user, **kwargs):
     try:
         user.profile
     except Exception:
-        Profile.objects.create(user=user)  # pylint: disable=no-member
+        Profile.objects.create(user=user)     # pylint: disable=no-member
 
 
 class Race(models.Model):
@@ -125,7 +132,15 @@ class Race(models.Model):
     """
 
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE, related_name='races')
-    name = models.CharField(max_length=32)
+    pretty_name = models.CharField(max_length=32)
+    tokenized_name = models.CharField(max_length=32)
+
+    @property
+    def name(self):
+        return self.pretty_name
+
+    def __str__(self):
+        return self.name
 
 
 class WowClass(models.Model):
@@ -133,7 +148,15 @@ class WowClass(models.Model):
     """
 
     races = models.ManyToManyField(Race, related_name='classes')
-    name = models.CharField(max_length=16)
+    tokenized_name = models.CharField(max_length=16)
+    pretty_name = models.CharField(max_length=16)
+
+    @property
+    def name(self):
+        return self.pretty_name
+
+    def __str__(self):
+        return self.name
 
 
 class WowSpec(models.Model):
@@ -141,19 +164,43 @@ class WowSpec(models.Model):
     """
 
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='wow_specs')
-    name = models.CharField(max_length=16)
+    pretty_name = models.CharField(max_length=16)
+    tokenized_name = models.CharField(max_length=16)
+
+    @property
+    def name(self):
+        return self.pretty_name
+
+    def __str__(self):
+        return self.name
 
 
 class FightStyle(models.Model):
     """SimulationCraft fight_style inputs.
     """
-    name = models.CharField(max_length=16)
+    tokenized_name = models.CharField(max_length=16)
+    pretty_name = models.CharField(max_length=16)
     description = models.TextField(max_length=512, blank=True)
+
+    @property
+    def name(self):
+        return self.pretty_name
+
+    def __str__(self):
+        return self.name
 
 
 class SimulationType(models.Model):
-    """Essentially already implemented commands/modes for bloodytools.
+    """Commands/modes for bloodytools.
     """
+
+    name = models.CharField(max_length=32, help_text="Name of the simulation type. Like 'trinket simulations'.")
+    command = models.CharField(
+        max_length=32, help_text="Actual command for bloodytools to do the simulation type. E.g. 'trinkets'"
+    )
+
+    def __str__(self):
+        return self.name
 
 
 class Simulation(models.Model):
@@ -171,15 +218,20 @@ class Simulation(models.Model):
         help_text="Define your own character here, instead of using the standard profile (your input will overwrite the standard profile)."
     )
     fight_style_input = models.TextField(max_length=2048, blank=True, help_text="Define your own fight_style.")
-    simc_hash = models.CharField(
-        max_length=40,
-        blank=True,
-        help_text="SimulationCraft commit hash to identify the used version. (Allows reproduction of a result.)"
+    created_at = models.DateTimeField(auto_now_add=True)
+    failed = models.BooleanField(
+        default=False,
+        help_text="If Simulation failed somehow this bool is set to True. Otherwise stays False forever."
     )
 
+    def __str__(self):
+        return "{simulation_type} {wow_spec} {wow_class}".format(
+            simulation_type=self.simulation_type, wow_spec=self.wow_spec, wow_class=self.wow_class
+        )
 
-class SimulationQueue(models.Model):
-    """Waiting for a worker to pick it up.
+
+class Queue(models.Model):
+    """Waiting for a worker to pick the simulation up.
     """
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
     state = models.CharField(max_length=16, blank=True, help_text="Pending, in progress, done, aborted, crashed.")
@@ -189,9 +241,39 @@ class SimulationQueue(models.Model):
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
 
 
-class SimulationResult(models.Model):
+class Result(models.Model):
     """Result of a simulation
     """
 
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
-    result = models.FilePathField(path=settings.FILE_PATH_FIELD_DIRECTORY)
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
+    )
+    result = models.FileField(upload_to=save_result)
+    simc_hash = models.CharField(
+        max_length=40,
+        blank=True,
+        help_text="SimulationCraft commit hash to identify the used version. (Allows reproduction of a result.)"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # file upload/save: https://cloud.google.com/python/getting-started/using-cloud-storage
+
+    def save_result(self, instance, filename):
+        return instance.simulation.user
+
+    def __str__(self):
+        return self.simulation
+
+
+class GeneralResult(models.Model):
+    """Latest standard simulation result.
+    """
+    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='general_results')
+    wow_spec = models.OneToOneField(WowSpec, on_delete=models.CASCADE, related_name='general_result')
+    simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='general_results')
+    fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='general_results')
+    result = models.OneToOneField(Result, on_delete=models.CASCADE, related_name='general_result')
+
+    def __str__(self):
+        return self.result.simulation     # pylint: disable=no-member
