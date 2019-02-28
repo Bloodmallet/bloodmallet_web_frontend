@@ -89,6 +89,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+from .secrets import SECRET_KEY
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
