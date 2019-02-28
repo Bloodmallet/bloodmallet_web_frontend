@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # required by django-allauth
+    'django.contrib.sites',     # required by django-allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -55,7 +55,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')  # allauth templates
+            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')     # allauth templates
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,17 +121,17 @@ STATICFILES_FINDERS = [
 # TODO: Check https://django-allauth.readthedocs.io/en/latest/faq.html for patreon connection
 # django-allauth
 AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
+     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
+     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 SITE_ID = 1
 
 # we can either use crispy or bootstrap4
-CRISPY_TEMPLATE_PACK = 'bootstrap4'  # automatic bootstrap form frontend generator
+CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend generator
 
 # from where is this?
 LOGIN_URL = 'login'
