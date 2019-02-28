@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+
+from .common import *  # pylint: disable=unused-wildcard-import
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['dev.bloodmallet.com']
 
 # logging
 LOGGING = {
@@ -52,17 +55,16 @@ pymysql.install_as_MySQLdb()
 from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
 
 DATABASES = {
-    'default':
-        {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/{}'.format(DB_HOST),
-            'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASSWORD,
-            'OPTIONS': {
-                'charset': 'utf8mb4'
-            },
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '/cloudsql/{}'.format(DB_HOST),
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
+    }
 }
 
 # used to serve files from this path in non-debug production
@@ -73,3 +75,5 @@ SASS_PRECISION = 8
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 # SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 SASS_PROCESSOR_ENABLED = False
+
+from .secrets import FILE_PATH_FIELD_DIRECTORY

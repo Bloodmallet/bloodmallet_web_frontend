@@ -58,16 +58,14 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')  # allauth templates
         ],
         'APP_DIRS': True,
-        'OPTIONS':
-            {
-                'context_processors':
-                    [
-                        'django.template.context_processors.debug',
-                        'django.template.context_processors.request',
-                        'django.contrib.auth.context_processors.auth',
-                        'django.contrib.messages.context_processors.messages',
-                    ],
-            },
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
     },
 ]
 
@@ -90,6 +88,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+from .secrets import SECRET_KEY
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
