@@ -3,14 +3,20 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.signals import user_logged_in
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
 
 from typing import Tuple
 import uuid
 
+
 # Create your models here.
+class User(AbstractUser):
+    bloodytext = models.CharField(max_length=10, null=True, blank=True)
+
+    def __str__(self):
+        return self.username     # pylint: disable=no-member
 
 
 @receiver([pre_social_login, social_account_updated])
@@ -88,43 +94,6 @@ class Teleporter(models.Model):
 
     def __str__(self):
         return "{} -> {}".format(self.location, self.target)
-
-
-class Profile(models.Model):
-    """Extension of the standard Django User
-    """
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bloodyfiller = models.CharField(max_length=10, null=True, blank=True)
-
-    def __str__(self):
-        return self.user.username     # pylint: disable=no-member
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)     # pylint: disable=no-member
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
-@receiver(user_logged_in)
-def emergency_create_user_profile(sender, request, user, **kwargs):
-    """Assures that a User has a Profile.
-
-    Arguments:
-        sender {django.contrib.auth.models.User} -- [description]
-        request {} -- [description]
-        user {User} -- User model data blop
-    """
-    try:
-        user.profile
-    except Exception:
-        Profile.objects.create(user=user)     # pylint: disable=no-member
 
 
 class Race(models.Model):

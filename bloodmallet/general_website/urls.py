@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.urls import path, include
 
 from . import views
@@ -15,11 +14,11 @@ urlpatterns = [
     path('settings/profile', views.profile, name='profile'),
     path('settings/change_password', views.change_password, name='change_password'),
 
-    # allauth account actions
+     # allauth account actions
     path('accounts/', include('allauth.urls')),
     path('settings/connections', ConnectionsView.as_view(), name='account_connections'),
 
-    # account actions
+     # account actions
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('signup', views.signup, name='signup'),

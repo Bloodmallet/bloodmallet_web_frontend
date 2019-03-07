@@ -127,7 +127,7 @@ AUTHENTICATION_BACKENDS = (
      # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+# allauth
 SITE_ID = 1
 
 # we can either use crispy or bootstrap4
@@ -135,3 +135,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend gene
 
 # from where is this?
 LOGIN_URL = 'login'
+
+# replaces the Django standard User
+AUTH_USER_MODEL = 'general_website.User'

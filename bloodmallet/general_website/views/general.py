@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.shortcuts import render
 
 from random import randint
+from general_website.models import User
 
 import logging
 
@@ -23,22 +21,23 @@ def index(request):
 
     logger.info("index")
 
-    content = {
+    context = {
         'text': "Sir!",
     }
 
     # add bloodyfiller
-    users = User.objects.filter(profile__bloodyfiller__isnull=False)
-    filler_list = []
+    users = User.objects.filter(bloodytext__isnull=False)
+    text_list = []
     for user in users:
         # TODO: Add multiplier for patreon level and other bonuses
-        filler_list.append(user.profile.bloodyfiller)
+        text_list.append(user.bloodytext)
+
     try:
-        content['bloodyfiller'] = filler_list[randint(0, len(filler_list) - 1)]
+        context['bloodyfiller'] = text_list[randint(0, len(text_list) - 1)]
     except Exception:
         pass
 
-    return render(request, 'general_website/index.html', content)
+    return render(request, 'general_website/index.html', context)
 
 
 def portals(request):

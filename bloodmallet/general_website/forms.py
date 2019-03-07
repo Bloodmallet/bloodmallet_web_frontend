@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-from django.contrib.auth.models import User
 
-from general_website.models import Profile
+from general_website.models import User
 
 # class UserLoginForm(forms.ModelForm):
 #     class Meta:
@@ -51,9 +50,12 @@ class UserUpdateForm(PasswordChangeForm):
 class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
-        model = Profile
-        fields = ('bloodyfiller',)
+        model = User
+        fields = ('bloodytext',)
 
+        labels = {
+            'bloodytext': 'bloody-announcement',
+        }
         help_texts = {
-            'bloodyfiller': "Allow others to see your short message in the title. \"Bloody( [Bloodyfiller] )\"",
+            'bloodytext': "Allow others to see your short message below the title.",
         }
