@@ -1,10 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
+
 from general_website.forms import UserLoginForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 
 import logging
@@ -39,7 +40,7 @@ def login(request):
                 # TODO: get query string parameter 'next' which has the actual destination
                 return redirect(n)
             else:
-                messages.warning(request, "Couldn't log in. Please check your input.")
+                messages.warning(request, _("Couldn't log in. Please check your input."))
 
         else:
             pass
@@ -77,10 +78,11 @@ def signup(request):
         logger.info('Someone tried to sign up!')
         signup_form = SignUpForm(request.POST)
         if signup_form.is_valid():
-            logger.info("Trying to save the user form")
             signup_form.save()
-            messages.success(request, "Account was created. Please confirm your Email address.")
+            messages.success(request, _("Account created."))
             return redirect('index')
+        else:
+            messages.warning(request, _("Account creation failed."))
     else:
         signup_form = SignUpForm()
     return render(request, 'general_website/signup.html', {'signup_form': signup_form})
@@ -93,7 +95,7 @@ def profile(request):
         if profile_form.is_valid():
 
             profile_form.save()
-            messages.success(request, "Profile was updated!")
+            messages.success(request, _("Profile was updated!"))
 
             return redirect('profile')
 
@@ -114,15 +116,15 @@ def change_password(request):
     """
 
     if request.method != 'POST':
-        messages.error(request, "POST requests only!")
+        pass
     else:
         user_form = UserUpdateForm(request.user, request.POST)
         if user_form.is_valid():
             user = user_form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(request, _("Password was updated!"))
         else:
-            messages.error(request, "Changing password failed. Check what you entered.")
+            messages.error(request, _("Password update failed. Check your input."))
     return redirect('profile')
 
 

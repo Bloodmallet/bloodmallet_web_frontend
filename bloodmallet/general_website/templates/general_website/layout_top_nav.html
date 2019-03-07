@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 {% comment %} <header> {% endcomment %}
@@ -15,7 +16,7 @@
 
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link translate_general" href="{% url 'index' %}" id="general_link">General</a>
+                <a class="nav-link translate_general" href="{% url 'index' %}" id="general_link">{% trans "General" %}</a>
             </li>
             </ul>
 
@@ -23,16 +24,16 @@
             <!-- Settings -->
             <ul class="navbar-nav ml-auto">
                 {% if not request.user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'login' %}" id="navbarLogin">Login</a>
-                    <a class="nav-link" href="{% url 'signup' %}" id="navbarSignup">Register</a>
+                    <a class="nav-link" href="{% url 'login' %}" id="navbarLogin">{% trans "Login" %}</a>
+                    <a class="nav-link" href="{% url 'signup' %}" id="navbarSignup">{% trans "Register" %}</a>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_superuser %}
-                    <a class="nav-link" href="{% url 'compute_api:index' %}" id="navbarAdmin">Sims</a>
-                    <a class="nav-link" href="{% url 'admin:index' %}" id="navbarAdmin">Admin</a>
+                    <a class="nav-link" href="{% url 'compute_api:index' %}" id="navbarAdmin">{% trans "Sims" %}</a>
+                    <a class="nav-link" href="{% url 'admin:index' %}" id="navbarAdmin">{% trans "Admin" %}</a>
                 {% endif%}
-                <a class="nav-link" href="{% url 'settings' %}" id="navbarLogin">Settings</a>
+                <a class="nav-link" href="{% url 'settings' %}" id="navbarLogin">{% trans "Settings" %}</a>
                 {% if request.user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'logout' %}" id="navbarLogin">Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}" id="navbarLogin">{% trans "Logout" %}</a>
                 {% endif %}
             </ul>
         </div>

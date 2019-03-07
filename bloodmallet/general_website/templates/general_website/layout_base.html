@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 {% load bootstrap4 %}
 
@@ -10,7 +11,7 @@
     {% comment %} {% if not request.user.is_authenticated %} {% endcomment %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
-            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="Become a Patron button" height="42" style="vertical-align: text-top;" />
+            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}" button" height="42" style="vertical-align: text-top;" />
         </a>
     </div>
     {% comment %} {% endif %} {% endcomment %}

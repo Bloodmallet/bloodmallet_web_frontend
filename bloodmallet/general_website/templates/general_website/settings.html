@@ -1,4 +1,5 @@
 {% extends 'general_website/layout_base.html' %}
+{% load i18n %}
 {% load static %}
 {% load replace_underscore_with_space %}
 
@@ -11,24 +12,12 @@
 
 {% block content %}
 
-<h1>Settings</h1>
+<h1>{% trans "Settings" %}</h1>
 <p>A settings page...what did you expect?</p>
 
 <form class="container-fluid">
-    {# Die in fire #}
-    <!-- --/> <div class="form-group row">
-        <legend class="col-sm-4 col-md-3">Dark mode</legend>
-        <div class="col-sm-8 col-md-9">
-            <div class="form-check">
-                <label class="form-check-label" style="cursor: pointer" id="translate_dark_mode" for="darkModeCheckbox">
-                <input class="form-check-input" type="checkbox" id="darkModeCheckbox" style="cursor: pointer" checked>
-                enabled
-                </label>
-            </div>
-        </div>
-    </div><!-- -->
     <fieldset class="form-group row">
-        <legend>Language</legend>
+        <legend>{% trans "Language" %}</legend>
         <div class="form-check">
             <label class="offset-sm-2 form-check-label">
                 <input type="radio" class="form-check-input" name="language" id="chinese_selection" value="cn_CN">
@@ -86,23 +75,23 @@
     </fieldset>
 
     <fieldset class="form-group row">
-        <legend>Chart mode</legend>
+        <legend>{% trans "Chart mode" %}</legend>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="absolute_gain" value="absolute_gain" checked>
-                    Δ - absolute dps gain
+                    {% trans "Δ - absolute dps gain" %}
             </label>
         </div>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="relative_gain" value="relative_gain">
-                    % - relative dps gain
+                    {% trans "% - relative dps gain" %}
             </label>
         </div>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="absolute_value" value="absolute_value">
-                    |x| - absolute value
+                    {% trans "|x| - absolute value" %}
             </label>
         </div>
     </fieldset>
@@ -111,11 +100,11 @@
         <legend>Chart icons</legend>
         <label class="offset-sm-2 form-check" style="cursor: pointer" id="translate_iconize_chart" for="inconized_charts_checkbox">
             <input class="form-check-input" type="checkbox" id="inconized_charts_checkbox" style="cursor: pointer">
-            active
+            {% trans "active" %}
         </label>
     </div>
 
-    <button type="button" class="btn btn-primary row" id="apply_changes">Apply changes</button>
+    <button type="button" class="btn btn-primary row" id="apply_changes">{% trans "Apply changes" %}</button>
 </form>
 
 

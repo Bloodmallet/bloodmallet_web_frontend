@@ -1,4 +1,5 @@
 {% extends 'general_website/layout_base.html' %}
+{% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% load replace_underscore_with_space %}
@@ -12,24 +13,24 @@
 
 {% block content %}
 
-<h1>Profile</h1>
-<p>Manage your profile information.</p>
+<h1>{% trans "Profile" %}</h1>
+<p>{% trans "Manage your profile information." %}</p>
 
 <form class="container-fluid" method="post">
     {% csrf_token %}
     {{ profile_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Save changes</button>
+    <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
 </form>
 
 <br/>
 
-<h3>Change Password</h3>
+<h3>{% trans "Change Password" %}</h3>
 <form class="container-fluid" method="post" action="{% url 'change_password' %}">
     {% csrf_token %}
     {{ user_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Change password</button>
+    <button type="submit" class="btn btn-primary">{% trans "Change password" %}</button>
 </form>
 
 

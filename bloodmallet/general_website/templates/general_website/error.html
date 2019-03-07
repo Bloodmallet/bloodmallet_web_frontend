@@ -1,4 +1,5 @@
 {% extends 'general_website/layout_base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -11,7 +12,7 @@
         {% if error.text %}
             {{ error.text }}
         {% else %}
-            Unknown error
+            {% trans "Unknown error" %}
         {% endif %}
     </p>
 </div>

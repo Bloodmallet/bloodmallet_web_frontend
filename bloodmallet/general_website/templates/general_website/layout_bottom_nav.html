@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <footer>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark bottom-nav">
@@ -12,14 +13,14 @@
 
             <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="faq.html" id="translate_faq">FAQ</a>
+                <a class="nav-link" href="faq.html">{% trans "FAQ" %}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://github.com/Bloodmallet/bloodmallet.github.io/issues">
                 <svg class="svg-icon">
                     <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#github"></use>
                 </svg>
-                <span class="username" id="translate_report_an_error">Report an error</span>
+                <span>{% trans "Report an error" %}</span>
                 </a>
             </li>
             <li class="nav-item patron-link">
@@ -27,7 +28,7 @@
                 <svg class="svg-icon">
                     <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#patreon"></use>
                 </svg>
-                <span style="color: #F96854;">Patreon</span>
+                <span style="color: #F96854;">{% trans "Patreon" %}</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -37,7 +38,7 @@
                     <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#twitter"></use>
                     </svg>
                 </div>
-                <span class="username">@bloodmallet</span>
+                <span>@bloodmallet</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -47,7 +48,7 @@
                     <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#discord"></use>
                     </svg>
                 </div>
-                <span class="username">bloodmallet.com</span>
+                <span>bloodmallet.com</span>
                 </a>
             </li>
             </ul>

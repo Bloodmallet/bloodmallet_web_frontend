@@ -1,4 +1,5 @@
 {% extends 'general_website/layout_base.html' %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -9,8 +10,8 @@
 
     {% comment %} Add reset PW link here {% endcomment %}
 
-    <button type="submit" class="btn btn-primary">Login</button>
-    <small id="dataDisclaimer" class="form-text text-muted">I couldn't care less about what data you enter. Nothing is shared with others.</small>
+    <button type="submit" class="btn btn-primary">{% trans "Login" %}</button>
+    <small id="dataDisclaimer" class="form-text text-muted">{% trans "I couldn't care less about your data. Nothing is shared with others and data is wiped regularly." %}</small>
 </form>
 
 {% endblock %}
