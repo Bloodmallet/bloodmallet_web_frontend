@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from general_website.forms import UserLoginForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 
@@ -24,6 +21,8 @@ def login(request):
     Returns:
         form -- login form
     """
+
+    logger.debug('login')
 
     # if login is attempted
     if request.method == 'POST':
@@ -90,7 +89,7 @@ def signup(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        profile_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileUpdateForm(request.POST, instance=request.user)
         if profile_form.is_valid():
 
             profile_form.save()
@@ -100,7 +99,7 @@ def profile(request):
 
     else:
         user_form = UserUpdateForm(user=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user.profile)
+        profile_form = ProfileUpdateForm(instance=request.user)
 
     content = {'user_form': user_form, 'profile_form': profile_form}
 
