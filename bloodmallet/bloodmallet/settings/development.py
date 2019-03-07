@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from .common import *  # pylint: disable=unused-wildcard-import
+from .common import *     # pylint: disable=unused-wildcard-import
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,18 +28,20 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
+            'formatter': 'default',
             'filename':  os.path.join(BASE_DIR, 'debug.log'),
         },
         'console': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'default',
-            'level': 'DEBUG' if DEBUG else 'INFO'
         },
     },
     'loggers': {
         'django': {
             'handlers': [
-                'file'
+                # 'console',
+                'file',
             ],
             'level': 'DEBUG',
             'propagate': True,
@@ -58,7 +60,6 @@ LOGGING = {
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         }
-
     },
 }
 
