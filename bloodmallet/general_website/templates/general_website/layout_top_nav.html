@@ -30,6 +30,7 @@
                     <a class="nav-link" href="{% url 'signup' %}" id="navbarSignup">Register</a>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_superuser %}
+                    <a class="nav-link" href="{% url 'compute_api:index' %}" id="navbarAdmin">Sims</a>
                     <a class="nav-link" href="{% url 'admin:index' %}" id="navbarAdmin">Admin</a>
                 {% endif%}
                 <a class="nav-link" href="{% url 'settings' %}" id="navbarLogin">Settings</a>
