@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render
+from django.utils.translation import gettext as _
 
-from random import randint
 from general_website.models import User
 
 import logging
+from random import randint
 
 logger = logging.getLogger(__name__)
 
