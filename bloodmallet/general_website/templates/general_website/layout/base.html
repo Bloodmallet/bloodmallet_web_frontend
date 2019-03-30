@@ -4,17 +4,19 @@
 
 <!DOCTYPE html>
 <html>
-    {% include 'general_website/layout_head.html' %}
+    {% include 'general_website/layout/head.html' %}
+    {% block extrahead %}
+    {% endblock %}
 <body>
-    {% include 'general_website/layout_top_nav.html' %}
+    {% include 'general_website/layout/nav_top.html' %}
 
-    {% comment %} {% if not request.user.is_authenticated %} {% endcomment %}
+    {% if not user.is_superuser %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
             <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}" button" height="42" style="vertical-align: text-top;" />
         </a>
     </div>
-    {% comment %} {% endif %} {% endcomment %}
+    {% endif %}
 
 
     {% block precontent %}
@@ -27,6 +29,7 @@
                     {# free real estate #}
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-10">
+                    <div class="pt-3"></div>
                     {% bootstrap_messages %}
                     {% block content %}
                     {% endblock %}
@@ -42,9 +45,11 @@
     {% endblock %}
 
     <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet.svg'%}');"></div>
-    {% include 'general_website/layout_bottom_nav.html' %}
+    {% include 'general_website/layout/nav_bottom.html' %}
 
     {# importer of js scripts #}
-    {% include 'general_website/layout_script_importer.html' %}
+    {% include 'general_website/layout/script_importer.html' %}
+    {% block extraimport %}
+    {% endblock %}
 </body>
 </html>
