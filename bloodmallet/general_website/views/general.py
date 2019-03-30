@@ -20,7 +20,7 @@ def index(request):
         [type] -- [description]
     """
 
-    logger.info("index")
+    logger.debug("index")
 
     context = {
         'text': "Sir!",
