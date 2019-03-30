@@ -20,7 +20,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'default': {
-            'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s - %(message)s',
+            'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s:%(lineno)d - %(message)s',
         }, # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
 
     },
