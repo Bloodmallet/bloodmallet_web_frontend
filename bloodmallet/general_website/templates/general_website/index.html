@@ -1,4 +1,5 @@
-{% extends 'general_website/layout_base.html' %}
+{% extends 'general_website/layout/base.html' %}
+
 {% load i18n %}
 {% load static %}
 {% load replace_underscore_with_space %}
@@ -44,9 +45,11 @@
 {% endcomment %}
 
 <p id="translate_main_paragraph">
-{% trans "This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft
+{% blocktrans %}
+This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft
 using <a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a>'s default profiles. These overviews
-are an entry point. For indepth information about your spec use your theorycrafters resources linked below the charts." %}
+are an entry point. For indepth information about your spec use your theorycrafters resources linked below the charts.
+{% endblocktrans %}
 </p>
 
 
