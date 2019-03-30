@@ -10,6 +10,10 @@ from allauth.socialaccount.signals import pre_social_login, social_account_updat
 from typing import Tuple
 import uuid
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 # Create your models here.
 class User(AbstractUser):
@@ -51,11 +55,11 @@ def update_user_information(sender, request, user, **kwargs):
         user {User} -- User model data blop
     """
 
-    print("User logged in!")
-    print(sender)
-    print(request)
-    print(user)
-    print(user.email)
+    logger.debug("User logged in!")
+    logger.debug(sender)
+    logger.debug(request)
+    logger.debug(user)
+    logger.debug(user.email)
 
 
 # https://docs.patreon.com/#fetching-a-patron-39-s-profile-info
