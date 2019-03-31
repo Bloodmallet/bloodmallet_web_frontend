@@ -488,34 +488,19 @@ def add_charts(request):
     """Allows the user to create charts.
     """
 
-
     context = {}
 
-    # wow_classes = WowClass.objects.all().order_by('pretty_name') # pylint: disable=no-member
-    # wow_specs = WowSpec.objects.all().order_by('wow_class__pretty_name') # pylint: disable=no-member
-    # fight_styles = FightStyle.objects.all() # pylint: disable=no-member
-    # simulation_types = SimulationType.objects.all() # pylint: disable=no-member
-
-    # context = {
-    #     'wow_specs': wow_specs,
-    #     'fight_styles': fight_styles,
-    #     'simulation_types': simulation_types
-    # }
-
     if request.method == 'POST':
-
-        logger.debug('Someone creates a chart.')
 
         form = SimulationCreationForm(request.POST)
 
         if form.is_valid():
-            logger.debug("form is valid!")
             simulation = form.save(commit=False)
             simulation.user = request.user
             simulation.wow_class = simulation.wow_spec.wow_class
 
             simulation.save()
-            messages.success(request, "A chart was added to the query. Simulation will start soon.")
+            messages.success(request, "A chart was added to the query. Simulations will start soon.")
 
             return redirect('my_charts')
 
