@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
 
@@ -69,7 +70,8 @@ class Faction(models.Model):
     """Collection of Wow Factions...two, duh.
     """
 
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=32)
+    tokenized_name = models.CharField(max_length=32)
 
     def __str__(self):
         return self.name
@@ -185,12 +187,13 @@ class Simulation(models.Model):
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
     simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='simulations')
     fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='simulations')
+    name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
     character_input = models.TextField(
         max_length=2048,
         blank=True,
-        help_text="Define your own character here, instead of using the standard profile (your input will overwrite the standard profile)."
+        help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile).")
     )
-    fight_style_input = models.TextField(max_length=2048, blank=True, help_text="Define your own fight_style.")
+    fight_style_input = models.TextField(max_length=2048, blank=True, help_text=_("Define your own fight_style."))
     created_at = models.DateTimeField(auto_now_add=True)
     failed = models.BooleanField(
         default=False,
