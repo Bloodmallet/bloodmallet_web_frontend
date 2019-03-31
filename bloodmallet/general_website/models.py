@@ -238,7 +238,7 @@ class Queue(models.Model):
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
 
     def __str__(self):
-        return self.simulation
+        return "{}".format(self.simulation)
 
 
 def save_simulation_result(instance, filename) -> str:
