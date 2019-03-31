@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 
-from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType
+from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType, Queue
 from general_website.forms import SimulationCreationForm
 
 import logging
@@ -422,14 +422,13 @@ def my_charts(request):
 
     context = {}
 
-    simulations = request.user.simulations.all()
+    simulations = request.user.simulations.filter(result__uuid__isnull=False)
+    context['charts'] = simulations
 
-    results = []
-    for simulation in simulations:
-        if hasattr(simulation, 'result'):
-            results.append(simulation)
+    queries = request.user.simulations.filter(queue__state=Queue.STATE_CHOICES[0][0]).count()
+    if queries > 0:
+        context['queries'] = queries
 
-    context['charts'] = results
 
     return render(request, 'general_website/my_charts.html', context=context)
 
