@@ -1,0 +1,200 @@
+[
+    {
+        "model": "general_website.race",
+        "pk": 1,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Draenei",
+            "tokenized_name": "draenei"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 2,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Dwarf",
+            "tokenized_name": "dwarf"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 3,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Gnome",
+            "tokenized_name": "gnome"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 4,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Human",
+            "tokenized_name": "human"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 5,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Night Elf",
+            "tokenized_name": "night_elf"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 6,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Pandaren",
+            "tokenized_name": "pandaren"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 7,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Worgen",
+            "tokenized_name": "worgen"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 8,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Void Elf",
+            "tokenized_name": "void_elf"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 9,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Lightforged Draenei",
+            "tokenized_name": "lightforged_draenei"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 10,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Dark Iron Dwarf",
+            "tokenized_name": "dark_iron_dwarf"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 11,
+        "fields": {
+            "faction": 1,
+            "pretty_name": "Kul Tiran",
+            "tokenized_name": "kul_tiran"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 12,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Blood Elf",
+            "tokenized_name": "blood_elf"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 13,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Goblin",
+            "tokenized_name": "goblin"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 14,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Orc",
+            "tokenized_name": "orc"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 15,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Pandaren",
+            "tokenized_name": "pandaren"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 16,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Tauren",
+            "tokenized_name": "tauren"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 17,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Troll",
+            "tokenized_name": "troll"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 18,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Undead",
+            "tokenized_name": "undead"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 19,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Nightborne",
+            "tokenized_name": "nightborne"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 20,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Highmountain Tauren",
+            "tokenized_name": "highmountain_tauren"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 21,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Mag'har Orc",
+            "tokenized_name": "maghar_orc"
+        }
+    },
+    {
+        "model": "general_website.race",
+        "pk": 22,
+        "fields": {
+            "faction": 2,
+            "pretty_name": "Zandalari Troll",
+            "tokenized_name": "zandalari_troll"
+        }
+    }
+]

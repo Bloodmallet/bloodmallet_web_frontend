@@ -1,0 +1,18 @@
+[
+    {
+        "model": "general_website.faction",
+        "pk": 1,
+        "fields": {
+            "name": "Alliance",
+            "tokenized_name": "alliance"
+        }
+    },
+    {
+        "model": "general_website.faction",
+        "pk": 2,
+        "fields": {
+            "name": "Horde",
+            "tokenized_name": "horde"
+        }
+    }
+]
