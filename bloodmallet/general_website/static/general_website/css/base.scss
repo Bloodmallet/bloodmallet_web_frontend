@@ -219,6 +219,11 @@ a:hover .svg-icon {
             transition: border .0s ease-in;
         }
     }
+
+    .border-#{$class} {
+        border-color: $color-value !important;
+    }
+
 }
 
 // Styles for the class-spec table
