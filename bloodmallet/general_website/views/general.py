@@ -1,8 +1,9 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
 
 from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType
 from general_website.forms import SimulationCreationForm
@@ -512,3 +513,28 @@ def add_charts(request):
 
 
     return render(request, 'general_website/add_charts.html', context=context)
+
+
+@user_passes_test(lambda u: u.us_superuser)
+def sim_dem_all(request):
+
+    wow_specs = WowSpec.objects.all() # pylint: disable=no-member
+    # ! don't forget this or else this function will explode in the future
+    fight_styles = FightStyle.objects.all() # pylint: disable=no-member
+    simulation_types = SimulationType.objects.all() # pylint: disable=no-member
+    name = 'Bloodmallet Standard Chart'
+
+    for simulation_type in simulation_types:
+        for spec in wow_specs:
+            for fight_style in fight_styles:
+                Simulation.objects.create( # pylint: disable=no-member
+                    user=request.user,
+                    wow_class=spec.wow_class,
+                    wow_spec=spec,
+                    simulation_type=simulation_type,
+                    fight_style=fight_style,
+                    name=name
+                )
+
+
+    return JsonResponse(data={'status': 'workworkwork'})
