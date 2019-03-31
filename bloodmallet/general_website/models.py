@@ -147,14 +147,14 @@ class WowSpec(models.Model):
         return self.pretty_name
 
     def __str__(self):
-        return self.name
+        return "{} {}".format(self.wow_class, self.name)
 
 
 class FightStyle(models.Model):
     """SimulationCraft fight_style inputs.
     """
-    tokenized_name = models.CharField(max_length=16)
-    pretty_name = models.CharField(max_length=16)
+    tokenized_name = models.CharField(max_length=32)
+    pretty_name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
 
     @property
@@ -201,17 +201,23 @@ class Simulation(models.Model):
     )
 
     def __str__(self):
-        return "{simulation_type} {wow_spec} {wow_class}".format(
-            simulation_type=self.simulation_type, wow_spec=self.wow_spec, wow_class=self.wow_class
-        )
+        return "{simulation_type} {wow_spec}".format(simulation_type=self.simulation_type, wow_spec=self.wow_spec)
 
 
 class Queue(models.Model):
     """Waiting for a worker to pick the simulation up.
     """
+
+    STATE_CHOICES = (
+        (1, _("pending")),
+        (2, _("in progress")),
+        (3, _("done")),
+        (10, _("error"))
+    )
+
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
-    state = models.CharField(max_length=16, blank=True, help_text="Pending, in progress, done, aborted, crashed.")
-    progress = models.SmallIntegerField(
+    state = models.PositiveSmallIntegerField(choices=STATE_CHOICES)
+    progress = models.PositiveSmallIntegerField(
         help_text="0-100, but 100 doesn't mean, that the data is available. Simulation reached 100%, though."
     )
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
