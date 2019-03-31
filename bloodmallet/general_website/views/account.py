@@ -50,6 +50,7 @@ def login(request):
     return render(request, 'general_website/login.html', {'login_form': login_form})
 
 
+@login_required
 def logout(request):
     """Logs out the user and returns him to the front page.
 

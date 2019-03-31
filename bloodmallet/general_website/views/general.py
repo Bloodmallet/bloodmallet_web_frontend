@@ -1,8 +1,11 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
 
-from general_website.models import User
+from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType
+from general_website.forms import SimulationCreationForm
 
 import logging
 from random import randint
@@ -38,7 +41,7 @@ def index(request):
     except Exception:
         pass
 
-    return render(request, 'general_website/index.html', context)
+    return render(request, 'general_website/index.html', context=context)
 
 
 def portals(request):
@@ -403,3 +406,124 @@ def portals(request):
     context['factions']['horde'] = sorted(context['factions']['horde'], key=lambda portal: portal['target'])
 
     return render(request, 'general_website/portals.html', context)
+
+
+def my_charts(request):
+    """View present all own charts and a link to generate a new chart.
+
+    Arguments:
+        request {[type]} -- [description]
+
+    Returns:
+        [type] -- [description]
+    """
+
+
+    context = {}
+
+    simulations = request.user.simulations.all()
+
+    results = []
+    for simulation in simulations:
+        if hasattr(simulation, 'result'):
+            results.append(simulation)
+
+    context['charts'] = results
+
+    return render(request, 'general_website/my_charts.html', context=context)
+
+
+def chart(request, chart_id):
+    """Shows one chart
+    """
+
+
+    context = {}
+
+    try:
+        simulation = Simulation.objects.get(result__uuid=chart_id) # pylint: disable=no-member
+    except Simulation.DoesNotExist: # pylint: disable=no-member
+        simulation = None
+    except Simulation.MultipleObjectsReturned: # pylint: disable=no-member
+        simulation = Simulation.objects.filter(result__uuid=chart_id).first() # pylint: disable=no-member
+    except Exception:
+        logger.exception('Chart_id crashed Simulation object look-up.')
+        simulation = None
+
+    context['chart'] = simulation
+
+    return render(request, 'general_website/chart.html', context=context)
+
+
+def delete_chart(request, chart_id):
+    """Enables the chart owner and superuser to delete charts.
+    """
+
+    message = ""
+
+    try:
+        simulation = Simulation.objects.get(result__uuid=chart_id) # pylint: disable=no-member
+    except Exception:
+        message = _("An error occured while trying to delete a chart.")
+        simulation = None
+
+    if simulation:
+        # only the owner of the chart or a superuser can delete it
+        if simulation.user == request.user or request.user.is_superuser():
+            simulation.delete()
+            message = _("Chart was deleted.")
+        else:
+            message = _("You don't have the permission for that action.")
+            simulation = None
+
+    context = {
+        'status': 'success' if simulation else 'error',
+        'message': message,
+    }
+
+    return JsonResponse(data=context)
+
+
+def add_charts(request):
+    """Allows the user to create charts.
+    """
+
+
+    context = {}
+
+    # wow_classes = WowClass.objects.all().order_by('pretty_name') # pylint: disable=no-member
+    # wow_specs = WowSpec.objects.all().order_by('wow_class__pretty_name') # pylint: disable=no-member
+    # fight_styles = FightStyle.objects.all() # pylint: disable=no-member
+    # simulation_types = SimulationType.objects.all() # pylint: disable=no-member
+
+    # context = {
+    #     'wow_specs': wow_specs,
+    #     'fight_styles': fight_styles,
+    #     'simulation_types': simulation_types
+    # }
+
+    if request.method == 'POST':
+
+        logger.debug('Someone creates a chart.')
+
+        form = SimulationCreationForm(request.POST)
+
+        if form.is_valid():
+            logger.debug("form is valid!")
+            simulation = form.save(commit=False)
+            simulation.user = request.user
+            simulation.wow_class = simulation.wow_spec.wow_class
+
+            simulation.save()
+            messages.success(request, "A chart was added to the query. Simulation will start soon.")
+
+            return redirect('my_charts')
+
+    else:
+
+        form = SimulationCreationForm()
+
+    context['form'] = form
+
+
+    return render(request, 'general_website/add_charts.html', context=context)

@@ -1,0 +1,18 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>{% trans 'bloodmallet' %}</h1>
+
+<p>Something should be here but is not implemented yet</p>
+
+{% if chart %}
+But data was found, at least
+{% else %}
+No data for that ID found
+{% endif %}
+
+
+{% endblock %}
