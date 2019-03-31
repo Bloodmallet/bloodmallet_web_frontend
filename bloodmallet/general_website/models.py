@@ -201,7 +201,22 @@ class Simulation(models.Model):
     )
 
     def __str__(self):
-        return "{simulation_type} {wow_spec}".format(simulation_type=self.simulation_type, wow_spec=self.wow_spec)
+        return "{simulation_type} {wow_spec} {fight_style}".format(
+            simulation_type=self.simulation_type, wow_spec=self.wow_spec, fight_style=self.fight_style
+        )
+
+
+@receiver(post_save, sender=Simulation)
+def put_in_queue(sender, instance, created, *args, **kwargs):
+    """Whenever a new simulation is created, it's added to the query.
+    """
+
+    if created:
+        Queue.objects.create( # pylint: disable=no-member
+            simulation=instance,
+            state=Queue.STATE_CHOICES[0][0],
+            progress=0
+        )
 
 
 class Queue(models.Model):
@@ -221,6 +236,9 @@ class Queue(models.Model):
         help_text="0-100, but 100 doesn't mean, that the data is available. Simulation reached 100%, though."
     )
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
+
+    def __str__(self):
+        return self.simulation
 
 
 def save_simulation_result(instance, filename) -> str:
