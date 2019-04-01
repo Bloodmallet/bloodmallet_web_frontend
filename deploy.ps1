@@ -36,7 +36,7 @@ gcloud app deploy --quiet
 
 Write-Host "Cleaning up" -NoNewline
 # remove compiled css files
-python manage.py compilescss --delete-files
+python manage.py compilescss --delete-files >$null
 
 # Delete created "static" directory
 rm -r -Force .\static\ >$null
