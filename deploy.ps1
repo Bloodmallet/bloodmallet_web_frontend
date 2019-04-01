@@ -28,7 +28,7 @@ Write-Host "                Done" -ForegroundColor Green
 
 Write-Host "Preparing static files" -NoNewline
 # Collect fresh css files
-python manage.py collectstatic --clear --noinput --ignore=*.scss --ignore=*.po >$null
+python manage.py collectstatic --clear --noinput --ignore=*.scss --ignore=*.po --ignore=*.zip >$null
 Write-Host "          Done" -ForegroundColor Green
 
 # Deploy
