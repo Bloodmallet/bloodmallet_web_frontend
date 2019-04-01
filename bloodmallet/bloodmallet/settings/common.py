@@ -110,9 +110,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# location of the sass files (css with logic)
-# SASS_PROCESSOR_ROOT = ''
-
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
