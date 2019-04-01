@@ -7,8 +7,7 @@ secrets.py
 compute_api/
 bloodmallet/db.sqlite3
 bloodmallet/static/
-.gcloudignore
 __pycache__/
 cloud_sql_proxy.exe
 local_dev_commands.txt
-deploy_to_live.ps1
+*.mo
