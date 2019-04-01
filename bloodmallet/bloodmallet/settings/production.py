@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .common import *  # pylint: disable=unused-wildcard-import
+from .common import *     # pylint: disable=unused-wildcard-import
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
