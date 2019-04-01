@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-07 23:35+0100\n"
+"POT-Creation-Date: 2019-04-01 20:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\general_website\models.py:190
+msgid "Name of the chart"
+msgstr ""
+
+#: .\general_website\models.py:194
+msgid ""
+"Define your own character here, instead of using the standard profile (your "
+"input will overwrite the standard profile)."
+msgstr ""
+
+#: .\general_website\models.py:196
+msgid "Define your own fight_style."
+msgstr ""
+
+#: .\general_website\models.py:227
+msgid "pending"
+msgstr ""
+
+#: .\general_website\models.py:228
+msgid "in progress"
+msgstr ""
+
+#: .\general_website\models.py:229
+msgid "done"
+msgstr ""
+
+#: .\general_website\models.py:230
+msgid "error"
+msgstr ""
+
 #: .\general_website\templates\allauth\account\account_inactive.html:5
 #: .\general_website\templates\allauth\account\account_inactive.html:8
 msgid "Account Inactive"
@@ -440,148 +471,195 @@ msgid ""
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 
+#: .\general_website\templates\general_website\add_charts.html:7
+msgid "Create a Chart"
+msgstr ""
+
+#: .\general_website\templates\general_website\add_charts.html:15
+msgid "Create Chart"
+msgstr ""
+
+#: .\general_website\templates\general_website\add_charts.html:16
+msgid "Chart creation will take a while (stuff needs to be simulated)."
+msgstr ""
+
+#: .\general_website\templates\general_website\chart.html:7
+msgid "bloodmallet"
+msgstr ""
+
 #: .\general_website\templates\general_website\error.html:15
 msgid "Unknown error"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:61
-msgid "Data Type"
-msgstr ""
-
-#: .\general_website\templates\general_website\index.html:63
-msgid "Trinkets"
+#: .\general_website\templates\general_website\index.html:48
+msgid ""
+"\n"
+"This site provides an overview about trinkets, azerite traits, and others "
+"for almost all specs in World of Warcraft\n"
+"using <a href=\"http://www.simulationcraft.org/\" target=\"blank"
+"\">SimulationCraft</a>'s default profiles. These overviews\n"
+"are an entry point. For indepth information about your spec use your "
+"theorycrafters resources linked below the charts.\n"
 msgstr ""
 
 #: .\general_website\templates\general_website\index.html:64
+msgid "Data Type"
+msgstr ""
+
+#: .\general_website\templates\general_website\index.html:66
+msgid "Trinkets"
+msgstr ""
+
+#: .\general_website\templates\general_website\index.html:67
 msgid "Azerite"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:65
+#: .\general_website\templates\general_website\index.html:68
 msgid "Races"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:71
+#: .\general_website\templates\general_website\index.html:74
 msgid "Fight Style"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:73
+#: .\general_website\templates\general_website\index.html:76
 msgid "Patchwerk"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:74
+#: .\general_website\templates\general_website\index.html:77
 msgid "HecticAddCleave"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:78
+#: .\general_website\templates\general_website\index.html:81
 msgid "Type Specification"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:80
+#: .\general_website\templates\general_website\index.html:83
 msgid "Trait stacking"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:81
+#: .\general_website\templates\general_website\index.html:84
 msgid "Itemlevel"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:82
+#: .\general_website\templates\general_website\index.html:85
 msgid "Head"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:83
+#: .\general_website\templates\general_website\index.html:86
 msgid "Shoulders"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:84
+#: .\general_website\templates\general_website\index.html:87
 msgid "Chest"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:88
+#: .\general_website\templates\general_website\index.html:91
 msgid "Azerite Tier"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:95
+#: .\general_website\templates\general_website\index.html:98
 msgid "Tier 3 & 4"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:97
+#: .\general_website\templates\general_website\index.html:100
 msgid "Tier 2"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:101
+#: .\general_website\templates\general_website\index.html:104
 msgid "Advanced Options"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:103
+#: .\general_website\templates\general_website\index.html:106
 msgid "Show"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_base.html:15
+#: .\general_website\templates\general_website\layout\base.html:16
 msgid "Become a Patron"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_bottom_nav.html:17
-msgid "FAQ"
-msgstr ""
-
-#: .\general_website\templates\general_website\layout_bottom_nav.html:24
-msgid "Report an error"
-msgstr ""
-
-#: .\general_website\templates\general_website\layout_bottom_nav.html:32
-msgid "Patreon"
-msgstr ""
-
-#: .\general_website\templates\general_website\layout_head.html:7
+#: .\general_website\templates\general_website\layout\head.html:7
 msgid "data for all"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_settings_nav.html:14
-#: .\general_website\templates\general_website\layout_top_nav.html:35
+#: .\general_website\templates\general_website\layout\nav_bottom.html:17
+msgid "FAQ"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_bottom.html:24
+msgid "Report an error"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_bottom.html:33
+msgid "Patreon"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_settings.html:14
+#: .\general_website\templates\general_website\layout\nav_top.html:37
 #: .\general_website\templates\general_website\settings.html:15
 msgid "Settings"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_settings_nav.html:16
-#: .\general_website\templates\general_website\layout_top_nav.html:20
+#: .\general_website\templates\general_website\layout\nav_settings.html:16
 msgid "General"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_settings_nav.html:23
+#: .\general_website\templates\general_website\layout\nav_settings.html:23
 #: .\general_website\templates\general_website\profile.html:16
 msgid "Profile"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_settings_nav.html:28
+#: .\general_website\templates\general_website\layout\nav_settings.html:28
 msgid "Connections"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_top_nav.html:28
+#: .\general_website\templates\general_website\layout\nav_top.html:21
+#: .\general_website\templates\general_website\my_charts.html:7
+msgid "My Charts"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_top.html:30
 #: .\general_website\templates\general_website\login.html:14
 msgid "Login"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_top_nav.html:29
+#: .\general_website\templates\general_website\layout\nav_top.html:31
 msgid "Register"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_top_nav.html:32
+#: .\general_website\templates\general_website\layout\nav_top.html:34
 msgid "Sims"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_top_nav.html:33
+#: .\general_website\templates\general_website\layout\nav_top.html:35
 msgid "Admin"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout_top_nav.html:37
+#: .\general_website\templates\general_website\layout\nav_top.html:39
 msgid "Logout"
 msgstr ""
 
 #: .\general_website\templates\general_website\login.html:15
 #: .\general_website\templates\general_website\signup.html:12
 msgid ""
-"I couldn't care less about your data. Nothing is shared with others and data "
-"is wiped regularly."
+"I couldn't care less about what you enter. Nothing is shared with others and "
+"data is wiped regularly."
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:9
+msgid "A list of your own charts"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:16
+msgid "New Chart"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:29
+msgid "Load Chart"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:31
+msgid "Delete Chart"
 msgstr ""
 
 #: .\general_website\templates\general_website\portals.html:12
@@ -666,23 +744,23 @@ msgstr ""
 msgid "Couldn't log in. Please check your input."
 msgstr ""
 
-#: .\general_website\views\account.py:82
+#: .\general_website\views\account.py:83
 msgid "Account created."
 msgstr ""
 
-#: .\general_website\views\account.py:85
+#: .\general_website\views\account.py:86
 msgid "Account creation failed."
 msgstr ""
 
-#: .\general_website\views\account.py:98
+#: .\general_website\views\account.py:99
 msgid "Profile was updated!"
 msgstr ""
 
-#: .\general_website\views\account.py:125
+#: .\general_website\views\account.py:126
 msgid "Password was updated!"
 msgstr ""
 
-#: .\general_website\views\account.py:127
+#: .\general_website\views\account.py:128
 msgid "Password update failed. Check your input."
 msgstr ""
 
@@ -692,4 +770,16 @@ msgstr ""
 
 #: .\general_website\views\error.py:26
 msgid "Something went wrong. Try again later"
+msgstr ""
+
+#: .\general_website\views\general.py:467
+msgid "An error occured while trying to delete a chart."
+msgstr ""
+
+#: .\general_website\views\general.py:474
+msgid "Chart was deleted."
+msgstr ""
+
+#: .\general_website\views\general.py:476
+msgid "You don't have the permission for that action."
 msgstr ""
