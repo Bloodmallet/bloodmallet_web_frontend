@@ -1,6 +1,4 @@
-Write-Host "Start deploy process in 5..."
-
-Start-Sleep -s 5
+Write-Host "Deploying to bloodmallet.com"
 
 # Save start location
 $start_location = pwd
