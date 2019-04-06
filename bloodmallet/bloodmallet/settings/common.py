@@ -139,3 +139,5 @@ AUTH_USER_MODEL = 'general_website.User'
 
 # Google cloud storage handling
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
