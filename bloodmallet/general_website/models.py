@@ -252,7 +252,7 @@ def save_simulation_result(instance, filename) -> str:
         str -- [description]
     """
 
-    return "{}{}/".format(settings.FILE_PATH_FIELD_DIRECTORY, instance.simulation.user)
+    return "{}/".format(instance.simulation.user.id)
 
 
 class Result(models.Model):
