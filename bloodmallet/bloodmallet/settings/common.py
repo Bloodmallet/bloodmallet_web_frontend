@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.patreon',
     'sass_processor',
-    'bootstrap4',
+    'bootstrap4',     # TODO: probably remove
     'crispy_forms',
     'general_website',
     'compute_api',
@@ -136,3 +136,6 @@ LOGIN_URL = 'login'
 
 # replaces the Django standard User
 AUTH_USER_MODEL = 'general_website.User'
+
+# Google cloud storage handling
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'

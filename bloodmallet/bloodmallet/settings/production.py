@@ -77,3 +77,7 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PROCESSOR_ENABLED = False
 
 from .secrets import FILE_PATH_FIELD_DIRECTORY
+
+# google cloud storage
+from .secrets import LIVE_BUCKET_NAME
+GS_BUCKET_NAME = LIVE_BUCKET_NAME
