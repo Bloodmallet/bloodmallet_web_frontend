@@ -15,7 +15,7 @@ Write-Host "Preparing translations" -NoNewline
 # collect and compile translateable texts
 $languages = @('cn', 'de', 'es', 'fr', 'it', 'ko', 'pt', 'ru')
 foreach($language in $languages) {
-    python manage.py makemessages --locale=$language >$null
+    python manage.py makemessages --locale=$language -i "env" >$null
     python manage.py compilemessages --locale=$language >$null
 }
 Write-Host "          Done" -ForegroundColor Green
