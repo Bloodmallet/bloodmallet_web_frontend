@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 from allauth.socialaccount.signals import pre_social_login, social_account_updated
 
+from enum import Enum
+
 from typing import Tuple
 import uuid
 
@@ -214,24 +216,24 @@ def put_in_queue(sender, instance, created, *args, **kwargs):
     if created:
         Queue.objects.create( # pylint: disable=no-member
             simulation=instance,
-            state=Queue.STATE_CHOICES[0][0],
+            state=QueueState.PENDING,
             progress=0
         )
+
+
+class QueueState(Enum):
+    PENDING = _("pending")
+    INPROGRESS = _("in progress")
+    DONE = _("done")
+    ERROR = _("error")
 
 
 class Queue(models.Model):
     """Waiting for a worker to pick the simulation up.
     """
 
-    STATE_CHOICES = (
-        (1, _("pending")),
-        (2, _("in progress")),
-        (3, _("done")),
-        (10, _("error"))
-    )
-
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
-    state = models.PositiveSmallIntegerField(choices=STATE_CHOICES)
+    state = models.CharField(max_length=20, choices=[(tag.name, tag.value) for tag in QueueState])
     progress = models.PositiveSmallIntegerField(
         help_text="0-100, but 100 doesn't mean, that the data is available. Simulation reached 100%, though."
     )
