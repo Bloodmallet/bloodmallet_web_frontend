@@ -8,3 +8,4 @@ django-crispy-forms~=1.7.2
 django-bootstrap4~=0.0.7
 google-api-python-client~=1.7.7
 pymysql
+django-storages[google]

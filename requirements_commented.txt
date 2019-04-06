@@ -23,3 +23,6 @@ google-api-python-client~=1.7.7
 
 # google example uses this adapter for mysql
 pymysql
+
+# handles storage of files from models in google storage bucket
+django-storages[google]
