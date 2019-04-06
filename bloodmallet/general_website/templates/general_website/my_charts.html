@@ -1,10 +1,11 @@
 {% extends 'general_website/layout/base.html' %}
+
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-<h1>{% trans 'My Charts' %}{% if queries %} <small class="text-muted">In query: {{ queries }}</small>{% endif %}</h1>
+<h1>{% trans 'My Charts' %}{% if queue %} <small class="text-muted">{% trans 'In queue' %}: {{ queue }}</small>{% endif %}</h1>
 
 <p>{% trans 'A list of your own charts' %}</p>
 
@@ -34,6 +35,5 @@
         {% endfor %}
     </div>
 </div>
-
 
 {% endblock %}
