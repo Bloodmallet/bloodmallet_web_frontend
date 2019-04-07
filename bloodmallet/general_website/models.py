@@ -214,11 +214,11 @@ def put_in_queue(sender, instance, created, *args, **kwargs):
     """
 
     if created:
-        Queue.objects.create( # pylint: disable=no-member
-            simulation=instance,
-            state=QueueState.PENDING,
-            progress=0
+        logger.debug('Creating Queue object.')
+        queue = Queue(     # pylint: disable=no-member
+            simulation=instance, state=QueueState.PENDING.name, progress=0
         )
+        queue.save()
 
 
 class QueueState(Enum):
