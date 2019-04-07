@@ -69,16 +69,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 import pymysql
 pymysql.install_as_MySQLdb()
-from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
+from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
+        'NAME': LIVE_DB_NAME,
+        'USER': LIVE_DB_USER,
+        'PASSWORD': LIVE_DB_PASSWORD,
         'OPTIONS': {
             'charset': 'utf8mb4'
         },

@@ -141,3 +141,5 @@ AUTH_USER_MODEL = 'general_website.User'
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
+
+from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY
