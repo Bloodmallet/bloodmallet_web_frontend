@@ -424,6 +424,8 @@ def my_charts(request):
         [type] -- [description]
     """
 
+    logger.debug('called')
+
     context = {}
 
     simulations = request.user.simulations.filter(result__uuid__isnull=False)
@@ -439,6 +441,7 @@ def my_charts(request):
 def chart(request, chart_id):
     """Shows one chart
     """
+    logger.debug('called')
 
     context = {}
 
@@ -460,6 +463,7 @@ def chart(request, chart_id):
 def delete_chart(request, chart_id):
     """Enables the chart owner and superuser to delete charts.
     """
+    logger.debug('called')
 
     message = ""
 
@@ -489,6 +493,7 @@ def delete_chart(request, chart_id):
 def add_charts(request):
     """Allows the user to create charts.
     """
+    logger.debug('called')
 
     context = {}
 
