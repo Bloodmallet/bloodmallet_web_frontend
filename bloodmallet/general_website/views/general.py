@@ -428,7 +428,7 @@ def my_charts(request):
 
     context = {}
 
-    simulations = request.user.simulations.filter(result__uuid__isnull=False)
+    simulations = request.user.simulations.filter(result__isnull=False)
     context['charts'] = simulations
 
     queue = request.user.simulations.filter(queue__state=QueueState.PENDING).count()
