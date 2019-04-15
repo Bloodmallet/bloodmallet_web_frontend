@@ -189,6 +189,9 @@ class Simulation(models.Model):
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
     simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='simulations')
     fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='simulations')
+    uuid = models.UUIDField(
+        default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
+    )
     name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
     character_input = models.TextField(
         max_length=2048,
@@ -212,7 +215,6 @@ class Simulation(models.Model):
 def put_in_queue(sender, instance, created, *args, **kwargs):
     """Whenever a new simulation is created, it's added to the query.
     """
-
     if created:
         logger.debug('Creating Queue object.')
         queue = Queue(     # pylint: disable=no-member
@@ -254,7 +256,7 @@ def save_simulation_result(instance, filename) -> str:
         str -- [description]
     """
 
-    return "{}/".format(instance.simulation.user.id)
+    return "{}".format(filename)
 
 
 class Result(models.Model):
@@ -262,9 +264,6 @@ class Result(models.Model):
     """
 
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
-    uuid = models.UUIDField(
-        default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
-    )
     result = models.FileField(upload_to=save_simulation_result)
     simc_hash = models.CharField(
         max_length=40,
