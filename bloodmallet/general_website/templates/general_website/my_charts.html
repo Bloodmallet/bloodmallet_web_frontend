@@ -27,8 +27,8 @@
                 <p class="card-text">{{ chart.simulation_type }}</p>
                 <p class="card-text">{{ chart.wow_spec }} {{ chart.wow_class }}</p>
                 <p class="card-text">{{ chart.fight_style }}</p>
-                <a href="{% url 'chart' chart.result.uuid %}" class="btn btn-primary">{% trans 'Load Chart' %}</a>
-                <a href="{% url 'delete_chart' chart.result.uuid %}"
+                <a href="{% url 'chart' chart.uuid %}" class="btn btn-primary">{% trans 'Load Chart' %}</a>
+                <a href="{% url 'delete_chart' chart.uuid %}"
                     class="btn btn-primary">{% trans 'Delete Chart' %}</a>
             </div>
         </div>

@@ -446,11 +446,11 @@ def chart(request, chart_id):
     context = {}
 
     try:
-        simulation = Simulation.objects.get(result__uuid=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(uuid=chart_id)     # pylint: disable=no-member
     except Simulation.DoesNotExist:     # pylint: disable=no-member
         simulation = None
     except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
-        simulation = Simulation.objects.filter(result__uuid=chart_id).first()     # pylint: disable=no-member
+        simulation = Simulation.objects.filter(uuid=chart_id).first()     # pylint: disable=no-member
     except Exception:
         logger.exception('Chart_id crashed Simulation object look-up.')
         simulation = None
