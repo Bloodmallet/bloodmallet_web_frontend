@@ -95,4 +95,5 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 # google cloud storage
 from .secrets import DEV_BUCKET_NAME, DEV_CREDENTIALS
 GS_BUCKET_NAME = DEV_BUCKET_NAME
-GS_CREDENTIALS = DEV_CREDENTIALS
+from google.oauth2 import service_account
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(DEV_CREDENTIALS)
