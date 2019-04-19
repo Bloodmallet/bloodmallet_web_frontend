@@ -18,9 +18,9 @@ def error(request, code: int = 404, message: str = _("Page not found")):
 
 
 # define custom error pages
-def handler404(request, exception, template_name='general_website/error.html'):
+def handler404(request, exception=None, template_name='general_website/error.html'):
     return error(request, 404, _("Page not found"))
 
 
-def handler500(request, exception, template_name='general_website/error.html'):
+def handler500(request, exception=None, template_name='general_website/error.html'):
     return error(request, 500, _("Something went wrong. Try again later"))
