@@ -5,7 +5,10 @@ from .common import *     # pylint: disable=unused-wildcard-import
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['dev.bloodmallet.com']
+ALLOWED_HOSTS = [
+    'dev.bloodmallet.com',
+    'bloodmallet.com',
+]
 
 # logging
 LOGGING = {
