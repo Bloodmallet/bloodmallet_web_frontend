@@ -1,18 +1,24 @@
 {% extends 'general_website/layout/base.html' %}
+
+{% load static %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 
 {% block content %}
 
-<h1>{% trans 'bloodmallet' %}</h1>
+<h1 class=" display-4 mb-3 text-center">{% trans 'bloodmallet' %}</h1>
 
-<p>Something should be here but is not implemented yet</p>
+{% if chart.name %}<h3>{{ chart.name }}</h3>{% endif %}
+<p>{% trans 'Author' %}: {{ chart.user }}</p>
 
-{% if chart %}
-But data was found, at least
-{% else %}
-No data for that ID found
-{% endif %}
 
+<div id="chart" class="bloodmallet_chart" data-wow-class="shaman" data-wow-spec="elemental" data-chart-id="{{ chart.uuid }}" data-language="{{ LANGUAGE_CODE }}"></div>
+
+
+{% endblock %}
+
+{% block extraimport %}
+
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+{% include 'general_website/layout/chart_import.html' %}
 
 {% endblock %}
