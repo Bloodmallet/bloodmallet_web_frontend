@@ -6,16 +6,15 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 
-from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType, Queue, QueueState
+from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType, Queue, QueueState, GeneralResult
 from general_website.forms import SimulationCreationForm
 
 from random import randint
 
+import json
 import logging
 
 logger = logging.getLogger(__name__)
-
-# ?
 
 # support
 
@@ -443,18 +442,72 @@ def chart(request, chart_id):
     context = {}
 
     try:
-        simulation = Simulation.objects.get(uuid=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(uuid=chart_id, result__isnull=False)     # pylint: disable=no-member
     except Simulation.DoesNotExist:     # pylint: disable=no-member
         simulation = None
     except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
+        # this...shouldn't happen
+        logger.warning('Multiple Simulations have the same uuid {}'.format(chart_id))
         simulation = Simulation.objects.filter(uuid=chart_id).first()     # pylint: disable=no-member
     except Exception:
-        logger.exception('Chart_id crashed Simulation object look-up.')
+        logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
         simulation = None
 
     context['chart'] = simulation
 
     return render(request, 'general_website/chart.html', context=context)
+
+
+def get_chart_data(
+    request,
+    chart_id=None,
+    simulation_type=None,
+    fight_style=None,
+    wow_class=None,
+    wow_spec=None,
+) -> JsonResponse:
+    """Return Chart data
+    """
+    logger.debug('called')
+
+    if chart_id:
+        try:
+            simulation = Simulation.objects.get(uuid=chart_id, result__isnull=False)     # pylint: disable=no-member
+        except Simulation.DoesNotExist:     # pylint: disable=no-member
+            simulation = None
+        except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
+            # this...shouldn't happen
+            logger.warning('Multiple Simulations have the same uuid {}'.format(chart_id))
+            simulation = Simulation.objects.filter(uuid=chart_id).first()     # pylint: disable=no-member
+        except Exception:
+            logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
+            simulation = None
+
+        data = simulation.result.result
+
+        json_data = json.load(data)
+
+        return JsonResponse(data=json_data)
+
+    elif simulation_type and fight_style and wow_class and wow_spec:
+        try:
+            simulation = GeneralResult.objects.get(    # pylint: disable=no-member
+                wow_class__tokenized_name=wow_class,
+                wow_spec__tokenized_name=wow_spec,
+                simulation_type__command=simulation_type,
+                fight_style__tokenized_name=fight_style,
+            )
+        except GeneralResult.DoesNotExist:     # pylint: disable=no-member
+            return JsonResponse(data={'status': 'error', 'message': _("No standard chart with these values found.")})
+
+        data = simulation.result.result
+
+        json_data = json.load(data)
+
+        return JsonResponse(data=json_data)
+
+    else:
+        return JsonResponse(data={'status': 'error', 'message': _("Incomplete data, either provide uuid or look for a standard chart.")})
 
 
 def delete_chart(request) -> JsonResponse:
