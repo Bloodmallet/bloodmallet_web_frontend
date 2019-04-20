@@ -26,3 +26,6 @@ pymysql
 
 # handles storage of files from models in google storage bucket
 django-storages[google]
+
+# add DB models to translations
+django-vinaigrette

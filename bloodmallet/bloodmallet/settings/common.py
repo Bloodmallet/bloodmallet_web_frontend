@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     'sass_processor',
     'bootstrap4',     # TODO: probably remove
     'crispy_forms',
-    'general_website',
-    'compute_api',
+    'vinaigrette',
+    'general_website.apps.GeneralWebsiteConfig',
+    'compute_api.apps.ComputeApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'bloodmallet.urls'
