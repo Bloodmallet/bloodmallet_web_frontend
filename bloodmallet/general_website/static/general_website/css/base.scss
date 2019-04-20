@@ -72,6 +72,12 @@ $input-border-color:    $light-color;
 $card-bg: $body-bg;
 $card-border-color: $light-color;
 
+// modal style override
+$close-color: $lightest-color;
+$modal-content-bg: $body-bg;
+$modal-content-border-color: $light-color;
+$modal-header-border-color: $light-color;
+
 @import "general_website/bootstrap/scss/bootstrap";
 
 // container for primary page content

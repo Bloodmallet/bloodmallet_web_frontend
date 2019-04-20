@@ -460,12 +460,19 @@ def chart(request, chart_id):
     return render(request, 'general_website/chart.html', context=context)
 
 
-def delete_chart(request, chart_id) -> JsonResponse:
+def delete_chart(request) -> JsonResponse:
     """Enables the chart owner and superuser to delete charts.
     """
     logger.debug('called')
 
     message = ""
+
+    chart_id = None
+    if request.method == 'POST':
+        chart_id = request.POST.get('chart_id', None)
+
+    if not chart_id:
+        return JsonResponse(data={'status': 'error', 'message': _("Chart deletion works only with POST and if chart_id is provided.")})
 
     try:
         simulation = Simulation.objects.get(uuid=chart_id)     # pylint: disable=no-member
