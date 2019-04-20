@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 # Create your models here.
 class User(AbstractUser):
-    bloodytext = models.CharField(max_length=10, null=True, blank=True)
+    bloodytext = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.username     # pylint: disable=no-member
@@ -242,7 +242,7 @@ class Queue(models.Model):
     log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
 
     def __str__(self):
-        return "{}".format(self.simulation)
+        return "{} {}".format(self.simulation, self.state)
 
 
 def save_simulation_result(instance, filename) -> str:
@@ -256,7 +256,7 @@ def save_simulation_result(instance, filename) -> str:
         str -- [description]
     """
 
-    return "{}".format(filename)
+    return "{}.json".format(instance.simulation.uuid)
 
 
 class Result(models.Model):
@@ -275,7 +275,7 @@ class Result(models.Model):
     # file upload/save: https://cloud.google.com/python/getting-started/using-cloud-storage
 
     def __str__(self):
-        return self.simulation
+        return "{}".format(self.simulation)
 
 
 class GeneralResult(models.Model):
@@ -288,4 +288,4 @@ class GeneralResult(models.Model):
     result = models.OneToOneField(Result, on_delete=models.CASCADE, related_name='general_result')
 
     def __str__(self):
-        return self.result.simulation     # pylint: disable=no-member
+        return "{}".format(self.result.simulation)     # pylint: disable=no-member
