@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
@@ -430,10 +431,6 @@ def my_charts(request):
 
     simulations = request.user.simulations.filter(result__isnull=False)
     context['charts'] = simulations
-
-    queue = request.user.simulations.filter(queue__state=QueueState.PENDING).count()
-    if queue > 0:
-        context['queue'] = queue
 
     return render(request, 'general_website/my_charts.html', context=context)
 

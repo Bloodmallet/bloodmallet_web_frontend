@@ -5,9 +5,9 @@
 
 {% block content %}
 
-<h1>{% trans 'My Charts' %}{% if queue %} <small class="text-muted">{% trans 'In queue' %}: {{ queue }}</small>{% endif %}</h1>
+<h1>{% trans 'My Charts' %}</h1>
 
-<p>{% trans 'A list of your own charts' %}</p>
+<p class="text-muted">{% trans 'A list of my charts' %}</p>
 
 <div class="row">
 
@@ -34,10 +34,11 @@
         </div>
     </div>
     {% endfor %}
+
 </div>
 
 
-
+{% comment %} Deletion modal {% endcomment %}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -64,8 +65,8 @@
 <script>
 
     $('#deleteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var chart_id = button.data('value');
+        let button = $(event.relatedTarget);    // Button that triggered the modal
+        let chart_id = button.data('value');
         $('#real_delete_button').val(chart_id);
         $('#real_delete_button').removeClass('disabled');
         $('#real_delete_button').click(function() {
