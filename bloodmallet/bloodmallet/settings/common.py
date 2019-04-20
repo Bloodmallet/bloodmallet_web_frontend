@@ -145,3 +145,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
 from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+
+STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
