@@ -9,10 +9,10 @@
 
 <p>{% trans 'A list of your own charts' %}</p>
 
-<div class="row no-gutters">
+<div class="row">
 
-    <div class="col-4">
-        <div class="card text-center">
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="card text-center h-100">
             <div class="card-body">
                 <h5 class="card-title">{% trans 'New Chart' %}</h5>
                 <a href="{% url 'add_charts' %}" class="btn btn-primary mt-3 pt-3 pb-3 pl-4 pr-4">+</a>
@@ -21,12 +21,12 @@
     </div>
 
     {% for chart in charts %}
-    <div class="col-4" id="card_{{ chart.uuid }}">
+    <div class="col-12 col-sm-6 col-md-4" id="card_{{ chart.uuid }}">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body text-center">
                 <h5 class="card-title">{{ chart.name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ chart.result.created_at }}</h6>
-                <p class="card-text">{{ chart.simulation_type }} {{ chart.fight_style }}<br/>
+                <p class="card-text">{{ chart.simulation_type }} | {{ chart.fight_style }}<br/>
                 {{ chart.wow_spec.name }} {{ chart.wow_class }}</p>
                 <a href="{% url 'chart' chart.uuid %}" class="btn btn-primary">{% trans 'View' %}</a>
                 <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.uuid }}" id="delete_button_{{ chart.uuid }}">{% trans 'Delete' %}</button>
