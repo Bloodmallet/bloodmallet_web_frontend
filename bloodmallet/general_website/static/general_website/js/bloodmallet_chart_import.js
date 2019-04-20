@@ -93,7 +93,7 @@ function bloodmallet_chart_import() {
 
   const debug = true;
 
-  const path_to_data = "http://127.0.0.1:8000/chart/get/";
+  const path_to_data = "https://dev.bloodmallet.com/chart/get/";
 
 
   /**
