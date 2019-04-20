@@ -36,13 +36,7 @@
 
 {% block content %}
 
-<h1 class="display-4 text-center" id="primary_headline">bloodmallet</h1>
-
-{% comment %}
-    {% if not request.user.is_authenticated %}
-    {% else %}
-    {% endif %}
-{% endcomment %}
+<h1 class="display-4 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
 <p id="translate_main_paragraph">
 {% blocktrans %}
@@ -122,8 +116,9 @@ are an entry point. For indepth information about your spec use your theorycraft
 <script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
 <script src="{% static 'general_website/js/class_spec_table.js' %}"></script>
 <script src="{% static 'general_website/js/chart_options.js' %}"></script>
-<script src="https://wow.zamimg.com/widgets/power.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="{% static 'general_website/js/bloodmallet_chart_import.js' %}"></script>
+
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+{% include 'general_website/layout/chart_import.html' %}
+
 <script src="{% static 'general_website/js/index.js' %}"></script>
 {% endblock %}
