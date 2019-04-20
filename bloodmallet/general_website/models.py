@@ -289,3 +289,11 @@ class GeneralResult(models.Model):
 
     def __str__(self):
         return "{}".format(self.result.simulation)     # pylint: disable=no-member
+
+    class Meta:
+        unique_together = ((
+            'wow_class',
+            'wow_spec',
+            'simulation_type',
+            'fight_style',
+        ),)
