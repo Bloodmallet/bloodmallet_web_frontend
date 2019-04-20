@@ -22,9 +22,9 @@
 
     {% for chart in charts %}
     <div class="col-12 col-sm-6 col-md-4" id="card_{{ chart.uuid }}">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-body text-center">
-                <h5 class="card-title">{{ chart.name }}</h5>
+                <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans 'No name' %}</span>{% endif %}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ chart.result.created_at }}</h6>
                 <p class="card-text">{{ chart.simulation_type }} | {{ chart.fight_style }}<br/>
                 {{ chart.wow_spec.name }} {{ chart.wow_class }}</p>
