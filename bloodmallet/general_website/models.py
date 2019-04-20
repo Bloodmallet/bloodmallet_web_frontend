@@ -210,6 +210,9 @@ class Simulation(models.Model):
             simulation_type=self.simulation_type, wow_spec=self.wow_spec, fight_style=self.fight_style
         )
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 @receiver(post_save, sender=Simulation)
 def put_in_queue(sender, instance, created, *args, **kwargs):
