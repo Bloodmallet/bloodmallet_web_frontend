@@ -460,7 +460,7 @@ def chart(request, chart_id):
     return render(request, 'general_website/chart.html', context=context)
 
 
-def delete_chart(request, chart_id):
+def delete_chart(request, chart_id) -> JsonResponse:
     """Enables the chart owner and superuser to delete charts.
     """
     logger.debug('called')
@@ -468,7 +468,7 @@ def delete_chart(request, chart_id):
     message = ""
 
     try:
-        simulation = Simulation.objects.get(result__uuid=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(uuid=chart_id)     # pylint: disable=no-member
     except Exception:
         message = _("An error occured while trying to delete a chart.")
         simulation = None
