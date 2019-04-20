@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-01 20:40+0200\n"
+"POT-Creation-Date: 2019-04-20 15:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,321 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\general_website\models.py:190
+#: .\compute_api\models.py:20
+msgid "booting up"
+msgstr ""
+
+#: .\compute_api\models.py:21
+msgid "idle"
+msgstr ""
+
+#: .\compute_api\models.py:22
+msgid "calculating"
+msgstr ""
+
+#: .\compute_api\models.py:23 .\general_website\models.py:229
+msgid "done"
+msgstr ""
+
+#: .\compute_api\templates\compute_api\index.html:34
+#: .\compute_api\templates\compute_api\index.html:51
+msgid "Generation in progress"
+msgstr ""
+
+#: .\compute_api\templates\compute_api\index.html:71
+msgid "Deleting ALL instances"
+msgstr ""
+
+#: .\general_website.Faction/name:1
+msgid "Alliance"
+msgstr ""
+
+#: .\general_website.Faction/name:2
+msgid "Horde"
+msgstr ""
+
+#: .\general_website.FightStyle/pretty_name:1
+#: .\general_website\templates\general_website\index.html:76
+msgid "Patchwerk"
+msgstr ""
+
+#: .\general_website.FightStyle/pretty_name:2
+msgid "Hectic Add Cleave"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:1
+msgid "Draenei"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:2
+msgid "Dwarf"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:3
+msgid "Gnome"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:4
+msgid "Human"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:5
+msgid "Night Elf"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:6
+msgid "Pandaren"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:7
+msgid "Worgen"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:8
+msgid "Void Elf"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:9
+msgid "Lightforged Draenei"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:10
+msgid "Dark Iron Dwarf"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:11
+msgid "Kul Tiran"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:12
+msgid "Blood Elf"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:13
+msgid "Goblin"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:14
+msgid "Orc"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:16
+msgid "Tauren"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:17
+msgid "Troll"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:18
+msgid "Undead"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:19
+msgid "Nightborne"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:20
+msgid "Highmountain Tauren"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:21
+msgid "Mag'har Orc"
+msgstr ""
+
+#: .\general_website.Race/pretty_name:22
+msgid "Zandalari Troll"
+msgstr ""
+
+#: .\general_website.SimulationType/name:1
+#: .\general_website\templates\general_website\index.html:66
+msgid "Trinkets"
+msgstr ""
+
+#: .\general_website.SimulationType/name:2
+#: .\general_website\templates\general_website\index.html:68
+msgid "Races"
+msgstr ""
+
+#: .\general_website.SimulationType/name:3
+msgid "Azerite Traits"
+msgstr ""
+
+#: .\general_website.SimulationType/name:4
+msgid "Secondary Distributions"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:1
+msgid "Death Knight"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:2
+msgid "Demon Hunter"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:3
+msgid "Druid"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:4
+msgid "Hunter"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:5
+msgid "Mage"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:6
+msgid "Monk"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:7
+msgid "Paladin"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:8
+msgid "Priest"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:9
+msgid "Rogue"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:10
+msgid "Shaman"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:11
+msgid "Warlock"
+msgstr ""
+
+#: .\general_website.WowClass/pretty_name:12
+msgid "Warrior"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:1
+msgid "Blood"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:2
+msgid "Frost"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:3
+msgid "Unholy"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:4
+msgid "Havoc"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:5
+msgid "Vengeance"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:6
+msgid "Feral"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:7
+msgid "Guardian"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:8
+msgid "Balance"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:9
+msgid "Beast Mastery"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:10
+msgid "Marksmanship"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:11
+msgid "Survival"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:12
+msgid "Arcane"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:13
+msgid "Fire"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:15
+msgid "Brewmaster"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:16
+msgid "Windwalker"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:17
+msgid "Protection"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:18
+msgid "Retribution"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:19
+msgid "Shadow"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:20
+msgid "Assassination"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:21
+msgid "Outlaw"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:22
+msgid "Subtlety"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:23
+msgid "Elemental"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:24
+msgid "Enhancement"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:25
+msgid "Affliction"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:26
+msgid "Demonology"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:27
+msgid "Destruction"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:28
+msgid "Arms"
+msgstr ""
+
+#: .\general_website.WowSpec/pretty_name:29
+msgid "Fury"
+msgstr ""
+
+#: .\general_website\models.py:195
 msgid "Name of the chart"
 msgstr ""
 
-#: .\general_website\models.py:194
+#: .\general_website\models.py:199
 msgid ""
 "Define your own character here, instead of using the standard profile (your "
 "input will overwrite the standard profile)."
 msgstr ""
 
-#: .\general_website\models.py:196
+#: .\general_website\models.py:201
 msgid "Define your own fight_style."
 msgstr ""
 
@@ -38,10 +342,6 @@ msgstr ""
 
 #: .\general_website\models.py:228
 msgid "in progress"
-msgstr ""
-
-#: .\general_website\models.py:229
-msgid "done"
 msgstr ""
 
 #: .\general_website\models.py:230
@@ -506,24 +806,12 @@ msgstr ""
 msgid "Data Type"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:66
-msgid "Trinkets"
-msgstr ""
-
 #: .\general_website\templates\general_website\index.html:67
 msgid "Azerite"
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:68
-msgid "Races"
-msgstr ""
-
 #: .\general_website\templates\general_website\index.html:74
 msgid "Fight Style"
-msgstr ""
-
-#: .\general_website\templates\general_website\index.html:76
-msgid "Patchwerk"
 msgstr ""
 
 #: .\general_website\templates\general_website\index.html:77
@@ -614,7 +902,7 @@ msgid "Connections"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_top.html:21
-#: .\general_website\templates\general_website\my_charts.html:7
+#: .\general_website\templates\general_website\my_charts.html:8
 msgid "My Charts"
 msgstr ""
 
@@ -628,7 +916,7 @@ msgid "Register"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_top.html:34
-msgid "Sims"
+msgid "Superuser"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_top.html:35
@@ -646,20 +934,49 @@ msgid ""
 "data is wiped regularly."
 msgstr ""
 
-#: .\general_website\templates\general_website\my_charts.html:9
+#: .\general_website\templates\general_website\my_charts.html:8
+msgid "In queue"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:10
 msgid "A list of your own charts"
 msgstr ""
 
-#: .\general_website\templates\general_website\my_charts.html:16
+#: .\general_website\templates\general_website\my_charts.html:17
 msgid "New Chart"
 msgstr ""
 
-#: .\general_website\templates\general_website\my_charts.html:29
-msgid "Load Chart"
+#: .\general_website\templates\general_website\my_charts.html:31
+msgid "View"
 msgstr ""
 
-#: .\general_website\templates\general_website\my_charts.html:31
-msgid "Delete Chart"
+#: .\general_website\templates\general_website\my_charts.html:32
+#: .\general_website\templates\general_website\my_charts.html:54
+msgid "Delete"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:45
+msgid "Delete Chart and Simulation data"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:51
+msgid ""
+"Are you sure you want to delete this chart? All associated data will be "
+"gone, too."
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:79
+#: .\general_website\templates\general_website\my_charts.html:89
+msgid "Deleting"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:95
+msgid "Deleted"
+msgstr ""
+
+#: .\general_website\templates\general_website\my_charts.html:100
+#: .\general_website\templates\general_website\my_charts.html:101
+msgid "Error"
 msgstr ""
 
 #: .\general_website\templates\general_website\portals.html:12
@@ -772,14 +1089,18 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:467
+#: .\general_website\views\general.py:475
+msgid "Chart deletion works only with POST and if chart_id is provided."
+msgstr ""
+
+#: .\general_website\views\general.py:480
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:474
+#: .\general_website\views\general.py:487
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:476
+#: .\general_website\views\general.py:489
 msgid "You don't have the permission for that action."
 msgstr ""
