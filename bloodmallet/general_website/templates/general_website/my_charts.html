@@ -9,18 +9,20 @@
 
 <p>{% trans 'A list of your own charts' %}</p>
 
-<div class="container-fluid">
-    <div class="row">
+<div class="row no-gutters">
 
-        <div class="card col-4 text-center mr-1">
+    <div class="col-4">
+        <div class="card text-center">
             <div class="card-body">
                 <h5 class="card-title">{% trans 'New Chart' %}</h5>
                 <a href="{% url 'add_charts' %}" class="btn btn-primary mt-3 pt-3 pb-3 pl-4 pr-4">+</a>
             </div>
         </div>
+    </div>
 
-        {% for chart in charts %}
-        <div class="card col-4">
+    {% for chart in charts %}
+    <div class="col-4">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ chart.name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ chart.result.created_at }}</h6>
@@ -32,8 +34,8 @@
                     class="btn btn-primary">{% trans 'Delete Chart' %}</a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
