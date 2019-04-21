@@ -275,8 +275,6 @@ class Result(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # file upload/save: https://cloud.google.com/python/getting-started/using-cloud-storage
-
     def __str__(self):
         return "{}".format(self.simulation)
 
