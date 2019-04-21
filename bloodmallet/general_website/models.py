@@ -285,7 +285,7 @@ class GeneralResult(models.Model):
     """Latest standard simulation result.
     """
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='general_results')
-    wow_spec = models.OneToOneField(WowSpec, on_delete=models.CASCADE, related_name='general_result')
+    wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='general_result')
     simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='general_results')
     fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='general_results')
     result = models.OneToOneField(Result, on_delete=models.CASCADE, related_name='general_result')
