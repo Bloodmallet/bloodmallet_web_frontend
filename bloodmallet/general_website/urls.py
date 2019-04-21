@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='index_empty'),
     path('index.html', views.index, name='index_long'),
     path('index', views.index, name='index'),
+    path('FAQ', views.faq, name='FAQ'),
     path('error', views.error, name='error'),
     path('my_charts', views.my_charts, name='my_charts'),
     path('chart/create', views.add_charts, name='add_charts'),

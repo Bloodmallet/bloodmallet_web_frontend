@@ -1,0 +1,146 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+<div class="offset-md-1 col-md-10">
+    <h2 id="what-is-bloodmallet" class="faq-question">What is bloodmallet.com?</h2>
+    <p>
+    bloodmallet.com offers DPS simulation data for everyone for World of Warcraft. Comparing different setups often requires
+    simulations. To ease this need for information bloodmallet.com offers a wide range of prepared simulation data.
+    This way you can get your overview a lot quicker and get back into the action faster. As with all prepared information,
+    the exact context of your character is missing and that can change the outcome. Therefore make sure to regularly
+    simulate your character yourself.
+    </p>
+    <p>If you enjoy this resource and want to see it continued, there are two options available to do so:</p>
+    <a href="https://www.patreon.com/bloodmallet" target="blank">
+    <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}"  height="42" style="vertical-align: text-top;" />
+    </a>
+    <p>or support the project on
+    <a href="https://www.paypal.me/bloodmallet" target="blank">PayPal</a>
+    </p>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="data-generation" class="faq-question">How is the data generated?</h2>
+    <p>
+    <a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a> is used to generate all the data you can find here. Creating the required input to run SimulationCraft
+    and managing the process is done by
+    <a href="https://github.com/Bloodmallet/bloodytools" target="blank">bloodytools</a>.
+    </p>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="generation-settings" class="faq-question">What settings are used to create the data?</h2>
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Setting</th>
+        <th scope="col">Patchwerk</th>
+        <th scope="col">HecticAddCleave</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <th scope="row">Profile/Tier</th>
+        <td>Dazar'Alor(T23)</td>
+        <td>Dazar'Alor(T23)</td>
+        </tr>
+        <tr>
+        <th scope="row">Iterations</th>
+        <td>20000 (sufficient to reach target_error)</td>
+        <td>20000 (sufficient to reach target_error)</td>
+        </tr>
+        <tr>
+        <th scope="row">Target Error</th>
+        <td>0.2%</td>
+        <td>0.2%</td>
+        </tr>
+        <tr>
+        <th scope="row">Max Time</th>
+        <td>300 seconds</td>
+        <td>300 seconds</td>
+        </tr>
+        <tr>
+        <th scope="row">Vary Combat Length</th>
+        <td>20%</td>
+        <td>20%</td>
+        </tr>
+        <tr>
+        <th scope="row">Fixed Time</th>
+        <td>true</td>
+        <td>true</td>
+        </tr>
+        <tr>
+        <th scope="row">Default Actions</th>
+        <td>true</td>
+        <td>true</td>
+        </tr>
+        <tr>
+        <th scope="row">Optimize Expressions</th>
+        <td>true</td>
+        <td>true</td>
+        </tr>
+        <tr>
+        <th scope="row">Ready Trigger</th>
+        <td>true</td>
+        <td>true</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="up-to-date" class="faq-question">Are the charts up to date?</h2>
+    <p>
+    Please check the time stamp at the top of each chart. I'm trying my best to keep all charts as up to date as possible. But
+    please understand that generating this massive amount of data takes quite some time. With enough support via
+    <a href="https://www.patreon.com/bloodmallet" target="blank">Patreon</a> I'm going to be able to run these simulations in the cloud, allowing a better update circle.
+    </p>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="trusting-these-charts" class="faq-question">Can I trust these charts?</h2>
+    <p>
+    Yes-ish - they offer an overview. Your own equipment (e.g. azerite traits and trinkets) and talents make your character unique.
+    Therefore, simming your own character is the most effective way to know which performs best. Try out <a href="https://www.raidbots.com/">Raidbots</a>, if you haven't yet. And of course: listen
+    to your theorycrafters! General information can get you only so far.
+    </p>
+</div>
+<!--<div class="offset-md-1 col-md-10">
+    <h2 id="additional_effects" class="faq-question">What does +5/+10 mean?</h2>
+    <p>
+    These traits have a special additional effect within their raid. While fighting in that raid you can unlock different power levels of that additional effect. Within Uldir you need to kill 3 bosses per week to unlock one stack of <a href="https://www.wowhead.com/spell=280573/reorigination-array">Reorigination Array</a> up to 10 stacks. This effect doesn't increase with having multiple raid specific traits active at the same time. +5 and +10 means that 5 or 10 stacks of that additional effect are active.
+    </p>
+</div>-->
+<div class="offset-md-1 col-md-10">
+    <h2 id="contributors" class="faq-question">Who contributed?</h2>
+    <p>A big shout out to everyone who took part in the journey to reach this point. Without your feedback bloodmallet.com
+    wouldn't be as smooth as it is. All feedback is highly appreciated, so share your opinion on Twitter
+    <a href="https://twitter.com/bloodmallet" target="blank">@bloodmallet</a>! Special mentions go to:</p>
+    <ul type="square">
+    <li>
+        <a href="https://github.com/bhalial" target="blank">bhalial</a> for creating the logo</li>
+    <li>
+        <a href="https://github.com/HawkCorrigan" target="blank">HawkCorrigan</a> for double-checking js code</li>
+    </ul>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="azerite-itemlevel-chart" class="faq-question">Why do traits grow stronger with increasing itemlevel in the itemlevel azerite chart?</h2>
+    <p>That's primarly the effect of me including the actual item in that dps value too. That means: not only the trait is scaled to that itemlevel but the profile has the matching primary stat increase too.</p>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="spike-in-chart" class="faq-question">Why do I see a spike in the chart?</h2>
+    <p>Are you talking about something like this?<br/>
+    <img src="{% static 'general_website/assets/faq_chart_spike.PNG' %}" alt="Suddenly a 'higher' dps value in the lower area of the chart" style="float:left;"/>This indicates a negative dps value for the entry of that bar. A negative dps value can happen if an actual dps loss occurs due to an APL issue or a bug in SimulationCraft. I'm NOT filtering these out, in hope that they'll be noticed and then somehow fixed. This means for you to ignore this bar for now and keep an eye out for data updates in the future. Or to dig into it and find out what's wrong, so it can be fixed.</p>
+</div>
+<div class="offset-md-1 col-md-10">
+    <h2 id="data-usage" class="faq-question">Can I use the charts/data from bloodmallet.com?</h2>
+    <p>Yes! Of course! All data is free to use for everyone. Just one suggestion: Don't take screenshots from charts to
+    show data. Screenshots tend to quickly become outdated.
+
+    Instead have a look at this <a href="https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data">chart importer</a>. With this you can very easily add any chart you want to your page directly and always get the most up to date information. A shoutout to where you get the data from and some support would be appreciated.
+    Or: Link directly to
+    <code>bloodmallet.com/index.html#shaman_elemental</code> and let your users view the charts here.</p>
+</div>
+</div>
+{% endblock %}

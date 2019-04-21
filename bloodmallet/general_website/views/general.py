@@ -52,6 +52,12 @@ def index(request):
     return render(request, 'general_website/index.html', context=context)
 
 
+def faq(request):
+    """Return plain FAQ page
+    """
+    return render(request, 'general_website/faq.html')
+
+
 def portals(request):
     """View to show all available teleporters and where to find them.
 
