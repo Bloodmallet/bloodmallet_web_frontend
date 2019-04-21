@@ -91,7 +91,7 @@ function bloodmallet_chart_import() {
    * The toggles you want are all above this section.
    */
 
-  const debug = true;
+  const debug = false;
 
   const path_to_data = "https://dev.bloodmallet.com/chart/get/";
 
