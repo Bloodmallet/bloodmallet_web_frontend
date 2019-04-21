@@ -11,7 +11,7 @@
 
 <div class="row">
 
-    <div class="col-12 col-sm-6 col-md-4">
+    <div class="col-12 col-sm-6 col-md-4 mb-3">
         <div class="card text-center h-100">
             <div class="card-body">
                 <h5 class="card-title">{% trans 'New Chart' %}</h5>
@@ -21,7 +21,7 @@
     </div>
 
     {% for chart in charts %}
-    <div class="col-12 col-sm-6 col-md-4" id="card_{{ chart.uuid }}">
+    <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.uuid }}">
         <div class="card h-100">
             <div class="card-body text-center">
                 <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans 'No name' %}</span>{% endif %}</h5>
