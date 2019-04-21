@@ -8,15 +8,9 @@
 
 
 <form method="post" action="{% url 'add_charts' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
+    {% crispy form %}
 
-
-    <button type="submit" class="btn btn-primary">{% trans "Create Chart" %}</button>
     <small id="dataDisclaimer" class="form-text text-muted">{% trans "Chart creation will take a while (stuff needs to be simulated)." %}</small>
 </form>
-
-
-
 
 {% endblock %}
