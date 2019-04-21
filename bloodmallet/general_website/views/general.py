@@ -428,7 +428,9 @@ def my_charts(request):
 
     context = {}
 
-    simulations = request.user.simulations.filter(result__isnull=False)
+    simulations = request.user.simulations.filter(
+        result__isnull=False, failed=False
+    ).exclude(name__icontains=settings.STANDARD_CHART_NAME)
     context['charts'] = simulations
 
     return render(request, 'general_website/my_charts.html', context=context)
