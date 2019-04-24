@@ -405,10 +405,17 @@ function bloodmallet_chart_import() {
         return;
       } else {
         spec_data = loaded_data["c" + chart_id];
-        data_type = spec_data['data_type'];
         wow_class = spec_data['simc_settings']['class'];
         wow_spec = spec_data['simc_settings']['spec'];
         fight_style = spec_data['simc_settings']['fight_style'];
+
+        if (spec_data['data_type'] === 'azerite_traits') {
+          if (data_type.indexOf('azerite_items') === -1) {
+            data_type = "azerite_traits_stacking";
+          }
+        } else {
+          data_type = spec_data['data_type'];
+        }
       }
     } else {
       try {
