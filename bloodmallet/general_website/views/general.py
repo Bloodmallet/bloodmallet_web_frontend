@@ -572,7 +572,7 @@ def add_charts(request):
             simulation.wow_class = simulation.wow_spec.wow_class
 
             simulation.save()
-            messages.success(request, "A chart was added to the query. Simulations will start soon.")
+            messages.success(request, "A chart was added to the queue. Simulations will start soon.")
 
             return redirect('my_charts')
 
@@ -582,4 +582,4 @@ def add_charts(request):
 
     context['form'] = form
 
-    return render(request, 'general_website/add_charts.html', context=context)
+    return render(request, 'general_website/add_chart.html', context=context)
