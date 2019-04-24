@@ -566,7 +566,7 @@ def add_charts(request):
 
         form = SimulationCreationForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and request.user.can_create_chart:
             simulation = form.save(commit=False)
             simulation.user = request.user
             simulation.wow_class = simulation.wow_spec.wow_class
@@ -575,6 +575,8 @@ def add_charts(request):
             messages.success(request, "A chart was added to the queue. Simulations will start soon.")
 
             return redirect('my_charts')
+        elif not request.user.can_create_chart:
+            messages.info(request, _("You don't have permission to create a chart."))
 
     else:
 

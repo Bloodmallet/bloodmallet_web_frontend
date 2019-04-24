@@ -25,6 +25,16 @@ class User(AbstractUser):
     def __str__(self):
         return self.username     # pylint: disable=no-member
 
+    @property
+    def can_create_chart(self) -> bool:
+        if self.is_superuser:
+            return True
+        if self.is_staff:
+            return True
+        if self.groups.filter(name='alpha_tester').exists():     # pylint: disable=no-member
+            return True
+        return False
+
 
 @receiver([pre_social_login, social_account_updated])
 def update_pledge_level(sender, sociallogin, **kwargs):
