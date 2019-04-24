@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load bootstrap4 %}
 
 <!DOCTYPE html>
 <html>
@@ -30,7 +29,7 @@
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-10">
                     <div class="pt-3"></div>
-                    {% bootstrap_messages %}
+                    {% include 'general_website/layout/messages.html' %}
                     {% block content %}
                     {% endblock %}
                 </div>

@@ -4,22 +4,20 @@
 # Make sure to use 'python -m pip install --upgrade pip setuptools wheel' before trying to use 'pip install -U -r requirements.txt'
 
 Django~=2.1.2
-django-allauth~=0.38.0
-requests~=2.20.1
+django-allauth
+requests
 
 # libsass is not required on the production environment, if SASS/SCSS files have been precompiled and deployed using offline compilation.
-libsass~=0.15.1
+libsass
 # django-compressor is required only for offline compilation, when using the command manage.py compilescss.
-django-compressor~=2.2
-django-sass-processor~=0.7.1
+django-compressor
+django-sass-processor
 
 # autogenerate forms
-django-crispy-forms~=1.7.2
-# not necessarily required, but might be used in the future
-django-bootstrap4~=0.0.7
+django-crispy-forms
 
 # google api for the secret app
-google-api-python-client~=1.7.7
+google-api-python-client
 
 # google example uses this adapter for mysql
 pymysql

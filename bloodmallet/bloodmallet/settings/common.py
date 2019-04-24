@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.patreon',
     'sass_processor',
-    'bootstrap4',     # TODO: probably remove
     'crispy_forms',
     'vinaigrette',
     'general_website.apps.GeneralWebsiteConfig',
@@ -148,3 +147,13 @@ LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
 
 STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
+
+# adjust messages tags to match bootstrap
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

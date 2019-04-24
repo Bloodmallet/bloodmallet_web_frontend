@@ -44,7 +44,7 @@ $secondary:     $light-color !default;
 $success:       $class-color-monk !default;
 $info:          $class-color-mage !default;
 $warning:       $class-color-rogue !default;
-$danger:        $class-color-death-knight !default;
+$danger:        $class-color-druid !default;
 $light:         $lightest-color !default;
 $dark:          $dark-color !default;
 
@@ -77,6 +77,8 @@ $close-color: $lightest-color;
 $modal-content-bg: $body-bg;
 $modal-content-border-color: $light-color;
 $modal-header-border-color: $light-color;
+
+$alert-border-width: 5px;
 
 @import "general_website/bootstrap/scss/bootstrap";
 
@@ -356,4 +358,35 @@ select::-ms-expand {
 // ensure that highchart tooltips are in the front
 .highcharts-tooltip {
     z-index: 400;
-  }
+}
+
+.close {
+    color: $lightest-color;
+}
+
+// Alternate styles
+//
+// Generate contextual modifier classes for colorizing the alert.
+@mixin alert-variant($background, $border, $color) {
+    color: $color;
+    background: transparent; //$color;
+    border-color: $border;
+
+    hr {
+        border-top-color: darken($border, 5%);
+    }
+
+    .alert-link {
+        color: darken($color, 10%);
+    }
+}
+
+@each $color, $value in $theme-colors {
+    .alert-#{$color} {
+        @include alert-variant($value, $value, $value);
+    }
+}
+
+.alert {
+    font-weight: 600;
+}
