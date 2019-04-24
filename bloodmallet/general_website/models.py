@@ -193,7 +193,7 @@ class Simulation(models.Model):
         default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
     )
     name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
-    character_input = models.TextField(
+    custom_profile = models.TextField(
         max_length=2048,
         blank=True,
         help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile).")

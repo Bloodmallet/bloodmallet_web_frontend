@@ -56,7 +56,7 @@ class SimulationCreationForm(forms.ModelForm):
             'wow_spec',
             'simulation_type',
             'fight_style',
-            'character_input',
+            'custom_profile',
         )
 
         # widgets = {
@@ -80,6 +80,6 @@ class SimulationCreationForm(forms.ModelForm):
                 Div(Field('fight_style'), css_class='col-12 col-md-6'),
                 css_class='row'
             ),
-            Div(Div(Field('character_input'), css_class='col-12'), css_class='row'),
+            Div(Div(Field('custom_profile'), css_class='col-12'), css_class='row'),
             StrictButton(_("Create Chart"), css_class="btn btn-primary")
         )
