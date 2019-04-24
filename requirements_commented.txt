@@ -27,3 +27,6 @@ django-storages[google]
 
 # add DB models to translations
 django-vinaigrette
+
+# hopefully enables us to deliver json data to foreigners
+django-cors-headers

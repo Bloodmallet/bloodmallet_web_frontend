@@ -9,3 +9,4 @@ google-api-python-client
 pymysql
 django-storages[google]
 django-vinaigrette
+django-cors-headers

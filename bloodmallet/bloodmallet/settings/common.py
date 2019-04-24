@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.patreon',
     'sass_processor',
+    'corsheaders',
     'crispy_forms',
     'vinaigrette',
     'general_website.apps.GeneralWebsiteConfig',
@@ -43,6 +44,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -157,3 +159,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+# try to fix the cors issue for the downloader
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/chart/get/.*$'
