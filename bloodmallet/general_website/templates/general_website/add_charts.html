@@ -6,6 +6,10 @@
 
 <h1>{% trans 'Create a Chart' %}</h1>
 
+<div class="alert alert-warning" role="alert">
+    <strong>{% trans 'Warning' %}</strong>
+    <p>{% trans 'Due to a rather massive change in backend no azerite ITEM charts are currently available. It\'s on my todo list!' %}</p>
+</div>
 
 <form method="post" action="{% url 'add_charts' %}">
     {% crispy form %}
