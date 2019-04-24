@@ -17,7 +17,7 @@ urlpatterns = [
     path(
         'chart/get/<str:simulation_type>/<str:fight_style>/<str:wow_class>/<str:wow_spec>',
         views.get_chart_data,
-        name='get_chart_data'
+        name='get_standard_chart_data'
     ),
     path('chart/delete', views.delete_chart, name='delete_chart'),
     path('portals', views.portals, name='portals'),
