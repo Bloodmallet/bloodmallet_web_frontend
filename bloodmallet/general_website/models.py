@@ -6,7 +6,7 @@ from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
-from allauth.socialaccount.signals import pre_social_login, social_account_updated
+from allauth.socialaccount.signals import pre_social_login, social_account_updated, social_account_added
 
 from enum import Enum
 
@@ -37,24 +37,36 @@ class User(AbstractUser):
 
 
 @receiver([pre_social_login, social_account_updated])
-def update_pledge_level(sender, sociallogin, **kwargs):
-    """Checks kwargs for pledge level in account data.
+def update_pledge_level(request, sociallogin, **kwargs):
+    """
+    Checks kwargs for pledge level in account data.
     TODO: Add actual functionality to grab patreon level
 
+    Find info here:
+        https://www.patreon.com/portal/registration/register-clients
+        https://docs.patreon.com/#third-party-libraries
+        patreons own lib https://github.com/Patreon/patreon-python
+        https://django-allauth.readthedocs.io/en/latest/signals.html#allauth-socialaccount
+
     Arguments:
-        sender {[type]} -- [description]
-        sociallogin {[type]} -- [description]
+        sender {[type]} -- Model
+        sociallogin {[type]} -- instance
     """
 
-    print(sender)
-    print(sociallogin)
+    logger.debug(request)
+    logger.debug(sociallogin)
     try:
-        print(sociallogin.account)     # read social allauth models.py
+        logger.debug(request.account)     # read social allauth models.py
     except Exception:
-        print("No social.account could be found yet. Probably linking in progress.")
+        logger.debug("No social.account could be found yet. Probably linking in progress.")
+    try:
+        # here lies the data package
+        logger.debug(sociallogin.account.extra_data)     # read social allauth models.py
+    except Exception:
+        logger.debug("No social.account could be found yet. Probably linking in progress.")
 
 
-#https://stackoverflow.com/questions/40684838/django-django-allauth-save-extra-data-from-social-login-in-signal
+# https://stackoverflow.com/questions/40684838/django-django-allauth-save-extra-data-from-social-login-in-signal
 
 
 @receiver(user_logged_in)
