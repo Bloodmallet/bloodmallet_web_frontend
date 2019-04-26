@@ -458,10 +458,20 @@ function bloodmallet_chart_import() {
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
 
       } else {
-        console.log("Chart found, but unknown data-type detected.")
+        console.log("Chart found, but unknown data-type detected.");
         return;
       }
 
+    } else if (data_type.indexOf("secondary_distributions") > -1) {
+      // quick fix secondary charts
+      // issue: the data["sorted_data_keys"] is an object with an uniq key which correspond to the profile talents
+      // issue: the data.data is an object with an uniq key which correspond to the profile talents
+      data["data"] = data["data"][data.profile.talents];
+      data["sorted_data_keys"] = data["sorted_data_keys"][data.profile.talents];
+
+      dps_ordered_keys = data["sorted_data_keys"].slice(0, data_entries);
+      // I guess its 0 ?
+      baseline_dps = 0;
     } else {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, data_entries);
       if (data_type === "races") {
