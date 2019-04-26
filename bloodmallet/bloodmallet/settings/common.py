@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
+    'compute_api.broadcast_middleware.BroadcastMiddleware',
 ]
 
 ROOT_URLCONF = 'bloodmallet.urls'
