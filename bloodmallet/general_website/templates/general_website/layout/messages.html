@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="{% trans 'close' %}">&#215;</button>
+        {{ message }}
+    </div>
+{% endfor %}

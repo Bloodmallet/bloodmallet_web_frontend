@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load static %}
+<footer>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark bottom-nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBottomMenu" aria-controls="navbarBottomMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarBottomMenu">
+            <ul class="navbar-nav mr-auto">
+            {% comment %} something could be here {% endcomment %}
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'FAQ' %}">{% trans "FAQ" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/Bloodmallet/bloodmallet.github.io/issues">
+                <svg class="svg-icon">
+                    <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#github"></use>
+                </svg>
+                <span>{% trans "Report an error" %}</span>
+                </a>
+            </li>
+            {% if not user.is_superuser %}
+            <li class="nav-item patron-link">
+                <a class="nav-link" href="https://www.patreon.com/bloodmallet">
+                <svg class="svg-icon">
+                    <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#patreon"></use>
+                </svg>
+                <span style="color: #F96854;">{% trans "Patreon" %}</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="https://twitter.com/bloodmallet">
+                <div class="svg-icon">
+                    <svg class="svg-icon">
+                    <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#twitter"></use>
+                    </svg>
+                </div>
+                <span>@bloodmallet</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://discord.gg/sXfmMkm">
+                <div class="svg-icon">
+                    <svg class="svg-icon">
+                    <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#discord"></use>
+                    </svg>
+                </div>
+                <span>bloodmallet.com</span>
+                </a>
+            </li>
+            </ul>
+
+        </div>
+    </nav>
+</footer>

@@ -1,0 +1,24 @@
+{% extends 'general_website/layout/base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<h1 class=" display-4 mb-3 text-center">{% trans 'bloodmallet' %}</h1>
+
+{% if chart.name %}<h3>{{ chart.name }}</h3>{% endif %}
+<p>{% trans 'Author' %}: {{ chart.user }}</p>
+
+
+<div id="chart" class="bloodmallet_chart" data-chart-id="{{ chart.uuid }}" data-language="{{ LANGUAGE_CODE }}" data-entries="100" data-background-color="transparent"></div>
+
+
+{% endblock %}
+
+{% block extraimport %}
+
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+{% include 'general_website/layout/chart_import.html' %}
+
+{% endblock %}

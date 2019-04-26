@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    {% include 'general_website/layout/head.html' %}
+    {% block extrahead %}
+    {% endblock %}
+<body>
+    {% include 'general_website/layout/nav_top.html' %}
+
+    {% if not user.is_superuser %}
+    <div class="patreon-div">
+        <a href="https://www.patreon.com/bloodmallet">
+            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}" height="42" style="vertical-align: text-top;" />
+        </a>
+    </div>
+    {% endif %}
+
+
+    {% block precontent %}
+    {% endblock %}
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-1">
+                    {# free real estate #}
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-10">
+                    <div class="pt-3"></div>
+                    <div class="alert alert-info text-center" role="alert">
+                        {% trans 'alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha' %}
+                    </div>
+                    {% include 'general_website/layout/messages.html' %}
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-1">
+                    {# free real estate #}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% block postcontent %}
+    {% endblock %}
+
+    <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet.svg'%}');"></div>
+    {% include 'general_website/layout/nav_bottom.html' %}
+
+    {# importer of js scripts #}
+    {% include 'general_website/layout/script_importer.html' %}
+    {% block extraimport %}
+    {% endblock %}
+</body>
+</html>

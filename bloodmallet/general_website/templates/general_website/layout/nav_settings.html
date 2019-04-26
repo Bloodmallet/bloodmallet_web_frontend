@@ -1,0 +1,36 @@
+{% load i18n %}
+{% if page %}
+    <nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu" style="top:60px;">
+        <!-- Menu button if device is too small for full menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSecondaryMenu" aria-controls="navbarSecondaryMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Menu list -->
+        <div class="collapse navbar-collapse" id="navbarSecondaryMenu">
+            <!-- Settings -->
+            <ul class="navbar-nav">
+
+                <li class="navbar-text priest-color">{% trans "Settings" %}:</li>
+                <li class="nav-item">
+                    <a class="nav-link priest-color priest-menu-border{% if page == 'settings' %} active{% endif %}" href="{% url 'settings' %}">{% trans "General" %}</a>
+                </li>
+
+                {# Logged in user menu #}
+                {% if request.user.is_authenticated %}
+                <li class="navbar-text priest-color navbar-spacer">|</li>
+                <li class="nav-item">
+                    <a class="nav-link priest-color priest-menu-border{% if page == 'profile' %} active{% endif %}" href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                </li>
+
+                <li class="navbar-text priest-color navbar-spacer">|</li>
+                <li class="nav-item">
+                    <a class="nav-link priest-color priest-menu-border{% if page == 'connections' %} active{% endif %}" href="{% url 'account_connections' %}">{% trans "Connections" %}</a>
+                </li>
+                {% endif %}
+
+            </ul>
+
+        </div>
+    </nav>
+{% endif %}

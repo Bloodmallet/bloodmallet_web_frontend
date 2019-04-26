@@ -1,4 +1,5 @@
-{% extends 'general_website/layout_base.html' %}
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -7,8 +8,8 @@
     {% csrf_token %}
     {{ signup_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Sign up</button>
-    <small id="dataDisclaimer" class="form-text text-muted">I couldn't care less about what data you enter. Nothing is shared with others.</small>
+    <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+    <small id="dataDisclaimer" class="form-text text-muted">{% trans "I couldn't care less about what you enter. Nothing is shared with others and data is wiped regularly." %}</small>
 </form>
 
 {% endblock %}

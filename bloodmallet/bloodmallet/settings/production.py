@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
+
+from .common import *     # pylint: disable=unused-wildcard-import
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'dev.bloodmallet.com',
+    'bloodmallet.com',
+]
 
 # logging
 LOGGING = {
@@ -41,6 +47,14 @@ LOGGING = {
             ],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
+        },
+        'compute_api': { # add app to logger!
+            'handlers': [
+                'console',
+                #'file'
+            ],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': True,
         }
     },
 }
@@ -49,20 +63,19 @@ LOGGING = {
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 import pymysql
 pymysql.install_as_MySQLdb()
-from .secrets import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
+from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 
 DATABASES = {
-    'default':
-        {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/{}'.format(DB_HOST),
-            'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASSWORD,
-            'OPTIONS': {
-                'charset': 'utf8mb4'
-            },
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '/cloudsql/{}'.format(LIVE_DB_HOST),
+        'NAME': LIVE_DB_NAME,
+        'USER': LIVE_DB_USER,
+        'PASSWORD': LIVE_DB_PASSWORD,
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
+    }
 }
 
 # used to serve files from this path in non-debug production
@@ -73,3 +86,10 @@ SASS_PRECISION = 8
 SASS_PROCESSOR_ROOT = STATIC_ROOT
 # SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 SASS_PROCESSOR_ENABLED = False
+
+# google cloud storage
+from .secrets import LIVE_BUCKET_NAME
+GS_BUCKET_NAME = LIVE_BUCKET_NAME
+
+# SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 3600

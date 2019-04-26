@@ -1,4 +1,5 @@
-{% extends 'general_website/layout_base.html' %}
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
 {% load static %}
 {% load replace_underscore_with_space %}
 
@@ -8,14 +9,15 @@
 
 {% block content %}
 
-<h1 class="display-4 text-center" id="primary_headline">Portals</h1>
+<h1 class="display-4 text-center" id="primary_headline">{% trans "Portals" %}</h1>
 
-<p>Ever wondered what portals exist in the game? So did I. Here is a list of them. Let me know about more fixed position portals. This list is NOT intended to include teleporting items or skills.</p>
+<p>{% trans "Ever wondered what portals exist in the game? So did I. Here is a list of them. Let me know about more fixed position portals. This list is NOT intended to include teleporting items or skills." %}</p>
+<p>{% trans "And of course Blizzard nuked portals the moment I started building this page. I'm sorry." %}</p>
 
 {# Faction buttons #}
 <p>
 {% for faction, teleporters in factions.items %}
-    <button class="btn btn-primary" id="{{ faction }}_button" data-toggle="collapse" data-target="#{{ faction }}_teleporters" aria-expanded="{% if faction == "alliance" %}true{% else %}false{% endif %}" aria-controls="{{ faction }}_teleporters">
+    <button class="btn btn-primary" id="{{ faction }}_button" data-toggle="collapse" data-target="#{{ faction }}_teleporters" aria-expanded="{% if faction == 'alliance' %}true{% else %}false{% endif %}" aria-controls="{{ faction }}_teleporters">
         {{ faction | title }} ({{ teleporters | length }})
     </button>
 {% endfor %}
@@ -23,14 +25,14 @@
 
 {# Faction content #}
 {% for faction, teleporters in factions.items %}
-<div class="collapse table-responsive{% if faction == "alliance" %} show{% endif %}" id="{{ faction }}_teleporters">
+<div class="collapse table-responsive{% if faction == 'alliance' %} show{% endif %}" id="{{ faction }}_teleporters">
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Target</th>
-                <th>Location</th>
-                <th>Coordinates</th>
-                <th>More information</th>
+                <th>{% trans "Target" %}</th>
+                <th>{% trans "Location" %}</th>
+                <th>{% trans "Coordinates" %}</th>
+                <th>{% trans "More information" %}</th>
             </tr>
         </thead>
         <tbody>

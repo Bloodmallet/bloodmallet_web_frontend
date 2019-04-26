@@ -1,8 +1,7 @@
-{% extends 'general_website/layout_base.html' %}
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
 
 {% block content %}
-
-{% load bootstrap4 %}
 
 <div class="alert alert-warning" role="alert" style="top: 20%">
     <h4 class="alert-heading">{% if error.code %}{{ error.code }}{% else %}'??'{% endif %}</h4>
@@ -11,7 +10,7 @@
         {% if error.text %}
             {{ error.text }}
         {% else %}
-            Unknown error
+            {% trans "Unknown error" %}
         {% endif %}
     </p>
 </div>

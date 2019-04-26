@@ -27,26 +27,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # required by django-allauth
+    'django.contrib.sites',     # required by django-allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.patreon',
     'sass_processor',
-    'bootstrap4',
+    'corsheaders',
     'crispy_forms',
-    'general_website',
-    'compute_api',
+    'vinaigrette',
+    'general_website.apps.GeneralWebsiteConfig',
+    'compute_api.apps.ComputeApiConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'bloodmallet.urls'
@@ -55,19 +59,18 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')  # allauth templates
+            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')     # allauth templates
         ],
         'APP_DIRS': True,
-        'OPTIONS':
-            {
-                'context_processors':
-                    [
-                        'django.template.context_processors.debug',
-                        'django.template.context_processors.request',
-                        'django.contrib.auth.context_processors.auth',
-                        'django.contrib.messages.context_processors.messages',
-                    ],
-            },
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
     },
 ]
 
@@ -91,6 +94,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+from .secrets import SECRET_KEY
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -109,9 +114,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# location of the sass files (css with logic)
-# SASS_PROCESSOR_ROOT = ''
-
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -121,17 +123,44 @@ STATICFILES_FINDERS = [
 # TODO: Check https://django-allauth.readthedocs.io/en/latest/faq.html for patreon connection
 # django-allauth
 AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
+     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
+     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+# allauth
 SITE_ID = 1
+# ACCOUNT_ADAPTER = 'general_website.allauth_overwrite.SocialAccountAdapter'
 
 # we can either use crispy or bootstrap4
-CRISPY_TEMPLATE_PACK = 'bootstrap4'  # automatic bootstrap form frontend generator
+CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend generator
 
 # from where is this?
 LOGIN_URL = 'login'
+
+# replaces the Django standard User
+AUTH_USER_MODEL = 'general_website.User'
+
+# Google cloud storage handling
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
+
+from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+
+STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
+
+# adjust messages tags to match bootstrap
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+# try to fix the cors issue for the downloader
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'^/chart/get/.*$'

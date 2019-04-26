@@ -93,7 +93,7 @@ function bloodmallet_chart_import() {
 
   const debug = false;
 
-  const path_to_data = "https://bloodmallet.com/json/";
+  const path_to_data = "https://dev.bloodmallet.com/chart/get/";
 
 
   /**
@@ -105,7 +105,8 @@ function bloodmallet_chart_import() {
    *          [wow_spec]: data
    *        }
    *      }
-   *    }
+   *    },
+   *    [chart_id]: data
    *  }
    */
   let loaded_data = {};
@@ -125,8 +126,6 @@ function bloodmallet_chart_import() {
 
     // check for unique IDs
     let tmp_id_list = [];
-
-
     for (let i = 0; i < chart_list.length; i++) {
       const html_element = chart_list[i];
       if (tmp_id_list.indexOf(html_element.id) > -1) {
@@ -137,20 +136,22 @@ function bloodmallet_chart_import() {
       }
     }
 
+    // collect data per chart
     for (let i = 0; i < chart_list.length; i++) {
       //const html_element = chart_list[i];
       let html_id = undefined;
       try {
         html_id = chart_list[i].id;
       } catch (error) {
-        console.log("No bloodmallet_chart was found.");
+        console.error("Each .bloodmallet_chart needs an ID. Aborting bloodmallet_chart_import.js.");
         return;
       }
       const html_element = document.getElementById(chart_list[i].id);
 
       if (html_element) {
 
-        var state = {
+        let state = {
+          chart_id: undefined,
           wow_class: undefined,
           wow_spec: undefined,
           data_type: default_data_type,
@@ -192,7 +193,7 @@ function bloodmallet_chart_import() {
           }
         } catch (error) {
           if (debug) {
-            console.log("Applying page wide settings failed.");
+            console.log("Applying page wide settings failed or no page wide settings were found.");
           }
         }
 
@@ -230,16 +231,20 @@ function bloodmallet_chart_import() {
 
         // preparing necessary input to load data
         let requirements = true;
-        if (!html_element.getAttribute("data-wow-class")) {
-          console.log("Required 'data-wow-class' attribute wasn't found in " + html_id + ".")
-          requirements = false;
+        if (!html_element.getAttribute("data-chart-id")) {
+          if (!html_element.getAttribute("data-wow-class")) {
+            console.error("Required 'data-chart-id' or 'data-wow-class' attribute wasn't found in " + html_id + ".")
+            requirements = false;
+          }
+          state.wow_class = html_element.getAttribute("data-wow-class");
+          if (!html_element.getAttribute("data-wow-spec")) {
+            console.error("Required 'data-chart-id' or 'data-wow-spec' attribute wasn't found in " + html_id + ".")
+            requirements = false;
+          }
+          state.wow_spec = html_element.getAttribute("data-wow-spec");
+        } else {
+          state.chart_id = html_element.getAttribute("data-chart-id");
         }
-        state.wow_class = html_element.getAttribute("data-wow-class");
-        if (!html_element.getAttribute("data-wow-spec")) {
-          console.log("Required 'data-wow-spec' attribute wasn't found in " + html_id + ".")
-          requirements = false;
-        }
-        state.wow_spec = html_element.getAttribute("data-wow-spec");
 
         let styled_chart = update_chart_style(state);
 
@@ -264,9 +269,6 @@ function bloodmallet_chart_import() {
             return;
           }
         }
-        // save new chart for later
-        let key_value = {};
-        key_value[html_id] = new_chart;
 
         if (requirements) {
           load_data(state);
@@ -281,16 +283,13 @@ function bloodmallet_chart_import() {
 
   /**
    *
-   * @param {string} data_type what kind of data will be looked for
-   * @param {string} wow_class wow class name
-   * @param {string} wow_spec wow spec name
-   * @param {string} fight_style simc baseline fight style
    */
   function load_data(state) {
     if (debug) {
       console.log("load_data");
     }
 
+    let chart_id = state.chart_id;
     let data_type = state.data_type;
     let fight_style = state.fight_style;
     let wow_class = state.wow_class;
@@ -306,6 +305,15 @@ function bloodmallet_chart_import() {
         console.log("Data needs to be loaded.");
       }
     }
+    try {
+      if (loaded_data[chart_id]) {
+        return;
+      }
+    } catch (error) {
+      if (debug) {
+        console.log("Data needs to be loaded.");
+      }
+    }
 
     let data_group = data_type;
 
@@ -314,38 +322,47 @@ function bloodmallet_chart_import() {
       data_group = "azerite_traits";
     }
 
-    let data_name = wow_class;
-    data_name += "_" + wow_spec;
-    if (data_type.indexOf("azerite_items") > -1) {
-      data_name += data_type.replace("azerite_items", "");
-    }
-    data_name += "_" + fight_style;
-    data_name += ".json";
+    let data_name = fight_style;
+    data_name += "/" + wow_class;
+    data_name += "/" + wow_spec;
+    // TODO: re-add azerite items again (in the backend, too...)
+    // if (data_type.indexOf("azerite_items") > -1) {
+    //   data_name += data_type.replace("azerite_items", "");
+    // }
 
-    if (debug) {
-      console.log("Fetching data from: " + path_to_data + data_group + "/" + data_name);
+    let url = "";
+    if (chart_id) {
+      url = path_to_data + chart_id;
+    } else {
+      url = path_to_data + data_group + "/" + data_name;
     }
-
 
     let request = new XMLHttpRequest();
-    request.open("GET", path_to_data + data_group + "/" + data_name + "?" + (new Date()).getTime(), true); // async request
+    if (debug) {
+      console.log("Fetching data from: " + url);
+    }
+    request.open("GET", url, true); // async request
 
     request.onload = function (e) {
       if (request.readyState === 4) {
         if (request.status === 200) {
           let json = JSON.parse(request.responseText);
 
-          if (!loaded_data[data_type]) {
-            loaded_data[data_type] = {};
-          }
-          if (!loaded_data[data_type][fight_style]) {
-            loaded_data[data_type][fight_style] = {};
-          }
-          if (!loaded_data[data_type][fight_style][wow_class]) {
-            loaded_data[data_type][fight_style][wow_class] = {};
-          }
+          if (chart_id) {
+            loaded_data["c" + chart_id] = json;
+          } else {
+            if (!loaded_data[data_type]) {
+              loaded_data[data_type] = {};
+            }
+            if (!loaded_data[data_type][fight_style]) {
+              loaded_data[data_type][fight_style] = {};
+            }
+            if (!loaded_data[data_type][fight_style][wow_class]) {
+              loaded_data[data_type][fight_style][wow_class] = {};
+            }
 
-          loaded_data[data_type][fight_style][wow_class][wow_spec] = json;
+            loaded_data[data_type][fight_style][wow_class][wow_spec] = json;
+          }
           if (debug) {
             console.log(json);
             console.log("Load and save finished.");
@@ -369,6 +386,7 @@ function bloodmallet_chart_import() {
       console.log("update_charts");
     }
 
+    let chart_id = state.chart_id;
     let data_type = state.data_type;
     let fight_style = state.fight_style;
     let wow_class = state.wow_class;
@@ -376,14 +394,39 @@ function bloodmallet_chart_import() {
     let data_entries = state.data_entries;
     let chart_engine = state.chart_engine;
 
-    try {
-      var spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
-    } catch (error) {
-      console.warn("Data for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
-      if (count < 10) {
-        setTimeout(update_chart, 100, state, html_element, chart, count + 1);
+    let spec_data = false;
+
+    if (chart_id) {
+      if (loaded_data["c" + chart_id] === undefined) {
+        console.warn("Data of ", chart_id, " for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
+        if (count < 10) {
+          setTimeout(update_chart, 100, state, html_element, chart, count + 1);
+        }
+        return;
+      } else {
+        spec_data = loaded_data["c" + chart_id];
+        wow_class = spec_data['simc_settings']['class'];
+        wow_spec = spec_data['simc_settings']['spec'];
+        fight_style = spec_data['simc_settings']['fight_style'];
+
+        if (spec_data['data_type'] === 'azerite_traits') {
+          if (data_type.indexOf('azerite_items') === -1) {
+            data_type = "azerite_traits_stacking";
+          }
+        } else {
+          data_type = spec_data['data_type'];
+        }
       }
-      return;
+    } else {
+      try {
+        spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
+      } catch (error) {
+        console.warn("Data for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
+        if (count < 10) {
+          setTimeout(update_chart, 100, state, html_element, chart, count + 1);
+        }
+        return;
+      }
     }
     const data = spec_data;
 
@@ -775,7 +818,7 @@ function bloodmallet_chart_import() {
    * @param {int} id
    */
   function requirements_error(chart) {
-    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data\">wiki</a>" });
+    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-chart-id', 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data\">wiki</a>" });
   }
 
   /**
