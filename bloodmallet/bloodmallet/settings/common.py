@@ -131,6 +131,7 @@ AUTHENTICATION_BACKENDS = (
 )
 # allauth
 SITE_ID = 1
+# ACCOUNT_ADAPTER = 'general_website.allauth_overwrite.SocialAccountAdapter'
 
 # we can either use crispy or bootstrap4
 CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend generator

@@ -59,9 +59,19 @@ LOGGING = {
             ],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
+        },
+        'allauth.socialaccount.providers.patreon': {
+            'handlers': [
+                'console',
+            ],
+            'level': 'DEBUG',
+            'propagate': True
         }
     },
 }
+# 'allauth.account',
+#     'allauth.socialaccount',
+#     'allauth.socialaccount.providers.patreon',
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
