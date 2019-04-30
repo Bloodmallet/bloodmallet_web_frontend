@@ -95,7 +95,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-from .secrets import SECRET_KEY
+try:
+    from .secrets import SECRET_KEY
+except FileNotFoundError:
+    from django.core.management.utils import get_random_secret_key
+    SECRET_KEY = get_random_secret_key()
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -143,12 +147,16 @@ LOGIN_URL = 'login'
 # replaces the Django standard User
 AUTH_USER_MODEL = 'general_website.User'
 
-# Google cloud storage handling
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
-from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+try:
+    from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+except FileNotFoundError:
+    # information is not required for local development of the frontend
+    pass
+else:
+    # Google cloud storage handling
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
 
