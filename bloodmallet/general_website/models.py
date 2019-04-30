@@ -31,8 +31,9 @@ class User(AbstractUser):
             return True
         if self.is_staff:
             return True
-        if self.groups.filter(name='alpha_tester').exists():     # pylint: disable=no-member
-            return True
+        # alpha tester weekend has ended
+        # if self.groups.filter(name='alpha_tester').exists():     # pylint: disable=no-member
+        #     return True
         return False
 
 
