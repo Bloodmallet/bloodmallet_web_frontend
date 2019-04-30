@@ -18,8 +18,13 @@ pull requests.
 5. Install requirements
     - `cd bloodmallet` (navigate into the created directory)
     - `python -m pip install --upgrade pip setuptools wheel` (update all basic tools)
-    - `(env)$ pip install -U -r requirements.txt` (install the actual requirements, have a look at the *_dev.txt file, too)
-6. Start local django development server
-    - `(env)$ cd bloodmallet` (so you're in "bloodmallet/bloodmallet/")
-    - `(env)$ python manage.py runserver`
-7. Open `http://127.0.0.1:8000` in your browser of choice. And code away! :tada:
+    - `(env)bloodmallet/$ pip install -U -r requirements.txt` (install the actual requirements, have a look at the *_dev.txt file, too)
+6. Create local database and tables
+    - `(env)bloodmallet/$ cd bloodmallet` (so you're in "bloodmallet/bloodmallet/")
+    - `(env)bloodmallet/bloodmallet/$ python manage.py migrate`
+7. Start local django development server
+    - `(env)bloodmallet/bloodmallet/$ python manage.py runserver`
+8. Open `http://127.0.0.1:8000` in your browser of choice. And code away! :tada:
+
+### Optional:
+Maybe you want to [create a superuser](https://docs.djangoproject.com/en/2.2/intro/tutorial02/#creating-an-admin-user) for local development.
