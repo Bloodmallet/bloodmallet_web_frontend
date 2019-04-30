@@ -22,8 +22,14 @@ urlpatterns = [
     path('', include('general_website.urls')),
     path('admin/login/', app_login),
     path('admin/', admin.site.urls),
-    path('compute_api/', include('compute_api.urls', namespace='compute_engine')),
 ]
+
+try:
+    import compute_api
+except ModuleNotFoundError:
+    pass
+else:
+    urlpatterns.append(path('compute_api/', include('compute_api.urls', namespace='compute_engine')))
 
 handler400 = 'general_website.views.handler404'
 handler403 = 'general_website.views.handler404'

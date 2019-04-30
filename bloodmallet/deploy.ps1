@@ -4,12 +4,10 @@ Write-Host "Deploying to bloodmallet.com"
 $start_location = pwd
 
 Write-Host "Starting virtual environment" -NoNewline
-# Activate virtual env
-env/Scripts/activate
-Write-Host "    Done" -ForegroundColor Green
 
-# Navigate to necessary subdirectory (which has the actual app for the appengine)
-cd bloodmallet/
+# Activate virtual env (here could be a list search that looks for env, venv and .env instead)
+../env/Scripts/activate
+Write-Host "    Done" -ForegroundColor Green
 
 Write-Host "Preparing Styles" -NoNewline
 # Create fresh css files

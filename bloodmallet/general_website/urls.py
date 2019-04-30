@@ -5,11 +5,15 @@ from . import views
 from allauth.socialaccount.views import ConnectionsView
 
 urlpatterns = [
+
+     # general
     path('', views.index, name='index_empty'),
     path('index.html', views.index, name='index_long'),
     path('index', views.index, name='index'),
     path('FAQ', views.faq, name='FAQ'),
     path('error', views.error, name='error'),
+
+     # charts
     path('my_charts', views.my_charts, name='my_charts'),
     path('chart/create', views.add_charts, name='add_charts'),
     path('chart/<uuid:chart_id>', views.chart, name='chart'),
@@ -20,7 +24,11 @@ urlpatterns = [
         name='get_standard_chart_data'
     ),
     path('chart/delete', views.delete_chart, name='delete_chart'),
+
+     # portals o_O but blizzard killed most...needs heavy data updates
     path('portals', views.portals, name='portals'),
+
+     # settings
     path('settings/general', views.settings, name='settings'),
     path('settings/profile', views.profile, name='profile'),
     path('settings/change_password', views.change_password, name='change_password'),

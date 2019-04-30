@@ -3,11 +3,8 @@ $start_location = pwd
 
 Write-Host "Starting virtual environment" -NoNewline
 # Activate virtual env
-env/Scripts/activate
+../env/Scripts/activate
 Write-Host "    Done" -ForegroundColor Green
-
-# Navigate to necessary subdirectory (which has the actual app for the appengine)
-cd bloodmallet/
 
 Write-Host "Preparing translations" -NoNewline
 # collect and compile translateable texts

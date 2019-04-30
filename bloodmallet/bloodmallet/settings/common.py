@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'vinaigrette',
     'general_website.apps.GeneralWebsiteConfig',
-    'compute_api.apps.ComputeApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +51,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
 ]
+
+try:
+    import compute_api
+except ModuleNotFoundError:
+    pass
+else:
+    INSTALLED_APPS.append('compute_api.apps.ComputeApiConfig')
+    MIDDLEWARE.append('compute_api.broadcast_middleware.BroadcastMiddleware')
 
 ROOT_URLCONF = 'bloodmallet.urls'
 
@@ -94,7 +101,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-from .secrets import SECRET_KEY
+try:
+    from .secrets import SECRET_KEY
+except ModuleNotFoundError:
+    from django.core.management.utils import get_random_secret_key
+    SECRET_KEY = get_random_secret_key()
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -142,12 +153,16 @@ LOGIN_URL = 'login'
 # replaces the Django standard User
 AUTH_USER_MODEL = 'general_website.User'
 
-# Google cloud storage handling
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
-from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+try:
+    from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+except ModuleNotFoundError:
+    # information is not required for local development of the frontend
+    pass
+else:
+    # Google cloud storage handling
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
 
