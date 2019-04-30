@@ -16,10 +16,10 @@ pull requests.
 4. Download this repository
     - `git clone https://github.com/Bloodmallet/bloodmallet_web_frontend.git bloodmallet` (creates a directory "bloodmallet")
 5. Install requirements
-    - `cd bloodmallet` (navigate into the creates directory)
+    - `cd bloodmallet` (navigate into the created directory)
     - `python -m pip install --upgrade pip setuptools wheel` (update all basic tools)
-    - `pip install -U -r requirements.txt` (install the actual requirements, have a look at the *_dev.txt file, too)
+    - `(env)$ pip install -U -r requirements.txt` (install the actual requirements, have a look at the *_dev.txt file, too)
 6. Start local django development server
-    - `cd bloodmallet` (so you're in "bloodmallet/bloodmallet/")
-    - `python manage.py runserver`
+    - `(env)$ cd bloodmallet` (so you're in "bloodmallet/bloodmallet/")
+    - `(env)$ python manage.py runserver`
 7. Open `http://127.0.0.1:8000` in your browser of choice. And code away! :tada:
