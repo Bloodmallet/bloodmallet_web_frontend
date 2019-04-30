@@ -97,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 try:
     from .secrets import SECRET_KEY
-except FileNotFoundError:
+except ModuleNotFoundError:
     from django.core.management.utils import get_random_secret_key
     SECRET_KEY = get_random_secret_key()
 
@@ -151,7 +151,7 @@ LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
 try:
     from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
-except FileNotFoundError:
+except ModuleNotFoundError:
     # information is not required for local development of the frontend
     pass
 else:
