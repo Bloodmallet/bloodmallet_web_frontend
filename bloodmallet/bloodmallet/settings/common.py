@@ -38,12 +38,6 @@ INSTALLED_APPS = [
     'vinaigrette',
     'general_website.apps.GeneralWebsiteConfig',
 ]
-try:
-    import compute_api
-except ModuleNotFoundError:
-    pass
-else:
-    INSTALLED_APPS.append('compute_api.apps.ComputeApiConfig')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,8 +50,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
-    'compute_api.broadcast_middleware.BroadcastMiddleware',
 ]
+
+try:
+    import compute_api
+except ModuleNotFoundError:
+    pass
+else:
+    INSTALLED_APPS.append('compute_api.apps.ComputeApiConfig')
+    MIDDLEWARE.append('compute_api.broadcast_middleware.BroadcastMiddleware')
 
 ROOT_URLCONF = 'bloodmallet.urls'
 
