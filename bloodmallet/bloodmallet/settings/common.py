@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'vinaigrette',
     'general_website.apps.GeneralWebsiteConfig',
-    'compute_api.apps.ComputeApiConfig',
 ]
+try:
+    import compute_api
+except ModuleNotFoundError:
+    pass
+else:
+    INSTALLED_APPS.append('compute_api.apps.ComputeApiConfig')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
