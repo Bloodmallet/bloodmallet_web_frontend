@@ -156,7 +156,7 @@ AUTH_USER_MODEL = 'general_website.User'
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
 try:
-    from .secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+    from bloodmallet.settings.secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
 except ModuleNotFoundError:
     # information is not required for local development of the frontend
     pass
