@@ -304,6 +304,8 @@ class Result(models.Model):
 
 class GeneralResult(models.Model):
     """Latest standard simulation result.
+
+    "Standard" means current Tier profile simulations. Like T25 Trinkets and Races.
     """
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='general_results')
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='general_result')
