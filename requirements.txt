@@ -12,7 +12,7 @@ requests
 
 # libsass is not required on the production environment, if SASS/SCSS files have been precompiled and deployed using offline compilation.
 libsass
-# django-compressor is required only for offline compilation, when using the command manage.py compilescss.
+# django-compressor is required only for offline compilation, when using the command `manage.py compilescss`.
 django-compressor
 django-sass-processor
 

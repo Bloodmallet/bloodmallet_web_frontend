@@ -1,7 +1,6 @@
 # Directories
 .vscode/
 __pycache__/
-bloodmallet/static/
 compute_api/
 env/
 env*/
@@ -9,8 +8,7 @@ env*/
 # Files
 *.mo
 *.pyc
-*.zip
-bloodmallet/db.sqlite3
+db.sqlite3
 cloud_sql_proxy.exe
 debug.log
 local_dev_commands.txt
