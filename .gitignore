@@ -4,6 +4,7 @@ __pycache__/
 compute_api/
 env/
 env*/
+secrets/
 
 # Files
 *.mo
@@ -12,4 +13,3 @@ db.sqlite3
 cloud_sql_proxy.exe
 debug.log
 local_dev_commands.txt
-secrets.py
