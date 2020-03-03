@@ -10,6 +10,6 @@ secrets/
 *.mo
 *.pyc
 db.sqlite3
-cloud_sql_proxy.exe
+cloud_sql_proxy*
 debug.log
 local_dev_commands.txt
