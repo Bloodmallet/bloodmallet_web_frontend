@@ -20,6 +20,11 @@ logger = logging.getLogger(__name__)
 
 # Create your models here.
 class User(AbstractUser):
+    """Userdata of bloodmallet.com.
+    """
+    id = models.UUIDField(
+        default=uuid.uuid4, editable=False, help_text="Uuid used to identify a User.", primary_key=True
+    )
     bloodytext = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
@@ -131,13 +136,9 @@ class Race(models.Model):
     """Wow race like dwarf, troll, pandaren
     """
 
-    faction = models.ForeignKey(Faction, on_delete=models.CASCADE, related_name='races')
-    pretty_name = models.CharField(max_length=32)
+    factions = models.ManyToManyField(Faction, related_name='races')
+    name = models.CharField(max_length=32)
     tokenized_name = models.CharField(max_length=32)
-
-    @property
-    def name(self):
-        return self.pretty_name
 
     def __str__(self):
         return self.name
@@ -147,13 +148,9 @@ class WowClass(models.Model):
     """Wow classes like death knight, rogue, mage
     """
 
-    races = models.ManyToManyField(Race, related_name='classes')
+    races = models.ManyToManyField(Race, related_name='wow_classes')
+    name = models.CharField(max_length=16)
     tokenized_name = models.CharField(max_length=16)
-    pretty_name = models.CharField(max_length=16)
-
-    @property
-    def name(self):
-        return self.pretty_name
 
     def __str__(self):
         return self.name
@@ -164,12 +161,8 @@ class WowSpec(models.Model):
     """
 
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='wow_specs')
-    pretty_name = models.CharField(max_length=16)
+    name = models.CharField(max_length=16)
     tokenized_name = models.CharField(max_length=16)
-
-    @property
-    def name(self):
-        return self.pretty_name
 
     def __str__(self):
         return "{} {}".format(self.wow_class, self.name)
@@ -178,13 +171,9 @@ class WowSpec(models.Model):
 class FightStyle(models.Model):
     """SimulationCraft fight_style inputs.
     """
+    name = models.CharField(max_length=32)
     tokenized_name = models.CharField(max_length=32)
-    pretty_name = models.CharField(max_length=32)
     description = models.TextField(max_length=512, blank=True)
-
-    @property
-    def name(self):
-        return self.pretty_name
 
     def __str__(self):
         return self.name
@@ -207,21 +196,22 @@ class Simulation(models.Model):
     """Data necessary to do a simulation.
     """
 
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific Simulation."
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='simulations')
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='simulations')
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
     simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='simulations')
     fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='simulations')
-    uuid = models.UUIDField(
-        default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific simulation."
-    )
     name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
     custom_profile = models.TextField(
         max_length=2048,
         blank=True,
         help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile).")
     )
-    fight_style_input = models.TextField(max_length=2048, blank=True, help_text=_("Define your own fight_style."))
+    custom_fight_style = models.TextField(max_length=2048, blank=True, help_text=_("Define your own fight_style."))
+    custom_apl = models.TextField(max_length=2048, blank=True, help_text=_("Define your characters APL."))
     created_at = models.DateTimeField(auto_now_add=True)
     failed = models.BooleanField(
         default=False,
@@ -286,9 +276,14 @@ def save_simulation_result(instance, filename) -> str:
 
 
 class Result(models.Model):
-    """Result of a simulation
+    """Result of a simulation.
     """
-
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        help_text="Uuid used to identify a specific simulation Result."
+    )
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
     result = models.FileField(upload_to=save_simulation_result)
     simc_hash = models.CharField(
