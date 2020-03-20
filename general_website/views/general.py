@@ -6,8 +6,17 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 
-from general_website.models import User, Simulation, WowClass, WowSpec, FightStyle, SimulationType, Queue, QueueState, GeneralResult
 from general_website.forms import SimulationCreationForm
+
+from general_website.models.account import User
+from general_website.models.simulation import GeneralResult
+from general_website.models.simulation import Simulation
+from general_website.models.simulation import SimulationType
+from general_website.models.simulation import Queue
+from general_website.models.simulation import QueueState
+from general_website.models.world_of_warcraft import FightStyle
+from general_website.models.world_of_warcraft import WowClass
+from general_website.models.world_of_warcraft import WowSpec
 
 from random import randint
 

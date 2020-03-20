@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',     # required by django-allauth
+    'bloodytests',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
+    'general_website.middlewares.broadcast.BroadcastMiddleware',
 ]
 
 try:
@@ -58,7 +60,6 @@ except ModuleNotFoundError:
     pass
 else:
     INSTALLED_APPS.append('compute_api.apps.ComputeApiConfig')
-    MIDDLEWARE.append('compute_api.broadcast_middleware.BroadcastMiddleware')
 
 ROOT_URLCONF = 'bloodmallet.urls'
 
@@ -66,7 +67,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth')     # allauth templates
+            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth'),     # allauth templates
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -104,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 try:
     from .secrets import SECRET_KEY
 except ModuleNotFoundError:
+    # enable local dev
     from django.core.management.utils import get_random_secret_key
     SECRET_KEY = get_random_secret_key()
 
@@ -179,3 +181,19 @@ MESSAGE_TAGS = {
 # try to fix the cors issue for the downloader
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/chart/get/.*$'
+
+# own test runner to discover slow tests
+TEST_RUNNER = 'bloodytests.django.BloodyDiscoverRunner'
+
+# social account (allauth) settings
+SOCIALACCOUNT_PROVIDERS = {
+    'patreon': {
+        'VERSION': 'v2',
+        'SCOPE': [
+     #'identity',
+     #'identity[email]',
+     #'campaigns',
+            'campaigns.members',
+        ],
+    }
+}

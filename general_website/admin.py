@@ -1,17 +1,17 @@
 from django.contrib import admin
 
-from general_website.models import GeneralResult
-from general_website.models import Faction
-from general_website.models import FightStyle
-from general_website.models import Queue
-from general_website.models import Race
-from general_website.models import Result
-from general_website.models import Simulation
-from general_website.models import SimulationType
-from general_website.models import Teleporter
-from general_website.models import User
-from general_website.models import WowClass
-from general_website.models import WowSpec
+from general_website.models.simulation import GeneralResult
+from general_website.models.world_of_warcraft import Faction
+from general_website.models.world_of_warcraft import FightStyle
+from general_website.models.simulation import Queue
+from general_website.models.world_of_warcraft import Race
+from general_website.models.simulation import Result
+from general_website.models.simulation import Simulation
+from general_website.models.simulation import SimulationType
+from general_website.models.world_of_warcraft import Teleporter
+from general_website.models.account import User
+from general_website.models.world_of_warcraft import WowClass
+from general_website.models.world_of_warcraft import WowSpec
 
 from django.contrib.auth.admin import UserAdmin
 

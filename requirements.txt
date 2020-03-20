@@ -5,8 +5,7 @@
 # Attention!
 # Make sure to use 'python -m pip install --upgrade pip setuptools wheel' before trying to use 'pip install -U -r requirements.txt'
 
-# Django~=2.1.2
-Django~=3.0
+Django>=3.0
 django-allauth
 requests
 
@@ -33,3 +32,8 @@ django-vinaigrette
 
 # hopefully enables us to deliver json data to foreigners
 django-cors-headers
+
+# simc_support lib to get wow game data
+-e git+https://github.com/Bloodmallet/simc_support.git@9-0-shadowlands#egg=simc_support
+# Testlib
+-e git+https://github.com/Bloodmallet/bloodytests.git@develop#egg=bloodytests

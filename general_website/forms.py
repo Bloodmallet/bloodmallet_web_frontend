@@ -3,7 +3,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.utils.translation import gettext_lazy as _
 
-from general_website.models import User, Simulation, SimulationType, WowSpec
+from general_website.models.account import User
+from general_website.models.simulation import Simulation
+from general_website.models.world_of_warcraft import SimulationType
+from general_website.models.world_of_warcraft import WowSpec
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Div

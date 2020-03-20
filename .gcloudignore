@@ -1,12 +1,12 @@
-env/
+__pycache__/
 .vscode/
+env/
 
 debug.log
 bloodmallet/db.sqlite3
 requirements_dev.txt
 requirements_commented.txt
 
-__pycache__/
 *.pyc
 *.zip
 *.exe
