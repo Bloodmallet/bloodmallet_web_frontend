@@ -17,19 +17,19 @@ class GeneralWebsiteConfig(AppConfig):
         from general_website.models.world_of_warcraft import WowSpec
 
         vinaigrette.register(WowSpec, [
-            'pretty_name',
+            'tokenized_name',
         ])
         vinaigrette.register(WowClass, [
-            'pretty_name',
+            'tokenized_name',
         ])
         vinaigrette.register(Race, [
-            'pretty_name',
+            'tokenized_name',
         ])
         vinaigrette.register(Faction, [
             'name',
         ])
         vinaigrette.register(FightStyle, [
-            'pretty_name',
+            'tokenized_name',
         ])
         vinaigrette.register(SimulationType, [
             'name',
