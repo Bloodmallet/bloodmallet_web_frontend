@@ -6,7 +6,8 @@ from .common import *     # pylint: disable=unused-wildcard-import
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'dev.bloodmallet.com',
+    '.appspot.com',
+    '.bloodmallet.com',
     'bloodmallet.com',
 ]
 
@@ -62,6 +63,8 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 import pymysql
+# ! hacky way to enable pymysql for dev
+pymysql.version_info = (1, 3, 13, "final", 0)
 pymysql.install_as_MySQLdb()
 from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 
@@ -91,5 +94,7 @@ SASS_PROCESSOR_ENABLED = False
 from .secrets import LIVE_BUCKET_NAME
 GS_BUCKET_NAME = LIVE_BUCKET_NAME
 
+#redirect loop
 # SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3600
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
