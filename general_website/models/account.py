@@ -16,6 +16,12 @@ from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
+PATRON_LEVELS = [
+    'Uncommon',
+    'Rare',
+    'Epic',
+]
+
 
 # Create your models here.
 class User(AbstractUser):
@@ -25,6 +31,10 @@ class User(AbstractUser):
         default=uuid.uuid4, editable=False, help_text="Uuid used to identify a User.", primary_key=True
     )
     bloodytext = models.CharField(max_length=10, blank=True)
+    patron_name = models.CharField(max_length=100, blank=True, help_text=_("Patron Name"))
+    patron_tier = models.CharField(max_length=20, blank=True, help_text=_("Patron Tier"))
+    is_guide_writer = models.BooleanField(default=False, help_text=_("Is a recognized guide writer"))
+    is_simulationcraft_developer = models.BooleanField(default=False, help_text=_("Is a SimulationCraft developer"))
 
     def __str__(self):
         return self.username     # pylint: disable=no-member
@@ -34,6 +44,12 @@ class User(AbstractUser):
         if self.is_superuser:
             return True
         if self.is_staff:
+            return True
+        if self.patron_tier in PATRON_LEVELS:
+            return True
+        if self.is_guide_writer:
+            return True
+        if self.is_simulationcraft_developer:
             return True
         # alpha tester weekend has ended
         # if self.groups.filter(name='alpha_tester').exists():     # pylint: disable=no-member
@@ -58,17 +74,9 @@ def update_pledge_level(request, sociallogin, **kwargs):
         sociallogin {[type]} -- instance
     """
 
-    logger.debug(request)
-    logger.debug(sociallogin)
-    try:
-        logger.debug(request.account)     # read social allauth models.py
-    except Exception:
-        logger.debug("No social.account could be found yet. Probably linking in progress.")
-    try:
-        # here lies the data package
-        logger.debug(sociallogin.account.extra_data)     # read social allauth models.py
-    except Exception:
-        logger.debug("No social.account could be found yet. Probably linking in progress.")
+    request.user.patron_name = sociallogin.account.extra_data['attributes']['full_name']
+    request.user.patron_level = sociallogin.account.extra_data['pledge_level'] or ''
+    request.user.save()
 
 
 # https://stackoverflow.com/questions/40684838/django-django-allauth-save-extra-data-from-social-login-in-signal
