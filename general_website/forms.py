@@ -69,7 +69,9 @@ class SimulationCreationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SimulationCreationForm, self).__init__(*args, **kwargs)
         self.fields['simulation_type'].queryset = SimulationType.objects.order_by('name')     # pylint: disable=no-member
-        self.fields['wow_spec'].queryset = WowSpec.objects.order_by('wow_class__pretty_name', 'pretty_name')     # pylint: disable=no-member
+        self.fields['wow_spec'].queryset = WowSpec.objects.order_by(    # pylint: disable=no-member
+            'wow_class__tokenized_name', 'tokenized_name'
+        )
 
         self.helper = FormHelper()
         self.helper.layout = Layout(

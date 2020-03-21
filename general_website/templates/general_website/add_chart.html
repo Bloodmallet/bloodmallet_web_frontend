@@ -6,8 +6,6 @@
 
 <h1>{% trans 'Create a Chart' %}</h1>
 
-<p class="alert-warning">{% trans 'Due to a rather massive change in backend no azerite ITEM charts are currently available. It\'s on my todo list!' %}</p>
-
 {% if not user.can_create_chart %}
 <p class="alert-warning">{% trans 'You lack permission to create charts.' %}</p>
 {% endif %}
