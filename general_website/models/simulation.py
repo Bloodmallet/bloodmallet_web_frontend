@@ -28,13 +28,20 @@ class Simulation(models.Model):
     """
 
     id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False, help_text="Uuid used to identify a specific Simulation."
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        help_text="Uuid used to identify a specific Simulation."
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='simulations')
     wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='simulations')
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
-    simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='simulations')
-    fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='simulations')
+    simulation_type = models.ForeignKey(
+        SimulationType, on_delete=models.CASCADE, related_name='simulations'
+    )
+    fight_style = models.ForeignKey(
+        FightStyle, on_delete=models.CASCADE, related_name='simulations'
+    )
     name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
     custom_profile = models.TextField(
         max_length=2048,
@@ -51,7 +58,9 @@ class Simulation(models.Model):
 
     def __str__(self):
         return "{simulation_type} {wow_spec} {fight_style}".format(
-            simulation_type=self.simulation_type, wow_spec=self.wow_spec, fight_style=self.fight_style
+            simulation_type=self.simulation_type,
+            wow_spec=self.wow_spec,
+            fight_style=self.fight_style
         )
 
     class Meta:
@@ -103,7 +112,7 @@ def save_simulation_result(instance, filename) -> str:
         str -- [description]
     """
 
-    return "{}.json".format(instance.simulation.uuid)
+    return "{}.json".format(instance.simulation_id)
 
 
 class Result(models.Model):
@@ -133,10 +142,16 @@ class GeneralResult(models.Model):
 
     "Standard" means current Tier profile simulations. Like T25 Trinkets and Races.
     """
-    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='general_results')
+    wow_class = models.ForeignKey(
+        WowClass, on_delete=models.CASCADE, related_name='general_results'
+    )
     wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='general_result')
-    simulation_type = models.ForeignKey(SimulationType, on_delete=models.CASCADE, related_name='general_results')
-    fight_style = models.ForeignKey(FightStyle, on_delete=models.CASCADE, related_name='general_results')
+    simulation_type = models.ForeignKey(
+        SimulationType, on_delete=models.CASCADE, related_name='general_results'
+    )
+    fight_style = models.ForeignKey(
+        FightStyle, on_delete=models.CASCADE, related_name='general_results'
+    )
     result = models.OneToOneField(Result, on_delete=models.CASCADE, related_name='general_result')
 
     def __str__(self):
