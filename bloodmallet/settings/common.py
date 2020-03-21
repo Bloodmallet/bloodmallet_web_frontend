@@ -190,9 +190,9 @@ SOCIALACCOUNT_PROVIDERS = {
     'patreon': {
         'VERSION': 'v2',
         'SCOPE': [
-     #'identity',
-     #'identity[email]',
-     #'campaigns',
+            'identity',
+            'identity[email]',
+            'campaigns',
             'campaigns.members',
         ],
     }
