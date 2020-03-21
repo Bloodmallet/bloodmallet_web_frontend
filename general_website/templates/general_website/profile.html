@@ -14,6 +14,7 @@
 {% block content %}
 
 <h1>{% trans "Profile" %}</h1>
+{% comment %}
 <p>{% trans "Manage your profile information." %}</p>
 
 <form class="container-fluid" method="post">
@@ -21,7 +22,7 @@
     {{ profile_form|crispy }}
 
     <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
-</form>
+</form> {% endcomment %}
 
 <br/>
 

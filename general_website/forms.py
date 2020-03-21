@@ -40,14 +40,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('bloodytext',)
-
-        labels = {
-            'bloodytext': 'bloody-announcement',
-        }
-        help_texts = {
-            'bloodytext': "Allow others to see your short message below the title.",
-        }
+        fields = ()
 
 
 class SimulationCreationForm(forms.ModelForm):
