@@ -6,6 +6,9 @@ debug.log
 bloodmallet/db.sqlite3
 requirements_dev.txt
 requirements_commented.txt
+local_dev_commands.txt
+
+cloud_sql_proxy*
 
 *.pyc
 *.zip
