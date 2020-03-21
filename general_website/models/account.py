@@ -1,5 +1,9 @@
 import logging
+import requests
 import uuid
+
+from allauth.socialaccount.models import SocialApp
+
 from enum import Enum
 from typing import Tuple
 
@@ -41,6 +45,7 @@ class User(AbstractUser):
         primary_key=True
     )
     bloodytext = models.CharField(max_length=10, blank=True)
+    patron_uuid = models.CharField(max_length=36, blank=True, help_text=_("Patron UUID"))
     patron_name = models.CharField(max_length=100, blank=True, help_text=_("Patron Name"))
     patron_tier = models.CharField(max_length=20, blank=True, help_text=_("Patron Tier"))
     is_guide_writer = models.BooleanField(default=False, help_text=_("Is a recognized guide writer"))
@@ -78,8 +83,13 @@ def update_patron_tier(request, sociallogin, **kwargs):
     """
     logger.debug('update_patron_tier: signal received')
 
-    request.user.patron_name = sociallogin.account.extra_data['attributes']['full_name']
+    request.user.patron_name = sociallogin.account.extra_data['attributes']['full_name'] or ''
     request.user.patron_tier = sociallogin.account.extra_data['pledge_level'] or ''
+    try:
+        request.user.patron_uuid = sociallogin.account.extra_data['relationships']['memberships'][
+            'data'][0]['id'] or ''
+    except IndexError as e:
+        logger.debug(e)
     request.user.save()
 
 
@@ -89,20 +99,36 @@ def update_patron_tier(request, sociallogin, **kwargs):
 @receiver(user_logged_in)
 def update_user_information(sender, request, user, **kwargs):
     """Login triggers a check for the patreon level.
-    TODO: Add actual functionality to grab patreon level
 
     Arguments:
         sender {django.contrib.auth.models.User} -- [description]
         request {} -- [description]
         user {User} -- User model data blop
     """
+    if user.patron_uuid:
+        try:
+            user.patron_tier = get_tier_from_patreon(user.patron_uuid)
+            user.save()
+        except Exception as e:
+            logger.error(e)
 
-    # API = 'https://www.patreon.com/api/oauth2/v2/members/{id}?include=currently_entitled_tiers&fields%5Btier%5D=title'
-    logger.debug("User logged in!")
-    logger.debug(sender)
-    logger.debug(request)
-    logger.debug(user)
-    logger.debug(user.email)
+
+def get_tier_from_patreon(patron_uuid: str):
+    app = SocialApp.objects.get(name='Bloodmallet2')
+    uri = 'https://www.patreon.com/api/oauth2/v2/members/{id}?include=currently_entitled_tiers&fields%5Btier%5D=title'
+    api_response = requests.get(
+        uri.format(id=patron_uuid), headers={
+            'Authorization': 'Bearer ' + app.key
+        }
+    ).json()
+
+    tier = ''
+    try:
+        tier = api_response['data']['included'][0]['attributes']['title']
+    except IndexError:
+        pass
+
+    return tier
 
 
 @receiver(social_account_removed)
@@ -117,6 +143,8 @@ def remove_patron_information(request, socialaccount, **kwargs):
 
     request.user.patron_name = ''
     request.user.patron_tier = ''
+    request.user.patron_uuid = ''
+
     request.user.save()
 
 
