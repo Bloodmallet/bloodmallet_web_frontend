@@ -3,8 +3,8 @@
         "model": "general_website.wowclass",
         "pk": 1,
         "fields": {
+            "name": "Death Knight",
             "tokenized_name": "death_knight",
-            "pretty_name": "Death Knight",
             "races": [
                 1,
                 2,
@@ -25,8 +25,8 @@
         "model": "general_website.wowclass",
         "pk": 2,
         "fields": {
+            "name": "Demon Hunter",
             "tokenized_name": "demon_hunter",
-            "pretty_name": "Demon Hunter",
             "races": [
                 5,
                 12
@@ -37,8 +37,8 @@
         "model": "general_website.wowclass",
         "pk": 3,
         "fields": {
+            "name": "Druid",
             "tokenized_name": "druid",
-            "pretty_name": "Druid",
             "races": [
                 5,
                 7,
@@ -54,8 +54,8 @@
         "model": "general_website.wowclass",
         "pk": 4,
         "fields": {
+            "name": "Hunter",
             "tokenized_name": "hunter",
-            "pretty_name": "Hunter",
             "races": [
                 1,
                 2,
@@ -71,7 +71,6 @@
                 12,
                 13,
                 14,
-                15,
                 16,
                 17,
                 18,
@@ -86,8 +85,8 @@
         "model": "general_website.wowclass",
         "pk": 5,
         "fields": {
+            "name": "Mage",
             "tokenized_name": "mage",
-            "pretty_name": "Mage",
             "races": [
                 1,
                 2,
@@ -103,7 +102,6 @@
                 12,
                 13,
                 14,
-                15,
                 17,
                 18,
                 19,
@@ -116,8 +114,8 @@
         "model": "general_website.wowclass",
         "pk": 6,
         "fields": {
+            "name": "Monk",
             "tokenized_name": "monk",
-            "pretty_name": "Monk",
             "races": [
                 1,
                 2,
@@ -130,7 +128,6 @@
                 11,
                 13,
                 14,
-                15,
                 17,
                 18,
                 19,
@@ -143,8 +140,8 @@
         "model": "general_website.wowclass",
         "pk": 7,
         "fields": {
+            "name": "Paladin",
             "tokenized_name": "paladin",
-            "pretty_name": "Paladin",
             "races": [
                 1,
                 2,
@@ -162,8 +159,8 @@
         "model": "general_website.wowclass",
         "pk": 8,
         "fields": {
+            "name": "Priest",
             "tokenized_name": "priest",
-            "pretty_name": "Priest",
             "races": [
                 1,
                 2,
@@ -178,7 +175,6 @@
                 11,
                 12,
                 13,
-                15,
                 16,
                 17,
                 18,
@@ -192,8 +188,8 @@
         "model": "general_website.wowclass",
         "pk": 9,
         "fields": {
+            "name": "Rogue",
             "tokenized_name": "rogue",
-            "pretty_name": "Rogue",
             "races": [
                 2,
                 3,
@@ -207,7 +203,6 @@
                 12,
                 13,
                 14,
-                15,
                 17,
                 18,
                 19,
@@ -220,8 +215,8 @@
         "model": "general_website.wowclass",
         "pk": 10,
         "fields": {
+            "name": "Shaman",
             "tokenized_name": "shaman",
-            "pretty_name": "Shaman",
             "races": [
                 1,
                 2,
@@ -230,7 +225,6 @@
                 11,
                 13,
                 14,
-                15,
                 16,
                 17,
                 20,
@@ -243,8 +237,8 @@
         "model": "general_website.wowclass",
         "pk": 11,
         "fields": {
+            "name": "Warlock",
             "tokenized_name": "warlock",
-            "pretty_name": "Warlock",
             "races": [
                 2,
                 3,
@@ -265,8 +259,8 @@
         "model": "general_website.wowclass",
         "pk": 12,
         "fields": {
+            "name": "Warrior",
             "tokenized_name": "warrior",
-            "pretty_name": "Warrior",
             "races": [
                 1,
                 2,
@@ -282,7 +276,6 @@
                 12,
                 13,
                 14,
-                15,
                 16,
                 17,
                 18,

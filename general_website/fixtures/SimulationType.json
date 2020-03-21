@@ -1,0 +1,34 @@
+[
+    {
+        "model": "general_website.simulationtype",
+        "pk": 1,
+        "fields": {
+            "name": "Trinkets",
+            "command": "trinkets"
+        }
+    },
+    {
+        "model": "general_website.simulationtype",
+        "pk": 2,
+        "fields": {
+            "name": "Races",
+            "command": "races"
+        }
+    },
+    {
+        "model": "general_website.simulationtype",
+        "pk": 3,
+        "fields": {
+            "name": "Azerite Traits",
+            "command": "azerite_traits"
+        }
+    },
+    {
+        "model": "general_website.simulationtype",
+        "pk": 4,
+        "fields": {
+            "name": "Secondary Distributions",
+            "command": "secondary_distributions"
+        }
+    }
+]
