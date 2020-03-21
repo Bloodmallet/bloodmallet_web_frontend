@@ -15,10 +15,10 @@ from general_website.models.world_of_warcraft import WowSpec
 
 from django.contrib.auth.admin import UserAdmin
 
-admin.site.register(User, UserAdmin)
+# admin.site.register(User, UserAdmin)
 
 # Register your models here.
-# admin.site.register(User)
+admin.site.register(User)
 admin.site.register(Faction)
 admin.site.register(Teleporter)
 admin.site.register(Race)
