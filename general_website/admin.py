@@ -12,12 +12,17 @@ from general_website.models.world_of_warcraft import Teleporter
 from general_website.models.account import User
 from general_website.models.world_of_warcraft import WowClass
 from general_website.models.world_of_warcraft import WowSpec
+from general_website.models.dynamic_config import Broadcast
+from general_website.models.dynamic_config import Config
 
 from django.contrib.auth.admin import UserAdmin
 
 # admin.site.register(User, UserAdmin)
 
 # Register your models here.
+admin.site.register(Broadcast)
+admin.site.register(Config)
+
 admin.site.register(User)
 admin.site.register(Faction)
 admin.site.register(Teleporter)
