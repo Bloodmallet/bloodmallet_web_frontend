@@ -21,15 +21,15 @@
     </div>
 
     {% for chart in charts %}
-    <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.uuid }}">
+    <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.id }}">
         <div class="card h-100">
             <div class="card-body text-center">
                 <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans 'No name' %}</span>{% endif %}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ chart.result.created_at }}</h6>
                 <p class="card-text">{{ chart.simulation_type }} | {{ chart.fight_style }}<br/>
                 {{ chart.wow_spec.name }} {{ chart.wow_class }}</p>
-                <a href="{% url 'chart' chart.uuid %}" class="btn btn-primary">{% trans 'View' %}</a>
-                <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.uuid }}" id="delete_button_{{ chart.uuid }}">{% trans 'Delete' %}</button>
+                <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% trans 'View' %}</a>
+                <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
             </div>
         </div>
     </div>

@@ -449,20 +449,7 @@ def chart(request, chart_id):
     logger.debug('called')
 
     context = {}
-
-    try:
-        simulation = Simulation.objects.get(uuid=chart_id, result__isnull=False)     # pylint: disable=no-member
-    except Simulation.DoesNotExist:     # pylint: disable=no-member
-        simulation = None
-    except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
-        # this...shouldn't happen
-        logger.warning('Multiple Simulations have the same uuid {}'.format(chart_id))
-        simulation = Simulation.objects.filter(uuid=chart_id).first()     # pylint: disable=no-member
-    except Exception:
-        logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
-        simulation = None
-
-    context['chart'] = simulation
+    context['chart_id'] = chart_id
 
     return render(request, 'general_website/chart.html', context=context)
 
@@ -481,13 +468,13 @@ def get_chart_data(
 
     if chart_id:
         try:
-            simulation = Simulation.objects.get(uuid=chart_id, result__isnull=False)     # pylint: disable=no-member
+            simulation = Simulation.objects.get(id=chart_id, result__isnull=False)     # pylint: disable=no-member
         except Simulation.DoesNotExist:     # pylint: disable=no-member
             simulation = None
         except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
             # this...shouldn't happen
-            logger.warning('Multiple Simulations have the same uuid {}'.format(chart_id))
-            simulation = Simulation.objects.filter(uuid=chart_id).first()     # pylint: disable=no-member
+            logger.warning('Multiple Simulations have the same id {}'.format(chart_id))
+            simulation = Simulation.objects.filter(id=chart_id).first()     # pylint: disable=no-member
         except Exception:
             logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
             simulation = None
@@ -516,7 +503,7 @@ def get_chart_data(
         return JsonResponse(data=json_data)
 
     else:
-        return JsonResponse(data={'status': 'error', 'message': _("Incomplete data, either provide uuid or look for a standard chart.")})
+        return JsonResponse(data={'status': 'error', 'message': _("Incomplete data, either provide id or look for a standard chart.")})
 
 
 def delete_chart(request) -> JsonResponse:
@@ -534,7 +521,7 @@ def delete_chart(request) -> JsonResponse:
         return JsonResponse(data={'status': 'error', 'message': _("Chart deletion works only with POST and if chart_id is provided.")})
 
     try:
-        simulation = Simulation.objects.get(uuid=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(id=chart_id)     # pylint: disable=no-member
     except Exception:
         message = _("An error occured while trying to delete a chart.")
         simulation = None
