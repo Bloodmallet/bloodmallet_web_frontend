@@ -67,7 +67,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'general_website', 'templates', 'allauth'),     # allauth templates
+            os.path.join(BASE_DIR, 'general_website', 'templates',
+                         'allauth'),     # allauth templates
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -133,7 +134,6 @@ STATICFILES_FINDERS = [
     'sass_processor.finders.CssFinder',
 ]
 
-# TODO: Check https://django-allauth.readthedocs.io/en/latest/faq.html for patreon connection
 # django-allauth
 AUTHENTICATION_BACKENDS = (
      # Needed to login by username in Django admin, regardless of `allauth`

@@ -46,18 +46,6 @@ def index(request):
         'text': "Sir!",
     }
 
-    # add bloodyfiller
-    users = User.objects.filter(bloodytext__isnull=False)
-    text_list = []
-    for user in users:
-        # TODO: Add multiplier for patreon level and other bonuses
-        text_list.append(user.bloodytext)
-
-    try:
-        context['bloodyfiller'] = text_list[randint(0, len(text_list) - 1)]
-    except Exception:
-        pass
-
     return render(request, 'general_website/index.html', context=context)
 
 
@@ -423,8 +411,12 @@ def portals(request):
     }
 
     # sort portals by "target"
-    context['factions']['alliance'] = sorted(context['factions']['alliance'], key=lambda portal: portal['target'])
-    context['factions']['horde'] = sorted(context['factions']['horde'], key=lambda portal: portal['target'])
+    context['factions']['alliance'] = sorted(
+        context['factions']['alliance'], key=lambda portal: portal['target']
+    )
+    context['factions']['horde'] = sorted(
+        context['factions']['horde'], key=lambda portal: portal['target']
+    )
 
     return render(request, 'general_website/portals.html', context)
 
@@ -581,7 +573,9 @@ def add_charts(request):
             simulation.wow_class = simulation.wow_spec.wow_class
 
             simulation.save()
-            messages.success(request, "A chart was added to the queue. Simulations will start soon.")
+            messages.success(
+                request, "A chart was added to the queue. Simulations will start soon."
+            )
 
             return redirect('my_charts')
         elif not request.user.can_create_chart:

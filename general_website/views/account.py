@@ -34,10 +34,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                # don't display an annoying login message
-                # messages.info(request, "Welcome {}".format(username))
                 n = 'index'
-                # TODO: get query string parameter 'next' which has the actual destination
                 return redirect(n)
             else:
                 messages.warning(request, _("Couldn't log in. Please check your input."))

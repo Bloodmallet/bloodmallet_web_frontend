@@ -22,11 +22,6 @@ LOGGING = {
 
     },
     'handlers': {
-        # 'file': {
-        #     'level': 'DEBUG',
-        #     'class': 'logging.FileHandler',
-        #     'filename': '', # TODO: add path!
-        # },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'default',
