@@ -44,9 +44,9 @@ class Simulation(models.Model):
     )
     name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
     custom_profile = models.TextField(
-        max_length=2048,
+        max_length=10000,
         blank=True,
-        help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile).")
+        help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile). Paste your <a href=\"https://mods.curse.com/addons/wow/simulationcraft\" target=\"_blank\">SimulationCraft</a> /simc output into this element.")
     )
     custom_fight_style = models.TextField(max_length=2048, blank=True, help_text=_("Define your own fight_style."))
     custom_apl = models.TextField(max_length=2048, blank=True, help_text=_("Define your characters APL."))
