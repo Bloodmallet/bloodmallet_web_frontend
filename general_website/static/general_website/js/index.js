@@ -141,7 +141,7 @@ let classes_specs = {
         "arcane", "fire", "frost"
     ],
     "monk": [
-        "windwalker"
+        "brewmaster", "windwalker"
     ],
     "paladin": [
         "protection", "retribution"
