@@ -1,0 +1,272 @@
+[
+    {
+        "model": "general_website.wowspec",
+        "pk": 1,
+        "fields": {
+            "wow_class": 1,
+            "name": "Blood",
+            "tokenized_name": "blood"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 2,
+        "fields": {
+            "wow_class": 1,
+            "name": "Frost",
+            "tokenized_name": "frost"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 3,
+        "fields": {
+            "wow_class": 1,
+            "name": "Unholy",
+            "tokenized_name": "unholy"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 4,
+        "fields": {
+            "wow_class": 2,
+            "name": "Havoc",
+            "tokenized_name": "havoc"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 5,
+        "fields": {
+            "wow_class": 2,
+            "name": "Vengeance",
+            "tokenized_name": "vengeance"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 6,
+        "fields": {
+            "wow_class": 3,
+            "name": "Feral",
+            "tokenized_name": "feral"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 7,
+        "fields": {
+            "wow_class": 3,
+            "name": "Guardian",
+            "tokenized_name": "guardian"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 8,
+        "fields": {
+            "wow_class": 3,
+            "name": "Balance",
+            "tokenized_name": "balance"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 9,
+        "fields": {
+            "wow_class": 4,
+            "name": "Beast Mastery",
+            "tokenized_name": "beast_mastery"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 10,
+        "fields": {
+            "wow_class": 4,
+            "name": "Marksmanship",
+            "tokenized_name": "marksmanship"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 11,
+        "fields": {
+            "wow_class": 4,
+            "name": "Survival",
+            "tokenized_name": "survival"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 12,
+        "fields": {
+            "wow_class": 5,
+            "name": "Arcane",
+            "tokenized_name": "arcane"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 13,
+        "fields": {
+            "wow_class": 5,
+            "name": "Fire",
+            "tokenized_name": "fire"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 14,
+        "fields": {
+            "wow_class": 5,
+            "name": "Frost",
+            "tokenized_name": "frost"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 15,
+        "fields": {
+            "wow_class": 6,
+            "name": "Brewmaster",
+            "tokenized_name": "brewmaster"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 16,
+        "fields": {
+            "wow_class": 6,
+            "name": "Windwalker",
+            "tokenized_name": "windwalker"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 17,
+        "fields": {
+            "wow_class": 7,
+            "name": "Protection",
+            "tokenized_name": "protection"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 18,
+        "fields": {
+            "wow_class": 7,
+            "name": "Retribution",
+            "tokenized_name": "retribution"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 19,
+        "fields": {
+            "wow_class": 8,
+            "name": "Shadow",
+            "tokenized_name": "shadow"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 20,
+        "fields": {
+            "wow_class": 9,
+            "name": "Assassination",
+            "tokenized_name": "assassination"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 21,
+        "fields": {
+            "wow_class": 9,
+            "name": "Outlaw",
+            "tokenized_name": "outlaw"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 22,
+        "fields": {
+            "wow_class": 9,
+            "name": "Subtlety",
+            "tokenized_name": "subtlety"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 23,
+        "fields": {
+            "wow_class": 10,
+            "name": "Elemental",
+            "tokenized_name": "elemental"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 24,
+        "fields": {
+            "wow_class": 10,
+            "name": "Enhancement",
+            "tokenized_name": "enhancement"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 25,
+        "fields": {
+            "wow_class": 11,
+            "name": "Affliction",
+            "tokenized_name": "affliction"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 26,
+        "fields": {
+            "wow_class": 11,
+            "name": "Demonology",
+            "tokenized_name": "demonology"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 27,
+        "fields": {
+            "wow_class": 11,
+            "name": "Destruction",
+            "tokenized_name": "destruction"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 28,
+        "fields": {
+            "wow_class": 12,
+            "name": "Arms",
+            "tokenized_name": "arms"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 29,
+        "fields": {
+            "wow_class": 12,
+            "name": "Fury",
+            "tokenized_name": "fury"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
+        "pk": 30,
+        "fields": {
+            "wow_class": 12,
+            "name": "Protection",
+            "tokenized_name": "protection"
+        }
+    }
+]

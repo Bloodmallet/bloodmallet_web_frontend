@@ -1,0 +1,19 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>{% trans 'Create a Chart' %}</h1>
+
+{% if not user.can_create_chart %}
+<p class="alert-warning">{% trans 'You lack permission to create charts.' %}</p>
+{% endif %}
+
+<form method="post" {% if user.can_create_chart %}action="{% url 'add_charts' %}"{% endif %}>
+    {% crispy form %}
+
+    <small id="dataDisclaimer" class="form-text text-muted">{% trans "Chart creation will take a while (stuff needs to be simulated)." %}</small>
+</form>
+
+{% endblock %}

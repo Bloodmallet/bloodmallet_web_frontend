@@ -1,0 +1,20 @@
+[
+    {
+        "model": "general_website.fightstyle",
+        "pk": 1,
+        "fields": {
+            "name": "Patchwerk",
+            "tokenized_name": "patchwerk",
+            "description": "Single target fight without movement"
+        }
+    },
+    {
+        "model": "general_website.fightstyle",
+        "pk": 2,
+        "fields": {
+            "name": "Hectic Add Cleave",
+            "tokenized_name": "hecticaddcleave",
+            "description": "One boss, multiple Add waves"
+        }
+    }
+]

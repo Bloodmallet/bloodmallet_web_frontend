@@ -1,0 +1,38 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load replace_underscore_with_space %}
+
+{% block precontent %}
+{% with page='profile' %}
+    {% include 'general_website/layout/nav_settings.html' %}
+{% endwith %}
+{% endblock %}
+
+
+{% block content %}
+
+<h1>{% trans "Profile" %}</h1>
+{% comment %}
+<p>{% trans "Manage your profile information." %}</p>
+
+<form class="container-fluid" method="post">
+    {% csrf_token %}
+    {{ profile_form|crispy }}
+
+    <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
+</form> {% endcomment %}
+
+<br/>
+
+<h3>{% trans "Change Password" %}</h3>
+<form class="container-fluid" method="post" action="{% url 'change_password' %}">
+    {% csrf_token %}
+    {{ user_form|crispy }}
+
+    <button type="submit" class="btn btn-primary">{% trans "Change password" %}</button>
+</form>
+
+
+{% endblock %}

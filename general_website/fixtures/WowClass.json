@@ -1,0 +1,289 @@
+[
+    {
+        "model": "general_website.wowclass",
+        "pk": 1,
+        "fields": {
+            "name": "Death Knight",
+            "tokenized_name": "death_knight",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                12,
+                13,
+                14,
+                16,
+                17,
+                18
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 2,
+        "fields": {
+            "name": "Demon Hunter",
+            "tokenized_name": "demon_hunter",
+            "races": [
+                5,
+                12
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 3,
+        "fields": {
+            "name": "Druid",
+            "tokenized_name": "druid",
+            "races": [
+                5,
+                7,
+                11,
+                16,
+                17,
+                20,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 4,
+        "fields": {
+            "name": "Hunter",
+            "tokenized_name": "hunter",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 5,
+        "fields": {
+            "name": "Mage",
+            "tokenized_name": "mage",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                17,
+                18,
+                19,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 6,
+        "fields": {
+            "name": "Monk",
+            "tokenized_name": "monk",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                8,
+                10,
+                11,
+                13,
+                14,
+                17,
+                18,
+                19,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 7,
+        "fields": {
+            "name": "Paladin",
+            "tokenized_name": "paladin",
+            "races": [
+                1,
+                2,
+                4,
+                8,
+                9,
+                10,
+                12,
+                16,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 8,
+        "fields": {
+            "name": "Priest",
+            "tokenized_name": "priest",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                16,
+                17,
+                18,
+                19,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 9,
+        "fields": {
+            "name": "Rogue",
+            "tokenized_name": "rogue",
+            "races": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11,
+                12,
+                13,
+                14,
+                17,
+                18,
+                19,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 10,
+        "fields": {
+            "name": "Shaman",
+            "tokenized_name": "shaman",
+            "races": [
+                1,
+                2,
+                6,
+                10,
+                11,
+                13,
+                14,
+                16,
+                17,
+                20,
+                21,
+                22
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 11,
+        "fields": {
+            "name": "Warlock",
+            "tokenized_name": "warlock",
+            "races": [
+                2,
+                3,
+                4,
+                7,
+                8,
+                10,
+                12,
+                13,
+                14,
+                17,
+                18,
+                19
+            ]
+        }
+    },
+    {
+        "model": "general_website.wowclass",
+        "pk": 12,
+        "fields": {
+            "name": "Warrior",
+            "tokenized_name": "warrior",
+            "races": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22
+            ]
+        }
+    }
+]
