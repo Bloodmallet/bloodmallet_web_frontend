@@ -1045,7 +1045,7 @@ function bloodmallet_chart_import() {
         let container = document.createElement('div');
         container.style.margin = '-4px -7px -7px -7px';
         container.style.padding = '3px 3px 6px 3px';
-        container.style.backgroundColor = background_color;
+        container.style.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
         if (state.chart_engine === "highcharts_old") {
           container.style.margin = '-7px';
         }
@@ -1078,7 +1078,7 @@ function bloodmallet_chart_import() {
 
         return container.outerHTML;
       };
-      styled_chart.tooltip.backgroundColor = background_color;
+      styled_chart.tooltip.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
       styled_chart.tooltip.borderColor = axis_color;
       styled_chart.tooltip.style.color = font_color;
 
