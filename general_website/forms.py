@@ -81,3 +81,8 @@ class SimulationCreationForm(forms.ModelForm):
             Div(Div(Field('custom_profile', placeholder=_("Paste your /simc output into this element.")), css_class='col-12'), css_class='row'),
             StrictButton(_("Create Chart"), type='submit', css_class="btn btn-primary")
         )
+
+    def clean_custom_profile(self):
+        data = self.cleaned_data['custom_profile']
+
+        return data[:10000]
