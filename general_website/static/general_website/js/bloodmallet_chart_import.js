@@ -276,7 +276,7 @@ function bloodmallet_chart_import() {
           requirements_error(new_chart);
         }
 
-        setTimeout(update_chart, 2000, state, html_element, new_chart, 0);
+        setTimeout(update_chart, 1, state, html_element, new_chart, 0);
       }
     }
   }
@@ -481,7 +481,8 @@ function bloodmallet_chart_import() {
     chart.setTitle(
       {
         text: data["title"]
-      }, {
+      },
+      {
         text: data["subtitle"]
       },
       false
@@ -909,43 +910,7 @@ function bloodmallet_chart_import() {
             }
           }
         },
-        series: [
-          {
-            color: default_font_color,
-            data: [
-              1,
-              1,
-              3,
-              1,
-              3
-            ],
-            name: "b main",
-            showInLegend: false
-          },
-          {
-            color: default_background_color,
-            data: [
-              0,
-              0,
-              0,
-              1,
-              0
-            ],
-            name: "b's emptiness",
-            showInLegend: false
-          }, {
-            color: default_font_color,
-            data: [
-              0,
-              0,
-              0,
-              1,
-              0
-            ],
-            name: "b's finishing touch",
-            showInLegend: false
-          }
-        ],
+        series: [],
         title: {
           text: "Loading data...", //"Title placeholder",
           useHTML: true,
