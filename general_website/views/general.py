@@ -479,7 +479,10 @@ def get_chart_data(
             logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
             simulation = None
 
-        data = simulation.result.result
+        try:
+            data = simulation.result.result
+        except AttributeError:
+            return JsonResponse(data={'status': 'error', 'message': _("Simulation data could not be found.")})
 
         json_data = json.load(data)
 
