@@ -78,6 +78,6 @@ class SimulationCreationForm(forms.ModelForm):
                 Div(Field('fight_style'), css_class='col-12 col-md-6'),
                 css_class='row'
             ),
-            Div(Div(Field('custom_profile'), css_class='col-12'), css_class='row'),
+            Div(Div(Field('custom_profile', placeholder=_("Paste your /simc output into this element.")), css_class='col-12'), css_class='row'),
             StrictButton(_("Create Chart"), type='submit', css_class="btn btn-primary")
         )
