@@ -684,8 +684,9 @@ function bloodmallet_chart_import() {
   }
 
   function update_secondary_distribution_chart(state, html_element, chart) {
-    if (debug)
+    if (debug) {
       console.log("update_secondary_distribution_chart");
+    }
 
     let html_id = html_element.id;
 
@@ -727,6 +728,7 @@ function bloodmallet_chart_import() {
       }
     }
 
+    chart = undefined;
     chart = new_chart;
 
     let talent_combination = undefined;
@@ -765,7 +767,7 @@ function bloodmallet_chart_import() {
       // adjust marker radius depending on distance to max
       // worst dps: 2
       // max dps: 5 (increased to 8 to fit the additional border)
-      let radius = 2 + 3 * (talent_data_distribution - min_dps) / (max_dps - min_dps);
+      let radius = 5; //2 + 3 * (talent_data_distribution - min_dps) / (max_dps - min_dps);
       if (max_dps === talent_data_distribution) {
         line_width = 3;
         radius = 8;
@@ -811,20 +813,9 @@ function bloodmallet_chart_import() {
       let mastery = parseInt(distribution.split("_")[2]);
       let versatility = parseInt(distribution.split("_")[3]);
 
-      console.log(distribution);
-      console.log("crit: ", crit);
-      console.log("haste: ", haste);
-      console.log("mastery: ", mastery);
-      console.log("versatility: ", versatility);
-      console.log("x: ", ((Math.sqrt(3) / 2) * (crit + (1 / 3) * haste)));
-      console.log("y: ", (Math.sqrt(2 / 3) * haste));
-      console.log("z: ", (mastery + 0.5 * crit + 0.5 * haste));
-
       // push marker data into the series
       series.data.push({
         // formulas slowly snailed together from combining different relations within https://en.wikipedia.org/wiki/Equilateral_triangle and https://en.wikipedia.org/wiki/Pythagorean_theorem
-        // x axis:
-        // y axis: 0-100 haste
         x: ((Math.sqrt(3) / 2) * (crit + (1 / 3) * haste)),
         y: (Math.sqrt(2 / 3) * haste),
         z: (mastery + 0.5 * crit + 0.5 * haste),
@@ -929,44 +920,6 @@ function bloodmallet_chart_import() {
       H.addEvent(chart.container, 'touchstart', dragStart);
     }(Highcharts));
   }
-
-
-  // // Add mouse and touch events for rotation
-  // (function (H) {
-  //   function dragStart(eStart) {
-  //     console.log('what');
-  //     eStart = chart.pointer.normalize(eStart);
-
-  //     var posX = eStart.chartX,
-  //       posY = eStart.chartY,
-  //       alpha = chart.options.chart.options3d.alpha,
-  //       beta = chart.options.chart.options3d.beta,
-  //       sensitivity = 5; // lower is more sensitive
-
-  //     function drag(e) {
-  //       // Get e.chartX and e.chartY
-  //       e = chart.pointer.normalize(e);
-
-  //       chart.update({
-  //         chart: {
-  //           options3d: {
-  //             alpha: alpha + (e.chartY - posY) / sensitivity,
-  //             beta: beta + (posX - e.chartX) / sensitivity
-  //           }
-  //         }
-  //       }, undefined, undefined, false);
-  //     }
-
-  //     chart.unbindDragMouse = H.addEvent(document, 'mousemove', drag);
-  //     chart.unbindDragTouch = H.addEvent(document, 'touchmove', drag);
-
-  //     H.addEvent(document, 'mouseup', chart.unbindDragMouse);
-  //     H.addEvent(document, 'touchend', chart.unbindDragTouch);
-  //   }
-
-  //   H.addEvent(chart.container, 'mousedown', dragStart);
-  //   H.addEvent(chart.container, 'touchstart', dragStart);
-  // }(Highcharts));
 
 
   /**
@@ -1190,6 +1143,154 @@ function bloodmallet_chart_import() {
     }
     if (state.chart_engine == "highcharts" || state.chart_engine == "highcharts_old") {
 
+      if (state.data_type === "secondary_distributions") {
+        return {
+          chart: {
+            renderTo: 'scatter_plot_chart',
+            type: "scatter3d",
+            backgroundColor: null,
+            animation: false,
+            height: 800,
+            width: 800,
+            options3d: {
+              enabled: true,
+              alpha: 10,
+              beta: 30,
+              depth: 800,
+              fitToPlot: false,
+            }
+          },
+          legend: {
+            enabled: true,
+            backgroundColor: state.background_color,
+            borderColor: state.font_color,
+            borderWidth: 1,
+            align: "right",
+            verticalAlign: "middle",
+            layout: "vertical",
+            itemStyle: { "color": state.font_color },
+            itemHoverStyle: { "color": state.font_color }
+          },
+          plotOptions: {
+            series: {
+              dataLabels: {
+                allowOverlap: true,
+                style: {
+                  color: state.font_color,
+                  fontSize: state.font_size,
+                  fontWeight: "400",
+                  textOutline: ""
+                }
+              },
+              events: {
+                legendItemClick: function () {
+                  return false;
+                }
+              },
+            },
+          },
+          series: [],
+          title: {
+            text: "", //"Title placeholder",
+            useHTML: true,
+            style: {
+              color: state.font_color
+            }
+          },
+          subtitle: {
+            text: "",
+            useHTML: true,
+            style: {
+              color: state.font_color,
+              fontSize: state.font_size
+            }
+          },
+          tooltip: {
+            headerFormat: '',
+            pointFormatter: function () {
+              return '<table class="">\
+                <thead>\
+                  <tr>\
+                    <th scope="col"></th>\
+                    <th scope="col">Absolute</th>\
+                    <th scope="col">Relative</th>\
+                  </tr>\
+                </thead>\
+                <tbody>\
+                  <tr>\
+                    <th scope="row">DPS</th>\
+                    <td>' + Intl.NumberFormat().format(this.dps) + '</td>\
+                    <td>' + Math.round(this.dps / this.dps_max * 10000) / 100 + '%</td>\
+                  </tr>\
+                  <tr>\
+                    <th scope="row">Crit</th>\
+                    <td>' + Intl.NumberFormat().format(this.stat_crit) + '</td>\
+                    <td>' + this.name.split("_")[0] + '%</td>\
+                  </tr>\
+                  <tr>\
+                    <th scope="row">Haste</th>\
+                    <td>' + Intl.NumberFormat().format(this.stat_haste) + '</td>\
+                    <td>' + this.name.split("_")[1] + '%</td>\
+                  </tr>\
+                  <tr>\
+                    <th scope="row">Mastery</th>\
+                    <td>' + Intl.NumberFormat().format(this.stat_mastery) + '</td>\
+                    <td>' + this.name.split("_")[2] + '%</td>\
+                  </tr>\
+                  <tr>\
+                    <th scope="row">Versatility</th>\
+                    <td>' + Intl.NumberFormat().format(this.stat_vers) + '</td>\
+                    <td>' + this.name.split("_")[3] + '%</td>\
+                  </tr>\
+                </tbody>\
+              </table>';
+            },
+            useHTML: true,
+            borderColor: state.background_color,
+          },
+          xAxis: {
+            min: 0,
+            max: 80,
+            tickInterval: 20,
+            startOnTick: true,
+            endOnTick: true,
+            title: "",
+            labels: {
+              enabled: false,
+            },
+            gridLineWidth: 1,
+            gridLineColor: state.axis_color,
+          },
+          yAxis: {
+            min: -10,
+            max: 70,
+            tickInterval: 20,
+            startOnTick: true,
+            endOnTick: true,
+            title: "",
+            labels: {
+              enabled: false,
+            },
+            gridLineWidth: 1,
+            gridLineColor: state.axis_color,
+          },
+          zAxis: {
+            min: 10,
+            max: 90,
+            tickInterval: 20,
+            startOnTick: true,
+            endOnTick: true,
+            title: "",
+            labels: {
+              enabled: false,
+            },
+            reversed: true,
+            gridLineWidth: 1,
+            gridLineColor: state.axis_color,
+          },
+        }
+      }
+
       let background_color = state.background_color;
       let axis_color = state.axis_color;
       let font_color = state.font_color;
@@ -1387,165 +1488,65 @@ function bloodmallet_chart_import() {
       styled_chart.title.style.color = font_color;
       styled_chart.subtitle.style.color = font_color;
 
-      if (state.data_type === "secondary_distributions") {
+      styled_chart.tooltip.formatter = function () {
+        let container = document.createElement('div');
+        container.style.margin = '-4px -7px -7px -7px';
+        container.style.padding = '3px 3px 6px 3px';
+        container.style.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
+        if (state.chart_engine === "highcharts_old") {
+          container.style.margin = '-7px';
+        }
 
-        styled_chart.chart.options3d = {
-          enabled: true,
-          alpha: 10,
-          beta: 30,
-          depth: 800,
-          fitToPlot: false,
-        };
+        let name_div = document.createElement('div');
+        container.appendChild(name_div);
+        name_div.style.marginLeft = '9px';
+        name_div.style.marginRight = '9px';
+        name_div.style.marginBottom = '6px';
+        name_div.style.fontWeight = '700';
+        name_div.innerHTML = this.x;
 
-        styled_chart.chart.height = 800;
-        styled_chart.chart.width = 800;
-        styled_chart.chart.animation = false;
-        // secondary distributions have a different tooltip structure
-        styled_chart.tooltip = {
-          headerFormat: '',
-          pointFormatter: function () {
-            return '<table class="">\
-            <thead>\
-              <tr>\
-                <th scope="col"></th>\
-                <th scope="col">Absolute</th>\
-                <th scope="col">Relative</th>\
-              </tr>\
-            </thead>\
-            <tbody>\
-              <tr>\
-                <th scope="row">DPS</th>\
-                <td>' + Intl.NumberFormat().format(this.dps) + '</td>\
-                <td>' + Math.round(this.dps / this.dps_max * 10000) / 100 + '%</td>\
-              </tr>\
-              <tr>\
-                <th scope="row">Crit</th>\
-                <td>' + Intl.NumberFormat().format(this.stat_crit) + '</td>\
-                <td>' + this.name.split("_")[0] + '%</td>\
-              </tr>\
-              <tr>\
-                <th scope="row">Haste</th>\
-                <td>' + Intl.NumberFormat().format(this.stat_haste) + '</td>\
-                <td>' + this.name.split("_")[1] + '%</td>\
-              </tr>\
-              <tr>\
-                <th scope="row">Mastery</th>\
-                <td>' + Intl.NumberFormat().format(this.stat_mastery) + '</td>\
-                <td>' + this.name.split("_")[2] + '%</td>\
-              </tr>\
-              <tr>\
-                <th scope="row">Versatility</th>\
-                <td>' + Intl.NumberFormat().format(this.stat_vers) + '</td>\
-                <td>' + this.name.split("_")[3] + '%</td>\
-              </tr>\
-            </tbody>\
-          </table>';
-          },
-          useHTML: true,
-          borderColor: state.background_color
-        };
-        styled_chart.xAxis = {
-          min: 0,
-          max: 80,
-          tickInterval: 20,
-          startOnTick: true,
-          endOnTick: true,
-          title: "",
-          labels: {
-            enabled: false,
-          },
-          gridLineWidth: 1,
-          gridLineColor: state.axis_color,
-        };
-        styled_chart.yAxis = {
-          min: -10,
-          max: 70,
-          tickInterval: 20,
-          startOnTick: true,
-          endOnTick: true,
-          title: "",
-          labels: {
-            enabled: false,
-          },
-          gridLineWidth: 1,
-          gridLineColor: state.axis_color,
-        };
-        styled_chart.zAxis = {
-          min: 10,
-          max: 90,
-          tickInterval: 20,
-          startOnTick: true,
-          endOnTick: true,
-          title: "",
-          labels: {
-            enabled: false,
-          },
-          reversed: true,
-          gridLineWidth: 1,
-          gridLineColor: state.axis_color,
-        };
+        let cumulative_amount = 0;
+        for (var i = this.points.length - 1; i >= 0; i--) {
+          cumulative_amount += this.points[i].y;
+          if (this.points[i].y !== 0) {
+            let point_div = document.createElement('div');
+            container.appendChild(point_div);
 
-      } else {
-        styled_chart.tooltip.formatter = function () {
-          let container = document.createElement('div');
-          container.style.margin = '-4px -7px -7px -7px';
-          container.style.padding = '3px 3px 6px 3px';
-          container.style.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
-          if (state.chart_engine === "highcharts_old") {
-            container.style.margin = '-7px';
+            let block_span = document.createElement('span');
+            point_div.appendChild(block_span);
+            block_span.style.marginLeft = '9px';
+            block_span.style.borderLeft = '9px solid ' + this.points[i].series.color;
+            block_span.style.paddingLeft = '4px';
+            block_span.innerHtml = this.points[i].series.name;
+
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount)));
           }
+        }
 
-          let name_div = document.createElement('div');
-          container.appendChild(name_div);
-          name_div.style.marginLeft = '9px';
-          name_div.style.marginRight = '9px';
-          name_div.style.marginBottom = '6px';
-          name_div.style.fontWeight = '700';
-          name_div.innerHTML = this.x;
+        return container.outerHTML;
+      };
+      styled_chart.tooltip.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
+      styled_chart.tooltip.borderColor = axis_color;
+      styled_chart.tooltip.style.color = font_color;
 
-          let cumulative_amount = 0;
-          for (var i = this.points.length - 1; i >= 0; i--) {
-            cumulative_amount += this.points[i].y;
-            if (this.points[i].y !== 0) {
-              let point_div = document.createElement('div');
-              container.appendChild(point_div);
+      styled_chart.xAxis.labels.style.color = font_color;
+      styled_chart.xAxis.gridLineColor = axis_color;
+      styled_chart.xAxis.lineColor = axis_color;
+      styled_chart.xAxis.tickColor = axis_color;
 
-              let block_span = document.createElement('span');
-              point_div.appendChild(block_span);
-              block_span.style.marginLeft = '9px';
-              block_span.style.borderLeft = '9px solid ' + this.points[i].series.color;
-              block_span.style.paddingLeft = '4px';
-              block_span.innerHtml = this.points[i].series.name;
+      styled_chart.yAxis[0].labels.style.color = axis_color;
+      styled_chart.yAxis[0].stackLabels.style.color = font_color;
+      styled_chart.yAxis[0].gridLineColor = axis_color;
+      styled_chart.yAxis[0].lineColor = axis_color;
+      styled_chart.yAxis[0].tickColor = axis_color;
+      styled_chart.yAxis[0].title.style.color = axis_color;
 
-              point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount)));
-            }
-          }
-
-          return container.outerHTML;
-        };
-        styled_chart.tooltip.backgroundColor = (background_color !== "transparent") ? background_color : default_background_color;
-        styled_chart.tooltip.borderColor = axis_color;
-        styled_chart.tooltip.style.color = font_color;
-
-        styled_chart.xAxis.labels.style.color = font_color;
-        styled_chart.xAxis.gridLineColor = axis_color;
-        styled_chart.xAxis.lineColor = axis_color;
-        styled_chart.xAxis.tickColor = axis_color;
-
-        styled_chart.yAxis[0].labels.style.color = axis_color;
-        styled_chart.yAxis[0].stackLabels.style.color = font_color;
-        styled_chart.yAxis[0].gridLineColor = axis_color;
-        styled_chart.yAxis[0].lineColor = axis_color;
-        styled_chart.yAxis[0].tickColor = axis_color;
-        styled_chart.yAxis[0].title.style.color = axis_color;
-
-        styled_chart.yAxis[1].labels.style.color = axis_color;
-        styled_chart.yAxis[1].stackLabels.style.color = font_color;
-        styled_chart.yAxis[1].gridLineColor = axis_color;
-        styled_chart.yAxis[1].lineColor = axis_color;
-        styled_chart.yAxis[1].tickColor = axis_color;
-        styled_chart.yAxis[1].title.style.color = axis_color;
-      }
+      styled_chart.yAxis[1].labels.style.color = axis_color;
+      styled_chart.yAxis[1].stackLabels.style.color = font_color;
+      styled_chart.yAxis[1].gridLineColor = axis_color;
+      styled_chart.yAxis[1].lineColor = axis_color;
+      styled_chart.yAxis[1].tickColor = axis_color;
+      styled_chart.yAxis[1].title.style.color = axis_color;
 
       styled_chart.credits.style.color = font_color;
 
