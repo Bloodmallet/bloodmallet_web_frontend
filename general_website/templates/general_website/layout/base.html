@@ -53,5 +53,21 @@
     {% include 'general_website/layout/script_importer.html' %}
     {% block extraimport %}
     {% endblock %}
+
+    {# Cookie Policy overlay #}
+    <div id="cookie_information_overlay" class="cookie_information_overlay" hidden>
+    </div>
+    <div id="cookie_information_box" class="centered-axis-xy cookie_box alert alert-info" hidden>
+        <p>
+            {% blocktrans %}
+            Greetings,<br/>
+            dev.bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+            {% endblocktrans %}
+        </p>
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% trans "Accept GA tracking" %}</button>
+            <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% trans "Reject GA tracking" %}</button>
+        </div>
+    </div>
 </body>
 </html>

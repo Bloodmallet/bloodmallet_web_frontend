@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-29 00:23+0000\n"
+"POT-Creation-Date: 2020-04-30 11:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -655,6 +655,26 @@ msgstr ""
 msgid ""
 "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha "
 "alpha alpha"
+msgstr ""
+
+#: general_website/templates/general_website/layout/base.html:62
+msgid ""
+"\n"
+"            Greetings,<br/>\n"
+"            dev.bloodmallet.com would like to use <a href=\"https://support."
+"google.com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
+"to know how many people are using the website. You can either accept or "
+"reject this. Your choice will be saved on your device in a cookie.\n"
+"            "
+msgstr ""
+
+#: general_website/templates/general_website/layout/base.html:68
+msgid "Accept GA tracking"
+msgstr ""
+
+#: general_website/templates/general_website/layout/base.html:69
+msgid "Reject GA tracking"
 msgstr ""
 
 #: general_website/templates/general_website/layout/head.html:7
