@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 11:54+0000\n"
+"POT-Creation-Date: 2020-04-30 12:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -679,10 +679,12 @@ msgstr ""
 "einem Cookie auf dem Gerät gespeichert."
 
 #: general_website/templates/general_website/layout/base.html:68
+#: general_website/templates/general_website/privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr "GA akzeptieren"
 
 #: general_website/templates/general_website/layout/base.html:69
+#: general_website/templates/general_website/privacy_policy.html:34
 msgid "Reject GA tracking"
 msgstr "GA widersprechen"
 
@@ -694,16 +696,16 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:17
+#: general_website/templates/general_website/layout/nav_bottom.html:12
 msgid "FAQ"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:24
-msgid "Report an error"
+#: general_website/templates/general_website/layout/nav_bottom.html:20
+msgid "Patreon"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:33
-msgid "Patreon"
+#: general_website/templates/general_website/layout/nav_bottom.html:29
+msgid "Report an error"
 msgstr ""
 
 #: general_website/templates/general_website/layout/nav_settings.html:14
@@ -836,30 +838,52 @@ msgstr ""
 msgid "More information"
 msgstr ""
 
+#: general_website/templates/general_website/privacy_policy.html:26
+msgid "Google Analytics"
+msgstr ""
+
+#: general_website/templates/general_website/privacy_policy.html:28
+msgid ""
+"\n"
+"    dev.bloodmallet.com would like to use <a href=\"https://support.google."
+"com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
+"to know how many people are using the website. You can either accept or "
+"reject this. Your choice will be saved on your device in a cookie.\n"
+"    "
+msgstr ""
+"\n"
+"    dev.bloodmallet.com würde gerne ein <a href=\"https://support.google.com/"
+"analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a> "
+"verwenden, um zu sehen wie viele Nutzer die Webseite besuchen. Dem kann "
+"entweder zugestimmt oder widersprochen werden. Die getroffene Wahl wird in "
+"einem Cookie auf dem Gerät gespeichert."
+
 #: general_website/templates/general_website/profile.html:35
 msgid "Change password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: general_website/templates/general_website/settings.html:20
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: general_website/templates/general_website/settings.html:78
 msgid "Chart mode"
-msgstr ""
+msgstr "Diagramm modus"
 
 #: general_website/templates/general_website/settings.html:82
 msgid "Δ - absolute dps gain"
-msgstr ""
+msgstr "Δ - absoluter DPS Gewinn"
 
 #: general_website/templates/general_website/settings.html:88
 #, python-format
 msgid "%% - relative dps gain"
-msgstr ""
+msgstr "%% - relativer DPS Gewinn"
 
 #: general_website/templates/general_website/settings.html:94
 msgid "|x| - absolute value"
-msgstr ""
+msgstr "|x| - absoluter Wert"
 
 #: general_website/templates/general_website/settings.html:103
 msgid "active"

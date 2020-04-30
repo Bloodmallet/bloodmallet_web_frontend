@@ -1,0 +1,38 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+
+{% block title %}
+Datenschutzerklärung
+{% endblock %}
+
+{% block content %}
+
+<h1>Datenschutzerklärung</h1>
+
+Datenschutz: Weisen Sie darauf hin, dass Sie Maßnahmen zum Datenschutz getroffen haben, also gespeicherte Daten nicht von unbefugten Dritten eingesehen werden können.
+
+Erhebung persönlicher Daten: Wenn Sie persönliche Daten erheben, bspw. beim Eintrag in einen Newsletter, darf dies nur unter ausdrücklicher Einwilligung des Nutzers geschehen, die jederzeit vom Nutzer widerrufen werden kann. Außerdem müssen Sie angeben, wozu Sie die Daten verwenden und ob Sie die Daten an Dritte weitergeben. Außerdem sollte die Nutzung auch unter Angabe von Pseudonymen möglich sein. Weiterhin besteht für den Nutzer ein jederzeitiges Auskunftsrecht.
+
+Nutzung von Cookies: Erklären Sie, dass es sein kann, dass Cookies verwendet werden, dabei aber keine persönlichen Daten gespeichert werden. Weisen Sie darauf hin, wie Cookies ausgeschaltet werden können.
+
+Tracking-Tools: Wenn Sie ein Programm benutzen, um z.B. den Traffic auf Ihrer Seite zu analysieren (bspw. Google Analytics), machen Sie hierzu Ausführungen.
+
+Kontakt: Geben Sie eine Kontaktadresse für Anregungen, Beschwerden und Fragen an.
+
+Haftung bzw. Haftungsausschluss: Geben Sie an, inwiefern Sie für Inhalte auf Ihrer Website haften oder erklären Sie einen Haftungsausschluss. Dies gilt insbesondere für Verlinkungen auf andere Websites.
+
+Urheber- und Kennzeichenrecht: Erläutern Sie, dass gekennzeichnete Inhalte den Eigentumsrechten der jeweiligen Urheber unterliegen. Die von Ihnen erstellten Inhalte unterliegen Ihrem Urheberrecht und dürfen nicht ohne Einverständnis weiterverwandt werden.
+
+<h2>{% trans "Google Analytics" %}</h2>
+<p>
+    {% blocktrans %}
+    dev.bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+    {% endblocktrans %}
+</p>
+<div class="btn-group float-right">
+    <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% trans "Accept GA tracking" %}</button>
+    <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% trans "Reject GA tracking" %}</button>
+</div>
+
+
+{% endblock %}

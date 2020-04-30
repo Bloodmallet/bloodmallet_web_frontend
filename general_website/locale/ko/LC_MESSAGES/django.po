@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 11:54+0000\n"
+"POT-Creation-Date: 2020-04-30 12:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -671,10 +671,12 @@ msgid ""
 msgstr ""
 
 #: general_website/templates/general_website/layout/base.html:68
+#: general_website/templates/general_website/privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr ""
 
 #: general_website/templates/general_website/layout/base.html:69
+#: general_website/templates/general_website/privacy_policy.html:34
 msgid "Reject GA tracking"
 msgstr ""
 
@@ -686,16 +688,16 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:17
+#: general_website/templates/general_website/layout/nav_bottom.html:12
 msgid "FAQ"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:24
-msgid "Report an error"
+#: general_website/templates/general_website/layout/nav_bottom.html:20
+msgid "Patreon"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:33
-msgid "Patreon"
+#: general_website/templates/general_website/layout/nav_bottom.html:29
+msgid "Report an error"
 msgstr ""
 
 #: general_website/templates/general_website/layout/nav_settings.html:14
@@ -826,6 +828,21 @@ msgstr ""
 
 #: general_website/templates/general_website/portals.html:35
 msgid "More information"
+msgstr ""
+
+#: general_website/templates/general_website/privacy_policy.html:26
+msgid "Google Analytics"
+msgstr ""
+
+#: general_website/templates/general_website/privacy_policy.html:28
+msgid ""
+"\n"
+"    dev.bloodmallet.com would like to use <a href=\"https://support.google."
+"com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
+"to know how many people are using the website. You can either accept or "
+"reject this. Your choice will be saved on your device in a cookie.\n"
+"    "
 msgstr ""
 
 #: general_website/templates/general_website/profile.html:35

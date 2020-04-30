@@ -578,3 +578,12 @@ def add_charts(request):
     context['form'] = form
 
     return render(request, 'general_website/add_chart.html', context=context)
+
+def impressum(request):
+    return render(request, 'general_website/impressum.html')
+
+def privacy_policy(request):
+    return render(request, 'general_website/privacy_policy.html')
+
+def terms_and_conditions(request):
+    return render(request, 'general_website/terms_and_conditions.html')
