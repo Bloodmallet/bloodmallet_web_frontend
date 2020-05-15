@@ -437,7 +437,7 @@ def my_charts(request):
 
     simulations = request.user.simulations.filter(
         result__isnull=False, failed=False
-    ).exclude(name__icontains=settings.STANDARD_CHART_NAME)
+    ).exclude(name__icontains=settings.STANDARD_CHART_NAME).select_related('result', 'simulation_type', 'fight_style', 'wow_spec', 'wow_class')
     context['charts'] = simulations
 
     return render(request, 'general_website/my_charts.html', context=context)
@@ -468,15 +468,20 @@ def get_chart_data(
 
     if chart_id:
         try:
-            simulation = Simulation.objects.get(id=chart_id, result__isnull=False)     # pylint: disable=no-member
+            simulation = Simulation.objects.get(  # pylint: disable=no-member
+                id=chart_id, result__isnull=False).select_related(
+                'result')
         except Simulation.DoesNotExist:     # pylint: disable=no-member
             simulation = None
         except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
             # this...shouldn't happen
-            logger.warning('Multiple Simulations have the same id {}'.format(chart_id))
-            simulation = Simulation.objects.filter(id=chart_id).first()     # pylint: disable=no-member
+            logger.warning(
+                'Multiple Simulations have the same id {}'.format(chart_id))
+            simulation = Simulation.objects.filter(  # pylint: disable=no-member
+                id=chart_id).first()
         except Exception:
-            logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
+            logger.exception(
+                'Chart_id {} crashed Simulation object look-up.'.format(chart_id))
             simulation = None
 
         try:
@@ -495,7 +500,7 @@ def get_chart_data(
                 wow_spec__tokenized_name=wow_spec,
                 simulation_type__command=simulation_type,
                 fight_style__tokenized_name=fight_style,
-            )
+            ).select_related('result')
         except GeneralResult.DoesNotExist:     # pylint: disable=no-member
             return JsonResponse(data={'status': 'error', 'message': _("No standard chart with these values found.")})
 
@@ -524,7 +529,9 @@ def delete_chart(request) -> JsonResponse:
         return JsonResponse(data={'status': 'error', 'message': _("Chart deletion works only with POST and if chart_id is provided.")})
 
     try:
-        simulation = Simulation.objects.get(id=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(  # pylint: disable=no-member
+            id=chart_id
+        )
     except Exception:
         message = _("An error occured while trying to delete a chart.")
         simulation = None
@@ -569,7 +576,8 @@ def add_charts(request):
 
             return redirect('my_charts')
         elif not request.user.can_create_chart:
-            messages.info(request, _("You don't have permission to create a chart."))
+            messages.info(request, _(
+                "You don't have permission to create a chart."))
 
     else:
 
@@ -579,11 +587,14 @@ def add_charts(request):
 
     return render(request, 'general_website/add_chart.html', context=context)
 
+
 def impressum(request):
     return render(request, 'general_website/impressum.html')
 
+
 def privacy_policy(request):
     return render(request, 'general_website/privacy_policy.html')
+
 
 def terms_and_conditions(request):
     return render(request, 'general_website/terms_and_conditions.html')
