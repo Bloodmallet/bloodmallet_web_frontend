@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -51,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
-    'general_website.middlewares.broadcast.BroadcastMiddleware',
+    # 'general_website.middlewares.broadcast.BroadcastMiddleware',
 ]
 
 try:
@@ -136,10 +138,10 @@ STATICFILES_FINDERS = [
 
 # django-allauth
 AUTHENTICATION_BACKENDS = (
-     # Needed to login by username in Django admin, regardless of `allauth`
+    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
-     # `allauth` specific authentication methods, such as login by e-mail
+    # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 # allauth
@@ -147,7 +149,8 @@ SITE_ID = 1
 # ACCOUNT_ADAPTER = 'general_website.allauth_overwrite.SocialAccountAdapter'
 
 # we can either use crispy or bootstrap4
-CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend generator
+# automatic bootstrap form frontend generator
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # from where is this?
 LOGIN_URL = 'login'
@@ -169,7 +172,6 @@ else:
 STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
 
 # adjust messages tags to match bootstrap
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',

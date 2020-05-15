@@ -18,7 +18,7 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s:%(lineno)d - %(message)s',
-        }, # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
+        },  # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
 
     },
     'handlers': {
@@ -43,14 +43,14 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'general_website': { # add app to logger!
+        'general_website': {  # add app to logger!
             'handlers': [
                 'console', 'file'
             ],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         },
-        'compute_api': { # add app to logger!
+        'compute_api': {  # add app to logger!
             'handlers': [
                 'console', 'file'
             ],
@@ -111,4 +111,13 @@ except ModuleNotFoundError:
 else:
     GS_BUCKET_NAME = DEV_BUCKET_NAME
     from google.oauth2 import service_account
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(DEV_CREDENTIALS)
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        DEV_CREDENTIALS)
+
+
+# add dvelopment tools
+INSTALLED_APPS.append('debug_toolbar')
+MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+INTERNAL_IPS = [
+    '127.0.0.1'
+]
