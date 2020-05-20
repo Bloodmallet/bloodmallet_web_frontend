@@ -400,10 +400,10 @@ function bloodmallet_chart_import() {
     // early exits if data is missing
     if (chart_id) {
       if (loaded_data["c" + chart_id] === undefined) {
-        if (count < 10) {
-          setTimeout(update_chart, 100, state, html_element, chart, count + 1);
+        if (count < 30) {
+          setTimeout(update_chart, 200, state, html_element, chart, count + 1);
         } else {
-          console.warn("Data of ", chart_id, " for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
+          console.warn("Data of", chart_id, "for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
         }
         return;
       }
@@ -412,12 +412,13 @@ function bloodmallet_chart_import() {
         spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
       } catch (error) {
         console.warn("Data for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
-        if (count < 10) {
-          setTimeout(update_chart, 100, state, html_element, chart, count + 1);
+        if (count < 30) {
+          setTimeout(update_chart, 200, state, html_element, chart, count + 1);
         }
         return;
       }
     }
+
 
     spec_data = loaded_data["c" + chart_id];
     wow_class = spec_data['simc_settings']['class'];
