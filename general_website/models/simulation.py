@@ -66,11 +66,7 @@ class Simulation(models.Model):
     )
 
     def __str__(self):
-        return "{simulation_type} {wow_spec} {fight_style}".format(
-            simulation_type=self.simulation_type,
-            wow_spec=self.wow_spec,
-            fight_style=self.fight_style
-        )
+        return "{}".format(self.id)
 
     class Meta:
         ordering = ['-created_at']
@@ -111,7 +107,7 @@ class Queue(models.Model):
         blank=True, help_text="Log messages from the responsible worker.")
 
     def __str__(self):
-        return "{} {}".format(self.simulation, self.state)
+        return "{} {}".format(self.simulation_id, self.state)  # pylint: disable=no-member
 
 
 def save_simulation_result(instance, filename) -> str:
@@ -147,7 +143,7 @@ class Result(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{}".format(self.simulation)
+        return "{}".format(self.simulation_id)  # pylint: disable=no-member
 
 
 class GeneralResult(models.Model):
@@ -170,7 +166,7 @@ class GeneralResult(models.Model):
         Result, on_delete=models.CASCADE, related_name='general_result')
 
     def __str__(self):
-        return "{}".format(self.result.simulation)     # pylint: disable=no-member
+        return "{}".format(self.result_id)     # pylint: disable=no-member
 
     class Meta:
         unique_together = ((
