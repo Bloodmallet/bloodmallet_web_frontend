@@ -468,9 +468,12 @@ def get_chart_data(
 
     if chart_id:
         try:
-            simulation = Simulation.objects.get(  # pylint: disable=no-member
-                id=chart_id, result__isnull=False).select_related(
-                'result')
+            simulation = Simulation.objects.select_related(  # pylint: disable=no-member
+                'result'
+            ).get(
+                id=chart_id,
+                result__isnull=False,
+            )
         except Simulation.DoesNotExist:     # pylint: disable=no-member
             simulation = None
         except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
