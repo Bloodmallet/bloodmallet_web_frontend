@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'crispy_forms',
     'vinaigrette',
-    'general_website.apps.GeneralWebsiteConfig',
+    'general_website',
 ]
 
 MIDDLEWARE = [
