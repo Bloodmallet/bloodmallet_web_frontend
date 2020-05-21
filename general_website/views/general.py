@@ -498,12 +498,12 @@ def get_chart_data(
 
     elif simulation_type and fight_style and wow_class and wow_spec:
         try:
-            simulation = GeneralResult.objects.get(    # pylint: disable=no-member
+            simulation = GeneralResult.objects.select_related('result').get(    # pylint: disable=no-member
                 wow_class__tokenized_name=wow_class,
                 wow_spec__tokenized_name=wow_spec,
                 simulation_type__command=simulation_type,
                 fight_style__tokenized_name=fight_style,
-            ).select_related('result')
+            )
         except GeneralResult.DoesNotExist:     # pylint: disable=no-member
             return JsonResponse(data={'status': 'error', 'message': _("No standard chart with these values found.")})
 
