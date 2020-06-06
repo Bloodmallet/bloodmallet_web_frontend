@@ -6,7 +6,7 @@ from allauth.socialaccount.views import ConnectionsView
 
 urlpatterns = [
 
-     # general
+    # general
     path('', views.index, name='index_empty'),
     path('index.html', views.index, name='index_long'),
     path('index', views.index, name='index'),
@@ -16,9 +16,9 @@ urlpatterns = [
     path('faq', views.faq, name='faq'),
     path('error', views.error, name='error'),
 
-     # charts
+    # charts
     path('my_charts', views.my_charts, name='my_charts'),
-    path('chart/create', views.add_charts, name='add_charts'),
+    path('chart/create', views.create_chart, name='create_chart'),
     path('chart/<uuid:chart_id>', views.chart, name='chart'),
     path('chart/get/<uuid:chart_id>', views.get_chart_data, name='get_chart_data'),
     path(
@@ -28,19 +28,23 @@ urlpatterns = [
     ),
     path('chart/delete', views.delete_chart, name='delete_chart'),
 
-     # portals o_O but blizzard killed most...needs heavy data updates
+    # portals o_O but blizzard killed most...needs heavy data updates
     path('portals', views.portals, name='portals'),
 
-     # settings
+    # settings
     path('settings/general', views.settings, name='settings'),
     path('settings/profile', views.profile, name='profile'),
     path('settings/change_password', views.change_password, name='change_password'),
 
-     # allauth account actions
+    # allauth account actions
     path('accounts/', include('allauth.urls')),
-    path('settings/connections', ConnectionsView.as_view(), name='account_connections'),
+    path(
+        'settings/connections',
+        ConnectionsView.as_view(),
+        name='account_connections',
+    ),
 
-     # account actions
+    # account actions
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('signup', views.signup, name='signup'),

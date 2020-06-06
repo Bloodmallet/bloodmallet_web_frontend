@@ -556,7 +556,7 @@ def delete_chart(request) -> JsonResponse:
     return JsonResponse(data=context)
 
 
-def add_charts(request):
+def create_chart(request):
     """Allows the user to create charts.
     """
     logger.debug('called')
@@ -588,7 +588,7 @@ def add_charts(request):
 
     context['form'] = form
 
-    return render(request, 'general_website/add_chart.html', context=context)
+    return render(request, 'general_website/create_chart.html', context=context)
 
 
 def impressum(request):

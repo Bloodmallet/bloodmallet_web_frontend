@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+import logging
+
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.utils.translation import gettext_lazy as _
@@ -12,9 +16,13 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Div
 from crispy_forms.bootstrap import FieldWithButtons, StrictButton
 
+logger = logging.getLogger(__name__)
+
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. 254 characters or fewer.')
+    email = forms.EmailField(
+        max_length=254, help_text='Required. 254 characters or fewer.'
+    )
 
     class Meta:
         model = User
@@ -55,13 +63,11 @@ class SimulationCreationForm(forms.ModelForm):
             'custom_profile',
         )
 
-        # widgets = {
-        #     'wow_spec': forms.CheckboxSelectMultiple(),
-        # }
-
     def __init__(self, *args, **kwargs):
         super(SimulationCreationForm, self).__init__(*args, **kwargs)
-        self.fields['simulation_type'].queryset = SimulationType.objects.order_by('name')     # pylint: disable=no-member
+        self.fields['simulation_type'].queryset = SimulationType.objects.order_by(  # pylint: disable=no-member
+            'name'
+        )
         self.fields['wow_spec'].queryset = WowSpec.objects.order_by(    # pylint: disable=no-member
             'wow_class__tokenized_name', 'tokenized_name'
         )
@@ -78,8 +84,14 @@ class SimulationCreationForm(forms.ModelForm):
                 Div(Field('fight_style'), css_class='col-12 col-md-6'),
                 css_class='row'
             ),
-            Div(Div(Field('custom_profile', placeholder=_("Paste your /simc output into this element.")), css_class='col-12'), css_class='row'),
-            StrictButton(_("Create Chart"), type='submit', css_class="btn btn-primary")
+            Div(Div(Field('custom_profile', placeholder=_(
+                "Paste your /simc output into this element."
+            )), css_class='col-12'), css_class='row'),
+            StrictButton(
+                _("Create Chart"),
+                type='submit',
+                css_class="btn btn-primary",
+            )
         )
 
     def clean_custom_profile(self):
