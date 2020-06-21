@@ -430,7 +430,6 @@ function bloodmallet_chart_import() {
     if (data_type === "secondary_distributions") {
       return update_secondary_distribution_chart(state, html_element, chart);
     }
-    console.log(data_type);
 
     if (spec_data['data_type'] === 'azerite_traits') {
       if (data_type.indexOf('azerite_items') === -1) {
@@ -505,13 +504,8 @@ function bloodmallet_chart_import() {
       chart.series[0].remove(false);
     }
 
-    // update categories
-    let category_list = [];
-
-    for (let i = 0; i < dps_ordered_keys.length; i++) {
-      let dps_key = dps_ordered_keys[i];
-      category_list.push(get_category_name(state, dps_key, data));
-    }
+    let category_list = dps_ordered_keys
+      .map(element => get_category_name(state, element, data));
 
     if (debug) {
       console.log(category_list);
@@ -545,7 +539,7 @@ function bloodmallet_chart_import() {
       for (let simulation_step_position = 0; simulation_step_position < simulated_steps.length; simulation_step_position++) {
 
         let simulation_step = simulated_steps[simulation_step_position];
-        var dps_array = [];
+        let dps_array = [];
 
         for (let i = 0; i < dps_ordered_keys.length; i++) {
           simulation_step = simulated_steps[simulation_step_position];
@@ -612,7 +606,6 @@ function bloodmallet_chart_import() {
                 dps_array.push(dps_key_values[simulation_step] - baseline_dps);
 
               } else { // standard case, next simulation_step is not zero and can be used to substract from the current value
-
                 dps_array.push(dps_key_values[simulation_step] - dps_key_values[tmp_simulation_steps[String(Number(simulation_step_position) + 1)]]);
               }
 
@@ -637,7 +630,6 @@ function bloodmallet_chart_import() {
         chart.addSeries({
           data: dps_array,
           name: simulation_step_clean,
-          showInLegend: true
         }, false);
 
       }
@@ -661,7 +653,7 @@ function bloodmallet_chart_import() {
     }
 
     // add new legend title
-    if ("trinkets" == data_type || "azerite_items_chest" == data_type || "azerite_items_head" == data_type || "azerite_items_shoulders" == data_type || "azerite_traits_itemlevel" == data_type) {
+    if (["trinkets", "azerite_items_chest", "azerite_items_head", "azerite_items_shoulders", "azerite_traits_itemlevel"].indexOf(data_type) > -1) {
       chart.legend.title.attr({ text: "Itemlevel" });
     } else if (data_type === "races") {
       chart.legend.title.attr({ text: "" });
@@ -669,13 +661,14 @@ function bloodmallet_chart_import() {
       chart.legend.title.attr({ text: "Trait count" });
     }
 
-    html_element.style.height = 200 + dps_ordered_keys.length * 30 + "px";
-    if (chart_engine == "highcharts") {
-      chart.setSize(html_element.style.width, html_element.style.height);
-    }
     chart.redraw();
     if (chart_engine == "highcharts_old") {
       chart.reflow();
+    }
+
+    html_element.style.height = 200 + dps_ordered_keys.length * 30 + "px";
+    if (chart_engine == "highcharts") {
+      chart.setSize(html_element.style.width, html_element.style.height);
     }
 
     // add wowdb tooltips, they don't check dynamically
@@ -887,7 +880,6 @@ function bloodmallet_chart_import() {
     // Add mouse and touch events for rotation
     (function (H) {
       function dragStart(eStart) {
-        console.log('what');
         eStart = chart.pointer.normalize(eStart);
 
         var posX = eStart.chartX,
@@ -1298,7 +1290,7 @@ function bloodmallet_chart_import() {
 
       let styled_chart = {
         chart: {
-          type: (state.data_type === "secondary_distributions") ? "scatter3d" : "bar",
+          type: "bar",
           backgroundColor: default_background_color,
           style: {
             fontFamily: "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\""
@@ -1307,7 +1299,7 @@ function bloodmallet_chart_import() {
         colors: bar_colors,
         credits: {
           href: "https://bloodmallet.com/",
-          text: "bloodmallet.com",
+          text: "bloodmallet",
           style: {
             fontSize: font_size
           }
@@ -1341,11 +1333,6 @@ function bloodmallet_chart_import() {
           symbolRadius: 0
         },
         plotOptions: {
-          bar: {
-            dataLabels: {
-              enabled: false,
-            },
-          },
           series: {
             stacking: "normal",
             borderColor: default_background_color,
@@ -1394,13 +1381,7 @@ function bloodmallet_chart_import() {
           }
         },
         xAxis: {
-          categories: [
-            "",
-            "",
-            "",
-            "",
-            "",
-          ],
+          categories: [],
           labels: {
             useHTML: true,
             style: {
@@ -1413,6 +1394,7 @@ function bloodmallet_chart_import() {
           lineColor: default_axis_color,
           tickColor: default_axis_color
         },
+        // two yAxis, to "double" the description
         yAxis: [{
           labels: {
             //enabled: true,
