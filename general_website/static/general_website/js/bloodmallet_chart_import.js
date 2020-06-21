@@ -29,7 +29,7 @@ function bloodmallet_chart_import() {
   /**
    * Variable determines how many bars are visible
    */
-  const default_data_entries = 7;
+  const default_limit = 7;
 
   /**
    * Options:
@@ -163,7 +163,7 @@ function bloodmallet_chart_import() {
           background_color: default_background_color,
           font_color: default_font_color,
           // settings
-          data_entries: default_data_entries,
+          limit: default_limit,
           chart_engine: default_chart_engine,
           tooltip_engine: default_tooltip_engine,
           language: default_language
@@ -181,7 +181,7 @@ function bloodmallet_chart_import() {
             state.font_color = bloodmallet.style.font_color;
           }
           if (bloodmallet.settings.entries !== undefined) {
-            state.data_entries = bloodmallet.settings.entries;
+            state.limit = bloodmallet.settings.entries;
           }
           if (bloodmallet.settings.chart_engine !== undefined) {
             state.chart_engine = bloodmallet.settings.chart_engine;
@@ -200,7 +200,7 @@ function bloodmallet_chart_import() {
 
         // optional input
         if (html_element.getAttribute("data-entries")) {
-          state.data_entries = html_element.getAttribute("data-entries");
+          state.limit = html_element.getAttribute("data-entries");
         }
         if (html_element.getAttribute("data-fight-style")) {
           state.fight_style = html_element.getAttribute("data-fight-style");
@@ -392,7 +392,7 @@ function bloodmallet_chart_import() {
     let fight_style = state.fight_style;
     let wow_class = state.wow_class;
     let wow_spec = state.wow_spec;
-    let data_entries = state.data_entries;
+    let limit = state.limit;
     let chart_engine = state.chart_engine;
 
     let spec_data = false;
@@ -450,22 +450,22 @@ function bloodmallet_chart_import() {
       if (data_type === "azerite_traits_stacking") {
 
         if (state.azerite_tier === "all") {
-          dps_ordered_keys = data["sorted_data_keys_2"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_data_keys_2"].slice(0, limit);
         } else if (state.azerite_tier === "1" || state.azerite_tier === "3") {
-          dps_ordered_keys = data["sorted_azerite_tier_3_trait_stacking"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_azerite_tier_3_trait_stacking"].slice(0, limit);
         } else if (state.azerite_tier === "2") {
-          dps_ordered_keys = data["sorted_azerite_tier_2_trait_stacking"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_azerite_tier_2_trait_stacking"].slice(0, limit);
         }
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][0]];
 
       } else if (data_type === "azerite_traits_itemlevel") {
 
         if (state.azerite_tier === "all") {
-          dps_ordered_keys = data["sorted_data_keys"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
         } else if (state.azerite_tier === "1" || state.azerite_tier === "3") {
-          dps_ordered_keys = data["sorted_azerite_tier_3_itemlevel"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_azerite_tier_3_itemlevel"].slice(0, limit);
         } else if (state.azerite_tier === "2") {
-          dps_ordered_keys = data["sorted_azerite_tier_2_itemlevel"].slice(0, data_entries);
+          dps_ordered_keys = data["sorted_azerite_tier_2_itemlevel"].slice(0, limit);
         }
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
 
@@ -475,7 +475,7 @@ function bloodmallet_chart_import() {
       }
 
     } else {
-      dps_ordered_keys = data["sorted_data_keys"].slice(0, data_entries);
+      dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
       if (data_type === "races") {
         baseline_dps = 0;
       } else {
