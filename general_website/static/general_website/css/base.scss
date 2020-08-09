@@ -228,8 +228,12 @@ a:hover .svg-icon {
         }
     }
 
-    .border-#{$class} {
+    .#{$class}-border {
         border-color: $color-value !important;
+    }
+
+    .#{$class}-background {
+        background-color: $color-value;
     }
 
 }
@@ -403,7 +407,7 @@ select::-ms-expand {
 }
 
 .centered-axis-xy {
-    position: fixed;
+    position: relative;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
@@ -412,4 +416,15 @@ select::-ms-expand {
 .cookie_box {
     z-index: 1255;
     background-color: $dark-color;
+}
+
+.bm-progress-bar {
+    // border: $alert-border-width solid $class-color-shaman;
+    background-color: $darkest-color;
+    height: 30px;
+    width: 100%;
+}
+
+.bm-progress-bar-text {
+    text-shadow: 1px 1px $darkest-color;
 }
