@@ -177,7 +177,7 @@ a:hover .svg-icon {
 // create necessary class specific css for nav and tables
 @each $class, $color-value in $class-colors {
     .#{$class}-color {
-        color: $color-value!important;
+        color: $color-value;
     }
     .#{$class}-menu-border {
         // border-top: 3px solid transparent;
@@ -229,7 +229,7 @@ a:hover .svg-icon {
     }
 
     .#{$class}-border {
-        border-color: $color-value !important;
+        border-color: $color-value;
     }
 
     .#{$class}-background {
@@ -419,9 +419,8 @@ select::-ms-expand {
 }
 
 .bm-progress-bar {
-    // border: $alert-border-width solid $class-color-shaman;
     background-color: $darkest-color;
-    height: 30px;
+    height: 2.5rem;
     width: 100%;
 }
 
