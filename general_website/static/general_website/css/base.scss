@@ -427,3 +427,7 @@ select::-ms-expand {
 .bm-progress-bar-text {
     text-shadow: 1px 1px $darkest-color;
 }
+
+.notransition {
+    transition: none!important;
+}
