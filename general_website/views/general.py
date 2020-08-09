@@ -435,9 +435,16 @@ def my_charts(request):
 
     context = {}
 
-    simulations = request.user.simulations.filter(
-        result__isnull=False, failed=False
-    ).exclude(name__icontains=settings.STANDARD_CHART_NAME).select_related('result', 'simulation_type', 'fight_style', 'wow_spec', 'wow_class')
+    simulations = request.user.simulations.all().exclude(
+        name__icontains=settings.STANDARD_CHART_NAME
+    ).select_related(
+        'fight_style',
+        'result',
+        'simulation_type',
+        'wow_class',
+        'wow_spec',
+    )
+
     context['charts'] = simulations
 
     return render(request, 'general_website/my_charts.html', context=context)
