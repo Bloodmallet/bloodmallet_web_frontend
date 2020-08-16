@@ -87,13 +87,63 @@ function animateTP(element, wait_time) {
     let states = createRunner('| "|&gt;', '&lt;|" |', "_", 12, 1, 0);
 
     setInterval(() => {
-        let i = parseInt(element.dataset.i) + 1;
-        if (i >= states.length) {
-            i = 0;
-        }
-        element.innerHTML = states[i];
-        element.dataset.i = i;
+        setAnimationStep(element, states);
     }, wait_time * 1000);
+}
+
+function animatePenguinZ(element) {
+    let states = [
+        '_| "|>_____',
+        '_| "|>z____',
+        '_| "|>zz___',
+        '_| "|>zzz__',
+        '_| "|>_zzz_',
+        '_| "|>__zzz',
+        '_| "|>___zz',
+        '_| "|>z___z',
+        '_| "|>zz___',
+        '_| "|>Zzz__',
+        '_| "|>ZZzz_',
+        '_| "|>zZZzz',
+        '_| "|>_zZZz',
+        '_| "|>__zZZ',
+        '_| "|>___zZ',
+        '_| "|>____z'
+    ]
+    setInterval(() => {
+        setAnimationStep(element, states);
+    }, 0.2 * 1000);
+}
+
+function animatePenguinBubble(element) {
+    let states = [
+        '_| "|>_____',
+        '_| "|>_____',
+        '_| "|>_____',
+        '_| "|>°____',
+        '_| "|>_____',
+        '_| "|>°____',
+        '_| "|>_____',
+        '_| "|>°____',
+        '_| "|>O____',
+    ]
+    setInterval(() => {
+        setAnimationStep(element, states);
+    }, 2 * 1000);
+}
+
+/**
+ * Updates the state of the element based on the animation.
+ * @param {HTMLnode} element
+ * @param {array} animations
+ */
+function setAnimationStep(element, animations) {
+    let i = parseInt(element.dataset.i) + 1;
+    if (i >= animations.length || isNaN(i)) {
+        i = 0;
+    }
+    element.innerHTML = animations[i];
+    element.dataset.i = i;
 }
 
 /**
@@ -112,7 +162,6 @@ function createRunner(lr_runner, rl_runner, spacer, steps, front = 0, back = 0) 
 
     let animation = [];
     for (let i = 0; i < steps; i++) {
-        console.log(i);
         animation.push(createStep(lr_runner, rl_runner, spacer, i, steps, front, back));
     }
 
