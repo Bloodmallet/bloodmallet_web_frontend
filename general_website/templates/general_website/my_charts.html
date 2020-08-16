@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
@@ -22,14 +23,30 @@
 
     {% for chart in charts %}
     <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.id }}">
-        <div class="card h-100">
+        <div class="card h-100 {% if chart.failed %}druid-border{% endif %}">
             <div class="card-body text-center">
                 <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans 'No name' %}</span>{% endif %}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ chart.result.created_at }}</h6>
-                <p class="card-text">{{ chart.simulation_type }} | {{ chart.fight_style }}<br/>
-                {{ chart.wow_spec.name }} {{ chart.wow_class }}</p>
-                <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% trans 'View' %}</a>
-                <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
+                <h6 class="card-subtitle mb-2 text-muted">{% if chart.failed %}<span class="druid-color">{% trans "Error" %}</span>{% else %}{{ chart.created_at }}{% endif %}</h6>
+                <p class="card-text">
+                    {{ chart.wow_spec.name }} {{ chart.wow_class }}<br/>
+                    {{ chart.simulation_type }}<br/>
+                    {{ chart.fight_style }}
+                </p>
+                {% if chart.failed %}
+                    <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
+                {% elif chart.result %}
+                    <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% trans 'View' %}</a>
+                    <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
+                {% else %}
+                {% comment %} in queue {% endcomment %}
+                    {% if chart.queue.state == 'pending' %}
+                        <p>{% trans 'Pending' %}: <code class="unfinished-chart pending-ascii"></code></p>
+                    {% elif chart.queue.state == 'in progress' %}
+                        <p>{% trans 'Simulating' %}: <code class="unfinished-chart inprogress-ascii"></code></p>
+                    {% else %}
+                        <p>{% trans 'Unknown state reached. Please refresh page' %} <code>{{ chart.id }}</code></p>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -62,7 +79,28 @@
 {% endblock %}
 
 {% block extraimport %}
+<script src="{% static 'general_website/js/progressbar.js' %}"></script>
 <script>
+
+    // page loads
+    // for each unfinished chart
+        // add appropriate animation
+        // add state udater
+            // load new state
+                // either update element
+                // or repeat
+
+    let tps = undefined;
+
+    tps = document.getElementsByClassName("inprogress-ascii");
+    for (let tp of tps) {
+        animateTP(tp, 0.5);
+    }
+
+    tps = document.getElementsByClassName("pending-ascii");
+    for (let tp of tps) {
+        animatePenguinZ(tp);
+    }
 
     $('#deleteModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);    // Button that triggered the modal
@@ -103,6 +141,52 @@
                 console.error(response['message']);
             }
         });
+    }
+
+    function update_chart(element, text, duration, callback) {
+        console.log('update_chart');
+        {% comment %} let request = new XMLHttpRequest();
+
+        request.open("GET", url, true); // async request
+
+        request.onload = function (e) {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                let json = JSON.parse(request.responseText);
+
+                if (chart_id) {
+                    loaded_data["c" + chart_id] = json;
+                } else {
+                    if (!loaded_data[data_type]) {
+                    loaded_data[data_type] = {};
+                    }
+                    if (!loaded_data[data_type][fight_style]) {
+                    loaded_data[data_type][fight_style] = {};
+                    }
+                    if (!loaded_data[data_type][fight_style][wow_class]) {
+                    loaded_data[data_type][fight_style][wow_class] = {};
+                    }
+
+                    loaded_data[data_type][fight_style][wow_class][wow_spec] = json;
+                }
+                if (debug) {
+                    console.log(json);
+                    console.log("Load and save finished.");
+                }
+                } else {
+                console.error(request.statusText);
+                }
+            }
+        };
+        request.onerror = function (e) {
+        console.error('Fetching data from bloodmallet.com encountered an error, ', e);
+        };
+        request.send(null); {% endcomment %}
+
+        setTimeout(()=>{
+            console.log('update_chart  call autoProgressBar');
+            autoProgressBar(element, text, duration, 1.2, callback);
+        }, 3201);
     }
 
 </script>
