@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 try:
-    from .secrets import SECRET_KEY
+    from .secrets.secrets import SECRET_KEY
 except ModuleNotFoundError:
     # enable local dev
     from django.core.management.utils import get_random_secret_key
@@ -199,3 +199,6 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# TODO: Remove this again
+FILE_CHARSET = 'utf-8'
