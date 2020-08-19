@@ -18,15 +18,25 @@ urlpatterns = [
 
     # charts
     path('my_charts', views.my_charts, name='my_charts'),
-    path('chart/create', views.create_chart, name='create_chart'),
     path('chart/<uuid:chart_id>', views.chart, name='chart'),
+    path('chart/create', views.create_chart, name='create_chart'),
+    path('chart/delete', views.delete_chart, name='delete_chart'),
     path('chart/get/<uuid:chart_id>', views.get_chart_data, name='get_chart_data'),
     path(
         'chart/get/<str:simulation_type>/<str:fight_style>/<str:wow_class>/<str:wow_spec>',
         views.get_chart_data,
         name='get_standard_chart_data'
     ),
-    path('chart/delete', views.delete_chart, name='delete_chart'),
+    path(
+        'chart/state/',
+        views.get_chart_state,
+        name='get_chart_state_ph'
+    ),
+    path(
+        'chart/state/<uuid:chart_id>',
+        views.get_chart_state,
+        name='get_chart_state'
+    ),
 
     # portals o_O but blizzard killed most...needs heavy data updates
     path('portals', views.portals, name='portals'),

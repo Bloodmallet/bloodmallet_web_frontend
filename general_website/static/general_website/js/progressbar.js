@@ -83,35 +83,36 @@ function animateSpin(element, wait_time) {
     }, wait_time * 1000);
 }
 
-function animateTP(element, wait_time) {
-    let states = createRunner('| "|&gt;', '&lt;|" |', "_", 12, 1, 0);
+let TP = createRunner('| "|&gt;', '&lt;|" |', "_", 12, 1, 0);
 
+function animateTP(element, wait_time) {
     setInterval(() => {
-        setAnimationStep(element, states);
+        setAnimationStep(element, TP);
     }, wait_time * 1000);
 }
 
+let penguinZ = [
+    '_| "|>_____',
+    '_| "|>z____',
+    '_| "|>zz___',
+    '_| "|>zzz__',
+    '_| "|>_zzz_',
+    '_| "|>__zzz',
+    '_| "|>___zz',
+    '_| "|>z___z',
+    '_| "|>zz___',
+    '_| "|>Zzz__',
+    '_| "|>ZZzz_',
+    '_| "|>zZZzz',
+    '_| "|>_zZZz',
+    '_| "|>__zZZ',
+    '_| "|>___zZ',
+    '_| "|>____z'
+]
+
 function animatePenguinZ(element) {
-    let states = [
-        '_| "|>_____',
-        '_| "|>z____',
-        '_| "|>zz___',
-        '_| "|>zzz__',
-        '_| "|>_zzz_',
-        '_| "|>__zzz',
-        '_| "|>___zz',
-        '_| "|>z___z',
-        '_| "|>zz___',
-        '_| "|>Zzz__',
-        '_| "|>ZZzz_',
-        '_| "|>zZZzz',
-        '_| "|>_zZZz',
-        '_| "|>__zZZ',
-        '_| "|>___zZ',
-        '_| "|>____z'
-    ]
     setInterval(() => {
-        setAnimationStep(element, states);
+        setAnimationStep(element, penguinZ);
     }, 0.2 * 1000);
 }
 

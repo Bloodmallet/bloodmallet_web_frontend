@@ -37,15 +37,26 @@
                 {% elif chart.result %}
                     <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% trans 'View' %}</a>
                     <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
-                {% else %}
+                {% elif chart.queue %}
                 {% comment %} in queue {% endcomment %}
-                    {% if chart.queue.state == 'pending' %}
-                        <p>{% trans 'Pending' %}: <code class="unfinished-chart pending-ascii"></code></p>
-                    {% elif chart.queue.state == 'in progress' %}
-                        <p>{% trans 'Simulating' %}: <code class="unfinished-chart inprogress-ascii"></code></p>
+                    {% if chart.queue.state == 'PENDING' %}
+                        <div class="unfinished-chart" data-value="{{ chart.id }}">
+                            <p>
+                                {% trans 'Pending' %}:
+                                <code class="pending-ascii"></code>
+                            </p>
+                        </div>
+                    {% elif chart.queue.state == 'INPROGRESS' %}
+                        <div class="unfinished-chart" data-value="{{ chart.id }}">
+                            <p>
+                                {% trans 'Simulating' %}:
+                                <code class="inprogress-ascii"></code>
+                            </p>
+                        </div>
                     {% else %}
                         <p>{% trans 'Unknown state reached. Please refresh page' %} <code>{{ chart.id }}</code></p>
                     {% endif %}
+                {% else %}
                 {% endif %}
             </div>
         </div>
@@ -90,16 +101,20 @@
                 // either update element
                 // or repeat
 
-    let tps = undefined;
-
-    tps = document.getElementsByClassName("inprogress-ascii");
-    for (let tp of tps) {
-        animateTP(tp, 0.5);
+    let unfinished_charts = document.getElementsByClassName("unfinished-chart");
+    for (let chart of unfinished_charts) {
+        chart.custom_interval = setInterval(()=>{
+            animationwrapper(chart.querySelector('code'));
+        }, 0.2 * 1000);
+        setTimeout(()=> {update_chart(chart);}, 10 * 1000);
     }
 
-    tps = document.getElementsByClassName("pending-ascii");
-    for (let tp of tps) {
-        animatePenguinZ(tp);
+    function animationwrapper(element){
+        if (element.classList.contains("inprogress-ascii")) {
+            setAnimationStep(element, TP);
+        } else if (element.classList.contains("pending-ascii")) {
+            setAnimationStep(element, penguinZ);
+        }
     }
 
     $('#deleteModal').on('show.bs.modal', function (event) {
@@ -143,50 +158,38 @@
         });
     }
 
-    function update_chart(element, text, duration, callback) {
+    function update_chart(element) {
         console.log('update_chart');
-        {% comment %} let request = new XMLHttpRequest();
+        let chart = element.dataset.value;
+
+        let request = new XMLHttpRequest();
+
+        // {% url 'get_chart_state_ph' %}
+        let url = "{% url 'get_chart_state_ph' %}" + chart;
+        console.log(url);
 
         request.open("GET", url, true); // async request
 
         request.onload = function (e) {
             if (request.readyState === 4) {
                 if (request.status === 200) {
-                let json = JSON.parse(request.responseText);
+                    let json = JSON.parse(request.responseText);
 
-                if (chart_id) {
-                    loaded_data["c" + chart_id] = json;
-                } else {
-                    if (!loaded_data[data_type]) {
-                    loaded_data[data_type] = {};
-                    }
-                    if (!loaded_data[data_type][fight_style]) {
-                    loaded_data[data_type][fight_style] = {};
-                    }
-                    if (!loaded_data[data_type][fight_style][wow_class]) {
-                    loaded_data[data_type][fight_style][wow_class] = {};
-                    }
-
-                    loaded_data[data_type][fight_style][wow_class][wow_spec] = json;
-                }
-                if (debug) {
                     console.log(json);
-                    console.log("Load and save finished.");
-                }
+
+                    setTimeout(()=>{
+                        update_chart(element);
+                    }, 10*1000);
+
                 } else {
-                console.error(request.statusText);
+                    console.error(request.statusText);
                 }
             }
         };
         request.onerror = function (e) {
-        console.error('Fetching data from bloodmallet.com encountered an error, ', e);
+            console.error('Fetching state of a chart encountered an error, ', e);
         };
-        request.send(null); {% endcomment %}
-
-        setTimeout(()=>{
-            console.log('update_chart  call autoProgressBar');
-            autoProgressBar(element, text, duration, 1.2, callback);
-        }, 3201);
+        request.send(null);
     }
 
 </script>

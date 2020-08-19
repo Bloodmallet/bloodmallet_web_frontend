@@ -443,6 +443,7 @@ def my_charts(request):
         'simulation_type',
         'wow_class',
         'wow_spec',
+        'queue',
     )
 
     context['charts'] = simulations
@@ -459,6 +460,26 @@ def chart(request, chart_id):
     context['chart_id'] = chart_id
 
     return render(request, 'general_website/chart.html', context=context)
+
+
+def get_chart_state(request, chart_id=None) -> JsonResponse:
+    try:
+        simulation = Simulation.objects.select_related(  # pylint: disable=no-member
+            'result',
+            'queue',
+        ).get(
+            id=chart_id,
+        )
+    except Simulation.DoesNotExist:     # pylint: disable=no-member
+        return JsonResponse(data={'status': 'error', 'message': _("Simulation not found.")})
+
+    response = {
+        'id': chart_id,
+        'result': False if not hasattr(simulation, 'result') else True,
+        'queue': None if not hasattr(simulation, 'queue') else simulation.queue.state
+    }
+
+    return JsonResponse(data=response)
 
 
 def get_chart_data(
