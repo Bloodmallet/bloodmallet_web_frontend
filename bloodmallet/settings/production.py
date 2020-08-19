@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from .secrets import LIVE_BUCKET_NAME
-from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
+from bloodmallet.settings.secrets.secrets import LIVE_BUCKET_NAME
+from bloodmallet.settings.secrets.secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 import pymysql
 from .common import *     # pylint: disable=unused-wildcard-import
 

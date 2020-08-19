@@ -66,7 +66,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 try:
-    from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
+    from bloodmallet.settings.secrets.secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 except ModuleNotFoundError:
     # pure frontend development uses a local dbs
     DATABASES = {
@@ -104,7 +104,7 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 # google cloud storage
 try:
-    from .secrets import DEV_BUCKET_NAME, DEV_CREDENTIALS
+    from bloodmallet.settings.secrets.secrets import DEV_BUCKET_NAME, DEV_CREDENTIALS
 except ModuleNotFoundError:
     # not required for local dev
     pass

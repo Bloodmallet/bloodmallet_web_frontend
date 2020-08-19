@@ -132,7 +132,7 @@ function animatePenguinBubble(element) {
         setAnimationStep(element, states);
     }, 2 * 1000);
 }
-
+// # googl, plz
 /**
  * Updates the state of the element based on the animation.
  * @param {HTMLnode} element

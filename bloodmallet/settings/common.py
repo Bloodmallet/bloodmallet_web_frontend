@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',     # required by django-allauth
-    'bloodytests',
+    # 'bloodytests',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 try:
-    from .secrets.secrets import SECRET_KEY
+    from bloodmallet.settings.secrets.secrets import SECRET_KEY
 except ModuleNotFoundError:
     # enable local dev
     from django.core.management.utils import get_random_secret_key
@@ -161,7 +161,7 @@ AUTH_USER_MODEL = 'general_website.User'
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
 try:
-    from bloodmallet.settings.secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+    from bloodmallet.settings.secrets.secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
 except ModuleNotFoundError:
     # information is not required for local development of the frontend
     pass
@@ -185,7 +185,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/chart/get/.*$'
 
 # own test runner to discover slow tests
-TEST_RUNNER = 'bloodytests.django.BloodyDiscoverRunner'
+# TEST_RUNNER = 'bloodytests.django.BloodyDiscoverRunner'
 
 # social account (allauth) settings
 SOCIALACCOUNT_PROVIDERS = {
