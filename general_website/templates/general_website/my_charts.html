@@ -42,14 +42,14 @@
                     {% if chart.queue.state == 'PENDING' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                <span>{% trans 'Pending' %}</span>:
+                                <span>{% trans 'Pending' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Position in queue' %}"> (?)</span>:<br/>
                                 <code class="pending-ascii"></code>
                             </p>
                         </div>
                     {% elif chart.queue.state == 'INPROGRESS' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                <span>{% trans 'Simulating' %}</span>:
+                                <span>{% trans 'Simulating' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Position in queue' %}"></span>:<br/>
                                 <code class="inprogress-ascii"></code>
                             </p>
                         </div>
@@ -221,6 +221,11 @@
                             element.querySelector("span").innerHTML = "{% trans 'Simulating' %}";
                             element.querySelector("code").classList.add("inprogress-ascii");
                         }
+                        if (json.position !== null) {
+                            element.querySelector("span[name=queue_position]").innerHTML = " (" + json.position + ")";
+                        } else {
+                            element.querySelector("span[name=queue_position]").innerHTML = "";
+                        }
 
                         setTimeout(()=>{
                             update_chart(element);
@@ -236,6 +241,10 @@
         };
         request.send(null);
     }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
 </script>
 {% endblock %}

@@ -473,10 +473,23 @@ def get_chart_state(request, chart_id=None) -> JsonResponse:
     except Simulation.DoesNotExist:     # pylint: disable=no-member
         return JsonResponse(data={'status': 'error', 'message': _("Simulation not found.")})
 
+    simulations = Simulation.objects.filter(     # pylint: disable=no-member
+        queue__state=QueueState.PENDING.name,
+        failed=False,
+    )
+
+    try:
+        queue_position = [
+            i for i, s in enumerate(simulations) if s.id == chart_id
+        ][0] + 1
+    except IndexError:
+        queue_position = None
+
     response = {
         'id': chart_id,
         'result': False if not hasattr(simulation, 'result') else True,
-        'queue': None if not hasattr(simulation, 'queue') else simulation.queue.state
+        'queue': None if not hasattr(simulation, 'queue') else simulation.queue.state,
+        'position': queue_position,
     }
 
     return JsonResponse(data=response)
