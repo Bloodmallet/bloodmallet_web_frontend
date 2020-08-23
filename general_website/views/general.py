@@ -451,7 +451,7 @@ def my_charts(request):
     return render(request, 'general_website/my_charts.html', context=context)
 
 
-def chart(request, chart_id):
+def chart(request, chart_id=None):
     """Shows one chart
     """
     logger.debug('called')

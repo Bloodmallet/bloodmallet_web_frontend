@@ -42,14 +42,14 @@
                     {% if chart.queue.state == 'PENDING' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                {% trans 'Pending' %}:
+                                <span>{% trans 'Pending' %}</span>:
                                 <code class="pending-ascii"></code>
                             </p>
                         </div>
                     {% elif chart.queue.state == 'INPROGRESS' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                {% trans 'Simulating' %}:
+                                <span>{% trans 'Simulating' %}</span>:
                                 <code class="inprogress-ascii"></code>
                             </p>
                         </div>
@@ -104,16 +104,21 @@
     let unfinished_charts = document.getElementsByClassName("unfinished-chart");
     for (let chart of unfinished_charts) {
         chart.custom_interval = setInterval(()=>{
-            animationwrapper(chart.querySelector('code'));
+            animationwrapper(chart);
         }, 0.2 * 1000);
         setTimeout(()=> {update_chart(chart);}, 10 * 1000);
     }
 
     function animationwrapper(element){
-        if (element.classList.contains("inprogress-ascii")) {
-            setAnimationStep(element, TP);
-        } else if (element.classList.contains("pending-ascii")) {
-            setAnimationStep(element, penguinZ);
+        let animatedElement = element.querySelector('code');
+        if (animatedElement === null || !element.classList.contains("unfinished-chart")) {
+            clearInterval(element.custom_interval);
+        } else {
+            if (animatedElement.classList.contains("inprogress-ascii")) {
+                setAnimationStep(animatedElement, TP);
+            } else if (animatedElement.classList.contains("pending-ascii")) {
+                setAnimationStep(animatedElement, penguinZ);
+            }
         }
     }
 
@@ -125,7 +130,7 @@
         $('#real_delete_button').click(function() {
             delete_chart($('#real_delete_button'));
         });
-    })
+    });
 
     function delete_chart(element) {
         element.off("click");
@@ -159,14 +164,12 @@
     }
 
     function update_chart(element) {
-        console.log('update_chart');
         let chart = element.dataset.value;
 
         let request = new XMLHttpRequest();
 
         // {% url 'get_chart_state_ph' %}
         let url = "{% url 'get_chart_state_ph' %}" + chart;
-        console.log(url);
 
         request.open("GET", url, true); // async request
 
@@ -175,13 +178,50 @@
                 if (request.status === 200) {
                     let json = JSON.parse(request.responseText);
 
-                    console.log(json);
-                    // # googl, plz
+                    if (json.result) {
+                        // heureka, add view and delete buttons
+                        element.classList.remove("unfinished-chart");
+                        element.classList.remove("finished-chart");
 
-                    setTimeout(()=>{
-                        update_chart(element);
-                    }, 10*1000);
+                        while (element.firstChild) {
+                            element.removeChild(element.lastChild);
+                        }
 
+                        let view_div = document.createElement("a");
+                        view_div.href = "{% url 'chart_ph' %}" + element.dataset.value;
+                        view_div.classList.add("btn");
+                        view_div.classList.add("btn-success");
+                        view_div.innerHTML = "{% trans 'View' %}"
+                        element.appendChild(view_div);
+
+                        let delete_div = document.createElement("div");
+                        delete_div.classList.add("btn")
+                        delete_div.classList.add("btn-outline-danger")
+                        delete_div.classList.add("delete_button");
+                        delete_div.dataset.toggle = "modal";
+                        delete_div.dataset.target = "#deleteModal";
+                        delete_div.dataset.value = element.dataset.value;
+                        delete_div.id = "delete_button_" + element.dataset.value;
+                        delete_div.innerHTML = "{% trans 'Delete' %}";
+                        element.appendChild(delete_div);
+
+                    } else {
+                        if (json.queue === "PENDING" && !element.querySelector("code").classList.contains("pending-ascii")) {
+                            element.querySelector("code").classList.remove("inprogress-ascii");
+                            element.querySelector("code").dataset.i = 0;
+                            element.querySelector("span").innerHTML = "{% trans 'Pending' %}";
+                            element.querySelector("code").classList.add("pending-ascii");
+                        } else if (json.queue === "INPROGRESS" && !element.querySelector("code").classList.contains("inprogress-ascii")) {
+                            element.querySelector("code").classList.remove("pending-ascii");
+                            element.querySelector("code").dataset.i = 0;
+                            element.querySelector("span").innerHTML = "{% trans 'Simulating' %}";
+                            element.querySelector("code").classList.add("inprogress-ascii");
+                        }
+
+                        setTimeout(()=>{
+                            update_chart(element);
+                        }, 10*1000);
+                    }
                 } else {
                     console.error(request.statusText);
                 }
