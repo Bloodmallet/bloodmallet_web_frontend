@@ -194,6 +194,10 @@
                         view_div.innerHTML = "{% trans 'View' %}"
                         element.appendChild(view_div);
 
+                        let spacer = document.createElement("span");
+                        spacer.innerHTML = " ";
+                        element.appendChild(spacer);
+
                         let delete_div = document.createElement("div");
                         delete_div.classList.add("btn")
                         delete_div.classList.add("btn-outline-danger")
