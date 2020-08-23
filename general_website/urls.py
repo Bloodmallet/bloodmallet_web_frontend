@@ -18,6 +18,7 @@ urlpatterns = [
 
     # charts
     path('my_charts', views.my_charts, name='my_charts'),
+    path('chart/', views.chart, name='chart_ph'),
     path('chart/<uuid:chart_id>', views.chart, name='chart'),
     path('chart/create', views.create_chart, name='create_chart'),
     path('chart/delete', views.delete_chart, name='delete_chart'),
