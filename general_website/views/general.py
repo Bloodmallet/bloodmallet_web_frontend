@@ -643,3 +643,7 @@ def privacy_policy(request):
 def terms_and_conditions(request):
     return render(request, 'general_website/terms_and_conditions.html')
 # googl, plz
+
+
+def tears(request):
+    return render(request, 'general_website/tears.html')
