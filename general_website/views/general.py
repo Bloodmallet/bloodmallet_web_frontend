@@ -647,3 +647,7 @@ def terms_and_conditions(request):
 
 def tears(request):
     return render(request, 'general_website/tears.html')
+
+
+def r_tears(request):
+    return redirect('tears')
