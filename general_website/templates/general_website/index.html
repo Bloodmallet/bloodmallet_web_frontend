@@ -64,9 +64,10 @@ are an entry point. For indepth information about your spec use your theorycraft
             <label class="btn-data-label" for="data_type">{% trans "Data Type" %}</label>
             <select class="form-control btn-data" id="data_type">
                 <option value="trinkets" selected>{% trans "Trinkets" %}</option>
-                <option value="azerite">{% trans "Azerite" %}</option>
+                <option value="soul_binds">{% trans "Soulbinds" %}</option>
+                <option value="legendaries">{% trans "Legendaries" %}</option>
                 <option value="races">{% trans "Races" %}</option>
-                <option value="secondary_distributions">Secondary distributions</option>
+                <option value="secondary_distributions">{% trans "Secondary distributions" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
@@ -74,29 +75,6 @@ are an entry point. For indepth information about your spec use your theorycraft
             <select class="form-control btn-data" id="fight_style">
                 <option value="patchwerk" selected>{% trans "Patchwerk" %}</option>
                 <option value="hecticaddcleave">{% trans "HecticAddCleave" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="data_specification">{% trans "Type Specification" %}</label>
-            <select class="form-control btn-data dropdown-toggle" id="data_specification">
-                <option value="trait_stacking" selected>{% trans "Trait stacking" %}</option>
-                <option value="itemlevel">{% trans "Itemlevel" %}</option>
-                <option value="head">{% trans "Head" %}</option>
-                <option value="shoulders">{% trans "Shoulders" %}</option>
-                <option value="chest">{% trans "Chest" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="tier">{% trans "Azerite Tier" %}
-            <svg class="tier-icon">
-                <use xlink:href="{% static 'general_website/assets/icons.svg' %}#azerite_tier3" id="tier_icon"></use>
-            </svg>
-            </label>
-            <select class="form-control btn-data" id="tier">
-                <option value="3" selected>
-                {% trans "Tier 3 & 4" %}
-                </option>
-                <option value="2">{% trans "Tier 2" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
