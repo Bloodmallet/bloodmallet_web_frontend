@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 12:42+0000\n"
+"POT-Creation-Date: 2020-09-26 16:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "calculating"
 msgstr ""
 
-#: compute_api/models.py:21 general_website/models/simulation.py:85
+#: compute_api/models.py:21 general_website/models/simulation.py:90
 msgid "done"
 msgstr ""
 
@@ -45,44 +45,54 @@ msgstr ""
 msgid "Deleting ALL instances"
 msgstr ""
 
-#: general_website/forms.py:81
+#: general_website/forms.py:56
+msgid "Auto-remove oldest chart"
+msgstr ""
+
+#: general_website/forms.py:57
+msgid ""
+"If your slots are filled, enabling this checkbox will auto-remove the oldest "
+"chart to free up a slot."
+msgstr ""
+
+#: general_website/forms.py:94
 msgid "Paste your /simc output into this element."
 msgstr ""
 
-#: general_website/forms.py:82
+#: general_website/forms.py:98
 msgid "Create Chart"
 msgstr ""
 
-#: general_website/models/account.py:48
+#: general_website/models/account.py:59
 msgid "Patron UUID"
 msgstr ""
 
-#: general_website/models/account.py:49
+#: general_website/models/account.py:61
 msgid "Patron Name"
 msgstr ""
 
-#: general_website/models/account.py:50
+#: general_website/models/account.py:63
 msgid "Patron Tier"
 msgstr ""
 
-#: general_website/models/account.py:51
+#: general_website/models/account.py:65
 msgid "Is a recognized guide writer"
 msgstr ""
 
-#: general_website/models/account.py:52
+#: general_website/models/account.py:67
 msgid "Is a SimulationCraft developer"
 msgstr ""
 
-#: general_website/models/dynamic_config.py:26
 #: general_website/models/dynamic_config.py:27
+#: general_website/models/dynamic_config.py:29
 msgid "Broadcast will be shown from start_at to end_at."
 msgstr ""
 
-#: general_website/models/simulation.py:45
+#: general_website/models/simulation.py:51
 msgid "Name of the chart"
 msgstr ""
 
-#: general_website/models/simulation.py:49
+#: general_website/models/simulation.py:56
 msgid ""
 "Define your own character here, instead of using the standard profile (your "
 "input will overwrite the standard profile). Paste your <a href=\"https://"
@@ -90,24 +100,32 @@ msgid ""
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
 
-#: general_website/models/simulation.py:51
+#: general_website/models/simulation.py:59
 msgid "Define your own fight_style."
 msgstr ""
 
-#: general_website/models/simulation.py:52
+#: general_website/models/simulation.py:61
 msgid "Define your characters APL."
 msgstr ""
 
-#: general_website/models/simulation.py:83
+#: general_website/models/simulation.py:88
 msgid "pending"
 msgstr ""
 
-#: general_website/models/simulation.py:84
+#: general_website/models/simulation.py:89
 msgid "in progress"
 msgstr ""
 
-#: general_website/models/simulation.py:86
+#: general_website/models/simulation.py:91
 msgid "error"
+msgstr ""
+
+#: general_website/models/world_of_warcraft.py:101
+msgid "Name of the simulation type. Like 'trinket simulations'."
+msgstr ""
+
+#: general_website/models/world_of_warcraft.py:107
+msgid "Removes SimulationType from being generated."
 msgstr ""
 
 #: general_website/templates/allauth/account/account_inactive.html:5
@@ -530,16 +548,33 @@ msgid ""
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 
-#: general_website/templates/general_website/add_chart.html:7
-msgid "Create a Chart"
+#: general_website/templates/general_website/about.html:10
+#: general_website/templates/general_website/layout/nav_bottom.html:15
+msgid "About"
 msgstr ""
 
-#: general_website/templates/general_website/add_chart.html:10
-msgid "You lack permission to create charts."
+#: general_website/templates/general_website/about.html:12
+msgid "Operating Company"
 msgstr ""
 
-#: general_website/templates/general_website/add_chart.html:16
-msgid "Chart creation will take a while (stuff needs to be simulated)."
+#: general_website/templates/general_website/about.html:17
+msgid "Address"
+msgstr ""
+
+#: general_website/templates/general_website/about.html:23
+msgid "Director"
+msgstr ""
+
+#: general_website/templates/general_website/about.html:28
+msgid "Contact"
+msgstr ""
+
+#: general_website/templates/general_website/about.html:33
+msgid "Commercial Register"
+msgstr ""
+
+#: general_website/templates/general_website/about.html:38
+msgid "Banking Information"
 msgstr ""
 
 #: general_website/templates/general_website/chart.html:8
@@ -550,8 +585,18 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:11
-msgid "Author"
+#: general_website/templates/general_website/create_chart.html:7
+msgid "Create a Chart"
+msgstr ""
+
+#: general_website/templates/general_website/create_chart.html:10
+msgid "You lack permission to create charts."
+msgstr ""
+
+#: general_website/templates/general_website/create_chart.html:16
+msgid ""
+"Almost all comments will be removed. Chart creation will take a while (stuff "
+"needs to be simulated)."
 msgstr ""
 
 #: general_website/templates/general_website/error.html:13
@@ -565,99 +610,72 @@ msgstr ""
 
 #: general_website/templates/general_website/index.html:43
 msgid ""
-"This development page is slow to save cost. Data generation is done at full "
-"speed, though."
+"\n"
+"This site provides an overview about several simulateable aspects for almost "
+"all specs in World of Warcraft\n"
+"using <a href=\"http://www.simulationcraft.org/\">SimulationCraft</a>. These "
+"overviews\n"
+"are an entry point. <span class=\"monk-color\">You can also generate your "
+"own charts by becoming a <a href=\"https://www.patreon.com/bloodmallet"
+"\">Patreon</a>.</span>\n"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:48
+#: general_website/templates/general_website/index.html:50
 msgid ""
 "\n"
-"This site provides an overview about trinkets, azerite traits, and others "
-"for almost all specs in World of Warcraft\n"
-"using <a href=\"http://www.simulationcraft.org/\" target=\"blank"
-"\">SimulationCraft</a>'s default profiles. These overviews\n"
-"are an entry point. For indepth information about your spec use your "
-"theorycrafters resources linked below the charts.\n"
+"For indepth information about your spec use your theorycrafters guides.\n"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:64
+#: general_website/templates/general_website/index.html:70
 msgid "Data Type"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:66
+#: general_website/templates/general_website/index.html:72
 #: general_website.SimulationType/name:1
 msgid "Trinkets"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:67
-msgid "Azerite"
+#: general_website/templates/general_website/index.html:73
+#: general_website.SimulationType/name:8
+msgid "Soulbinds"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:68
+#: general_website/templates/general_website/index.html:74
+#: general_website.SimulationType/name:7
+msgid "Legendaries"
+msgstr ""
+
+#: general_website/templates/general_website/index.html:75
 #: general_website.SimulationType/name:2
 msgid "Races"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:73
-msgid "Fight Style"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:75
-msgid "Patchwerk"
-msgstr ""
-
 #: general_website/templates/general_website/index.html:76
-msgid "HecticAddCleave"
+msgid "Secondary distributions"
 msgstr ""
 
 #: general_website/templates/general_website/index.html:80
-msgid "Type Specification"
+msgid "Fight Style"
 msgstr ""
 
 #: general_website/templates/general_website/index.html:82
-msgid "Trait stacking"
+msgid "Patchwerk"
 msgstr ""
 
 #: general_website/templates/general_website/index.html:83
-msgid "Itemlevel"
+msgid "HecticAddCleave"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:84
-msgid "Head"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:85
-msgid "Shoulders"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:86
-msgid "Chest"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:90
-msgid "Azerite Tier"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:97
-msgid "Tier 3 & 4"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:99
-msgid "Tier 2"
-msgstr ""
-
-#: general_website/templates/general_website/index.html:103
+#: general_website/templates/general_website/index.html:87
 msgid "Advanced Options"
 msgstr ""
 
-#: general_website/templates/general_website/index.html:105
+#: general_website/templates/general_website/index.html:89
 msgid "Show"
 msgstr ""
 
 #: general_website/templates/general_website/layout/base.html:33
-msgid ""
-"alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha "
-"alpha alpha"
+msgid "beta beta beta beta beta beta beta beta beta beta beta beta beta beta"
 msgstr ""
 
 #: general_website/templates/general_website/layout/base.html:62
@@ -694,11 +712,11 @@ msgstr ""
 msgid "FAQ"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:20
+#: general_website/templates/general_website/layout/nav_bottom.html:23
 msgid "Patreon"
 msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:29
+#: general_website/templates/general_website/layout/nav_bottom.html:32
 msgid "Report an error"
 msgstr ""
 
@@ -722,7 +740,7 @@ msgid "Connections"
 msgstr ""
 
 #: general_website/templates/general_website/layout/nav_top.html:21
-#: general_website/templates/general_website/my_charts.html:8
+#: general_website/templates/general_website/my_charts.html:9
 msgid "My Charts"
 msgstr ""
 
@@ -754,49 +772,76 @@ msgid ""
 "data is wiped regularly."
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:10
+#: general_website/templates/general_website/my_charts.html:12
 msgid "A list of my charts"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:17
+#: general_website/templates/general_website/my_charts.html:13
+msgid "You can free up slots by deleting charts."
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:21
 msgid "New Chart"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:27
+#: general_website/templates/general_website/my_charts.html:31
 msgid "No name"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:31
-msgid "View"
+#: general_website/templates/general_website/my_charts.html:32
+#: general_website/templates/general_website/my_charts.html:164
+#: general_website/templates/general_website/my_charts.html:165
+msgid "Error"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:32
-#: general_website/templates/general_website/my_charts.html:56
+#: general_website/templates/general_website/my_charts.html:39
+#: general_website/templates/general_website/my_charts.html:42
+#: general_website/templates/general_website/my_charts.html:88
+#: general_website/templates/general_website/my_charts.html:214
 msgid "Delete"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:47
+#: general_website/templates/general_website/my_charts.html:41
+#: general_website/templates/general_website/my_charts.html:199
+msgid "View"
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:49
+#: general_website/templates/general_website/my_charts.html:221
+msgid "Pending"
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:49
+#: general_website/templates/general_website/my_charts.html:56
+msgid "Position in queue"
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:56
+#: general_website/templates/general_website/my_charts.html:226
+msgid "Simulating"
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:61
+msgid "Unknown state reached. Please refresh page"
+msgstr ""
+
+#: general_website/templates/general_website/my_charts.html:79
 msgid "Delete Chart and Simulation data"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:53
+#: general_website/templates/general_website/my_charts.html:85
 msgid ""
 "Are you sure you want to delete this chart? All associated data will be "
 "gone, too."
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:81
-#: general_website/templates/general_website/my_charts.html:91
+#: general_website/templates/general_website/my_charts.html:143
+#: general_website/templates/general_website/my_charts.html:153
 msgid "Deleting"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:97
+#: general_website/templates/general_website/my_charts.html:159
 msgid "Deleted"
-msgstr ""
-
-#: general_website/templates/general_website/my_charts.html:102
-#: general_website/templates/general_website/my_charts.html:103
-msgid "Error"
 msgstr ""
 
 #: general_website/templates/general_website/portals.html:12
@@ -884,6 +929,24 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
+#: general_website/templates/general_website/tears.html:8
+msgid "T-List"
+msgstr ""
+
+#: general_website/templates/general_website/tears.html:11
+msgid ""
+"Everyone's doing a list right now? Here I present my own Tear-List. And I "
+"assure you it's highly subjective and different for everyone."
+msgstr ""
+
+#: general_website/templates/general_website/tears.html:16
+msgid "All values are absolutely random and have no meaning."
+msgstr ""
+
+#: general_website/templates/general_website/tears.html:19
+msgid "Specs"
+msgstr ""
+
 #: general_website/views/account.py:40
 msgid "Couldn't log in. Please check your input."
 msgstr ""
@@ -916,35 +979,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: general_website/views/general.py:485
+#: general_website/views/general.py:475
+msgid "Simulation not found."
+msgstr ""
+
+#: general_website/views/general.py:535
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: general_website/views/general.py:500
+#: general_website/views/general.py:550
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: general_website/views/general.py:509
+#: general_website/views/general.py:559
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: general_website/views/general.py:524
+#: general_website/views/general.py:574
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: general_website/views/general.py:529
+#: general_website/views/general.py:581
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: general_website/views/general.py:536
+#: general_website/views/general.py:588
 msgid "Chart was deleted."
 msgstr ""
 
-#: general_website/views/general.py:538
+#: general_website/views/general.py:590
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: general_website/views/general.py:572
+#: general_website/views/general.py:625
+msgid ""
+"You don't have any more free slots. You can delete unwanted charts to be "
+"able to free up slots."
+msgstr ""
+
+#: general_website/views/general.py:642
+msgid "A chart was added to the queue. Simulations will start soon."
+msgstr ""
+
+#: general_website/views/general.py:648
 msgid "You don't have permission to create a chart."
 msgstr ""
 
@@ -1054,6 +1131,14 @@ msgstr ""
 
 #: general_website.SimulationType/name:4
 msgid "Secondary Distributions"
+msgstr ""
+
+#: general_website.SimulationType/name:5
+msgid "Corruptions"
+msgstr ""
+
+#: general_website.SimulationType/name:6
+msgid "Azerite Essences"
 msgstr ""
 
 #: general_website.WowClass/tokenized_name:1
