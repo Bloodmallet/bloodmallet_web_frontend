@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
@@ -609,13 +610,36 @@ def create_chart(request):
         form = SimulationCreationForm(request.POST)
 
         if form.is_valid() and request.user.can_create_chart:
+
+            # check if user has empty slots
+
+            simulations = Simulation.objects.filter(
+                user=request.user
+            ).order_by("-created_at")
+
+            if len(simulations) >= request.user.max_charts:
+                if form.cleaned_data["dynamic_delete"]:
+                    simulations[0].delete()
+                else:
+                    error_message = _(
+                        "You don't have any more free slots. You can delete unwanted charts to be able to free up slots.")
+                    messages.error(
+                        request,
+                        error_message,
+                    )
+                    form.add_error("dynamic_delete", ValidationError(
+                        error_message, code='invalid'))
+                    context["form"] = form
+                    return render(request, 'general_website/create_chart.html', context=context)
+
             simulation = form.save(commit=False)
             simulation.user = request.user
             simulation.wow_class = simulation.wow_spec.wow_class
 
             simulation.save()
             messages.success(
-                request, "A chart was added to the queue. Simulations will start soon."
+                request, _(
+                    "A chart was added to the queue. Simulations will start soon.")
             )
 
             return redirect('my_charts')
@@ -642,7 +666,6 @@ def privacy_policy(request):
 
 def terms_and_conditions(request):
     return render(request, 'general_website/terms_and_conditions.html')
-# googl, plz
 
 
 def tears(request):

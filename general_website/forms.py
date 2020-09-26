@@ -52,6 +52,10 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class SimulationCreationForm(forms.ModelForm):
+    dynamic_delete = forms.BooleanField(required=False, label=_(
+        "Auto-remove oldest chart"), help_text=_(
+        "If your slots are filled, enabling this checkbox will auto-remove the oldest chart to free up a slot."),
+    )
 
     class Meta:
         model = Simulation
@@ -65,12 +69,12 @@ class SimulationCreationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SimulationCreationForm, self).__init__(*args, **kwargs)
-        self.fields['simulation_type'].queryset = SimulationType.objects.filter(  # pylint: disable=no-member
+        self.fields['simulation_type'].queryset = SimulationType.objects.filter(
             is_deleted=False
         ).order_by(
             'name'
         )
-        self.fields['wow_spec'].queryset = WowSpec.objects.order_by(    # pylint: disable=no-member
+        self.fields['wow_spec'].queryset = WowSpec.objects.order_by(
             'wow_class__tokenized_name', 'tokenized_name'
         )
 
@@ -89,6 +93,7 @@ class SimulationCreationForm(forms.ModelForm):
             Div(Div(Field('custom_profile', placeholder=_(
                 "Paste your /simc output into this element."
             )), css_class='col-12'), css_class='row'),
+            Div(Div(Field('dynamic_delete'), css_class='col-12'), css_class='row'),
             StrictButton(
                 _("Create Chart"),
                 type='submit',

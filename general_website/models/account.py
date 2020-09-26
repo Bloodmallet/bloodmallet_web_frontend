@@ -26,6 +26,16 @@ PATRON_TIERS = [
     'Rare',
     'Epic',
 ]
+CHARTLIMITS = {
+    PATRON_TIERS[0]: 8,
+    PATRON_TIERS[1]: 8 * 3,
+    PATRON_TIERS[2]: 8 * 3 ** 2,
+    "staff": 8 * 3 ** 2,
+    "guide_writer": 8 * 3,
+    "simulationcraft_developer": 8 * 3 ** 2,
+    "superuser": 2 ** 15
+}
+
 
 # allauth docs
 # https://django-allauth.readthedocs.io/en/latest/overview.html
@@ -45,14 +55,19 @@ class User(AbstractUser):
         primary_key=True
     )
     bloodytext = models.CharField(max_length=10, blank=True)
-    patron_uuid = models.CharField(max_length=36, blank=True, help_text=_("Patron UUID"))
-    patron_name = models.CharField(max_length=100, blank=True, help_text=_("Patron Name"))
-    patron_tier = models.CharField(max_length=20, blank=True, help_text=_("Patron Tier"))
-    is_guide_writer = models.BooleanField(default=False, help_text=_("Is a recognized guide writer"))
-    is_simulationcraft_developer = models.BooleanField(default=False, help_text=_("Is a SimulationCraft developer"))
+    patron_uuid = models.CharField(
+        max_length=36, blank=True, help_text=_("Patron UUID"))
+    patron_name = models.CharField(
+        max_length=100, blank=True, help_text=_("Patron Name"))
+    patron_tier = models.CharField(
+        max_length=20, blank=True, help_text=_("Patron Tier"))
+    is_guide_writer = models.BooleanField(
+        default=False, help_text=_("Is a recognized guide writer"))
+    is_simulationcraft_developer = models.BooleanField(
+        default=False, help_text=_("Is a SimulationCraft developer"))
 
     def __str__(self):
-        return self.username     # pylint: disable=no-member
+        return self.username
 
     @property
     def can_create_chart(self) -> bool:
@@ -70,6 +85,21 @@ class User(AbstractUser):
         # if self.groups.filter(name='alpha_tester').exists():     # pylint: disable=no-member
         #     return True
         return False
+
+    @property
+    def max_charts(self) -> int:
+        if self.is_superuser:
+            return CHARTLIMITS["superuser"]
+        elif self.is_staff:
+            return CHARTLIMITS["staff"]
+        elif self.is_guide_writer:
+            return CHARTLIMITS["guide_writer"]
+        elif self.is_simulationcraft_developer:
+            return CHARTLIMITS["simulationcraft_developer"]
+        elif self.patron_tier in CHARTLIMITS:
+            return CHARTLIMITS[self.patron_tier]
+        else:
+            return 0
 
 
 @receiver([pre_social_login, social_account_updated])
