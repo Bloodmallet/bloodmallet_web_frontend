@@ -13,8 +13,9 @@
 {% block content %}
 
 <h1>{% trans "Settings" %}</h1>
-<p>A settings page...what did you expect?</p>
+<p>{% trans "A settings page...more to come" %}</p>
 
+{% comment %}
 <form class="container-fluid">
     <fieldset class="form-group row">
         <legend>{% trans "Language" %}</legend>
@@ -106,6 +107,8 @@
 
     <button type="button" class="btn btn-primary row" id="apply_changes">{% trans "Apply changes" %}</button>
 </form>
+
+{% endcomment %}
 
 
 {% endblock %}
