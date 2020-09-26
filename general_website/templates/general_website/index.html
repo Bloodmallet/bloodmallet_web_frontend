@@ -39,19 +39,25 @@
 <h1 class="display-4 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
 
-<div class="alert alert-info" role="alert">
-    {% trans 'This development page is slow to save cost. Data generation is done at full speed, though.' %}
-</div>
-
-
-<p id="translate_main_paragraph">
+<p>
 {% blocktrans %}
-This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft
-using <a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a>'s default profiles. These overviews
-are an entry point. For indepth information about your spec use your theorycrafters resources linked below the charts.
+This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
+using <a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a>. These overviews
+are an entry point. <span class="monk-color">You can also generate your own charts by becoming a Patreon.</span>
 {% endblocktrans %}
 </p>
-
+<p>
+{% blocktrans %}
+For indepth information about your spec use your theorycrafters guides.
+{% endblocktrans %}
+</p>
+{% comment %}
+<p>
+{% blocktrans %}
+For indepth information about your spec use your theorycrafters guides linked below the charts.
+{% endblocktrans %}
+</p>
+{% endcomment %}
 
 <div class="container-fluid">
     <div class="row text-center" id="spec_table"></div>
