@@ -11,6 +11,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'faq' %}">{% trans "FAQ" %}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
+                </li>
                 {% if not user.is_superuser %}
                 <li class="nav-item patron-link">
                     <a class="nav-link" href="https://www.patreon.com/bloodmallet">

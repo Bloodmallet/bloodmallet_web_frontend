@@ -656,8 +656,8 @@ def create_chart(request):
     return render(request, 'general_website/create_chart.html', context=context)
 
 
-def impressum(request):
-    return render(request, 'general_website/impressum.html')
+def about(request):
+    return render(request, 'general_website/about.html')
 
 
 def privacy_policy(request):
