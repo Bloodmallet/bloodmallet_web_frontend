@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -9,15 +8,9 @@ from django.utils.translation import gettext as _
 
 from general_website.forms import SimulationCreationForm
 
-from general_website.models.account import User
 from general_website.models.simulation import GeneralResult
 from general_website.models.simulation import Simulation
-from general_website.models.simulation import SimulationType
-from general_website.models.simulation import Queue
 from general_website.models.simulation import QueueState
-from general_website.models.world_of_warcraft import FightStyle
-from general_website.models.world_of_warcraft import WowClass
-from general_website.models.world_of_warcraft import WowSpec
 
 from random import randint
 
@@ -422,6 +415,7 @@ def portals(request):
     return render(request, 'general_website/portals.html', context)
 
 
+@login_required
 def my_charts(request):
     """View present all own charts and a link to generate a new chart.
 
@@ -465,29 +459,34 @@ def chart(request, chart_id=None):
 
 def get_chart_state(request, chart_id=None) -> JsonResponse:
     try:
-        simulation = Simulation.objects.select_related(  # pylint: disable=no-member
+        simulation = Simulation.objects.select_related(
             'result',
             'queue',
         ).get(
             id=chart_id,
         )
-    except Simulation.DoesNotExist:     # pylint: disable=no-member
+    except Simulation.DoesNotExist:
         return JsonResponse(data={'status': 'error', 'message': _("Simulation not found.")})
 
-    simulations = Simulation.objects.filter(     # pylint: disable=no-member
-        queue__state=QueueState.PENDING.name,
-        failed=False,
-    )
+    queue_position = None
+    if simulation.queue:
+        if simulation.queue.state == QueueState.PENDING.name:
 
-    try:
-        queue_position = [
-            i for i, s in enumerate(simulations) if s.id == chart_id
-        ][0] + 1
-    except IndexError:
-        queue_position = None
+            simulations = Simulation.objects.filter(
+                queue__state=QueueState.PENDING.name,
+                failed=False,
+            )
+
+            try:
+                queue_position = [
+                    i for i, s in enumerate(simulations) if s.id == chart_id
+                ][0] + 1
+            except IndexError:
+                pass
 
     response = {
         'id': chart_id,
+        'failed': simulation.failed,
         'result': False if not hasattr(simulation, 'result') else True,
         'queue': None if not hasattr(simulation, 'queue') else simulation.queue.state,
         'position': queue_position,
@@ -510,19 +509,19 @@ def get_chart_data(
 
     if chart_id:
         try:
-            simulation = Simulation.objects.select_related(  # pylint: disable=no-member
-                'result'
+            simulation: Simulation = Simulation.objects.select_related(
+                'result', 'wow_class', 'wow_spec', 'simulation_type', 'fight_style'
             ).get(
                 id=chart_id,
                 result__isnull=False,
             )
-        except Simulation.DoesNotExist:     # pylint: disable=no-member
+        except Simulation.DoesNotExist:
             simulation = None
-        except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
+        except Simulation.MultipleObjectsReturned:
             # this...shouldn't happen
             logger.warning(
                 'Multiple Simulations have the same id {}'.format(chart_id))
-            simulation = Simulation.objects.filter(  # pylint: disable=no-member
+            simulation: Simulation = Simulation.objects.filter(
                 id=chart_id).first()
         except Exception:
             logger.exception(
@@ -534,7 +533,23 @@ def get_chart_data(
         except AttributeError:
             return JsonResponse(data={'status': 'error', 'message': _("Simulation data could not be found.")})
 
-        json_data = json.load(data)
+        json_data = {}
+        if simulation.failed:
+            json_data = {
+                "error": True,
+                "id": chart_id,
+                "title": simulation.name,
+                "wow_class": simulation.wow_class.name,
+                "wow_spec": simulation.wow_spec.name,
+                "simulation_type": simulation.simulation_type.name,
+                "fight_style": simulation.fight_style.name,
+                "custom_profile": simulation.custom_profile,
+                "custom_fight_style": simulation.custom_fight_style,
+                "custom_apl": simulation.custom_apl,
+                "log": data.read().decode('utf-8'),
+            }
+        else:
+            json_data = json.load(data)
 
         return JsonResponse(data=json_data)
 
@@ -598,6 +613,7 @@ def delete_chart(request) -> JsonResponse:
     return JsonResponse(data=context)
 
 
+@login_required
 def create_chart(request):
     """Allows the user to create charts.
     """
