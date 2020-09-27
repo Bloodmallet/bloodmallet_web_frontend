@@ -74,7 +74,8 @@ class WowSpec(models.Model):
     """
 
     wow_class = models.ForeignKey(
-        WowClass, on_delete=models.CASCADE, related_name='wow_specs')
+        WowClass, on_delete=models.CASCADE, related_name='wow_specs'
+    )
     name = models.CharField(max_length=16)
     tokenized_name = models.CharField(max_length=16)
 
