@@ -477,6 +477,8 @@ function bloodmallet_chart_import() {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
       if (data_type === "races") {
         baseline_dps = 0;
+      } else if (data_type === "legendaries") {
+        baseline_dps = data["data"]["baseline"];
       } else {
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
       }
@@ -633,6 +635,23 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
+    } else if (data_type === "legendaries") {
+      var dps_array = [];
+
+      for (let i = 0; i < dps_ordered_keys.length; i++) {
+        let dps_key = dps_ordered_keys[i];
+
+        let dps_key_values = data["data"][dps_key] - baseline_dps;
+
+        dps_array.push(dps_key_values);
+      }
+
+      chart.addSeries({
+        data: dps_array,
+        name: "Legendaries",
+        showInLegend: false
+      }, false);
+
     } else { // race simulations
       var dps_array = [];
 
@@ -1042,7 +1061,6 @@ function bloodmallet_chart_import() {
     if (debug) {
       console.log("get_category_name");
       console.log(key);
-      console.log(data);
     }
 
     const language_table = {
