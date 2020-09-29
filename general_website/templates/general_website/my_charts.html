@@ -28,7 +28,7 @@
     <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.id }}">
         <div class="card h-100 {% if chart.failed %}druid-border{% endif %}">
             <div class="card-body text-center">
-                <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans 'No name' %}</span>{% endif %}</h5>
+                <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans '~' %}</span>{% endif %}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{% if chart.failed %}<span class="druid-color">{% trans "Error" %}</span>{% else %}{{ chart.created_at }}{% endif %}</h6>
                 <p class="card-text">
                     {{ chart.wow_spec.name }} {{ chart.wow_class }}<br/>
