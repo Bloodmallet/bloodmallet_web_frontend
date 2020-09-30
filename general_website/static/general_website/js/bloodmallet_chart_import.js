@@ -477,7 +477,7 @@ function bloodmallet_chart_import() {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
       if (data_type === "races") {
         baseline_dps = 0;
-      } else if (data_type === "legendaries") {
+      } else if (["legendaries", "soul_binds"].includes(data_type)) {
         baseline_dps = data["data"]["baseline"];
       } else {
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
@@ -635,7 +635,7 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
-    } else if (data_type === "legendaries") {
+    } else if (["legendaries", "soul_binds"].includes(data_type)) {
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -648,7 +648,7 @@ function bloodmallet_chart_import() {
 
       chart.addSeries({
         data: dps_array,
-        name: "Legendaries",
+        name: "Data",
         showInLegend: false
       }, false);
 
