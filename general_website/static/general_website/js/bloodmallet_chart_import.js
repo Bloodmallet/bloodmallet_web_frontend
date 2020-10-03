@@ -1080,12 +1080,20 @@ function bloodmallet_chart_import() {
 
     // fallback
     if (state.tooltip_engine != "wowhead" && state.tooltip_engine != "wowdb") {
-      return data["languages"][key][language_table[state.language]];
+      try {
+        return data["translations"][key][language_table[state.language]];
+      } catch (error) {
+        return data["languages"][key][language_table[state.language]];
+      }
     }
 
     // races don't have links/tooltips
     if (state.data_type === "races") {
-      return data["languages"][key][language_table[state.language]];
+      try {
+        return data["translations"][key][language_table[state.language]];
+      } catch (error) {
+        return data["languages"][key][language_table[state.language]];
+      }
     }
 
     // wowhead
@@ -1166,13 +1174,19 @@ function bloodmallet_chart_import() {
 
       a.dataset.tooltipHref = a.href;
 
+      let translation = undefined;
       try {
-
-        a.appendChild(document.createTextNode(data["languages"][key][language_table[state.language]]));
+        translation = document.createTextNode(data["translations"][key][language_table[state.language]])
       } catch (error) {
-        a.appendChild(document.createTextNode(key));
-        console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+        try {
+          translation = document.createTextNode(data["languages"][key][language_table[state.language]])
+        } catch (error) {
+          translation = key;
+          console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+        }
       }
+
+      a.appendChild(document.createTextNode(translation));
 
       return a.outerHTML;
     }
