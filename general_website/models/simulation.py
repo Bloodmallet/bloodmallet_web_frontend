@@ -83,6 +83,10 @@ def put_in_queue(sender, instance, created, *args, **kwargs):
         )
         queue.save()
 
+# TODO: Add a pre-delete event listener for Result, to delete their files
+# https://django-storages.readthedocs.io/en/latest/backends/gcloud.html#storage
+# https://docs.djangoproject.com/en/3.1/ref/signals/#pre-delete
+
 
 class QueueState(Enum):
     PENDING = _("pending")
