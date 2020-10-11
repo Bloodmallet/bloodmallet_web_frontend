@@ -36,8 +36,7 @@
 
 {% block content %}
 
-<h1 class="display-4 mb-3 text-center" id="primary_headline">bloodmallet</h1>
-
+<h1 class="display-4 mt-3 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
 <p>
 {% blocktrans %}
@@ -51,6 +50,20 @@ are an entry point. <span class="monk-color">You can also generate your own char
 For indepth information about your spec use your theorycrafters guides.
 {% endblocktrans %}
 </p>
+
+<div class="alert alert-warning" role="alert">
+<p>{% translate "Warning"|upper %}</p>
+    <p>
+    {% blocktranslate %}
+    Pre-raid and Raid character profiles aren't updated across the board in SimulationCraft yet. Therefore <span class="druid-color">standard simulations are disabled</span> until most of those profiles see updates. In the meantime, if you become a patreon, you can create your own chart with your own Beta-Character export. In this case you can start viewing Shadowlands values.<br/><br/>
+
+    Still beware of the heavily <span class="druid-color">work in progress</span> states of some specialisation modules in SimulationCraft. A lot might not be implemented, or needs to be updated.<br/><br/>
+
+    <a href="https://github.com/simulationcraft/simc">SimulationCraft</a> is an open source project and is always looking for some help.
+    {% endblocktranslate %}
+    </p>
+</div>
+
 {% comment %}
 <p>
 {% blocktrans %}
