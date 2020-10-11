@@ -398,8 +398,6 @@ function bloodmallet_chart_import() {
       if (loaded_data["c" + chart_id] === undefined) {
         if (count < 30) {
           setTimeout(update_chart, 200, state, html_element, chart, count + 1);
-        } else {
-          console.warn("Data of", chart_id, "for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
         }
         return;
       }
@@ -407,7 +405,6 @@ function bloodmallet_chart_import() {
       try {
         spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
       } catch (error) {
-        console.warn("Data for ", data_type, fight_style, wow_class, wow_spec, " wasn't loaded yet. Either chart setup is wrong, connection to bloodmallet.com is slow or failed.");
         if (count < 30) {
           setTimeout(update_chart, 200, state, html_element, chart, count + 1);
         }
@@ -415,8 +412,11 @@ function bloodmallet_chart_import() {
       }
     }
 
-
-    spec_data = loaded_data["c" + chart_id];
+    if (chart_id !== undefined) {
+      spec_data = loaded_data["c" + chart_id];
+    } else {
+      spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
+    }
     if (spec_data["error"] === true) {
       return simulation_error(html_element, spec_data);
     } else {
@@ -538,88 +538,35 @@ function bloodmallet_chart_import() {
     }
 
     if (simulated_steps) {
-      for (let simulation_step_position = 0; simulation_step_position < simulated_steps.length; simulation_step_position++) {
 
-        let simulation_step = simulated_steps[simulation_step_position];
+      let tmp_dps_values = {};
+      for (const name in data["data"]) {
+        if (data["data"].hasOwnProperty(name)) {
+          const information = data["data"][name];
+          tmp_dps_values[name] = {};
+          let previous_value = baseline_dps;
+          if (data_type === "conduits") {
+            previous_value = data["data"]["baseline"][data["covenant_mapping"][name]];
+          }
+          for (let i = simulated_steps.length - 1; i >= 0; i--) {
+            const step = simulated_steps[i];
+            if (information.hasOwnProperty(step)) {
+              tmp_dps_values[name][step] = information[step] - previous_value;
+              previous_value = information[step];
+            } else {
+              tmp_dps_values[name][step] = 0;
+            }
+          }
+        }
+      }
+
+      for (const simulation_step of simulated_steps) {
+
         let dps_array = [];
 
         for (let i = 0; i < dps_ordered_keys.length; i++) {
-          simulation_step = simulated_steps[simulation_step_position];
-          // create copy of simulated_steps to work with internally (some traits don't have the max simulated_step)
-          let tmp_simulation_steps = simulated_steps.slice();
-          let dps_key = dps_ordered_keys[i];
-
-          let dps_key_values = data["data"][dps_key];
-
-          baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
-
-          // use max simulation_step for the trait stacking chart
-          if (data_type === "azerite_traits_stacking") {
-            baseline_dps = data["data"]["baseline"][data["simulated_steps"][0]];
-          }
-
-          // special handling of azerite_stacking chart to account for traits not simmed at max simulation_step or without max stacks
-          if (data_type === "azerite_traits_stacking" && dps_key_values[simulation_step] === undefined) {
-
-            // find max available simulated step instead
-            let available_steps = data["simulated_steps"];
-            let max_step = undefined;
-
-            // comparing descending simulated_steps until we find the highest possible simulated_step
-            for (let broken_id = 0; broken_id < available_steps.length; broken_id++) {
-
-              const available_step = available_steps[broken_id];
-
-              if (!max_step && data["data"][dps_key][available_step]) {
-                max_step = available_step;
-              }
-            }
-            max_step = max_step.replace("1_", "");
-
-            // fix tmp_simulation_steps to match this trait
-            tmp_simulation_steps = [];
-            for (let step of simulated_steps) {
-              tmp_simulation_steps.push(step.split("_")[0] + "_" + max_step);
-            }
-
-            // reset baseline dps to max available simulation step
-            baseline_dps = data["data"]["baseline"]["1_" + max_step];
-
-            // reset simulation_step to the actually available simulation_step
-            simulation_step = simulation_step.split("_")[0] + "_" + max_step;
-          }
-
-          // check for zero dps values and don't change them
-          if (Number(dps_key_values[simulation_step]) > 0) {
-
-            // if lowest simulation_step is looked at, substract baseline
-            if (simulation_step_position == simulated_steps.length - 1) {
-
-              if (simulation_step in dps_key_values) {
-                dps_array.push(dps_key_values[simulation_step] - baseline_dps);
-              } else {
-                dps_array.push(0);
-              }
-
-            } else { // else substract lower simulation_step value of same item
-
-              // if lower simulation_step is zero we have to assume that this item needs to be compared now to the baseline
-              if (dps_key_values[tmp_simulation_steps[String(Number(simulation_step_position) + 1)]] === 0 || !(tmp_simulation_steps[String(Number(simulation_step_position) + 1)] in dps_key_values)) {
-                dps_array.push(dps_key_values[simulation_step] - baseline_dps);
-
-              } else { // standard case, next simulation_step is not zero and can be used to substract from the current value
-                dps_array.push(dps_key_values[simulation_step] - dps_key_values[tmp_simulation_steps[String(Number(simulation_step_position) + 1)]]);
-              }
-
-            }
-
-          } else {
-            if (simulation_step in dps_key_values) {
-              dps_array.push(dps_key_values[simulation_step]);
-            } else {
-              dps_array.push(0);
-            }
-          }
+          const dps_key = dps_ordered_keys[i];
+          dps_array.push(tmp_dps_values[dps_key][simulation_step]);
         }
 
         let simulation_step_clean = simulation_step;
@@ -988,7 +935,6 @@ function bloodmallet_chart_import() {
     }(Highcharts));
   }
 
-
   /**
    *  Creates the rgb color array for the dps of a marker.
    *
@@ -1036,7 +982,6 @@ function bloodmallet_chart_import() {
       ];
     }
   }
-
 
   /**
    * Function to help catch defered loaded jQuery.
@@ -1122,10 +1067,14 @@ function bloodmallet_chart_import() {
         a.href += "spell=" + data["spell_ids"][key] + '/' + slugify(key);
       }
       try {
-        a.appendChild(document.createTextNode(data.languages[key][language_table[state.language]]));
+        a.appendChild(document.createTextNode(data["translations"][key][language_table[state.language]]));
       } catch (error) {
-        a.appendChild(document.createTextNode(key));
-        console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+        try {
+          a.appendChild(document.createTextNode(data["languages"][key][language_table[state.language]]));
+        } catch (error) {
+          a.appendChild(document.createTextNode(key));
+          console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+        }
       }
 
       return a.outerHTML;
@@ -1587,7 +1536,9 @@ function bloodmallet_chart_import() {
             block_span.style.marginLeft = '9px';
             block_span.style.borderLeft = '9px solid ' + this.points[i].series.color;
             block_span.style.paddingLeft = '4px';
-            block_span.innerHtml = this.points[i].series.name;
+            if (Number.isInteger(this.points[i].series.name)) {
+              block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
+            }
 
             point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount)));
           }
