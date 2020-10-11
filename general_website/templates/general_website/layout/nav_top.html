@@ -15,11 +15,14 @@
         <div class="collapse navbar-collapse" id="navbarTopMenu">
 
             <ul class="navbar-nav mr-auto">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'my_charts' %}" id="my_charts_link">{% translate "My Charts" %}</a>
-            </li>
-            {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_charts' %}" id="my_charts_link">{% translate "My Charts" %}</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tears' %}">{% translate "Meme" %}</a>
+                </li>
             </ul>
 
 
