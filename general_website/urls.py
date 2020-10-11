@@ -65,4 +65,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('signup', views.signup, name='signup'),
+
+    # languages
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

@@ -15,6 +15,27 @@
 <h1 class="mt-3 display-4">{% trans "Settings" %}</h1>
 <p>{% trans "A settings page...more to come" %}</p>
 
+
+<form action="{% url 'set_language' %}" method="post" class="container-fluid">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <div class="form-group">
+        <label for="language_selection">{% translate "Language" %}</label>
+        <select name="language" class="form-control" id="language_selection">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{% trans "Set language" %}</button>
+</form>
+
 {% comment %}
 <form class="container-fluid">
     <fieldset class="form-group row">

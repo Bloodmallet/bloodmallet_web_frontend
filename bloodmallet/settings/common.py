@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+import os
 
 from django.contrib.messages import constants as messages
-import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
@@ -116,6 +117,17 @@ except ModuleNotFoundError:
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('de', _('German')),
+    ('en', _('English')),
+    ('es', _('Spanish')),
+    ('fr', _('French')),
+    ('it', _('Italian')),
+    ('ko', _('Korean')),
+    ('pt', _('Portuguese (Brazil)')),
+    ('ru', _('Russian')),
+    ('zh-hans', _('Chinese')),
+]
 
 TIME_ZONE = 'UTC'
 
