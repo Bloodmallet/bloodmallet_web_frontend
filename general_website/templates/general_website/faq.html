@@ -113,6 +113,19 @@
     </p>
 </div>-->
 <div class="offset-md-1 col-md-10">
+    <h2 class="faq-question">{% trans "Google Analytics" %}</h2>
+    <p>
+        {% blocktrans %}
+        bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+        {% endblocktrans %}
+    </p>
+    <div class="btn-group float-right">
+        <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% trans "Accept GA tracking" %}</button>
+        <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% trans "Reject GA tracking" %}</button>
+    </div>
+</div>
+
+<div class="offset-md-1 col-md-10">
     <h2 id="contributors" class="faq-question">Who contributed?</h2>
     <p>A big shout out to everyone who took part in the journey to reach this point. Without your feedback bloodmallet.com
     wouldn't be as smooth as it is. All feedback is highly appreciated, so share your opinion on Twitter
