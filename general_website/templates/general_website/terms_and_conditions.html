@@ -2,13 +2,20 @@
 {% load i18n %}
 
 {% block title %}
-AGB
+{% trans 'Terms and Conditions' %}
 {% endblock %}
 
 {% block content %}
 
-<h1>Allgemeine Geschäftsbedingungen</h1>
+<h1 class="mt-3 display-4">{% trans 'Terms and Conditions' %}</h1>
 
-????
+<p>
+{% url 'about' as about %}
+{% blocktranslate %}
+Improved Terms and Conditions will be provided as soon as possible. In the meantime: The developing company Kruse Analytics UG (haftungsbeschränkt) intends to provide the service described in the support-level list at <a href="https://www.patreon.com/bloodmallet">patreon - bloodmallet</a>.<br/><br/>
+
+These Terms and Conditions can and will be changed without further notice. If you have questions, please reach out to us using the means provided <a href="{{ about }}">here</a>.
+{% endblocktranslate %}
+</p>
 
 {% endblock %}
