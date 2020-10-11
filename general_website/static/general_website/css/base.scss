@@ -200,16 +200,6 @@ a:hover .svg-icon {
     .#{$class}-border-bottom {
         border-bottom: 3px solid $color-value;
     }
-    @media only screen and (max-width: 767px) {
-        .#{$class}-menu-border {
-            border-bottom: 0px solid transparent;
-        }
-        .#{$class}-border-bottom, .#{$class}-menu-border.active {
-            border-bottom: 0px solid transparent;
-            border-left: 3px solid $color-value;
-            padding-left: 5px;
-        }
-    }
 
     // Hide the bottom border if the sub menu is active
     .show .#{$class}-menu-border:hover, .show .#{$class}-menu-border.active {
