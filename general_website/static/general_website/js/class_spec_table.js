@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // create spec table only if no spec was already in link
         build_table();
         // register click events to hide spec table
-        register_class_spec_hiders();
+        //register_class_spec_hiders();
     }
 });
 
@@ -44,8 +44,9 @@ function build_table() {
             div_spec_row.className = 'row';
             div_class_cell.appendChild(div_spec_row);
             let a_spec_btn = document.createElement('a');
-            a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
-            a_spec_btn.href = '#' + wow_class + '_' + wow_spec;
+            a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
+            a_spec_btn.href = '';
+            // a_spec_btn.href = '#' + wow_class + '_' + wow_spec;
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
             div_spec_row.appendChild(a_spec_btn);
         }

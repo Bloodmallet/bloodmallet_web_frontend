@@ -293,6 +293,12 @@ a:hover .svg-icon {
     }
 }
 
+// disable a button
+.btn-disabled {
+    color: $light-color;
+    cursor: not-allowed;
+}
+
 // petreon
 .patreon-div {
     position: fixed;
