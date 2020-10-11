@@ -33,23 +33,32 @@ class Simulation(models.Model):
         editable=False,
         help_text="Uuid used to identify a specific Simulation."
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='simulations')
-    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='simulations')
-    wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='simulations')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='simulations')
+    wow_class = models.ForeignKey(
+        WowClass, on_delete=models.CASCADE, related_name='simulations')
+    wow_spec = models.ForeignKey(
+        WowSpec, on_delete=models.CASCADE, related_name='simulations')
     simulation_type = models.ForeignKey(
         SimulationType, on_delete=models.CASCADE, related_name='simulations'
     )
     fight_style = models.ForeignKey(
         FightStyle, on_delete=models.CASCADE, related_name='simulations'
     )
-    name = models.CharField(max_length=64, blank=True, help_text=_("Name of the chart"))
+    name = models.CharField(
+        max_length=64,
+        blank=True,
+        help_text=_("Name of the chart"),
+    )
     custom_profile = models.TextField(
         max_length=10000,
         blank=True,
         help_text=_("Define your own character here, instead of using the standard profile (your input will overwrite the standard profile). Paste your <a href=\"https://mods.curse.com/addons/wow/simulationcraft\" target=\"_blank\">SimulationCraft</a> /simc output into this element.")
     )
-    custom_fight_style = models.TextField(max_length=2048, blank=True, help_text=_("Define your own fight_style."))
-    custom_apl = models.TextField(max_length=2048, blank=True, help_text=_("Define your characters APL."))
+    custom_fight_style = models.TextField(
+        max_length=2048, blank=True, help_text=_("Define your own fight_style."))
+    custom_apl = models.TextField(
+        max_length=2048, blank=True, help_text=_("Define your characters APL."))
     created_at = models.DateTimeField(auto_now_add=True)
     failed = models.BooleanField(
         default=False,
@@ -57,11 +66,7 @@ class Simulation(models.Model):
     )
 
     def __str__(self):
-        return "{simulation_type} {wow_spec} {fight_style}".format(
-            simulation_type=self.simulation_type,
-            wow_spec=self.wow_spec,
-            fight_style=self.fight_style
-        )
+        return "{}".format(self.id)
 
     class Meta:
         ordering = ['-created_at']
@@ -78,6 +83,10 @@ def put_in_queue(sender, instance, created, *args, **kwargs):
         )
         queue.save()
 
+# TODO: Add a pre-delete event listener for Result, to delete their files
+# https://django-storages.readthedocs.io/en/latest/backends/gcloud.html#storage
+# https://docs.djangoproject.com/en/3.1/ref/signals/#pre-delete
+
 
 class QueueState(Enum):
     PENDING = _("pending")
@@ -91,14 +100,18 @@ class Queue(models.Model):
     """
 
     simulation = models.OneToOneField(Simulation, on_delete=models.CASCADE)
-    state = models.CharField(max_length=20, choices=[(tag.name, tag.value) for tag in QueueState])
+    state = models.CharField(
+        max_length=20,
+        choices=[(tag.name, tag.value) for tag in QueueState]
+    )
     progress = models.PositiveSmallIntegerField(
         help_text="0-100, but 100 doesn't mean, that the data is available. Simulation reached 100%, though."
     )
-    log = models.TextField(blank=True, help_text="Log messages from the responsible worker.")
+    log = models.TextField(
+        blank=True, help_text="Log messages from the responsible worker.")
 
     def __str__(self):
-        return "{} {}".format(self.simulation, self.state)
+        return "{} {}".format(self.simulation_id, self.state)  # pylint: disable=no-member
 
 
 def save_simulation_result(instance, filename) -> str:
@@ -134,7 +147,7 @@ class Result(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{}".format(self.simulation)
+        return "{}".format(self.simulation_id)  # pylint: disable=no-member
 
 
 class GeneralResult(models.Model):
@@ -145,17 +158,19 @@ class GeneralResult(models.Model):
     wow_class = models.ForeignKey(
         WowClass, on_delete=models.CASCADE, related_name='general_results'
     )
-    wow_spec = models.ForeignKey(WowSpec, on_delete=models.CASCADE, related_name='general_result')
+    wow_spec = models.ForeignKey(
+        WowSpec, on_delete=models.CASCADE, related_name='general_result')
     simulation_type = models.ForeignKey(
         SimulationType, on_delete=models.CASCADE, related_name='general_results'
     )
     fight_style = models.ForeignKey(
         FightStyle, on_delete=models.CASCADE, related_name='general_results'
     )
-    result = models.OneToOneField(Result, on_delete=models.CASCADE, related_name='general_result')
+    result = models.OneToOneField(
+        Result, on_delete=models.CASCADE, related_name='general_result')
 
     def __str__(self):
-        return "{}".format(self.result.simulation)     # pylint: disable=no-member
+        return "{}".format(self.result_id)     # pylint: disable=no-member
 
     class Meta:
         unique_together = ((

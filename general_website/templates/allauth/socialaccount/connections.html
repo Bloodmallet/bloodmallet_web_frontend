@@ -2,13 +2,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Account Connections" %}{% endblock %}
+{% block head_title %}{% translate "Account Connections" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Account Connections" %}</h1>
+<h1>{% translate "Account Connections" %}</h1>
 
 {% if form.accounts %}
-<p>{% blocktrans %}Your account is connected to the following 3rd Party Accounts:{% endblocktrans %}</p>
+<p>{% blocktranslate %}Your account is connected to the following 3rd Party Accounts:{% endblocktranslate %}</p>
 
 <form method="post" action="{% url 'socialaccount_connections' %}">
 {% csrf_token %}
@@ -32,18 +32,18 @@
         </div>
     {% endwith %}
 {% endfor %}
-<button type="submit" class="btn btn-primary">{% trans 'Remove' %}</button>
+<button type="submit" class="btn btn-primary">{% translate 'Remove' %}</button>
 
 </fieldset>
 </form>
 
 {% else %}
-<p>{% trans 'You currently have no 3rd Party Accounts connected to this account.' %}</p>
+<p>{% translate 'You currently have no 3rd Party Accounts connected to this account.' %}</p>
 {% endif %}
 
 
 <br/><br/><br/>
-<h2>{% trans 'Add a 3rd Party Account' %}</h2>
+<h2>{% translate 'Add a 3rd Party Account' %}</h2>
 
 <ul class="socialaccount_providers">
 {% include "socialaccount/snippets/provider_list.html" with process="connect" %}

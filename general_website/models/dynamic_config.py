@@ -23,8 +23,10 @@ class Broadcast(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     start_at = models.DateTimeField()
     end_at = models.DateTimeField()
-    title = models.TextField(max_length=124, help_text=_("Broadcast will be shown from start_at to end_at."))
-    message = models.TextField(max_length=2048, help_text=_("Broadcast will be shown from start_at to end_at."))
+    title = models.TextField(max_length=124, help_text=_(
+        "Broadcast will be shown from start_at to end_at."))
+    message = models.TextField(max_length=2048, help_text=_(
+        "Broadcast will be shown from start_at to end_at."))
     level = models.CharField(max_length=9, choices=choices)
 
     # add foreign key for user who added it

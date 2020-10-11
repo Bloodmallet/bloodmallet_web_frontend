@@ -1,17 +1,7 @@
 import logging
-import uuid
-from enum import Enum
 from typing import Tuple
 
-from allauth.socialaccount.signals import pre_social_login
-from allauth.socialaccount.signals import social_account_added
-from allauth.socialaccount.signals import social_account_updated
-from django.conf import settings
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.signals import user_logged_in
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
@@ -37,7 +27,8 @@ class Teleporter(models.Model):
     location = models.CharField(max_length=200)
     x = models.FloatField()
     y = models.FloatField()
-    additional_information = models.CharField(max_length=500, null=True, blank=True)
+    additional_information = models.CharField(
+        max_length=500, null=True, blank=True)
     faction = models.ForeignKey(Faction, on_delete=models.CASCADE)
 
     @property
@@ -82,7 +73,9 @@ class WowSpec(models.Model):
     """Wow spec like feral, fire, frost
     """
 
-    wow_class = models.ForeignKey(WowClass, on_delete=models.CASCADE, related_name='wow_specs')
+    wow_class = models.ForeignKey(
+        WowClass, on_delete=models.CASCADE, related_name='wow_specs'
+    )
     name = models.CharField(max_length=16)
     tokenized_name = models.CharField(max_length=16)
 
@@ -105,9 +98,14 @@ class SimulationType(models.Model):
     """Commands/modes for bloodytools. E.g. 'trinkets'
     """
 
-    name = models.CharField(max_length=32, help_text="Name of the simulation type. Like 'trinket simulations'.")
+    name = models.CharField(max_length=32, help_text=_(
+        "Name of the simulation type. Like 'trinket simulations'."))
     command = models.CharField(
         max_length=32, help_text="Actual command for bloodytools to do the simulation type. E.g. 'trinkets'"
+    )
+    is_deleted = models.BooleanField(
+        default=False,
+        help_text=_("Removes SimulationType from being generated.")
     )
 
     def __str__(self):

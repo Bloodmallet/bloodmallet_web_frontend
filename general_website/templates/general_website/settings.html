@@ -12,12 +12,34 @@
 
 {% block content %}
 
-<h1>{% trans "Settings" %}</h1>
-<p>A settings page...what did you expect?</p>
+<h1 class="mt-3 display-4">{% translate "Settings" %}</h1>
+<p>{% translate "A settings page...more to come" %}</p>
 
+
+<form action="{% url 'set_language' %}" method="post" class="container-fluid">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <div class="form-group">
+        <label for="language_selection">{% translate "Language" %}</label>
+        <select name="language" class="form-control" id="language_selection">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{% translate "Set language" %}</button>
+</form>
+
+{% comment %}
 <form class="container-fluid">
     <fieldset class="form-group row">
-        <legend>{% trans "Language" %}</legend>
+        <legend>{% translate "Language" %}</legend>
         <div class="form-check">
             <label class="offset-sm-2 form-check-label">
                 <input type="radio" class="form-check-input" name="language" id="chinese_selection" value="cn_CN">
@@ -75,23 +97,23 @@
     </fieldset>
 
     <fieldset class="form-group row">
-        <legend>{% trans "Chart mode" %}</legend>
+        <legend>{% translate "Chart mode" %}</legend>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="absolute_gain" value="absolute_gain" checked>
-                    {% trans "Δ - absolute dps gain" %}
+                    {% translate "Δ - absolute dps gain" %}
             </label>
         </div>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="relative_gain" value="relative_gain">
-                    {% trans "% - relative dps gain" %}
+                    {% translate "% - relative dps gain" %}
             </label>
         </div>
         <div class="offset-sm-2 form-check">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="chart_mode" id="absolute_value" value="absolute_value">
-                    {% trans "|x| - absolute value" %}
+                    {% translate "|x| - absolute value" %}
             </label>
         </div>
     </fieldset>
@@ -100,12 +122,14 @@
         <legend>Chart icons</legend>
         <label class="offset-sm-2 form-check" style="cursor: pointer" id="translate_iconize_chart" for="inconized_charts_checkbox">
             <input class="form-check-input" type="checkbox" id="inconized_charts_checkbox" style="cursor: pointer">
-            {% trans "active" %}
+            {% translate "active" %}
         </label>
     </div>
 
-    <button type="button" class="btn btn-primary row" id="apply_changes">{% trans "Apply changes" %}</button>
+    <button type="button" class="btn btn-primary row" id="apply_changes">{% translate "Apply changes" %}</button>
 </form>
+
+{% endcomment %}
 
 
 {% endblock %}

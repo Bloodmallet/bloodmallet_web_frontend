@@ -1,0 +1,257 @@
+{% extends 'general_website/layout/base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<h1 class=" display-4 mb-3 text-center">{% translate 'T-List' %}</h1>
+
+<p>
+    {% translate "Everyone's doing a list right now? Here I present my own Tear-List. And I assure you it's highly subjective and different for everyone." %}
+</p>
+
+<span class="death_knight-color float-right" style="position: absolute; top: 180px; right: 50px; font-size: 5rem; transform: rotate(45deg); display: inline-block;">wow!</span>
+<p>
+    {% translate "All values are absolutely random and have no meaning." %}
+</p>
+
+<h3>{% translate 'Specs' %} <span onclick="resetTears();">🍪</span></h3>
+<div id="specs"></div>
+<span class="float-right" style="position: absolute; top: 800px; right: 30%; font-size: 5rem; transform: rotate(180deg); display: inline-block;">🤔</span>
+
+<span class="death_knight-color float-right" style="position: absolute; top: 1300px; right: 50%; font-size: 5rem; transform: rotate(-45deg); display: inline-block;">oof!</span>
+
+
+{% endblock %}
+
+{% block extraimport %}
+
+{% include 'general_website/layout/chart_import.html' %}
+
+<script>
+    let specs = [{ 'id': 250, 'name': 'Blood', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 251, 'name': 'Frost', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 252, 'name': 'Unholy', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 577, 'name': 'Havoc', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 581, 'name': 'Vengeance', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 102, 'name': 'Balance', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 103, 'name': 'Feral', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 104, 'name': 'Guardian', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 105, 'name': 'Restoration', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 253, 'name': 'Beast_Mastery', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 254, 'name': 'Marksmanship', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 255, 'name': 'Survival', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 62, 'name': 'Arcane', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 63, 'name': 'Fire', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 64, 'name': 'Frost', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 268, 'name': 'Brewmaster', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 269, 'name': 'Windwalker', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 66, 'name': 'Protection', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 70, 'name': 'Retribution', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 256, 'name': 'Discipline', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 257, 'name': 'Holy', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 258, 'name': 'Shadow', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 259, 'name': 'Assassination', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 260, 'name': 'Outlaw', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 261, 'name': 'Subtlety', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 262, 'name': 'Elemental', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 263, 'name': 'Enhancement', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 264, 'name': 'Restoration', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 265, 'name': 'Affliction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 266, 'name': 'Demonology', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 267, 'name': 'Destruction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 71, 'name': 'Arms', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 72, 'name': 'Fury', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 73, 'name': 'Protection', 'wow_class': { 'id': 1, 'name': 'Warrior' } }];
+    let keys = [];
+    let values = [];
+    let list = [];
+    let cookie_name = "tearList";
+    if (!document.cookie.split("; ").find(c => c.startsWith(cookie_name))) {
+        for (let spec of specs) {
+            let key = spec["name"] + " " + spec["wow_class"]["name"];
+            let value = parseInt(Math.random() * 10000);
+            list.push([key, value]);
+        }
+        list.sort((x,y)=>{return  y[1] - x[1];});
+        document.cookie = cookie_name + "=" + list.toString();
+    } else {
+        let s = document.cookie.split("; ").find(r => r.startsWith(cookie_name)).split("=")[1];
+        let s_l = s.split(",");
+        for (let i = 0; i < s_l.length; i++) {
+            if (i % 2 === 0) {
+                list.push([s_l[i]]);
+            } else {
+                list[parseInt(i/2)].push(parseInt(s_l[i]));
+            }
+        }
+    }
+    for (let element of list) {
+        keys.push(element[0]);
+        values.push(element[1]);
+    }
+
+    const default_background_color = "#343a40";
+    const default_font_color = "#f8f9fa";
+    const default_axis_color = "#828282";
+
+    const font_size = "1.1rem";
+
+    let chart = Highcharts.chart("specs", {
+        chart: {
+            type: "bar",
+            backgroundColor: "transparent",
+            style: {
+                fontFamily: "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\""
+            }
+        },
+        //colors: bar_colors,
+        credits: {
+            href: "https://bloodmallet.com/",
+            text: "bloodmallet",
+            style: {
+                fontSize: font_size
+            }
+        },
+        legend: {
+            align: "right",
+            backgroundColor: default_background_color,
+            borderColor: default_axis_color,
+            borderWidth: 1,
+            floating: false,
+            itemMarginBottom: 3,
+            itemMarginTop: 0,
+            layout: 'vertical',
+            reversed: true,
+            shadow: false,
+            verticalAlign: "middle",
+            x: 0,
+            y: 0,
+            itemStyle: {
+                color: default_font_color,
+            },
+            itemHoverStyle: {
+                color: default_font_color,
+            },
+            title: {
+                text: " ",
+                style: {
+                color: default_font_color
+                }
+            },
+            symbolRadius: 0
+        },
+        plotOptions: {
+            series: {
+                stacking: "normal",
+                borderColor: default_background_color,
+                events: {
+                legendItemClick: function () { return false; }
+                },
+                style: {
+                textOutline: false,
+                fontSize: font_size,
+                }
+            }
+        },
+        series: [],
+        title: {
+            text: "Spec Tear List",
+            useHTML: true,
+            style: {
+                color: default_font_color,
+                fontSize: font_size
+            }
+        },
+
+        tooltip: {
+            headerFormat: "<b>{point.x}</b>",
+            shared: true,
+            backgroundColor: default_background_color,
+            borderColor: default_axis_color,
+            style: {
+                color: default_font_color,
+                fontSize: font_size,
+            },
+            useHTML: true,
+            // adding this as a potential tooltip positioning fix. changes tooltip position to be inside the bar rather than at the end
+            positioner: function (boxWidth, boxHeight, point) {
+                return {
+                x: point.plotX,
+                y: point.plotY
+                };
+            }
+        },
+        xAxis: {
+            categories: [],
+            labels: {
+                useHTML: true,
+                style: {
+                color: default_font_color,
+                fontSize: font_size,
+                }
+            },
+            gridLineWidth: 0,
+            gridLineColor: default_axis_color,
+            lineColor: default_axis_color,
+            tickColor: default_axis_color
+        },
+        // two yAxis, to "double" the description
+        yAxis: [{
+            labels: {
+                //enabled: true,
+                style: {
+                color: default_axis_color
+                },
+            },
+            min: 0,
+            stackLabels: {
+                enabled: true,
+                formatter: function () {
+                return Intl.NumberFormat().format(this.total);
+                },
+                style: {
+                color: default_font_color,
+                textOutline: false,
+                fontSize: font_size,
+                fontWeight: "normal"
+                }
+            },
+            title: {
+                text: "\u0394 tear impact per attention",
+                style: {
+                color: default_axis_color
+                }
+            },
+            gridLineWidth: 1,
+            gridLineColor: default_axis_color
+        }, {
+            linkedTo: 0,
+            opposite: true,
+            labels: {
+                //enabled: true,
+                style: {
+                color: default_axis_color
+                },
+            },
+            min: 0,
+            stackLabels: {
+                enabled: true,
+                formatter: function () {
+                return Intl.NumberFormat().format(this.total);
+                },
+                style: {
+                color: default_font_color,
+                textOutline: false,
+                fontSize: font_size,
+                fontWeight: "normal"
+                }
+            },
+            title: {
+                text: "\u0394 tear impact per attention",
+                style: {
+                color: default_axis_color
+                }
+            },
+            gridLineWidth: 1,
+            gridLineColor: default_axis_color
+
+        }]
+    });
+
+    while (chart.series[0]) {
+        chart.series[0].remove(false);
+    }
+
+    chart.update({
+        xAxis: {
+            categories: keys
+        }
+      }, false);
+
+    chart.addSeries({
+        data: values,
+        name: "Worth",
+        showInLegend: true
+    }, false);
+
+    chart.redraw();
+    let chart_element = document.getElementById("specs");
+    chart_element.style.height = 200 + keys.length * 30 + "px";
+    chart.setSize(chart_element.style.width, chart_element.style.height);
+
+    function resetTears() {
+        document.cookie = "tearList=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+
+</script>
+
+{% endblock %}

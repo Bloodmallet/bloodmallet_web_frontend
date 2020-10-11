@@ -177,7 +177,7 @@ a:hover .svg-icon {
 // create necessary class specific css for nav and tables
 @each $class, $color-value in $class-colors {
     .#{$class}-color {
-        color: $color-value!important;
+        color: $color-value;
     }
     .#{$class}-menu-border {
         // border-top: 3px solid transparent;
@@ -200,16 +200,6 @@ a:hover .svg-icon {
     .#{$class}-border-bottom {
         border-bottom: 3px solid $color-value;
     }
-    @media only screen and (max-width: 767px) {
-        .#{$class}-menu-border {
-            border-bottom: 0px solid transparent;
-        }
-        .#{$class}-border-bottom, .#{$class}-menu-border.active {
-            border-bottom: 0px solid transparent;
-            border-left: 3px solid $color-value;
-            padding-left: 5px;
-        }
-    }
 
     // Hide the bottom border if the sub menu is active
     .show .#{$class}-menu-border:hover, .show .#{$class}-menu-border.active {
@@ -228,8 +218,12 @@ a:hover .svg-icon {
         }
     }
 
-    .border-#{$class} {
-        border-color: $color-value !important;
+    .#{$class}-border {
+        border-color: $color-value;
+    }
+
+    .#{$class}-background {
+        background-color: $color-value;
     }
 
 }
@@ -297,6 +291,12 @@ a:hover .svg-icon {
     .spec-btn {
         padding: 10px 15px;
     }
+}
+
+// disable a button
+.btn-disabled {
+    color: $light-color;
+    cursor: not-allowed;
 }
 
 // petreon
@@ -389,4 +389,45 @@ select::-ms-expand {
 
 .alert {
     font-weight: 600;
+}
+
+.cookie_information_overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: $light-color;
+    opacity: 0.7;
+    z-index: 1250;
+}
+
+.centered-axis-xy {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cookie_box {
+    z-index: 1255;
+    background-color: $dark-color;
+}
+
+.bm-progress-bar {
+    background-color: $darkest-color;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.bm-progress-bar-text {
+    text-shadow: 1px 1px $darkest-color;
+}
+
+.notransition {
+    transition: none!important;
+}
+
+.faq-question {
+    font-weight: 300;
 }

@@ -12,7 +12,7 @@
     {% if not user.is_superuser %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
-            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}" height="42" style="vertical-align: text-top;" />
+            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% translate 'Become a Patron' %}" height="42" style="vertical-align: text-top;" />
         </a>
     </div>
     {% endif %}
@@ -28,10 +28,6 @@
                     {# free real estate #}
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-10">
-                    <div class="pt-3"></div>
-                    <div class="alert alert-info text-center" role="alert">
-                        {% trans 'alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha' %}
-                    </div>
                     {% include 'general_website/layout/messages.html' %}
                     {% block content %}
                     {% endblock %}
@@ -53,5 +49,21 @@
     {% include 'general_website/layout/script_importer.html' %}
     {% block extraimport %}
     {% endblock %}
+
+    {# Cookie Policy overlay #}
+    <div id="cookie_information_overlay" class="cookie_information_overlay" hidden>
+    </div>
+    <div id="cookie_information_box" class="centered-axis-xy cookie_box alert alert-info" style="position: fixed;" hidden>
+        <p>
+            {% blocktranslate %}
+            Greetings,<br/>
+            bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+            {% endblocktranslate %}
+        </p>
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% translate "Accept GA tracking" %}</button>
+            <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% translate "Reject GA tracking" %}</button>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,43 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>{% translate 'Create a Chart' %}</h1>
+
+{% if not user.can_create_chart %}
+<p class="alert-warning">{% translate 'You lack permission to create charts.' %}</p>
+{% endif %}
+
+<form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
+    {% crispy form %}
+
+    <small id="dataDisclaimer" class="form-text text-muted">{% translate "Almost all comments will be removed. Chart creation will take a while (stuff needs to be simulated)." %}</small>
+</form>
+
+
+{% endblock %}
+
+{% block extraimport %}
+<script>
+function clean_custom_profile() {
+    let element = document.getElementById('id_custom_profile');
+    element.value = element.value.split("\n").filter(line => {
+        if (line.startsWith("# SimC Addon")) {
+            return true;
+        } else if (line.startsWith("#")) {
+            return false;
+        } else {
+            return true;
+        }
+    }).join("\n");
+}
+document.addEventListener("DOMContentLoaded", function () {
+    // probably overkill, but hey at least some errors will be prevented
+    document.getElementById('id_custom_profile').addEventListener("change", clean_custom_profile);
+    document.getElementById('id_custom_profile').addEventListener("input", clean_custom_profile);
+    document.getElementById('id_custom_profile').addEventListener("paste", clean_custom_profile);
+});
+</script>
+{% endblock %}

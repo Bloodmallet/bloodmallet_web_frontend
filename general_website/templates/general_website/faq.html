@@ -17,7 +17,7 @@
     </p>
     <p>If you enjoy this resource and want to see it continued, there are two options available to do so:</p>
     <a href="https://www.patreon.com/bloodmallet" target="blank">
-    <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% trans 'Become a Patron' %}"  height="42" style="vertical-align: text-top;" />
+    <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% translate 'Become a Patron' %}"  height="42" style="vertical-align: text-top;" />
     </a>
     <p>or support the project on
     <a href="https://www.paypal.me/bloodmallet" target="blank">PayPal</a>
@@ -34,60 +34,60 @@
 <div class="offset-md-1 col-md-10">
     <h2 id="generation-settings" class="faq-question">What settings are used to create the data?</h2>
     <table class="table">
-    <thead>
-        <tr>
-        <th scope="col">Setting</th>
-        <th scope="col">Patchwerk</th>
-        <th scope="col">HecticAddCleave</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        <th scope="row">Profile/Tier</th>
-        <td>Dazar'Alor(T23)</td>
-        <td>Dazar'Alor(T23)</td>
-        </tr>
-        <tr>
-        <th scope="row">Iterations</th>
-        <td>20000 (sufficient to reach target_error)</td>
-        <td>20000 (sufficient to reach target_error)</td>
-        </tr>
-        <tr>
-        <th scope="row">Target Error</th>
-        <td>0.2%</td>
-        <td>0.2%</td>
-        </tr>
-        <tr>
-        <th scope="row">Max Time</th>
-        <td>300 seconds</td>
-        <td>300 seconds</td>
-        </tr>
-        <tr>
-        <th scope="row">Vary Combat Length</th>
-        <td>20%</td>
-        <td>20%</td>
-        </tr>
-        <tr>
-        <th scope="row">Fixed Time</th>
-        <td>true</td>
-        <td>true</td>
-        </tr>
-        <tr>
-        <th scope="row">Default Actions</th>
-        <td>true</td>
-        <td>true</td>
-        </tr>
-        <tr>
-        <th scope="row">Optimize Expressions</th>
-        <td>true</td>
-        <td>true</td>
-        </tr>
-        <tr>
-        <th scope="row">Ready Trigger</th>
-        <td>true</td>
-        <td>true</td>
-        </tr>
-    </tbody>
+        <thead>
+            <tr>
+            <th scope="col">Setting</th>
+            <th scope="col">Patchwerk</th>
+            <th scope="col">HecticAddCleave</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Profile/Tier</th>
+                <td>T25 (Ny'alotha)</td>
+                <td>T25 (Ny'alotha)</td>
+            </tr>
+            <tr>
+                <th scope="row">Iterations</th>
+                <td>20000 (sufficient to reach target_error)</td>
+                <td>20000 (sufficient to reach target_error)</td>
+            </tr>
+            <tr>
+                <th scope="row">Target Error</th>
+                <td>0.1%</td>
+                <td>0.1%</td>
+            </tr>
+            <tr>
+                <th scope="row">Max Time</th>
+                <td>300 seconds</td>
+                <td>300 seconds</td>
+            </tr>
+            <tr>
+                <th scope="row">Vary Combat Length</th>
+                <td>20%</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <th scope="row">Fixed Time</th>
+                <td>true</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <th scope="row">Default Actions</th>
+                <td>true</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <th scope="row">Optimize Expressions</th>
+                <td>true</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <th scope="row">Ready Trigger</th>
+                <td>true</td>
+                <td>true</td>
+            </tr>
+        </tbody>
     </table>
 </div>
 <div class="offset-md-1 col-md-10">
@@ -112,6 +112,19 @@
     These traits have a special additional effect within their raid. While fighting in that raid you can unlock different power levels of that additional effect. Within Uldir you need to kill 3 bosses per week to unlock one stack of <a href="https://www.wowhead.com/spell=280573/reorigination-array">Reorigination Array</a> up to 10 stacks. This effect doesn't increase with having multiple raid specific traits active at the same time. +5 and +10 means that 5 or 10 stacks of that additional effect are active.
     </p>
 </div>-->
+<div class="offset-md-1 col-md-10">
+    <h2 class="faq-question">{% translate "Google Analytics" %}</h2>
+    <p>
+        {% blocktranslate %}
+        bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+        {% endblocktranslate %}
+    </p>
+    <div class="btn-group float-right">
+        <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% translate "Accept GA tracking" %}</button>
+        <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% translate "Reject GA tracking" %}</button>
+    </div>
+</div>
+
 <div class="offset-md-1 col-md-10">
     <h2 id="contributors" class="faq-question">Who contributed?</h2>
     <p>A big shout out to everyone who took part in the journey to reach this point. Without your feedback bloodmallet.com

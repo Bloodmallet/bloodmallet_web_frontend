@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (debug) {
         console.log("DOMContentLoaded");
     }
+    build_table();
     if (!window.location.hash) {
         // create spec table only if no spec was already in link
-        build_table();
         // register click events to hide spec table
-        register_class_spec_hiders();
+        //register_class_spec_hiders();
     }
 });
 
@@ -27,7 +27,7 @@ function build_table() {
     for (const wow_class of Object.keys(classes_specs)) {
         // fill class cell
         let div_class_cell = document.createElement('div');
-        div_class_cell.className = 'col-md-3 col-4 spec-cell';
+        div_class_cell.className = 'col-xl-3 col-md-4 col-6 spec-cell';
 
         // create class header
         let div_class_name_row = document.createElement('div');
@@ -44,13 +44,22 @@ function build_table() {
             div_spec_row.className = 'row';
             div_class_cell.appendChild(div_spec_row);
             let a_spec_btn = document.createElement('a');
-            a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
-            a_spec_btn.href = '#' + wow_class + '_' + wow_spec;
+            // TODO: Remove btn-disabled
+            a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
+            // TODO: Switch the following two lines
+            a_spec_btn.href = '';
+            // a_spec_btn.href = '#' + wow_class + '_' + wow_spec;
+            // TODO: Remove tooltip
+            a_spec_btn.dataset.toggle = "tooltip";
+            a_spec_btn.dataset.placement = "top";
+            a_spec_btn.dataset.title = "Disabled until half of the specs have either Pre-Raid or Raid profiles and have updated modules.";
+
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
             div_spec_row.appendChild(a_spec_btn);
         }
         table.appendChild(div_class_cell);
     }
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 

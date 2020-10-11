@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from bloodmallet.settings.secrets.secrets import LIVE_BUCKET_NAME
+from bloodmallet.settings.secrets.secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
+import pymysql
 from .common import *     # pylint: disable=unused-wildcard-import
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -18,7 +21,7 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s - %(message)s',
-        }, # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
+        },  # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
 
     },
     'handlers': {
@@ -36,7 +39,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'general_website': { # add app to logger!
+        'general_website': {  # add app to logger!
             'handlers': [
                 'console',
                 # 'file'
@@ -44,10 +47,10 @@ LOGGING = {
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         },
-        'compute_api': { # add app to logger!
+        'compute_api': {  # add app to logger!
             'handlers': [
                 'console',
-                #'file'
+                # 'file'
             ],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
@@ -57,11 +60,9 @@ LOGGING = {
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-import pymysql
 # ! hacky way to enable pymysql for dev
-pymysql.version_info = (1, 3, 13, "final", 0)
+pymysql.version_info = (1, 4, 6, 'final', 0)
 pymysql.install_as_MySQLdb()
-from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
 
 DATABASES = {
     'default': {
@@ -86,10 +87,9 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 SASS_PROCESSOR_ENABLED = False
 
 # google cloud storage
-from .secrets import LIVE_BUCKET_NAME
 GS_BUCKET_NAME = LIVE_BUCKET_NAME
 
-#redirect loop
+# redirect loop
 # SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3600
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

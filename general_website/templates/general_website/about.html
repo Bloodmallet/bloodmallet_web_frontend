@@ -1,0 +1,45 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+
+{% block title %}
+Impressum
+{% endblock %}
+
+{% block content %}
+
+<h1>{% translate "About" %}</h1>
+
+<h2>{% translate "Operating Company" %}</h2>
+<p>
+Kruse Analytics UG (haftungsbeschränkt)
+</p>
+
+<h2>{% translate "Address" %}</h2>
+<p>
+Friedrich-Janssen-Straße 3<br/>
+49076 Osnabrück
+</p>
+
+<h2>{% translate "Director" %}</h2>
+<p>
+Peter Kruse
+</p>
+
+<h2>{% translate "Contact" %}</h2>
+<p>
+E-Mail: bloodmalleteu@gmail.com
+</p>
+
+<h2>{% translate "Commercial Register" %}</h2>
+<p>
+HRB 214926
+</p>
+
+<h2>{% translate "Banking Information" %}</h2>
+<p>
+Postbank<br/>
+IBAN: DE67 3701 0050 0985 0925 01<br/>
+BIC: PBNKDEFF
+</p>
+
+{% endblock %}

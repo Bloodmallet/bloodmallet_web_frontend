@@ -18,7 +18,7 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(asctime)s %(levelname)s %(module)s / %(funcName)s:%(lineno)d - %(message)s',
-        }, # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
+        },  # "%(asctime)s - %(filename)s / %(funcName)s - %(levelname)s - %(message)s"
 
     },
     'handlers': {
@@ -43,14 +43,14 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'general_website': { # add app to logger!
+        'general_website': {  # add app to logger!
             'handlers': [
                 'console', 'file'
             ],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
         },
-        'compute_api': { # add app to logger!
+        'compute_api': {  # add app to logger!
             'handlers': [
                 'console', 'file'
             ],
@@ -66,19 +66,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 try:
-    from .secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
+    from bloodmallet.settings.secrets.secrets import DEV_DB_HOST, DEV_DB_NAME, DEV_DB_USER, DEV_DB_PASSWORD
 except ModuleNotFoundError:
     # pure frontend development uses a local dbs
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'mydatabase',
+            'NAME': 'db.sqlite3',
         }
     }
 else:
     import pymysql
     # ! hacky way to enable pymysql for dev
-    pymysql.version_info = (1, 3, 13, "final", 0)
+    pymysql.version_info = (1, 4, 6, 'final', 0)
     pymysql.install_as_MySQLdb()
 
     DATABASES = {
@@ -86,9 +86,9 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': LIVE_DB_NAME,
-            'USER': LIVE_DB_USER,
-            'PASSWORD': LIVE_DB_PASSWORD,
+            'NAME': DEV_DB_NAME,
+            'USER': DEV_DB_USER,
+            'PASSWORD': DEV_DB_PASSWORD,
             'OPTIONS': {
                 'charset': 'utf8mb4'
             },
@@ -104,11 +104,20 @@ SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 # google cloud storage
 try:
-    from .secrets import DEV_BUCKET_NAME, DEV_CREDENTIALS
+    from bloodmallet.settings.secrets.secrets import DEV_BUCKET_NAME, DEV_CREDENTIALS
 except ModuleNotFoundError:
     # not required for local dev
     pass
 else:
     GS_BUCKET_NAME = DEV_BUCKET_NAME
     from google.oauth2 import service_account
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(DEV_CREDENTIALS)
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        DEV_CREDENTIALS)
+
+
+# add dvelopment tools
+INSTALLED_APPS.append('debug_toolbar')
+MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

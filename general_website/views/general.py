@@ -1,22 +1,16 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
-from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 
 from general_website.forms import SimulationCreationForm
 
-from general_website.models.account import User
 from general_website.models.simulation import GeneralResult
 from general_website.models.simulation import Simulation
-from general_website.models.simulation import SimulationType
-from general_website.models.simulation import Queue
 from general_website.models.simulation import QueueState
-from general_website.models.world_of_warcraft import FightStyle
-from general_website.models.world_of_warcraft import WowClass
-from general_website.models.world_of_warcraft import WowSpec
 
 from random import randint
 
@@ -421,6 +415,7 @@ def portals(request):
     return render(request, 'general_website/portals.html', context)
 
 
+@login_required
 def my_charts(request):
     """View present all own charts and a link to generate a new chart.
 
@@ -435,15 +430,23 @@ def my_charts(request):
 
     context = {}
 
-    simulations = request.user.simulations.filter(
-        result__isnull=False, failed=False
-    ).exclude(name__icontains=settings.STANDARD_CHART_NAME)
+    simulations = request.user.simulations.all().exclude(
+        name__icontains=settings.STANDARD_CHART_NAME
+    ).select_related(
+        'fight_style',
+        'result',
+        'simulation_type',
+        'wow_class',
+        'wow_spec',
+        'queue',
+    )
+
     context['charts'] = simulations
 
     return render(request, 'general_website/my_charts.html', context=context)
 
 
-def chart(request, chart_id):
+def chart(request, chart_id=None):
     """Shows one chart
     """
     logger.debug('called')
@@ -452,6 +455,44 @@ def chart(request, chart_id):
     context['chart_id'] = chart_id
 
     return render(request, 'general_website/chart.html', context=context)
+
+
+def get_chart_state(request, chart_id=None) -> JsonResponse:
+    try:
+        simulation = Simulation.objects.select_related(
+            'result',
+            'queue',
+        ).get(
+            id=chart_id,
+        )
+    except Simulation.DoesNotExist:
+        return JsonResponse(data={'status': 'error', 'message': _("Simulation not found.")})
+
+    queue_position = None
+    if hasattr(simulation, "queue"):
+        if simulation.queue.state == QueueState.PENDING.name:
+
+            simulations = Simulation.objects.filter(
+                queue__state=QueueState.PENDING.name,
+                failed=False,
+            )
+
+            try:
+                queue_position = [
+                    i for i, s in enumerate(simulations) if s.id == chart_id
+                ][0] + 1
+            except IndexError:
+                pass
+
+    response = {
+        'id': chart_id,
+        'failed': simulation.failed,
+        'result': False if not hasattr(simulation, 'result') else True,
+        'queue': None if not hasattr(simulation, 'queue') else simulation.queue.state,
+        'position': queue_position,
+    }
+
+    return JsonResponse(data=response)
 
 
 def get_chart_data(
@@ -468,15 +509,23 @@ def get_chart_data(
 
     if chart_id:
         try:
-            simulation = Simulation.objects.get(id=chart_id, result__isnull=False)     # pylint: disable=no-member
-        except Simulation.DoesNotExist:     # pylint: disable=no-member
+            simulation: Simulation = Simulation.objects.select_related(
+                'result', 'wow_class', 'wow_spec', 'simulation_type', 'fight_style'
+            ).get(
+                id=chart_id,
+                result__isnull=False,
+            )
+        except Simulation.DoesNotExist:
             simulation = None
-        except Simulation.MultipleObjectsReturned:     # pylint: disable=no-member
+        except Simulation.MultipleObjectsReturned:
             # this...shouldn't happen
-            logger.warning('Multiple Simulations have the same id {}'.format(chart_id))
-            simulation = Simulation.objects.filter(id=chart_id).first()     # pylint: disable=no-member
+            logger.warning(
+                'Multiple Simulations have the same id {}'.format(chart_id))
+            simulation: Simulation = Simulation.objects.filter(
+                id=chart_id).first()
         except Exception:
-            logger.exception('Chart_id {} crashed Simulation object look-up.'.format(chart_id))
+            logger.exception(
+                'Chart_id {} crashed Simulation object look-up.'.format(chart_id))
             simulation = None
 
         try:
@@ -484,13 +533,29 @@ def get_chart_data(
         except AttributeError:
             return JsonResponse(data={'status': 'error', 'message': _("Simulation data could not be found.")})
 
-        json_data = json.load(data)
+        json_data = {}
+        if simulation.failed:
+            json_data = {
+                "error": True,
+                "id": chart_id,
+                "title": simulation.name,
+                "wow_class": simulation.wow_class.name,
+                "wow_spec": simulation.wow_spec.name,
+                "simulation_type": simulation.simulation_type.name,
+                "fight_style": simulation.fight_style.name,
+                "custom_profile": simulation.custom_profile,
+                "custom_fight_style": simulation.custom_fight_style,
+                "custom_apl": simulation.custom_apl,
+                "log": data.read().decode('utf-8'),
+            }
+        else:
+            json_data = json.load(data)
 
         return JsonResponse(data=json_data)
 
     elif simulation_type and fight_style and wow_class and wow_spec:
         try:
-            simulation = GeneralResult.objects.get(    # pylint: disable=no-member
+            simulation = GeneralResult.objects.select_related('result').get(    # pylint: disable=no-member
                 wow_class__tokenized_name=wow_class,
                 wow_spec__tokenized_name=wow_spec,
                 simulation_type__command=simulation_type,
@@ -524,7 +589,9 @@ def delete_chart(request) -> JsonResponse:
         return JsonResponse(data={'status': 'error', 'message': _("Chart deletion works only with POST and if chart_id is provided.")})
 
     try:
-        simulation = Simulation.objects.get(id=chart_id)     # pylint: disable=no-member
+        simulation = Simulation.objects.get(  # pylint: disable=no-member
+            id=chart_id
+        )
     except Exception:
         message = _("An error occured while trying to delete a chart.")
         simulation = None
@@ -546,7 +613,8 @@ def delete_chart(request) -> JsonResponse:
     return JsonResponse(data=context)
 
 
-def add_charts(request):
+@login_required
+def create_chart(request):
     """Allows the user to create charts.
     """
     logger.debug('called')
@@ -558,18 +626,42 @@ def add_charts(request):
         form = SimulationCreationForm(request.POST)
 
         if form.is_valid() and request.user.can_create_chart:
+
+            # check if user has empty slots
+
+            simulations = Simulation.objects.filter(
+                user=request.user
+            ).order_by("-created_at")
+
+            if len(simulations) >= request.user.max_charts:
+                if form.cleaned_data["dynamic_delete"]:
+                    simulations[0].delete()
+                else:
+                    error_message = _(
+                        "You don't have any more free slots. You can delete unwanted charts to be able to free up slots.")
+                    messages.error(
+                        request,
+                        error_message,
+                    )
+                    form.add_error("dynamic_delete", ValidationError(
+                        error_message, code='invalid'))
+                    context["form"] = form
+                    return render(request, 'general_website/create_chart.html', context=context)
+
             simulation = form.save(commit=False)
             simulation.user = request.user
             simulation.wow_class = simulation.wow_spec.wow_class
 
             simulation.save()
             messages.success(
-                request, "A chart was added to the queue. Simulations will start soon."
+                request, _(
+                    "A chart was added to the queue. Simulations will start soon.")
             )
 
             return redirect('my_charts')
         elif not request.user.can_create_chart:
-            messages.info(request, _("You don't have permission to create a chart."))
+            messages.info(request, _(
+                "You don't have permission to create a chart."))
 
     else:
 
@@ -577,4 +669,24 @@ def add_charts(request):
 
     context['form'] = form
 
-    return render(request, 'general_website/add_chart.html', context=context)
+    return render(request, 'general_website/create_chart.html', context=context)
+
+
+def about(request):
+    return render(request, 'general_website/about.html')
+
+
+def privacy_policy(request):
+    return render(request, 'general_website/privacy_policy.html')
+
+
+def terms_and_conditions(request):
+    return render(request, 'general_website/terms_and_conditions.html')
+
+
+def tears(request):
+    return render(request, 'general_website/tears.html')
+
+
+def r_tears(request):
+    return redirect('tears')

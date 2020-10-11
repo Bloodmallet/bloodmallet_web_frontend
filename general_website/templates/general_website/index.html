@@ -36,22 +36,41 @@
 
 {% block content %}
 
-<h1 class="display-4 mb-3 text-center" id="primary_headline">bloodmallet</h1>
+<h1 class="display-4 mt-3 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
-
-<div class="alert alert-info" role="alert">
-    {% trans 'This development page is slow to save cost. Data generation is done at full speed, though.' %}
-</div>
-
-
-<p id="translate_main_paragraph">
-{% blocktrans %}
-This site provides an overview about trinkets, azerite traits, and others for almost all specs in World of Warcraft
-using <a href="http://www.simulationcraft.org/" target="blank">SimulationCraft</a>'s default profiles. These overviews
-are an entry point. For indepth information about your spec use your theorycrafters resources linked below the charts.
-{% endblocktrans %}
+<p>
+{% blocktranslate %}
+This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
+using <a href="http://www.simulationcraft.org/">SimulationCraft</a>. These overviews
+are an entry point. <span class="monk-color">You can also generate your own charts by becoming a <a href="https://www.patreon.com/bloodmallet">Patreon</a>.</span>
+{% endblocktranslate %}
+</p>
+<p>
+{% blocktranslate %}
+For indepth information about your spec use your theorycrafters guides.
+{% endblocktranslate %}
 </p>
 
+<div class="alert alert-warning" role="alert">
+<p>{% translate "Warning"|upper %}</p>
+    <p>
+    {% blocktranslate %}
+    Pre-raid and Raid character profiles aren't updated across the board in SimulationCraft yet. Therefore <span class="druid-color">standard simulations are disabled</span> until most of those profiles see updates. In the meantime, if you become a patreon, you can create your own chart with your own Beta-Character export. In this case you can start viewing Shadowlands values.<br/><br/>
+
+    Still beware of the heavily <span class="druid-color">work in progress</span> states of some specialisation modules in SimulationCraft. A lot might not be implemented, or needs to be updated.<br/><br/>
+
+    <a href="https://github.com/simulationcraft/simc">SimulationCraft</a> is an open source project and is always looking for some help.
+    {% endblocktranslate %}
+    </p>
+</div>
+
+{% comment %}
+<p>
+{% blocktranslate %}
+For indepth information about your spec use your theorycrafters guides linked below the charts.
+{% endblocktranslate %}
+</p>
+{% endcomment %}
 
 <div class="container-fluid">
     <div class="row text-center" id="spec_table"></div>
@@ -61,48 +80,26 @@ are an entry point. For indepth information about your spec use your theorycraft
 <div id="chart_options" hidden>
     <div class="row">
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="data_type">{% trans "Data Type" %}</label>
+            <label class="btn-data-label" for="data_type">{% translate "Data Type" %}</label>
             <select class="form-control btn-data" id="data_type">
-                <option value="trinkets" selected>{% trans "Trinkets" %}</option>
-                <option value="azerite">{% trans "Azerite" %}</option>
-                <option value="races">{% trans "Races" %}</option>
-                {% comment %} <option value="secondary_distributions">Secondary distributions</option> {% endcomment %}
+                <option value="trinkets" selected>{% translate "Trinkets" %}</option>
+                <option value="soul_binds">{% translate "Soulbinds" %}</option>
+                <option value="legendaries">{% translate "Legendaries" %}</option>
+                <option value="races">{% translate "Races" %}</option>
+                <option value="secondary_distributions">{% translate "Secondary distributions" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="fight_style">{% trans "Fight Style" %}</label>
+            <label class="btn-data-label" for="fight_style">{% translate "Fight Style" %}</label>
             <select class="form-control btn-data" id="fight_style">
-                <option value="patchwerk" selected>{% trans "Patchwerk" %}</option>
-                <option value="hecticaddcleave">{% trans "HecticAddCleave" %}</option>
+                <option value="patchwerk" selected>{% translate "Patchwerk" %}</option>
+                <option value="hecticaddcleave">{% translate "HecticAddCleave" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="data_specification">{% trans "Type Specification" %}</label>
-            <select class="form-control btn-data dropdown-toggle" id="data_specification">
-                <option value="trait_stacking" selected>{% trans "Trait stacking" %}</option>
-                <option value="itemlevel">{% trans "Itemlevel" %}</option>
-                <option value="head">{% trans "Head" %}</option>
-                <option value="shoulders">{% trans "Shoulders" %}</option>
-                <option value="chest">{% trans "Chest" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="tier">{% trans "Azerite Tier" %}
-            <svg class="tier-icon">
-                <use xlink:href="{% static 'general_website/assets/icons.svg' %}#azerite_tier3" id="tier_icon"></use>
-            </svg>
-            </label>
-            <select class="form-control btn-data" id="tier">
-                <option value="3" selected>
-                {% trans "Tier 3 & 4" %}
-                </option>
-                <option value="2">{% trans "Tier 2" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="advanced_chart_options_button">{% trans "Advanced Options" %}</label>
+            <label class="btn-data-label" for="advanced_chart_options_button">{% translate "Advanced Options" %}</label>
             <button class="btn-data form-control druid-menu-border" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button">
-            {% trans "Show" %}
+            {% translate "Show" %}
             </button>
         </div>
     </div>
@@ -119,9 +116,9 @@ are an entry point. For indepth information about your spec use your theorycraft
 {% endblock %}
 
 {% block extraimport %}
-<script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
+{% comment %} <script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script> {% endcomment %}
 <script src="{% static 'general_website/js/class_spec_table.js' %}"></script>
-<script src="{% static 'general_website/js/chart_options.js' %}"></script>
+{% comment %} <script src="{% static 'general_website/js/chart_options.js' %}"></script> {% endcomment %}
 
 {% include 'general_website/layout/wowhead_tooltips.html' %}
 {% include 'general_website/layout/chart_import.html' %}

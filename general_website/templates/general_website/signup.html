@@ -8,8 +8,8 @@
     {% csrf_token %}
     {{ signup_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
-    <small id="dataDisclaimer" class="form-text text-muted">{% trans "I couldn't care less about what you enter. Nothing is shared with others and data is wiped regularly." %}</small>
+    <button type="submit" class="btn btn-primary">{% translate "Sign up" %}</button>
+    <small id="dataDisclaimer" class="form-text text-muted">{% translate "I couldn't care less about what you enter. Nothing is shared with others and data is wiped regularly." %}</small>
 </form>
 
 {% endblock %}

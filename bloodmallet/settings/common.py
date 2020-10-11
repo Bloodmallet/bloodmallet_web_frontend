@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
 import os
 
+from django.contrib.messages import constants as messages
+from django.utils.translation import gettext_lazy as _
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -28,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',     # required by django-allauth
-    'bloodytests',
+    # 'bloodytests',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -37,7 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'crispy_forms',
     'vinaigrette',
-    'general_website.apps.GeneralWebsiteConfig',
+    'general_website',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vinaigrette.middleware.VinaigretteAdminLanguageMiddleware',
-    'general_website.middlewares.broadcast.BroadcastMiddleware',
+    # 'general_website.middlewares.broadcast.BroadcastMiddleware',
 ]
 
 try:
@@ -104,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 try:
-    from .secrets import SECRET_KEY
+    from bloodmallet.settings.secrets.secrets import SECRET_KEY
 except ModuleNotFoundError:
     # enable local dev
     from django.core.management.utils import get_random_secret_key
@@ -114,6 +117,17 @@ except ModuleNotFoundError:
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('de', _('German')),
+    ('en', _('English')),
+    ('es', _('Spanish')),
+    ('fr', _('French')),
+    ('it', _('Italian')),
+    ('ko', _('Korean')),
+    ('pt', _('Portuguese (Brazil)')),
+    ('ru', _('Russian')),
+    ('zh-hans', _('Chinese')),
+]
 
 TIME_ZONE = 'UTC'
 
@@ -136,10 +150,10 @@ STATICFILES_FINDERS = [
 
 # django-allauth
 AUTHENTICATION_BACKENDS = (
-     # Needed to login by username in Django admin, regardless of `allauth`
+    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
-     # `allauth` specific authentication methods, such as login by e-mail
+    # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 # allauth
@@ -147,7 +161,8 @@ SITE_ID = 1
 # ACCOUNT_ADAPTER = 'general_website.allauth_overwrite.SocialAccountAdapter'
 
 # we can either use crispy or bootstrap4
-CRISPY_TEMPLATE_PACK = 'bootstrap4'     # automatic bootstrap form frontend generator
+# automatic bootstrap form frontend generator
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # from where is this?
 LOGIN_URL = 'login'
@@ -158,7 +173,7 @@ AUTH_USER_MODEL = 'general_website.User'
 LOCALE_PATHS = (BASE_DIR + '/general_website/locale',)
 
 try:
-    from bloodmallet.settings.secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
+    from bloodmallet.settings.secrets.secrets import PROJECT, ZONE, CPU_TYPE, IMAGE_FAMILY, FALLBACK_ZONE
 except ModuleNotFoundError:
     # information is not required for local development of the frontend
     pass
@@ -169,7 +184,6 @@ else:
 STANDARD_CHART_NAME = 'Bloodmallet Standard Chart'
 
 # adjust messages tags to match bootstrap
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -183,7 +197,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/chart/get/.*$'
 
 # own test runner to discover slow tests
-TEST_RUNNER = 'bloodytests.django.BloodyDiscoverRunner'
+# TEST_RUNNER = 'bloodytests.django.BloodyDiscoverRunner'
 
 # social account (allauth) settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -197,3 +211,6 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# TODO: Remove this again
+FILE_CHARSET = 'utf-8'

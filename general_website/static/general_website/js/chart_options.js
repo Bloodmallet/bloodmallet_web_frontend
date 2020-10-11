@@ -45,8 +45,6 @@ function style_chart_options() {
     let options_collection = [
         "data_type",
         "fight_style",
-        "data_specification",
-        "tier",
         "advanced_chart_options_button"
     ];
 
@@ -85,22 +83,17 @@ function style_element_with_class_color(element) {
  * Adds change event listeners to chart options. Each triggers update_state
  */
 function add_select_event_listeners() {
-
     let select_collection = [
         "data_type",
         "fight_style",
-        "data_specification",
-        "tier"
     ];
 
     for (let select of select_collection) {
         let element = document.getElementById(select);
         element.addEventListener('change', function (event) {
-            update_state(event.srcElement.id, event.srcElement.value);
+            update_state(event.target.id, event.target.value);
         });
     }
-
-
 }
 
 /**
@@ -145,18 +138,8 @@ function update_chart_from_state(chart_rerendering = true) {
             chart.dataset.wowClass = state[data];
         } else if (data === "wow_spec") {
             chart.dataset.wowSpec = state[data];
-        } else if (data === "data_type") {
-            if (state[data] === "azerite" && ["stacking", "itemlevel"].includes(state["data_specification"])) {
-                chart.dataset.type = state[data] + "_traits_" + state["data_specification"];
-            } else if (state[data] === "azerite") {
-                chart.dataset.type = state[data] + "_items_" + state["data_specification"];
-            } else {
-                chart.dataset.type = state[data];
-            }
         } else if (data === "fight_style") {
             chart.dataset.fightStyle = state[data];
-        } else if (data === "tier") {
-            chart.dataset.azeriteTier = state[data];
         }
     }
     chart.dataset.backgroundColor = "transparent";

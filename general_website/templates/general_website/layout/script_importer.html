@@ -6,3 +6,54 @@
 
 {# Allows drop down forms to be clicked within a drop down menu #}
 <script src="{% static 'general_website/js/top_nav_fix.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-102757416-2"></script>
+<script>
+    let GA_ID = 'UA-102757416-2';
+    // Show info box if ga-disable cookie was not set
+    window.onload = function() {
+        if (document.cookie.indexOf('ga-disable-' + GA_ID) === -1) {
+            document.getElementById('cookie_information_overlay').hidden = false;
+            document.getElementById('cookie_information_box').hidden = false;
+        }
+    }
+    // disable GA by default
+    if (document.cookie.indexOf('ga-disable-' + GA_ID + '=false') > -1) {
+        window['ga-disable-' + GA_ID] = false;
+    } else {
+        window['ga-disable-' + GA_ID] = true;
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // gtag does not start if the disable-ga-ID window value is set to true
+    function activateGA() {
+        gtag('js', new Date());
+
+        gtag('config', GA_ID, {
+            // disable everything explicitly
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false,
+            'anonymize_ip': true,
+        });
+    }
+    activateGA();
+
+    function acceptGATracking(accepted) {
+        window['ga-disable-' + GA_ID] = !accepted;
+        let cookie = 'ga-disable-' + GA_ID + '=';
+        if (!accepted) {
+            cookie += 'true';
+        } else {
+            cookie += 'false';
+        }
+        cookie += '; Expires=Thu, 31 Dec 2099 23:59:59 UTC; Path=/';
+        document.cookie = cookie;
+        document.getElementById('cookie_information_overlay').hidden = true;
+        document.getElementById('cookie_information_box').hidden = true;
+
+        activateGA();
+    }
+</script>
