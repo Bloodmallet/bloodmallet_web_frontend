@@ -13,25 +13,25 @@
 
 {% block content %}
 
-<h1>{% trans "Profile" %}</h1>
+<h1>{% translate "Profile" %}</h1>
 {% comment %}
-<p>{% trans "Manage your profile information." %}</p>
+<p>{% translate "Manage your profile information." %}</p>
 
 <form class="container-fluid" method="post">
     {% csrf_token %}
     {{ profile_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">{% trans "Save changes" %}</button>
+    <button type="submit" class="btn btn-primary">{% translate "Save changes" %}</button>
 </form> {% endcomment %}
 
 <br/>
 
-<h3>{% trans "Change Password" %}</h3>
+<h3>{% translate "Change Password" %}</h3>
 <form class="container-fluid" method="post" action="{% url 'change_password' %}">
     {% csrf_token %}
     {{ user_form|crispy }}
 
-    <button type="submit" class="btn btn-primary">{% trans "Change password" %}</button>
+    <button type="submit" class="btn btn-primary">{% translate "Change password" %}</button>
 </form>
 
 

@@ -39,16 +39,16 @@
 <h1 class="display-4 mt-3 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
 <p>
-{% blocktrans %}
+{% blocktranslate %}
 This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
 using <a href="http://www.simulationcraft.org/">SimulationCraft</a>. These overviews
 are an entry point. <span class="monk-color">You can also generate your own charts by becoming a <a href="https://www.patreon.com/bloodmallet">Patreon</a>.</span>
-{% endblocktrans %}
+{% endblocktranslate %}
 </p>
 <p>
-{% blocktrans %}
+{% blocktranslate %}
 For indepth information about your spec use your theorycrafters guides.
-{% endblocktrans %}
+{% endblocktranslate %}
 </p>
 
 <div class="alert alert-warning" role="alert">
@@ -66,9 +66,9 @@ For indepth information about your spec use your theorycrafters guides.
 
 {% comment %}
 <p>
-{% blocktrans %}
+{% blocktranslate %}
 For indepth information about your spec use your theorycrafters guides linked below the charts.
-{% endblocktrans %}
+{% endblocktranslate %}
 </p>
 {% endcomment %}
 
@@ -80,26 +80,26 @@ For indepth information about your spec use your theorycrafters guides linked be
 <div id="chart_options" hidden>
     <div class="row">
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="data_type">{% trans "Data Type" %}</label>
+            <label class="btn-data-label" for="data_type">{% translate "Data Type" %}</label>
             <select class="form-control btn-data" id="data_type">
-                <option value="trinkets" selected>{% trans "Trinkets" %}</option>
-                <option value="soul_binds">{% trans "Soulbinds" %}</option>
-                <option value="legendaries">{% trans "Legendaries" %}</option>
-                <option value="races">{% trans "Races" %}</option>
-                <option value="secondary_distributions">{% trans "Secondary distributions" %}</option>
+                <option value="trinkets" selected>{% translate "Trinkets" %}</option>
+                <option value="soul_binds">{% translate "Soulbinds" %}</option>
+                <option value="legendaries">{% translate "Legendaries" %}</option>
+                <option value="races">{% translate "Races" %}</option>
+                <option value="secondary_distributions">{% translate "Secondary distributions" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="fight_style">{% trans "Fight Style" %}</label>
+            <label class="btn-data-label" for="fight_style">{% translate "Fight Style" %}</label>
             <select class="form-control btn-data" id="fight_style">
-                <option value="patchwerk" selected>{% trans "Patchwerk" %}</option>
-                <option value="hecticaddcleave">{% trans "HecticAddCleave" %}</option>
+                <option value="patchwerk" selected>{% translate "Patchwerk" %}</option>
+                <option value="hecticaddcleave">{% translate "HecticAddCleave" %}</option>
             </select>
         </div>
         <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="advanced_chart_options_button">{% trans "Advanced Options" %}</label>
+            <label class="btn-data-label" for="advanced_chart_options_button">{% translate "Advanced Options" %}</label>
             <button class="btn-data form-control druid-menu-border" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button">
-            {% trans "Show" %}
+            {% translate "Show" %}
             </button>
         </div>
     </div>

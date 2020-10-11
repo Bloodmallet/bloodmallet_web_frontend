@@ -6,11 +6,11 @@
 
 {% block content %}
 
-<h1 class="mt-3 display-4">{% trans 'My Charts' %}</h1>
+<h1 class="mt-3 display-4">{% translate 'My Charts' %}</h1>
 
 <div class="row">
-    <p class="text-muted col-8">{% trans 'A list of my charts' %}</p>
-    <p class="text-right col-4 monk-color">{{ charts | length }}<span class="priest-color">/</span>{{ user.max_charts }} <span class="priest-color" data-toggle="tooltip" data-placement="bottom" title="{% trans "You can free up slots by deleting charts." %}">?</span></p>
+    <p class="text-muted col-8">{% translate 'A list of my charts' %}</p>
+    <p class="text-right col-4 monk-color">{{ charts | length }}<span class="priest-color">/</span>{{ user.max_charts }} <span class="priest-color" data-toggle="tooltip" data-placement="bottom" title="{% translate "You can free up slots by deleting charts." %}">?</span></p>
 </div>
 
 <div class="row">
@@ -18,7 +18,7 @@
     <div class="col-12 col-sm-6 col-md-4 mb-3">
         <div class="card text-center h-100">
             <div class="card-body">
-                <h5 class="card-title">{% trans 'New Chart' %}</h5>
+                <h5 class="card-title">{% translate 'New Chart' %}</h5>
                 <a href="{% url 'create_chart' %}" class="btn btn-primary mt-3 pt-3 pb-3 pl-4 pr-4">+</a>
             </div>
         </div>
@@ -28,34 +28,34 @@
     <div class="col-12 col-sm-6 col-md-4 mb-3" id="card_{{ chart.id }}">
         <div class="card h-100 {% if chart.failed %}druid-border{% endif %}">
             <div class="card-body text-center">
-                <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% trans '~' %}</span>{% endif %}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{% if chart.failed %}<span class="druid-color">{% trans "Error" %}</span>{% else %}{{ chart.created_at }}{% endif %}</h6>
+                <h5 class="card-title">{% if chart.name %}{{ chart.name }}{% else %}<span class="text-muted">{% translate '~' %}</span>{% endif %}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{% if chart.failed %}<span class="druid-color">{% translate "Error" %}</span>{% else %}{{ chart.created_at }}{% endif %}</h6>
                 <p class="card-text">
                     {{ chart.wow_spec.name }} {{ chart.wow_class }}<br/>
                     {{ chart.simulation_type }}<br/>
                     {{ chart.fight_style }}
                 </p>
                 {% if chart.failed or chart.result %}
-                    <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% trans 'View' %}</a>
-                    <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% trans 'Delete' %}</button>
+                    <a href="{% url 'chart' chart.id %}" class="btn btn-primary">{% translate 'View' %}</a>
+                    <button class="btn btn-outline-danger delete_button" data-toggle="modal" data-target="#deleteModal" data-value="{{ chart.id }}" id="delete_button_{{ chart.id }}">{% translate 'Delete' %}</button>
                 {% elif chart.queue %}
                 {% comment %} in queue {% endcomment %}
                     {% if chart.queue.state == 'PENDING' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                <span>{% trans 'Pending' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Position in queue' %}"> (?)</span>:<br/>
+                                <span>{% translate 'Pending' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% translate 'Position in queue' %}"> (?)</span>:<br/>
                                 <code class="pending-ascii"></code>
                             </p>
                         </div>
                     {% elif chart.queue.state == 'INPROGRESS' %}
                         <div class="unfinished-chart" data-value="{{ chart.id }}">
                             <p>
-                                <span>{% trans 'Simulating' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Position in queue' %}"></span>:<br/>
+                                <span>{% translate 'Simulating' %}</span><span name="queue_position" class="align-top" data-toggle="tooltip" data-placement="bottom" title="{% translate 'Position in queue' %}"></span>:<br/>
                                 <code class="inprogress-ascii"></code>
                             </p>
                         </div>
                     {% else %}
-                        <p>{% trans 'Unknown state reached. Please refresh page' %} <code>{{ chart.id }}</code></p>
+                        <p>{% translate 'Unknown state reached. Please refresh page' %} <code>{{ chart.id }}</code></p>
                     {% endif %}
                 {% else %}
                 {% endif %}
@@ -72,16 +72,16 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">{% trans 'Delete Chart and Simulation data' %}</h5>
+            <h5 class="modal-title" id="deleteModalLabel">{% translate 'Delete Chart and Simulation data' %}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <p>{% trans 'Are you sure you want to delete this chart? All associated data will be gone, too.' %}</p>
+            <p>{% translate 'Are you sure you want to delete this chart? All associated data will be gone, too.' %}</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="real_delete_button" value="">{% trans 'Delete' %}</button>
+            <button type="button" class="btn btn-danger" id="real_delete_button" value="">{% translate 'Delete' %}</button>
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
         </div>
         </div>
@@ -136,7 +136,7 @@
     function delete_chart(element) {
         element.off("click");
         element.addClass('disabled');
-        element.html("{% trans 'Deleting' %}");
+        element.html("{% translate 'Deleting' %}");
 
         let chart_id = element.val();
         let url = "{% url 'delete_chart' %}";
@@ -146,19 +146,19 @@
         };
 
         let original_button = $('#delete_button_' + chart_id);
-        original_button.html("{% trans 'Deleting' %}");
+        original_button.html("{% translate 'Deleting' %}");
         original_button.addClass('disabled');
         original_button.off("click");
 
         $.post(url, data, function(response){
             if (response['status'] === "success") {
-                element.html("{% trans 'Deleted' %}");
+                element.html("{% translate 'Deleted' %}");
                 $('#card_' + chart_id).children('.card:first').addClass('border-danger');
                 $('#deleteModal').modal('hide');
                 $('#card_' + chart_id).hide(1500, function() {});
             } else {
-                element.html("{% trans 'Error' %}");
-                original_button.html("{% trans 'Error' %}");
+                element.html("{% translate 'Error' %}");
+                original_button.html("{% translate 'Error' %}");
                 console.error(response['message']);
             }
         });
@@ -194,7 +194,7 @@
                         view_div.href = "{% url 'chart_ph' %}" + element.dataset.value;
                         view_div.classList.add("btn");
                         view_div.classList.add("btn-success");
-                        view_div.innerHTML = "{% trans 'View' %}"
+                        view_div.innerHTML = "{% translate 'View' %}"
                         element.appendChild(view_div);
 
                         let spacer = document.createElement("span");
@@ -209,19 +209,19 @@
                         delete_div.dataset.target = "#deleteModal";
                         delete_div.dataset.value = element.dataset.value;
                         delete_div.id = "delete_button_" + element.dataset.value;
-                        delete_div.innerHTML = "{% trans 'Delete' %}";
+                        delete_div.innerHTML = "{% translate 'Delete' %}";
                         element.appendChild(delete_div);
 
                     } else {
                         if (json.queue === "PENDING" && !element.querySelector("code").classList.contains("pending-ascii")) {
                             element.querySelector("code").classList.remove("inprogress-ascii");
                             element.querySelector("code").dataset.i = 0;
-                            element.querySelector("span").innerHTML = "{% trans 'Pending' %}";
+                            element.querySelector("span").innerHTML = "{% translate 'Pending' %}";
                             element.querySelector("code").classList.add("pending-ascii");
                         } else if (json.queue === "INPROGRESS" && !element.querySelector("code").classList.contains("inprogress-ascii")) {
                             element.querySelector("code").classList.remove("pending-ascii");
                             element.querySelector("code").dataset.i = 0;
-                            element.querySelector("span").innerHTML = "{% trans 'Simulating' %}";
+                            element.querySelector("span").innerHTML = "{% translate 'Simulating' %}";
                             element.querySelector("code").classList.add("inprogress-ascii");
                         }
                         if (json.position !== null) {

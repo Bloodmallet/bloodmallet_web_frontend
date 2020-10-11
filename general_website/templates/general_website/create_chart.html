@@ -4,16 +4,16 @@
 
 {% block content %}
 
-<h1>{% trans 'Create a Chart' %}</h1>
+<h1>{% translate 'Create a Chart' %}</h1>
 
 {% if not user.can_create_chart %}
-<p class="alert-warning">{% trans 'You lack permission to create charts.' %}</p>
+<p class="alert-warning">{% translate 'You lack permission to create charts.' %}</p>
 {% endif %}
 
 <form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
     {% crispy form %}
 
-    <small id="dataDisclaimer" class="form-text text-muted">{% trans "Almost all comments will be removed. Chart creation will take a while (stuff needs to be simulated)." %}</small>
+    <small id="dataDisclaimer" class="form-text text-muted">{% translate "Almost all comments will be removed. Chart creation will take a while (stuff needs to be simulated)." %}</small>
 </form>
 
 
