@@ -27,7 +27,7 @@ function build_table() {
     for (const wow_class of Object.keys(classes_specs)) {
         // fill class cell
         let div_class_cell = document.createElement('div');
-        div_class_cell.className = 'col-md-3 col-4 spec-cell';
+        div_class_cell.className = 'col-xl-3 col-md-4 col-6 spec-cell';
 
         // create class header
         let div_class_name_row = document.createElement('div');
