@@ -66,7 +66,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 try:
-    from bloodmallet.settings.secrets.secrets import LIVE_DB_HOST, LIVE_DB_NAME, LIVE_DB_USER, LIVE_DB_PASSWORD
+    from bloodmallet.settings.secrets.secrets import DEV_DB_HOST, DEV_DB_NAME, DEV_DB_USER, DEV_DB_PASSWORD
 except ModuleNotFoundError:
     # pure frontend development uses a local dbs
     DATABASES = {
@@ -86,9 +86,9 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-            'NAME': LIVE_DB_NAME,
-            'USER': LIVE_DB_USER,
-            'PASSWORD': LIVE_DB_PASSWORD,
+            'NAME': DEV_DB_NAME,
+            'USER': DEV_DB_USER,
+            'PASSWORD': DEV_DB_PASSWORD,
             'OPTIONS': {
                 'charset': 'utf8mb4'
             },
