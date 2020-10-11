@@ -469,7 +469,7 @@ def get_chart_state(request, chart_id=None) -> JsonResponse:
         return JsonResponse(data={'status': 'error', 'message': _("Simulation not found.")})
 
     queue_position = None
-    if simulation.queue:
+    if hasattr(simulation, "queue"):
         if simulation.queue.state == QueueState.PENDING.name:
 
             simulations = Simulation.objects.filter(
