@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (debug) {
         console.log("DOMContentLoaded");
     }
+    build_table();
     if (!window.location.hash) {
         // create spec table only if no spec was already in link
-        build_table();
         // register click events to hide spec table
         //register_class_spec_hiders();
     }
