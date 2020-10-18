@@ -10,7 +10,10 @@
 
 <div class="row">
     <p class="text-muted col-8">{% translate 'A list of my charts' %}</p>
-    <p class="text-right col-4 monk-color">{{ charts | length }}<span class="priest-color">/</span>{{ user.max_charts }} <span class="priest-color" data-toggle="tooltip" data-placement="bottom" title="{% translate "You can free up slots by deleting charts." %}">?</span></p>
+    <p class="text-right col-4 monk-color">
+        {{ charts | length }}<span class="priest-color">/</span>{{ user.max_charts }}
+        <span class="priest-color" data-toggle="tooltip" data-placement="bottom" title="{% translate "You can free up slots by deleting charts." %}">(?)</span>
+    </p>
 </div>
 
 <div class="row">

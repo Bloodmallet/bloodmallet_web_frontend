@@ -1708,7 +1708,7 @@ function bloodmallet_chart_import() {
       value_element.setAttribute("data-placement", "bottom");
       let questionmark = document.createElement("span");
       questionmark.classList += "priest-color";
-      questionmark.innerHTML = "(?)";
+      questionmark.innerHTML = " (?)";
       value_element.appendChild(questionmark);
     }
 
