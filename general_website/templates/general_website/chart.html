@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load i18n %}
+{% load multiply %}
 
 {% block content %}
 
@@ -19,48 +20,14 @@
         <div class="table-responsive">
             <table class="table">
                 <tbody>
-                    <tr>
-                        <th scope="row">15</th>
-                        <td id="11">-</td>
-                        <td id="12">-</td>
-                        <td id="13">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">25</th>
-                        <td id="21">-</td>
-                        <td id="22">-</td>
-                        <td id="23">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">30</th>
-                        <td id="31">-</td>
-                        <td id="32">-</td>
-                        <td id="33">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">35</th>
-                        <td id="41">-</td>
-                        <td id="42">-</td>
-                        <td id="43">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">40</th>
-                        <td id="51">-</td>
-                        <td id="52">-</td>
-                        <td id="53">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">45</th>
-                        <td id="61">-</td>
-                        <td id="62">-</td>
-                        <td id="63">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">50</th>
-                        <td id="71">-</td>
-                        <td id="72">-</td>
-                        <td id="73">-</td>
-                    </tr>
+                    {% for row in '1234567'|make_list %}
+                        <tr>
+                            <th scope="row">{% if row == '1' %}15{% else %}{{ row|multiply:"5"|add:"15" }}{% endif %}</th>
+                            {% for column in '123'|make_list %}
+                                <td id="{{ row }}{{ column }}">-</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
