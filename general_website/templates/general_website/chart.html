@@ -11,8 +11,124 @@
 {% comment %}
 <h3>{% translate 'Title' %}: <span id="title">~</span></h3>
 {% endcomment %}
-<div id="meta-group">
-    <div id="meta-info" data-chart-id="meta_{{ chart_id }}" hidden></div>
+
+<div id="meta-group" class="mb-5">
+    <div id="meta-info" data-chart-id="meta_{{ chart_id }}" class="accordion" hidden>
+        <div class="card">
+            <div class="card-header bg-dark" id="character-profile-label">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left caret" type="button" data-toggle="collapse" data-target="#character-profile" aria-controls="character-profile">
+                    {% translate "Character profile" %}
+                    </button>
+                </h2>
+            </div>
+
+            <div id="character-profile" class="collapse" aria-labelledby="character-profile-label" data-parent="#meta-info">
+                <div class="card-body">
+                    <table class="table table-dark table-sm text-center">
+                        <tbody>
+                            <tr>
+                                <td colspan="2" class="text-left align-middle">
+                                    <span id="c_level">50</span>
+                                    <span id="c_race">Race</span>
+                                    <span id="c_spec">Spec &</span>
+                                    <span id="c_class">Class</span>
+                                </td>
+                                <td colspan="2" id="c_talents" class="text-right">1231231</td>
+                            </tr>
+                            <tr>
+                                <td id="c_head">Head</td>
+                                <td>{% translate "Covenant" %}</td>
+                                <td id="c_covenant">-</td>
+                                <td id="c_hands">Hands</td>
+                            </tr>
+                            <tr>
+                                <td id="c_neck">Neck</td>
+                                <td>{% translate "Soulbind" %}</td>
+                                <td id="c_soul_bind">-</td>
+                                <td id="c_waist">Waist</td>
+                            </tr>
+                            <tr>
+                                <td id="c_shoulders">Shoulders</td>
+                                <td colspan="2"></td>
+                                <td id="c_legs">Legs</td>
+                            </tr>
+                            <tr>
+                                <td id="c_back">Back</td>
+                                <td colspan="2"></td>
+                                <td id="c_feet">Feet</td>
+                            </tr>
+                            <tr>
+                                <td id="c_chest">Chest</td>
+                                <td colspan="2"></td>
+                                <td id="c_finger1">Ring</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td id="c_finger2">Ring</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td id="c_trinket1">Trinket</td>
+                            </tr>
+                            <tr>
+                                <td id="c_wrists">Wrists</td>
+                                <td colspan="2"></td>
+                                <td id="c_trinket2">Trinket</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td id="c_main_hand">Weapon</td>
+                                <td id="c_off_hand">Off-Hand</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header bg-dark" id="simulationcraft-settings">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed caret" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {% translate "SimulationCraft settings" %}
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="simulationcraft-settings" data-parent="#meta-info">
+                <div class="card-body">
+                    <table class="table table-dark table-sm">
+                        <tbody>
+                            <tr>
+                                <td>{% translate "Fight style" %}</td>
+                                <td id="c_fight_style"></td>
+                            </tr>
+                            <tr>
+                                <td>{% translate "Iterations" %}</td>
+                                <td id="c_iterations"></td>
+                            </tr>
+                            <tr>
+                                <td>{% translate "PTR" %}</td>
+                                <td id="c_ptr"></td>
+                            </tr>
+                            <tr>
+                                <td>{% translate "SimulationCraft Hash" %}</td>
+                                <td id="c_simc_hash"></td>
+                            </tr>
+                            <tr>
+                                <td>{% translate "Target Error" %}</td>
+                                <td id="c_target_error"></td>
+                            </tr>
+                            <tr>
+                                <td>{% translate "Base profile" %}</td>
+                                <td id="c_tier"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="talent-table" hidden>
         <p>
             {% translate "All values in this table are gains." %}
