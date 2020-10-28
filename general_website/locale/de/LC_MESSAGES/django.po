@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-17 14:44+0000\n"
+"POT-Creation-Date: 2020-10-28 21:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -611,8 +611,56 @@ msgstr "Handelsregister"
 msgid "Banking Information"
 msgstr "Bankinformationen"
 
-#: general_website/templates/general_website/chart.html:8
+#: general_website/templates/general_website/chart.html:9
 msgid "bloodmallet"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:21
+msgid "Character profile"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:41
+msgid "Covenant"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:47
+msgid "Soulbind"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:94
+msgid "SimulationCraft settings"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:103
+#, fuzzy
+#| msgid "Fight Style"
+msgid "Fight style"
+msgstr "Kampfstil"
+
+#: general_website/templates/general_website/chart.html:107
+msgid "Iterations"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:111
+msgid "PTR"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:115
+msgid "SimulationCraft Hash"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:119
+msgid "Target Error"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:123
+#, fuzzy
+#| msgid "Profile"
+msgid "Base profile"
+msgstr "Profil"
+
+#: general_website/templates/general_website/chart.html:134
+msgid "All values in this table are gains."
 msgstr ""
 
 #: general_website/templates/general_website/create_chart.html:7
@@ -883,70 +931,70 @@ msgstr ""
 msgid "A list of my charts"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:13
+#: general_website/templates/general_website/my_charts.html:15
 msgid "You can free up slots by deleting charts."
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:21
+#: general_website/templates/general_website/my_charts.html:24
 msgid "New Chart"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:31
+#: general_website/templates/general_website/my_charts.html:34
 msgid "~"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:32
-#: general_website/templates/general_website/my_charts.html:162
-#: general_website/templates/general_website/my_charts.html:163
+#: general_website/templates/general_website/my_charts.html:35
+#: general_website/templates/general_website/my_charts.html:165
+#: general_website/templates/general_website/my_charts.html:166
 msgid "Error"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:39
-#: general_website/templates/general_website/my_charts.html:199
+#: general_website/templates/general_website/my_charts.html:42
+#: general_website/templates/general_website/my_charts.html:202
 msgid "View"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:40
-#: general_website/templates/general_website/my_charts.html:86
-#: general_website/templates/general_website/my_charts.html:214
+#: general_website/templates/general_website/my_charts.html:43
+#: general_website/templates/general_website/my_charts.html:89
+#: general_website/templates/general_website/my_charts.html:217
 msgid "Delete"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:47
-#: general_website/templates/general_website/my_charts.html:221
+#: general_website/templates/general_website/my_charts.html:50
+#: general_website/templates/general_website/my_charts.html:224
 msgid "Pending"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:47
-#: general_website/templates/general_website/my_charts.html:54
+#: general_website/templates/general_website/my_charts.html:50
+#: general_website/templates/general_website/my_charts.html:57
 msgid "Position in queue"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:54
-#: general_website/templates/general_website/my_charts.html:226
+#: general_website/templates/general_website/my_charts.html:57
+#: general_website/templates/general_website/my_charts.html:229
 msgid "Simulating"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:59
+#: general_website/templates/general_website/my_charts.html:62
 msgid "Unknown state reached. Please refresh page"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:77
+#: general_website/templates/general_website/my_charts.html:80
 msgid "Delete Chart and Simulation data"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:83
+#: general_website/templates/general_website/my_charts.html:86
 msgid ""
 "Are you sure you want to delete this chart? All associated data will be "
 "gone, too."
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:141
-#: general_website/templates/general_website/my_charts.html:151
+#: general_website/templates/general_website/my_charts.html:144
+#: general_website/templates/general_website/my_charts.html:154
 msgid "Deleting"
 msgstr ""
 
-#: general_website/templates/general_website/my_charts.html:157
+#: general_website/templates/general_website/my_charts.html:160
 msgid "Deleted"
 msgstr ""
 
@@ -1261,6 +1309,10 @@ msgstr ""
 
 #: general_website.SimulationType/name:9
 msgid "Conduits"
+msgstr ""
+
+#: general_website.SimulationType/name:10
+msgid "Talents"
 msgstr ""
 
 #: general_website.WowClass/tokenized_name:1
