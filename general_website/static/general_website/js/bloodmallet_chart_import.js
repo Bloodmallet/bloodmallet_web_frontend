@@ -1592,10 +1592,29 @@ function bloodmallet_chart_import() {
     let element = document.getElementById("meta-info");
     element.hidden = false;
 
+    // SimulationCraft settings
+    for (let setting in data["simc_settings"]) {
+      let text = document.createTextNode(data["simc_settings"][setting]);
+      let parent = document.getElementById("c_" + setting);
+      parent.innerText = "";
+      parent.appendChild(text);
+    }
+
+    // redo simc hash properly
+    let simc_link = document.createElement("a");
+    simc_link.href = "https://github.com/simulationcraft/simc/commit/" + data["simc_settings"]["simc_hash"];
+    simc_link.innerText = data["simc_settings"]["simc_hash"].substring(0, 7);
+    let simc_hash = document.getElementById("c_simc_hash")
+    simc_hash.innerText = "";
+    simc_hash.appendChild(simc_link);
+
     // character profile - character
     for (let character_key in data["profile"]["character"]) {
       try {
-        document.getElementById("c_" + character_key).innerHTML = title(data["profile"]["character"][character_key]);
+        let c_entry = document.getElementById("c_" + character_key);
+        c_entry.innerHTML = "";
+        let text = document.createTextNode(title(data["profile"]["character"][character_key]));
+        c_entry.appendChild(text);
       } catch (error) {
       }
     }
@@ -1634,22 +1653,6 @@ function bloodmallet_chart_import() {
       item.appendChild(icon);
     }
 
-    // SimulationCraft settings
-    for (let setting in data["simc_settings"]) {
-      let text = document.createTextNode(data["simc_settings"][setting]);
-      let parent = document.getElementById("c_" + setting);
-      parent.innerText = "";
-      parent.appendChild(text);
-    }
-
-    // redo simc hash properly
-    let simc_link = document.createElement("a");
-    simc_link.href = "https://github.com/simulationcraft/simc/commit/" + data["simc_settings"]["simc_hash"];
-    simc_link.innerText = data["simc_settings"]["simc_hash"].substring(0, 7);
-    let simc_hash = document.getElementById("c_simc_hash")
-    simc_hash.innerText = "";
-    simc_hash.appendChild(simc_link);
-
     if (state.data_type === "talents") {
       build_talent_table(state, data);
     }
@@ -1664,7 +1667,7 @@ function bloodmallet_chart_import() {
    * @param {String} string
    */
   function title(string) {
-    return string.split(" ").map(e => { return e[0].toUpperCase() + e.substring(1) })
+    return string.split(" ").map(e => {return e[0].toUpperCase() + e.substring(1)}).join(" ");
   }
 
   /**
