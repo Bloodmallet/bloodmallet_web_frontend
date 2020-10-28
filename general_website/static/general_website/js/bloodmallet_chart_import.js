@@ -1645,7 +1645,15 @@ function bloodmallet_chart_import() {
       icon.href = "";
       icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
       icon.href += "item=" + data["profile"]["items"][item_key]["id"];
-      icon.href += "?bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":");
+      let boni = [];
+      try {
+        boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
+      } catch (error) {
+      }
+      if (boni.length > 0) {
+        icon.href += "?" + boni.join("&");
+      }
+
       icon.dataset.whIconSize = "medium";
       //icon.dataset.whRenameLink = true;
       let item = document.getElementById("c_" + item_key);
