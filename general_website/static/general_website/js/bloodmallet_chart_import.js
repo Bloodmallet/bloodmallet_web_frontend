@@ -1585,15 +1585,86 @@ function bloodmallet_chart_import() {
     if (!["bloodmallet.com", "127.0.0.1"].includes(window.location.hostname)) {
       return
     }
-    console.log("provide_meta_data");
-    console.log("doing nothing for now");
+    if (debug) {
+      console.log("provide_meta_data");
+    }
 
     let element = document.getElementById("meta-info");
     element.hidden = false;
 
+    // character profile - character
+    for (let character_key in data["profile"]["character"]) {
+      try {
+        document.getElementById("c_" + character_key).innerHTML = title(data["profile"]["character"][character_key]);
+      } catch (error) {
+      }
+    }
+
+    // redo talents properly
+    const talents = data["profile"]["character"]["talents"];
+    let talents_element = document.getElementById("c_talents");
+    talents_element.innerHTML = "";
+    for (let i = 0; i < talents.length; i++) {
+      const talent = talents[i];
+      let icon = document.createElement("a");
+      icon.href = "";
+      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+      try {
+        icon.href += "spell=" + data["talent_data"][parseInt(i) + 1][parseInt(talent)]["spell_id"];
+        //icon.dataset.whRenameLink = true;
+      } catch (error) {
+        // unset talent (value 0)
+        continue
+      }
+      icon.dataset.whIconSize = "medium";
+      talents_element.appendChild(icon);
+    }
+
+    // character profile - items
+    for (let item_key in data["profile"]["items"]) {
+      let icon = document.createElement("a");
+      icon.href = "";
+      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+      icon.href += "item=" + data["profile"]["items"][item_key]["id"];
+      icon.href += "?bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":");
+      icon.dataset.whIconSize = "medium";
+      //icon.dataset.whRenameLink = true;
+      let item = document.getElementById("c_" + item_key);
+      item.innerHTML = "";
+      item.appendChild(icon);
+    }
+
+    // SimulationCraft settings
+    for (let setting in data["simc_settings"]) {
+      let text = document.createTextNode(data["simc_settings"][setting]);
+      let parent = document.getElementById("c_" + setting);
+      parent.innerText = "";
+      parent.appendChild(text);
+    }
+
+    // redo simc hash properly
+    let simc_link = document.createElement("a");
+    simc_link.href = "https://github.com/simulationcraft/simc/commit/" + data["simc_settings"]["simc_hash"];
+    simc_link.innerText = data["simc_settings"]["simc_hash"].substring(0, 7);
+    let simc_hash = document.getElementById("c_simc_hash")
+    simc_hash.innerText = "";
+    simc_hash.appendChild(simc_link);
+
     if (state.data_type === "talents") {
       build_talent_table(state, data);
     }
+    try {
+      $WowheadPower.refreshLinks();
+    } catch (error) {
+    }
+  }
+
+  /**
+   *
+   * @param {String} string
+   */
+  function title(string) {
+    return string.split(" ").map(e => { return e[0].toUpperCase() + e.substring(1) })
   }
 
   /**
