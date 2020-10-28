@@ -19,19 +19,94 @@ from django.contrib.auth.admin import UserAdmin
 
 # admin.site.register(User, UserAdmin)
 
-# Register your models here.
-admin.site.register(Broadcast)
-admin.site.register(Config)
 
-admin.site.register(User)
-admin.site.register(Faction)
-admin.site.register(Teleporter)
-admin.site.register(Race)
-admin.site.register(WowClass)
-admin.site.register(WowSpec)
-admin.site.register(FightStyle)
-admin.site.register(SimulationType)
-admin.site.register(Simulation)
-admin.site.register(Queue)
-admin.site.register(Result)
-admin.site.register(GeneralResult)
+# Register your models here.
+@admin.register(Broadcast)
+class BroadcastAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Config)
+class ConfigAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_filter = (
+        "is_staff",
+        "is_guide_writer",
+        "is_simulationcraft_developer",
+        "patron_tier",
+    )
+    search_fields = [
+        "username",
+        "email",
+        "patron_name",
+    ]
+
+
+@admin.register(Faction)
+class FactionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Teleporter)
+class TeleporterAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Race)
+class RaceAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(WowClass)
+class WowClassAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(WowSpec)
+class WowSpecAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(FightStyle)
+class FightStyleAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(SimulationType)
+class SimulationTypeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Simulation)
+class SimulationAdmin(admin.ModelAdmin):
+    list_filter = (
+        "failed",
+    )
+    search_fields = [
+        "user__username",
+        "user_email",
+        "id",
+    ]
+
+
+@admin.register(Queue)
+class QueueAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    search_fields = [
+        "simulation__user__username",
+        "simulation__user_email",
+        "simulation__id",
+    ]
+
+
+@admin.register(GeneralResult)
+class GeneralResultAdmin(admin.ModelAdmin):
+    pass
