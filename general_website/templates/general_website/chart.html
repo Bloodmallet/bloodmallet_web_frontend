@@ -129,6 +129,10 @@
             </div>
         </div>
     </div>
+    <div class="form-group form-check text-right">
+        <input type="checkbox" class="form-check-input" id="relative_values">
+        <label class="form-check-label text-muted" for="relative_values">{% translate "Use relative values" %}</label>
+    </div>
     <div id="talent-table" hidden>
         <p>
             {% translate "All values in this table are gains." %}
@@ -150,7 +154,7 @@
     </div>
 </div>
 
-<div id="chart" class="bloodmallet_chart" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent"></div>
+<div id="chart" class="bloodmallet_chart" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent" data-value-style="absolute"></div>
 
 
 {% endblock %}
@@ -159,5 +163,24 @@
 
 {% include 'general_website/layout/wowhead_tooltips.html' %}
 {% include 'general_website/layout/chart_import.html' %}
+
+<script>
+function update_value_style() {
+    const element = document.getElementById("relative_values");
+    let chart = document.getElementById("chart");
+    console.log(element, element.checked);
+    if (element.checked) {
+        chart.dataset.valueStyle = "relative";
+    } else {
+        chart.dataset.valueStyle = "absolute";
+    }
+
+    bloodmallet_chart_import();
+
+}
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("relative_values").addEventListener("change", update_value_style);
+});
+</script>
 
 {% endblock %}
