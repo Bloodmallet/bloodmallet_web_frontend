@@ -426,6 +426,8 @@ function bloodmallet_chart_import() {
     }
     state.data_type = data_type = spec_data["data_type"];
 
+    provide_meta_data(state, spec_data);
+
     // do secondary distribution charts in a different function
     if (data_type === "secondary_distributions") {
       return update_secondary_distribution_chart(state, html_element, chart);
@@ -641,7 +643,6 @@ function bloodmallet_chart_import() {
     if (state.tooltip_engine == "wowdb") {
       setTimeout(function () { readd_wowdb_tooltips(html_element.id); }, 1);
     }
-    provide_meta_data(state, data)
   }
 
   function simulation_error(html_element, error_response) {
