@@ -94,10 +94,10 @@ function update_form() {
     const options = get_options();
     const wow_spec = get_spec(input);
     const wow_class = get_class(input, options);
-
-    const index = options.filter(e => { return e[1] === wow_class && e[2] === wow_spec })[0][0];
-
-    document.getElementById("id_wow_spec").options[index].selected = true;
+    try {
+        const index = options.filter(e => { return e[1] === wow_class && e[2] === wow_spec })[0][0];
+        document.getElementById("id_wow_spec").options[index].selected = true;
+    } catch (error) {}
 }
 document.addEventListener("DOMContentLoaded", function () {
     // probably overkill, but hey at least some errors will be prevented
