@@ -7,7 +7,12 @@
 <h1>{% translate 'Create a Chart' %}</h1>
 
 {% if not user.can_create_chart %}
-<p class="alert-warning">{% translate 'You lack permission to create charts.' %}</p>
+<p class="alert-warning">
+    {% url 'account_connections' as connection_settings %}
+    {% blocktranslate %}
+    You lack permission to create charts. Head to <a href="{{connection_settings}}">your settings</a> to connect your account with your patreon-account.
+    {% endblocktranslate %}
+</p>
 {% endif %}
 
 <form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
