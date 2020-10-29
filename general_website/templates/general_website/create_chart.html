@@ -21,6 +21,10 @@
 
 {% block extraimport %}
 <script>
+function react_to_input() {
+    clean_custom_profile();
+    update_form();
+}
 function clean_custom_profile() {
     let element = document.getElementById('id_custom_profile');
     element.value = element.value.split("\n").filter(line => {
@@ -33,11 +37,73 @@ function clean_custom_profile() {
         }
     }).join("\n");
 }
+function update_form() {
+    let input = document.getElementById('id_custom_profile').value.split("\n");
+    function get_options() {
+        const options = document.getElementById("id_wow_spec").options;
+        let filtered_options = [];
+        for (let i = 0; i < options.length; i++) {
+            const index = i;
+            const parts = options[i].text.split(" ");
+            if (parts.length == 1) {
+                continue;
+            }
+            let wow_spec = undefined;
+            let wow_class = undefined;
+            if (parts.length > 2) {
+                if (parts.includes("Beast")) {
+                    wow_class = parts[0];
+                    wow_spec = parts[1] + " " + parts[2];
+                } else {
+                    wow_class = parts[0] + " " + parts[1];
+                    wow_spec = parts[2];
+                }
+            } else {
+                wow_class = parts[0];
+                wow_spec = parts[1];
+            }
+            wow_class = wow_class.toLowerCase();
+            wow_spec = wow_spec.toLowerCase();
+            wow_class = wow_class.replace(" ", "_");
+            wow_spec = wow_spec.replace(" ", "_");
+
+            filtered_options.push([index, wow_class, wow_spec]);
+        }
+
+        return filtered_options;
+    }
+    function get_spec(strings) {
+        let spec = undefined
+        for (let string of strings) {
+            if (string.indexOf("spec=") > -1) {
+                spec = string.split("spec=")[1].trim();
+            }
+        }
+        return spec;
+    }
+    function get_class(strings, options) {
+        let wow_classes = options.map(option => { return option[1] });
+        let wow_class = undefined;
+        for (const string of strings) {
+            if (wow_classes.some(e => { return string.startsWith(e) })) {
+                wow_class = string.split("=")[0];
+            }
+        }
+        return wow_class;
+    }
+    const options = get_options();
+    const wow_spec = get_spec(input);
+    const wow_class = get_class(input, options);
+
+    const index = options.filter(e => { return e[1] === wow_class && e[2] === wow_spec })[0][0];
+
+    document.getElementById("id_wow_spec").options[index].selected = true;
+}
 document.addEventListener("DOMContentLoaded", function () {
     // probably overkill, but hey at least some errors will be prevented
-    document.getElementById('id_custom_profile').addEventListener("change", clean_custom_profile);
-    document.getElementById('id_custom_profile').addEventListener("input", clean_custom_profile);
-    document.getElementById('id_custom_profile').addEventListener("paste", clean_custom_profile);
+    document.getElementById('id_custom_profile').addEventListener("change", react_to_input);
+    document.getElementById('id_custom_profile').addEventListener("input", react_to_input);
+    document.getElementById('id_custom_profile').addEventListener("paste", react_to_input);
 });
 </script>
 {% endblock %}
