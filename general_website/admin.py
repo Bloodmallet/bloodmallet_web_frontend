@@ -88,7 +88,7 @@ class SimulationAdmin(admin.ModelAdmin):
     )
     search_fields = [
         "user__username",
-        "user_email",
+        "user__email",
         "id",
     ]
 
