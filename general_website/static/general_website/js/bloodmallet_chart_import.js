@@ -87,6 +87,13 @@ function bloodmallet_chart_import() {
 
   const default_language = "en";
 
+  /**
+   * options:
+   *  absolute - default
+   *  relative
+   */
+  const default_value_style = "absolute";
+
   /******************************************************************************
    * Actual code starts here.
    * The toggles you want are all above this section.
@@ -166,7 +173,8 @@ function bloodmallet_chart_import() {
           limit: default_limit,
           chart_engine: default_chart_engine,
           tooltip_engine: default_tooltip_engine,
-          language: default_language
+          language: default_language,
+          value_style: default_value_style
         };
 
         // Get general settings from in-page variable
@@ -191,6 +199,9 @@ function bloodmallet_chart_import() {
           }
           if (bloodmallet.settings.language !== undefined) {
             state.language = bloodmallet.settings.language;
+          }
+          if (bloodmallet.settings.value_style !== undefined) {
+            state.value_style = bloodmallet.settings.value_style;
           }
         } catch (error) {
           if (debug) {
@@ -228,6 +239,9 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-language")) {
           state.language = html_element.getAttribute("data-language");
+        }
+        if (html_element.getAttribute("data-value-style")) {
+          state.value_style = html_element.getAttribute("data-value-style");
         }
 
         // preparing necessary input to load data
@@ -568,7 +582,7 @@ function bloodmallet_chart_import() {
 
         for (let i = 0; i < dps_ordered_keys.length; i++) {
           const dps_key = dps_ordered_keys[i];
-          dps_array.push(tmp_dps_values[dps_key][simulation_step]);
+          dps_array.push(get_styled_value(state, tmp_dps_values[dps_key][simulation_step], baseline_dps));
         }
 
         let simulation_step_clean = simulation_step;
@@ -592,7 +606,7 @@ function bloodmallet_chart_import() {
 
         let dps_key_values = data["data"][dps_key] - baseline_dps;
 
-        dps_array.push(dps_key_values);
+        dps_array.push(get_styled_value(state, dps_key_values, baseline_dps));
       }
 
       chart.addSeries({
@@ -698,6 +712,16 @@ function bloodmallet_chart_import() {
     log_item.appendChild(log);
 
     element.appendChild(list);
+  }
+
+  function get_styled_value(state, dps, baseline_dps) {
+    if (state.value_style === "absolute") {
+      return dps;
+    } else if (state.value_style === "relative") {
+      return  Math.round(dps * 10000 / baseline_dps) / 100;
+    } else {
+      console.error("Unknown value-style", state.value_style);
+    }
   }
 
   function update_secondary_distribution_chart(state, html_element, chart) {
@@ -1411,12 +1435,12 @@ function bloodmallet_chart_import() {
           },
           useHTML: true,
           // adding this as a potential tooltip positioning fix. changes tooltip position to be inside the bar rather than at the end
-          positioner: function (boxWidth, boxHeight, point) {
-            return {
-              x: point.plotX,
-              y: point.plotY
-            };
-          }
+          // positioner: function (boxWidth, boxHeight, point) {
+          //   return {
+          //     x: point.plotX,
+          //     y: point.plotY
+          //   };
+          // }
         },
         xAxis: {
           categories: [],
@@ -1454,7 +1478,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: "\u0394 Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1484,7 +1508,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: "\u0394 Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1542,7 +1566,7 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount)));
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" ? "%": "")));
           }
         }
 
