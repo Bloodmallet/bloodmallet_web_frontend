@@ -101,7 +101,7 @@ function bloodmallet_chart_import() {
 
   const debug = false;
 
-  const path_to_data = "https://dev.bloodmallet.com/chart/get/";
+  const path_to_data = "https://bloodmallet.com/chart/get/";
 
 
   /**
@@ -1173,7 +1173,7 @@ function bloodmallet_chart_import() {
    * @param {int} id
    */
   function requirements_error(chart) {
-    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-chart-id', 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data\">wiki</a>" });
+    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-chart-id', 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet_web_frontend/wiki/How-to-import-charts\">wiki</a>" });
   }
 
   /**
@@ -1350,6 +1350,13 @@ function bloodmallet_chart_import() {
       let axis_color = state.axis_color;
       let font_color = state.font_color;
 
+      let link = "https://bloodmallet.com/";
+      if (state.chart_id !== undefined) {
+        link += "chart/" + state.chart_id;
+      } else if (state.wow_class !== undefined && state.wow_spec !== undefined) {
+        link += "#" + state.wow_class + "_" + state.wow_spec;
+      }
+
       let styled_chart = {
         chart: {
           type: "bar",
@@ -1360,7 +1367,7 @@ function bloodmallet_chart_import() {
         },
         colors: bar_colors,
         credits: {
-          href: "https://bloodmallet.com/",
+          href: link,
           text: "bloodmallet",
           style: {
             fontSize: font_size
