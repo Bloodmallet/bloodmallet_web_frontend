@@ -87,6 +87,13 @@ function bloodmallet_chart_import() {
 
   const default_language = "en";
 
+  /**
+   * options:
+   *  absolute - default
+   *  relative
+   */
+  const default_value_style = "absolute";
+
   /******************************************************************************
    * Actual code starts here.
    * The toggles you want are all above this section.
@@ -94,7 +101,7 @@ function bloodmallet_chart_import() {
 
   const debug = false;
 
-  const path_to_data = "https://dev.bloodmallet.com/chart/get/";
+  const path_to_data = "https://bloodmallet.com/chart/get/";
 
 
   /**
@@ -166,7 +173,8 @@ function bloodmallet_chart_import() {
           limit: default_limit,
           chart_engine: default_chart_engine,
           tooltip_engine: default_tooltip_engine,
-          language: default_language
+          language: default_language,
+          value_style: default_value_style
         };
 
         // Get general settings from in-page variable
@@ -191,6 +199,9 @@ function bloodmallet_chart_import() {
           }
           if (bloodmallet.settings.language !== undefined) {
             state.language = bloodmallet.settings.language;
+          }
+          if (bloodmallet.settings.value_style !== undefined) {
+            state.value_style = bloodmallet.settings.value_style;
           }
         } catch (error) {
           if (debug) {
@@ -228,6 +239,9 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-language")) {
           state.language = html_element.getAttribute("data-language");
+        }
+        if (html_element.getAttribute("data-value-style")) {
+          state.value_style = html_element.getAttribute("data-value-style");
         }
 
         // preparing necessary input to load data
@@ -426,6 +440,8 @@ function bloodmallet_chart_import() {
     }
     state.data_type = data_type = spec_data["data_type"];
 
+    provide_meta_data(state, spec_data);
+
     // do secondary distribution charts in a different function
     if (data_type === "secondary_distributions") {
       return update_secondary_distribution_chart(state, html_element, chart);
@@ -475,7 +491,7 @@ function bloodmallet_chart_import() {
 
     } else {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
-      if (data_type === "races") {
+      if (["races", "talents"].includes(data_type)) {
         baseline_dps = 0;
       } else if (["legendaries", "soul_binds"].includes(data_type)) {
         baseline_dps = data["data"]["baseline"];
@@ -566,7 +582,7 @@ function bloodmallet_chart_import() {
 
         for (let i = 0; i < dps_ordered_keys.length; i++) {
           const dps_key = dps_ordered_keys[i];
-          dps_array.push(tmp_dps_values[dps_key][simulation_step]);
+          dps_array.push(get_styled_value(state, tmp_dps_values[dps_key][simulation_step], baseline_dps));
         }
 
         let simulation_step_clean = simulation_step;
@@ -590,7 +606,7 @@ function bloodmallet_chart_import() {
 
         let dps_key_values = data["data"][dps_key] - baseline_dps;
 
-        dps_array.push(dps_key_values);
+        dps_array.push(get_styled_value(state, dps_key_values, baseline_dps));
       }
 
       chart.addSeries({
@@ -612,8 +628,8 @@ function bloodmallet_chart_import() {
 
       chart.addSeries({
         data: dps_array,
-        name: "Race",
-        showInLegend: true
+        name: "DPS",
+        showInLegend: false
       }, false);
 
     }
@@ -696,6 +712,16 @@ function bloodmallet_chart_import() {
     log_item.appendChild(log);
 
     element.appendChild(list);
+  }
+
+  function get_styled_value(state, dps, baseline_dps) {
+    if (state.value_style === "absolute") {
+      return dps;
+    } else if (state.value_style === "relative") {
+      return  Math.round(dps * 10000 / baseline_dps) / 100;
+    } else {
+      console.error("Unknown value-style", state.value_style);
+    }
   }
 
   function update_secondary_distribution_chart(state, html_element, chart) {
@@ -1147,7 +1173,7 @@ function bloodmallet_chart_import() {
    * @param {int} id
    */
   function requirements_error(chart) {
-    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-chart-id', 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data\">wiki</a>" });
+    chart.setTitle({ text: "Wrong chart setup" }, { text: "Missing 'data-chart-id', 'data-wow-class' or 'data-wow-spec'. See <a href=\"https://github.com/Bloodmallet/bloodmallet_web_frontend/wiki/How-to-import-charts\">wiki</a>" });
   }
 
   /**
@@ -1324,6 +1350,13 @@ function bloodmallet_chart_import() {
       let axis_color = state.axis_color;
       let font_color = state.font_color;
 
+      let link = "https://bloodmallet.com/";
+      if (state.chart_id !== undefined) {
+        link += "chart/" + state.chart_id;
+      } else if (state.wow_class !== undefined && state.wow_spec !== undefined) {
+        link += "#" + state.wow_class + "_" + state.wow_spec;
+      }
+
       let styled_chart = {
         chart: {
           type: "bar",
@@ -1334,7 +1367,7 @@ function bloodmallet_chart_import() {
         },
         colors: bar_colors,
         credits: {
-          href: "https://bloodmallet.com/",
+          href: link,
           text: "bloodmallet",
           style: {
             fontSize: font_size
@@ -1409,12 +1442,12 @@ function bloodmallet_chart_import() {
           },
           useHTML: true,
           // adding this as a potential tooltip positioning fix. changes tooltip position to be inside the bar rather than at the end
-          positioner: function (boxWidth, boxHeight, point) {
-            return {
-              x: point.plotX,
-              y: point.plotY
-            };
-          }
+          // positioner: function (boxWidth, boxHeight, point) {
+          //   return {
+          //     x: point.plotX,
+          //     y: point.plotY
+          //   };
+          // }
         },
         xAxis: {
           categories: [],
@@ -1452,7 +1485,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: "\u0394 Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1482,7 +1515,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: "\u0394 Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1540,7 +1573,7 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount)));
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" ? "%": "")));
           }
         }
 
@@ -1575,7 +1608,386 @@ function bloodmallet_chart_import() {
     }
   }
 
+  /**
+   * Create an all-meta-data information area
+   * @param {*} state
+   * @param {*} data
+   */
+  function provide_meta_data(state, data) {
+    if (!["bloodmallet.com", "127.0.0.1"].includes(window.location.hostname)) {
+      return
+    }
+    if (debug) {
+      console.log("provide_meta_data");
+    }
+
+    let element = document.getElementById("meta-info");
+    element.hidden = false;
+
+    // SimulationCraft settings
+    for (let setting in data["simc_settings"]) {
+      let text = document.createTextNode(data["simc_settings"][setting]);
+      let parent = document.getElementById("c_" + setting);
+      parent.innerText = "";
+      parent.appendChild(text);
+    }
+
+    // redo simc hash properly
+    let simc_link = document.createElement("a");
+    simc_link.href = "https://github.com/simulationcraft/simc/commit/" + data["simc_settings"]["simc_hash"];
+    simc_link.innerText = data["simc_settings"]["simc_hash"].substring(0, 7);
+    let simc_hash = document.getElementById("c_simc_hash")
+    simc_hash.innerText = "";
+    simc_hash.appendChild(simc_link);
+
+    // character profile - character
+    for (let character_key in data["profile"]["character"]) {
+      try {
+        let c_entry = document.getElementById("c_" + character_key);
+        c_entry.innerHTML = "";
+        let text = document.createTextNode(title(data["profile"]["character"][character_key]));
+        c_entry.appendChild(text);
+      } catch (error) {
+      }
+    }
+
+    // redo talents properly
+    const talents = data["profile"]["character"]["talents"];
+    let talents_element = document.getElementById("c_talents");
+    talents_element.innerHTML = "";
+    for (let i = 0; i < talents.length; i++) {
+      const talent = talents[i];
+      let icon = document.createElement("a");
+      icon.href = "";
+      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+      try {
+        icon.href += "spell=" + data["talent_data"][parseInt(i) + 1][parseInt(talent)]["spell_id"];
+        //icon.dataset.whRenameLink = true;
+      } catch (error) {
+        // unset talent (value 0)
+        continue
+      }
+      icon.dataset.whIconSize = "medium";
+      talents_element.appendChild(icon);
+    }
+
+    // character profile - items
+    for (let item_key in data["profile"]["items"]) {
+      let icon = document.createElement("a");
+      icon.href = "";
+      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+      icon.href += "item=" + data["profile"]["items"][item_key]["id"];
+      let boni = [];
+      try {
+        boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
+      } catch (error) {
+      }
+      if (boni.length > 0) {
+        icon.href += "?" + boni.join("&");
+      }
+
+      icon.dataset.whIconSize = "medium";
+      //icon.dataset.whRenameLink = true;
+      let item = document.getElementById("c_" + item_key);
+      item.innerHTML = "";
+      item.appendChild(icon);
+    }
+
+    if (state.data_type === "talents") {
+      build_talent_table(state, data);
+    }
+    try {
+      $WowheadPower.refreshLinks();
+    } catch (error) {
+    }
+  }
+
+  /**
+   *
+   * @param {String} string
+   */
+  function title(string) {
+    return string.split(" ").map(e => {return e[0].toUpperCase() + e.substring(1)}).join(" ");
+  }
+
+  /**
+   * Add the talent information area to meta-data information area
+   * @param {*} state
+   * @param {*} data
+   */
+  function build_talent_table(state, data) {
+    console.log("build_talent_table");
+
+    let wrapper = document.getElementById("talent-table");
+    wrapper.hidden = false;
+
+    // manage data
+    let key_list = [];
+
+    for (let row = 1; row < 8; row++) {
+      for (let column = 1; column < 4; column++) {
+        key_list.push(row.toString() + column.toString());
+      }
+    }
+
+    for (let row_column of key_list) {
+      let html_element = document.getElementById(row_column);
+
+      try {
+        // add talent name
+        let talent_name = document.createElement("h5");
+        let talent_data = data["talent_data"][row_column.slice(0, 1)][row_column.slice(1, 2)];
+        talent_name.innerHTML = get_talent_name_link(state, talent_data["name"], row_column, data);
+        html_element.innerHTML = "";
+        html_element.appendChild(talent_name);
+
+        // add mean gain
+        html_element.appendChild(
+          create_talent_information_line(
+            "Mean",
+            get_average_gain(row_column, data)
+          )
+        );
+
+        // add lowest gain
+        html_element.appendChild(
+          create_talent_information_line(
+            "Min",
+            get_lowest_gain(row_column, data)[1],
+            get_lowest_gain(row_column, data)[0]
+          )
+        );
+
+        // add highest gain
+        html_element.appendChild(
+          create_talent_information_line(
+            "Max",
+            get_highest_gain(row_column, data)[1],
+            get_highest_gain(row_column, data)[0]
+          )
+        );
+
+        // add gain in best talent combination
+        let talent_combination = get_best_talent_combination(row_column, data);
+        let blank_talent_combination = talent_combination.slice(0, row_column.slice(0, 1) - 1) + "0" + talent_combination.slice(row_column.slice(0, 1), 8);
+        let talent_dps = data["data"][talent_combination];
+        let blank_dps = data["data"][blank_talent_combination];
+        html_element.appendChild(
+          create_talent_information_line(
+            "Max dps",
+            get_percentage_gain(blank_dps, talent_dps),
+            talent_combination
+          )
+        );
+
+        // add "Is this talent within x% of the best talent combination?"
+        talent_combination = get_best_talent_combination(row_column, data);
+        let actual_range = get_percentage_gain(data["data"][data["sorted_data_keys"][0]], data["data"][talent_combination]);
+
+        html_element.appendChild(
+          create_talent_information_line(
+            "Max dps minus global best",
+            actual_range,
+            talent_combination
+          )
+        );
+
+      } catch (error) {
+        // utility row...probably
+        html_element.innerHTML = "-";
+        if (debug) {
+          console.warn(error);
+        }
+      }
+    }
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  }
+
+  function create_talent_information_line(text, value, talent_combination = undefined) {
+    let element = document.createElement("div");
+    element.innerHTML = text + ": ";
+    let value_element = document.createElement("span");
+    value_element.innerHTML = value + "%";
+    if (value >= 0) {
+      value_element.classList += get_value_color(value);
+    } else {
+      value_element.classList += get_value_color(-value + 3);
+    }
+
+    if (talent_combination !== undefined) {
+      value_element.title = "Talent combination: " + talent_combination;
+      value_element.setAttribute("data-toggle", "tooltip");
+      value_element.setAttribute("data-placement", "bottom");
+      let questionmark = document.createElement("span");
+      questionmark.classList += "priest-color";
+      questionmark.innerHTML = " (?)";
+      value_element.appendChild(questionmark);
+    }
+
+    element.appendChild(value_element);
+    return element;
+  }
+
+  function get_value_color(dps_increase) {
+    if (debug) {
+      console.log("get_value_color");
+    }
+
+    if (dps_increase < 5.0) {
+      return "mage-color";
+    } else if (dps_increase > 10.0 && dps_increase <= 12.0) {
+      return "druid-color";
+    } else if (dps_increase > 12.0) {
+      return "death_knight-color";
+    } else {
+      return "monk-color";
+    }
+  }
+
+
+  /**
+   * Return first matching talent combination. False otherwise
+   */
+  function get_best_talent_combination(row_column, data) {
+    for (let talent_combination of data["sorted_data_keys"]) {
+      if (talent_combination[row_column.slice(0, 1) - 1] === row_column.slice(1, 2)) {
+        return talent_combination
+          ;
+      }
+    }
+    return false;
+  }
+
+  function get_talent_name_link(state, name, row_column, data) {
+
+    let s = "<a href=\"https://";
+
+    if (state.language === "en" || state.language === "EN") {
+      s += "www";
+    } else {
+      s += state.language.toLowerCase();
+    }
+    s += ".wowhead.com/spell=";
+    s += data["talent_data"][row_column.slice(0, 1)][row_column.slice(1, 2)]["spell_id"];
+    s += "\"";
+    s += ">";
+    s += get_translated_name(name, data);
+    s += "</a>";
+
+    return s;
+  }
+
+  /**
+   * Get the translation of a name (item, trait, race) from the data file
+   * @param {string} name
+   */
+  function get_translated_name(name, data) {
+    if (debug) {
+      console.log("get_translated_name " + name);
+    }
+
+    let language_table = {
+      "zh-hans": "cn_CN",
+      "en": "en_US",
+      "de": "de_DE",
+      "es": "es_ES",
+      "fr": "fr_FR",
+      "it": "it_IT",
+      "ko": "ko_KR",
+      "pt": "pt_BR",
+      "ru": "ru_RU"
+    }
+
+    let return_name = "";
+    try {
+      return_name = data["translations"][name][language_table[language]];
+    } catch (error) {
+      if (debug) {
+        console.log(`No translation for ${name} found.`);
+        console.log(error);
+      }
+      return_name = name;
+    }
+
+    if (debug) {
+      console.log("Translated name: " + return_name);
+    }
+
+    return return_name;
+  }
+
+
+  function get_lowest_gain(row_column, data) {
+    let row = row_column.slice(0, 1);
+    let column = row_column.slice(1, 2);
+    let gain = 100.0;
+    let talent_combination = "";
+    for (let name of data["sorted_data_keys"]) {
+      if (name[row - 1] === column) {
+        let c_dps = data["data"][name];
+        let b_dps = data["data"][name.slice(0, row - 1) + "0" + name.slice(row, 8)];
+        if (gain > get_percentage_gain(b_dps, c_dps)) {
+          gain = get_percentage_gain(b_dps, c_dps);
+          talent_combination = name;
+        }
+      }
+    }
+    return [talent_combination, gain];
+  }
+
+  function get_highest_gain(row_column, data) {
+    let row = row_column.slice(0, 1);
+    let column = row_column.slice(1, 2);
+    let gain = -100.0;
+    let talent_combination = "";
+    for (let name of data["sorted_data_keys"]) {
+      if (name[row - 1] === column) {
+        let c_dps = data["data"][name];
+        let b_dps = data["data"][name.slice(0, row - 1) + "0" + name.slice(row, 8)];
+        if (gain < get_percentage_gain(b_dps, c_dps)) {
+          gain = get_percentage_gain(b_dps, c_dps);
+          talent_combination = name;
+        }
+      }
+    }
+    return [talent_combination, gain];
+  }
+
+
+  function get_average_gain(row_column, data) {
+    if (debug) {
+      console.log("get_average_gain");
+    }
+
+    let talent_combinations = [];
+    for (let talent_combination of data["sorted_data_keys"]) {
+      if (talent_combination[row_column.slice(0, 1) - 1] === row_column.slice(1, 2)) {
+        talent_combinations.push(talent_combination);
+      }
+    }
+
+    let sum = 0;
+    for (let talent_combination of talent_combinations) {
+      let t_dps = data["data"][talent_combination];
+      let b_dps = data["data"][talent_combination.slice(0, row_column.slice(0, 1) - 1) + "0" + talent_combination.slice(row_column.slice(0, 1), 8)];
+      sum += get_percentage_gain(b_dps, t_dps);
+    }
+
+    return Math.round((sum / talent_combinations.length) * 100) / 100;
+  }
+
+  function get_percentage_gain(no_talent_value, talent_value) {
+    if (debug) {
+      console.log("get_percentage_gain");
+    }
+    return Math.round((talent_value * 100 / no_talent_value - 100) * 100) / 100;
+  }
+
+
 }
+
 // Load data on document load
 document.addEventListener("DOMContentLoaded", function () {
   bloodmallet_chart_import();

@@ -475,7 +475,7 @@ def get_chart_state(request, chart_id=None) -> JsonResponse:
             simulations = Simulation.objects.filter(
                 queue__state=QueueState.PENDING.name,
                 failed=False,
-            )
+            ).order_by("created_at")
 
             try:
                 queue_position = [

@@ -44,15 +44,17 @@ function build_table() {
             div_spec_row.className = 'row';
             div_class_cell.appendChild(div_spec_row);
             let a_spec_btn = document.createElement('a');
-            // TODO: Remove btn-disabled
-            a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
-            // TODO: Switch the following two lines
-            a_spec_btn.href = '';
-            // a_spec_btn.href = '#' + wow_class + '_' + wow_spec;
-            // TODO: Remove tooltip
-            a_spec_btn.dataset.toggle = "tooltip";
-            a_spec_btn.dataset.placement = "top";
-            a_spec_btn.dataset.title = "Disabled until half of the specs have either Pre-Raid or Raid profiles and have updated modules.";
+            // It's a simulated spec
+            if (["demon_hunter_havoc", "druid_feral", "hunter_beast_mastery", "hunter_marksmanship", "hunter_survival", "priest_shadow", "shaman_elemental", "shaman_enhancement", "warrior_arms", "warrior_fury"].indexOf(wow_class + "_" + wow_spec) > -1) {
+                a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
+                a_spec_btn.href = 'https://bfa.bloodmallet.com/index.html#' + wow_class + '_' + wow_spec;
+            } else {
+                a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
+                a_spec_btn.href = '';
+                a_spec_btn.dataset.toggle = "tooltip";
+                a_spec_btn.dataset.placement = "top";
+                a_spec_btn.dataset.title = "Disabled until a prepatch profile is provided.";
+            }
 
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
             div_spec_row.appendChild(a_spec_btn);
