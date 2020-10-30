@@ -21,7 +21,9 @@ python manage.py collectstatic --clear --noinput --ignore=*.scss --ignore=*.po -
 Write-Host "          Done" -ForegroundColor Green
 
 # Deploy
-gcloud app deploy --quiet
+gcloud app deploy --no-promote --quiet
+
+gcloud app deploy cron.yaml
 
 Write-Host "Cleaning up" -NoNewline
 # remove compiled css files
