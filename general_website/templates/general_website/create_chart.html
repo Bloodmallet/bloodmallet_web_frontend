@@ -16,7 +16,7 @@
 {% endif %}
 
 <form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
-    {% crispy form %}
+    {% crispy form form.helper %}
 
     <small id="dataDisclaimer" class="form-text text-muted">{% translate "Almost all comments will be removed. Chart creation will take a while (stuff needs to be simulated)." %}</small>
 </form>
@@ -104,11 +104,41 @@ function update_form() {
         document.getElementById("id_wow_spec").options[index].selected = true;
     } catch (error) {}
 }
+function update_custom_fight_style() {
+    let element = document.getElementById("id_custom_fight_style");
+    let fight_style = document.getElementById("id_fight_style").value;
+    fight_style_names = {
+        1: "patchwerk",
+        2: "hecticaddcleave"
+    }
+    let fight_length = document.getElementById("id_fight_length").value;
+    let targets = document.getElementById("id_targets").value;
+
+    let custom = [];
+    if (fight_style !== undefined && fight_style !== "") {
+        custom.push("fight_style=" + fight_style_names[fight_style]);
+    }
+    if (fight_length !== undefined && fight_length !== "") {
+        custom.push("duration=" + fight_length);
+    }
+    if (targets !== undefined && targets !== "") {
+        custom.push("desired_targets=" + targets);
+    }
+
+    if (custom.length > 0) {
+        console.log("Found something, trying to write");
+        element.value = custom.join("\n");
+    }
+}
 document.addEventListener("DOMContentLoaded", function () {
     // probably overkill, but hey at least some errors will be prevented
     document.getElementById('id_custom_profile').addEventListener("change", react_to_input);
     document.getElementById('id_custom_profile').addEventListener("input", react_to_input);
     document.getElementById('id_custom_profile').addEventListener("paste", react_to_input);
+
+    document.getElementById('id_fight_style').addEventListener("change", update_custom_fight_style);
+    document.getElementById('id_fight_length').addEventListener("change", update_custom_fight_style);
+    document.getElementById('id_targets').addEventListener("change", update_custom_fight_style);
 });
 </script>
 {% endblock %}

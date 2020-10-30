@@ -5,6 +5,7 @@ import logging
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from general_website.models.account import User
@@ -13,8 +14,8 @@ from general_website.models.world_of_warcraft import SimulationType
 from general_website.models.world_of_warcraft import WowSpec
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Div
-from crispy_forms.bootstrap import FieldWithButtons, StrictButton
+from crispy_forms.layout import Layout, Field, Div, HTML
+from crispy_forms.bootstrap import Accordion, AccordionGroup, StrictButton
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +57,37 @@ class SimulationCreationForm(forms.ModelForm):
         "Auto-remove oldest chart"), help_text=_(
         "If your slots are filled, enabling this checkbox will auto-remove the oldest chart to free up a slot."),
     )
+    time_choices = (
+        ("", "---------"),
+        (45, _("45 seconds")),
+        (60, _("1 minute")),
+        (90, _("1 minute and 30 seconds")),
+        (120, _("2 minutes")),
+        (180, _("3 minutes")),
+        (300, _("5 minutes")),
+        (420, _("7 minutes")),
+        (600, _("10 minutes")),
+    )
+    fight_length = forms.ChoiceField(
+        choices=time_choices, required=False, help_text=_(""), label=_("Fight Length"))
+
+    boss = _("Boss")
+    bosses = _("Bosses")
+    target_choices = (
+        ("", "---------"),
+        (1, f"1 {boss}"),
+        (2, f"2 {bosses}"),
+        (3, f"3 {bosses}"),
+        (4, f"4 {bosses}"),
+        (5, f"5 {bosses}"),
+        (6, f"6 {bosses}"),
+        (7, f"7 {bosses}"),
+        (8, f"8 {bosses}"),
+        (9, f"9 {bosses}"),
+        (10, f"10 {bosses}"),
+    )
+    targets = forms.ChoiceField(
+        choices=target_choices, required=False, label=_("Boss count"))
 
     class Meta:
         model = Simulation
@@ -65,10 +97,34 @@ class SimulationCreationForm(forms.ModelForm):
             'simulation_type',
             'fight_style',
             'custom_profile',
+            'custom_fight_style',
+            'custom_apl',
         )
 
     def __init__(self, *args, **kwargs):
         super(SimulationCreationForm, self).__init__(*args, **kwargs)
+
+        self.illegal_input = [
+            "html",
+            "log",
+            "output",
+            "debug",
+            "calculate_scale_factors",
+            "scale_only",
+            "chart_show_relative_difference",
+            "maximize_reporting",
+            "dps_plot_stat",
+            "reforge_plot_amount",
+            "reforge_plot_step",
+            "reforge_plot_output_file",
+            "profileset_work_threads",
+            "threads",
+            "target_error",
+            "iterations",
+        ]
+
+        advanced = _("Advanced")
+
         self.fields['simulation_type'].queryset = SimulationType.objects.filter(
             is_deleted=False
         ).order_by(
@@ -98,10 +154,51 @@ class SimulationCreationForm(forms.ModelForm):
                 _("Create Chart"),
                 type='submit',
                 css_class="btn btn-primary",
+            ),
+            Div(HTML(f"<h2>{advanced}</h2>"), css_class="mt-3"),
+            Div(
+                Accordion(
+                    AccordionGroup(
+                        _("Fight style"),
+                        Div(
+                            Div(Field("fight_length"),
+                                css_class="col-6 col-md-4"),
+                            Div(Field("targets"), css_class="col-6 col-md-4"),
+                            Div(Field('custom_fight_style'), css_class="col-12"),
+                            css_class="form-row",
+                        ),
+                        active=False,
+                        template="general_website/forms/accordion-group.html"
+                    ),
+                    AccordionGroup(
+                        _("APL"),
+                        Field('custom_apl'),
+                        active=False,
+                        template="general_website/forms/accordion-group.html"
+                    ),
+                    template="general_website/forms/accordion.html"
+                ),
+                css_class="mb-3",
+            ),
+            StrictButton(
+                _("Create Chart"),
+                type='submit',
+                css_class="btn btn-primary",
             )
         )
 
     def clean_custom_profile(self):
         data = self.cleaned_data['custom_profile']
 
-        return data[:10000]
+        if any([group in self.blacklisted_input for line in data.splitlines() for group in line.split()]):
+            raise ValidationError(_("An illegal input was detected."), code="illegal input")
+
+        return data[:2048]
+
+    def clean_custom_fight_style(self):
+        data = self.cleaned_data["custom_profile"]
+
+        if any([group in self.blacklisted_input for line in data.splitlines() for group in line.split()]):
+            raise ValidationError(_("An illegal input was detected."), code="illegal input")
+
+        return data[:2048]
