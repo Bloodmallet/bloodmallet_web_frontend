@@ -23,7 +23,7 @@ echo -e "          \e[32mDone\e[0m"
 # Deploy
 gcloud app deploy --no-promote --quiet
 
-gcloud app deploy cron.yaml
+gcloud app deploy cron.yaml --quiet
 
 echo -n "Cleaning up"
 # remove compiled css files
