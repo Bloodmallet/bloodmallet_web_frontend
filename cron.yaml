@@ -1,0 +1,7 @@
+cron:
+- description: "daily removal of old charts"
+  url: /compute_api/api/remove_old_charts
+  schedule: every day 00:23
+- description: "daily rebuild of worker image"
+  url: /compute_api/api/image_create
+  schedule: every day 01:23
