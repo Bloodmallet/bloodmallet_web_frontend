@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: general_website/forms.py:72
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 21:11+0000\n"
+"POT-Creation-Date: 2020-10-31 11:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,22 +79,87 @@ msgstr ""
 msgid "Deleting ALL instances"
 msgstr ""
 
-#: general_website/forms.py:56
+#: general_website/forms.py:57
 msgid "Auto-remove oldest chart"
 msgstr ""
 
-#: general_website/forms.py:57
+#: general_website/forms.py:58
 msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
 msgstr ""
 
-#: general_website/forms.py:94
+#: general_website/forms.py:62
+msgid "45 seconds"
+msgstr ""
+
+#: general_website/forms.py:63
+msgid "1 minute"
+msgstr ""
+
+#: general_website/forms.py:64
+msgid "1 minute and 30 seconds"
+msgstr ""
+
+#: general_website/forms.py:65
+msgid "2 minutes"
+msgstr ""
+
+#: general_website/forms.py:66
+msgid "3 minutes"
+msgstr ""
+
+#: general_website/forms.py:67
+msgid "5 minutes"
+msgstr ""
+
+#: general_website/forms.py:68
+msgid "7 minutes"
+msgstr ""
+
+#: general_website/forms.py:69
+msgid "10 minutes"
+msgstr ""
+
+#: general_website/forms.py:72
+msgid "Fight Length"
+msgstr ""
+
+#: general_website/forms.py:74
+msgid "Boss"
+msgstr ""
+
+#: general_website/forms.py:75
+msgid "Bosses"
+msgstr ""
+
+#: general_website/forms.py:90
+msgid "Boss count"
+msgstr ""
+
+#: general_website/forms.py:126
+msgid "Advanced"
+msgstr ""
+
+#: general_website/forms.py:150
 msgid "Paste your /simc output into this element."
 msgstr ""
 
-#: general_website/forms.py:98
+#: general_website/forms.py:154 general_website/forms.py:184
 msgid "Create Chart"
+msgstr ""
+
+#: general_website/forms.py:162
+#: general_website/templates/general_website/chart.html:103
+msgid "Fight style"
+msgstr ""
+
+#: general_website/forms.py:174
+msgid "APL"
+msgstr ""
+
+#: general_website/forms.py:194 general_website/forms.py:202
+msgid "An illegal input was detected."
 msgstr ""
 
 #: general_website/models/account.py:59
@@ -630,10 +696,6 @@ msgstr ""
 msgid "SimulationCraft settings"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:103
-msgid "Fight style"
-msgstr ""
-
 #: general_website/templates/general_website/chart.html:107
 msgid "Iterations"
 msgstr ""
@@ -655,6 +717,10 @@ msgid "Base profile"
 msgstr ""
 
 #: general_website/templates/general_website/chart.html:134
+msgid "Use relative values"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:138
 msgid "All values in this table are gains."
 msgstr ""
 
@@ -662,14 +728,18 @@ msgstr ""
 msgid "Create a Chart"
 msgstr ""
 
-#: general_website/templates/general_website/create_chart.html:10
-msgid "You lack permission to create charts."
+#: general_website/templates/general_website/create_chart.html:12
+#, python-format
+msgid ""
+"\n"
+"    You lack permission to create charts. Head to <a href="
+"\"%(connection_settings)s\">your settings</a> to connect your account with "
+"your patreon-account.\n"
+"    "
 msgstr ""
 
-#: general_website/templates/general_website/create_chart.html:16
-msgid ""
-"Almost all comments will be removed. Chart creation will take a while (stuff "
-"needs to be simulated)."
+#: general_website/templates/general_website/create_chart.html:21
+msgid "Chart creation will take a while (stuff needs to be simulated)."
 msgstr ""
 
 #: general_website/templates/general_website/error.html:13
