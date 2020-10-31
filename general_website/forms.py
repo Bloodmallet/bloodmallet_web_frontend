@@ -193,10 +193,18 @@ class SimulationCreationForm(forms.ModelForm):
         if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
             raise ValidationError(_("An illegal input was detected."), code="illegal input")
 
-        return data[:2048]
+        return data[:10000]
 
     def clean_custom_fight_style(self):
-        data = self.cleaned_data["custom_profile"]
+        data = self.cleaned_data["custom_fight_style"]
+
+        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
+            raise ValidationError(_("An illegal input was detected."), code="illegal input")
+
+        return data[:2048]
+
+    def clean_custom_apl(self):
+        data = self.cleaned_data["custom_apl"]
 
         if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
             raise ValidationError(_("An illegal input was detected."), code="illegal input")
