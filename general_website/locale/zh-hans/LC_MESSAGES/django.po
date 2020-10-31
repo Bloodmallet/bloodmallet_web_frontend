@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-31 11:18+0000\n"
+"POT-Creation-Date: 2020-10-31 18:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -159,6 +159,7 @@ msgid "APL"
 msgstr ""
 
 #: general_website/forms.py:194 general_website/forms.py:202
+#: general_website/forms.py:210
 msgid "An illegal input was detected."
 msgstr ""
 
@@ -720,7 +721,51 @@ msgstr ""
 msgid "Use relative values"
 msgstr ""
 
+#: general_website/templates/general_website/chart.html:137
+msgid "Disclaimer"
+msgstr ""
+
 #: general_website/templates/general_website/chart.html:138
+msgid "Talent simulations are quite fragile for the following reasons:"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:140
+msgid "Not all talent combinations might be equally supported by the APL."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:141
+msgid "Not all Fight styles might be supported equally."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:142
+msgid ""
+"Secondary stats aren't changed during simulation, but some talents might "
+"favor a different distribution."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:143
+msgid ""
+"Different Covenants might synergize with talents differently, but aren't "
+"changed during simulation."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:144
+msgid "Soulbinds might affect talents, but aren't changed during simulation."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:145
+msgid ""
+"Legendaries might support specific talents. So consider your result "
+"legendary specific."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:146
+msgid ""
+"Conduits might affect the worth of talents. But yet again Conduits aren't "
+"changed during this simulation."
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:151
 msgid "All values in this table are gains."
 msgstr ""
 
