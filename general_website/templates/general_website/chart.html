@@ -133,6 +133,19 @@
         <input type="checkbox" class="form-check-input" id="relative_values">
         <label class="form-check-label text-muted" for="relative_values">{% translate "Use relative values" %}</label>
     </div>
+    <div id="talent-warning" hidden>
+        <h3>{% translate "Disclaimer" %}</h3>
+        <p>{% translate "Talent simulations are quite fragile for the following reasons:" %}</p>
+        <ul>
+            <li>{% translate "Not all talent combinations might be equally supported by the APL." %}</li>
+            <li>{% translate "Not all Fight styles might be supported equally." %}</li>
+            <li>{% translate "Secondary stats aren't changed during simulation, but some talents might favor a different distribution." %}</li>
+            <li>{% translate "Different Covenants might synergize with talents differently, but aren't changed during simulation." %}</li>
+            <li>{% translate "Soulbinds might affect talents, but aren't changed during simulation." %}</li>
+            <li>{% translate "Legendaries might support specific talents. So consider your result legendary specific." %}</li>
+            <li>{% translate "Conduits might affect the worth of talents. But yet again Conduits aren't changed during this simulation." %}</li>
+        </ul>
+    </div>
     <div id="talent-table" hidden>
         <p>
             {% translate "All values in this table are gains." %}

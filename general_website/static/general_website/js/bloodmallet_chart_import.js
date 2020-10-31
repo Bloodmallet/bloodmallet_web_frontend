@@ -718,7 +718,7 @@ function bloodmallet_chart_import() {
     if (state.value_style === "absolute") {
       return dps;
     } else if (state.value_style === "relative") {
-      return  Math.round(dps * 10000 / baseline_dps) / 100;
+      return Math.round(dps * 10000 / baseline_dps) / 100;
     } else {
       console.error("Unknown value-style", state.value_style);
     }
@@ -1485,7 +1485,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second" : "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1515,7 +1515,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: state.value_style === "absolute" ? "\u0394 Damage per second": "% Damage per second",
+            text: state.value_style === "absolute" ? "\u0394 Damage per second" : "% Damage per second",
             style: {
               color: default_axis_color
             }
@@ -1573,7 +1573,7 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" ? "%": "")));
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" ? "%" : "")));
           }
         }
 
@@ -1694,6 +1694,7 @@ function bloodmallet_chart_import() {
     }
 
     if (state.data_type === "talents") {
+      document.getElementById("talent-warning").hidden = false;
       build_talent_table(state, data);
     }
     try {
@@ -1707,7 +1708,7 @@ function bloodmallet_chart_import() {
    * @param {String} string
    */
   function title(string) {
-    return string.split(" ").map(e => {return e[0].toUpperCase() + e.substring(1)}).join(" ");
+    return string.split(" ").map(e => { return e[0].toUpperCase() + e.substring(1) }).join(" ");
   }
 
   /**
