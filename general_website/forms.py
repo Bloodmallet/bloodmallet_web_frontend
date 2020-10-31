@@ -190,7 +190,7 @@ class SimulationCreationForm(forms.ModelForm):
     def clean_custom_profile(self):
         data = self.cleaned_data['custom_profile']
 
-        if any([group in self.blacklisted_input for line in data.splitlines() for group in line.split()]):
+        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
             raise ValidationError(_("An illegal input was detected."), code="illegal input")
 
         return data[:2048]
@@ -198,7 +198,7 @@ class SimulationCreationForm(forms.ModelForm):
     def clean_custom_fight_style(self):
         data = self.cleaned_data["custom_profile"]
 
-        if any([group in self.blacklisted_input for line in data.splitlines() for group in line.split()]):
+        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
             raise ValidationError(_("An illegal input was detected."), code="illegal input")
 
         return data[:2048]
