@@ -18,7 +18,7 @@
 <form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
     {% crispy form form.helper %}
 
-    <small id="dataDisclaimer" class="form-text text-muted">{% translate "Almost all comments will be removed. Chart creation will take a while (stuff needs to be simulated)." %}</small>
+    <small id="dataDisclaimer" class="form-text text-muted">{% translate "Chart creation will take a while (stuff needs to be simulated)." %}</small>
 </form>
 
 
