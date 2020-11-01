@@ -7,14 +7,14 @@
 {% block extrahead %}
 {% comment %} https://ogp.me/ {% endcomment %}
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="bloodmallet">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 {% if chart %}
-<meta property="og:title" content="{{ chart.wow_spec.name }} {{ chart.wow_class.name }} {{ chart.simulation_type.name }} {{ chart.fight_style.name }} - bloodmallet">
+<meta property="og:title" content="{{ chart.wow_spec.name }} {{ chart.wow_class.name }} {{ chart.simulation_type.name }} {{ chart.fight_style.name }}">
 {% else %}
-<meta property="og:title" content="404 chart not found - bloodmallet">
+<meta property="og:title" content="404 chart not found">
 {% endif %}
-<meta property="og:site_name" content="bloodmallet">
-<meta property="og:description" content="Data for all. Placeholder message until some backend changes happened that allow the first few data points to appear here.">
+<meta property="og:description" content="Data for all.\nPlaceholder message until some backend changes happened, which allow the first few data points to appear here.">
 {% comment %} <meta property="og:image" content="">
 <meta property="og:image:width" content="360">
 <meta property="og:image:height" content="50">
