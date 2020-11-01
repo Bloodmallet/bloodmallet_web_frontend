@@ -454,6 +454,20 @@ def chart(request, chart_id=None):
     context = {}
     context['chart_id'] = chart_id
 
+    try:
+        simulation: Simulation = Simulation.objects.select_related(
+            'result', 'wow_class', 'wow_spec', 'simulation_type', 'fight_style'
+        ).get(
+            id=chart_id,
+            result__isnull=False,
+        )
+    except Simulation.DoesNotExist:
+        simulation = None
+
+    context["chart"] = {}
+    if simulation:
+        context["chart"] = simulation
+
     return render(request, 'general_website/chart.html', context=context)
 
 
@@ -522,7 +536,8 @@ def get_chart_data(
             logger.warning(
                 'Multiple Simulations have the same id {}'.format(chart_id))
             simulation: Simulation = Simulation.objects.filter(
-                id=chart_id).first()
+                id=chart_id
+            ).first()
         except Exception:
             logger.exception(
                 'Chart_id {} crashed Simulation object look-up.'.format(chart_id))
