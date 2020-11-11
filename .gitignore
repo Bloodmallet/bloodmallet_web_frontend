@@ -15,4 +15,4 @@ secrets/
 db.sqlite3
 cloud_sql_proxy*
 debug.log
-local_dev_commands.txt
+local_dev_commands.*
