@@ -84,6 +84,7 @@ function bloodmallet_chart_import() {
   const default_data_type = "trinkets";
 
   const default_azerite_tier = "all"
+  const default_conduit_rank = "7";
 
   const default_language = "en";
 
@@ -164,6 +165,7 @@ function bloodmallet_chart_import() {
           wow_spec: undefined,
           data_type: default_data_type,
           azerite_tier: default_azerite_tier,
+          conduit_rank: default_conduit_rank,
           fight_style: default_fight_style,
           // style
           axis_color: default_axis_color,
@@ -221,6 +223,9 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-azerite-tier")) {
           state.azerite_tier = html_element.getAttribute("data-azerite-tier");
+        }
+        if (html_element.getAttribute("data-conduit-rank")) {
+          state.conduit_rank = html_element.getAttribute("data-conduit-rank");
         }
         if (html_element.getAttribute("data-background-color")) {
           state.background_color = html_element.getAttribute("data-background-color");
@@ -490,10 +495,15 @@ function bloodmallet_chart_import() {
       }
 
     } else {
-      dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
+      console.log(data);
+      if (data_type === "soul_binds") {
+        dps_ordered_keys = data["sorted_data_keys"][state.conduit_rank].slice(0, limit);
+      } else {
+        dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
+      }
       if (["races", "talents"].includes(data_type)) {
         baseline_dps = 0;
-      } else if (["legendaries", "soul_binds", "covenants"].includes(data_type)) {
+      } else if (["legendaries", "soul_bind_nodes", "soul_binds", "covenants"].includes(data_type)) {
         baseline_dps = data["data"]["baseline"];
       } else {
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
@@ -546,6 +556,8 @@ function bloodmallet_chart_import() {
       simulated_steps.push("3_" + base_ilevel);
       simulated_steps.push("2_" + base_ilevel);
       simulated_steps.push("1_" + base_ilevel);
+    } else if (data_type == "soul_binds") {
+      simulated_steps = undefined;
     } else {
       simulated_steps = data["simulated_steps"];
     }
@@ -598,7 +610,7 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
-    } else if (["legendaries", "soul_binds", "covenants"].includes(data_type)) {
+    } else if (["legendaries", "soul_bind_nodes", "covenants"].includes(data_type)) {
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -615,13 +627,16 @@ function bloodmallet_chart_import() {
         showInLegend: false
       }, false);
 
-    } else { // race simulations
+    } else { // race simulations, soul bind simulations
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
         let dps_key = dps_ordered_keys[i];
 
         let dps_key_values = data["data"][dps_key];
+        if (data_type === "soul_binds") {
+          dps_key_values = data["data"][dps_key][state.conduit_rank];
+        }
 
         dps_array.push(dps_key_values);
       }
@@ -1059,7 +1074,7 @@ function bloodmallet_chart_import() {
     }
 
     // races don't have links/tooltips
-    if (state.data_type === "races") {
+    if (["races", "soul_binds"].includes(state.data_type)) {
       try {
         return data["translations"][key][language_table[state.language]];
       } catch (error) {
