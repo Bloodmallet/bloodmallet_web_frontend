@@ -1636,6 +1636,10 @@ function bloodmallet_chart_import() {
       console.log("provide_meta_data");
     }
 
+    if (["trinkets", "covenants", "conduits", "soul_bind_nodes"].includes(state.data_type)) {
+      document.getElementById("value_style_switch").hidden = false;
+    }
+
     let element = document.getElementById("meta-info");
     element.hidden = false;
 
