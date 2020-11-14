@@ -1,5 +1,5 @@
 from django.urls import path, include
-
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetCompleteView, PasswordResetConfirmView
 from . import views
 
 from allauth.socialaccount.views import ConnectionsView
@@ -65,6 +65,35 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
     path('signup', views.signup, name='signup'),
+    path(
+        'password_reset',
+        PasswordResetView.as_view(
+            template_name="general_website/password_reset.html",
+            email_template_name="general_website/password_reset_mail.html"
+        ),
+        name='password_reset',
+    ),
+    path(
+        'password_reset/done',
+        PasswordResetDoneView.as_view(
+            template_name="general_website/password_reset_done.html"
+        ),
+        name='password_reset_done'
+    ),
+    path(
+        'reset/<uidb64>/<token>',
+        PasswordResetConfirmView.as_view(
+            template_name="general_website/password_reset_confirm.html",
+        ),
+        name='password_reset_confirm'
+    ),
+    path(
+        'reset/done',
+        PasswordResetCompleteView.as_view(
+            template_name="general_website/password_reset_complete.html",
+        ),
+        name='password_reset_complete'
+    ),
 
     # languages
     path('i18n/', include('django.conf.urls.i18n')),

@@ -93,3 +93,15 @@ GS_BUCKET_NAME = LIVE_BUCKET_NAME
 # SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 3600
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+from bloodmallet.settings.secrets.secrets import MAILJET_API_KEY, MAILJET_SECRET_KEY
+ANYMAIL = {
+    "MAILJET_API_KEY": MAILJET_API_KEY,
+    "MAILJET_SECRET_KEY": MAILJET_SECRET_KEY,
+}
+
+DEFAULT_FROM_EMAIL = "info@bloodmallet.com"
+SERVER_EMAIL = "info@bloodmallet.com"

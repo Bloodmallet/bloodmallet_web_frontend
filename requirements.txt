@@ -37,3 +37,6 @@ django-cors-headers
 # -e git+https://github.com/Bloodmallet/simc_support.git@9-0-shadowlands#egg=simc_support
 # Testlib
 # -e git+https://github.com/Bloodmallet/bloodytests.git@develop#egg=bloodytests
+
+# sending mails via mailjet
+django-anymail[mailjet]

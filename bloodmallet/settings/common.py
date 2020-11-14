@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'crispy_forms',
     'vinaigrette',
+    'anymail',
     'general_website',
 ]
 

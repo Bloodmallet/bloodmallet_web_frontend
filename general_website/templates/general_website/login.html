@@ -4,14 +4,14 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'login' %}" style="top: 15vh; position: relative;">
+<h2 class="mt-5">{% translate "Login" %}</h2>
+
+<form method="post" action="{% url 'login' %}" style="top: 10vh; position: relative;">
     {% csrf_token %}
     {{ login_form|crispy }}
 
-    {% comment %} Add reset PW link here {% endcomment %}
-
     <button type="submit" class="btn btn-primary">{% translate "Login" %}</button>
-    <small id="dataDisclaimer" class="form-text text-muted">{% translate "I couldn't care less about what you enter. Nothing is shared with others and data is wiped regularly." %}</small>
+    <small class="form-text text-muted"><a href="{% url 'password_reset' %}">{% translate "Dang, I forgot my password." %}</a></small>
 </form>
 
 {% endblock %}
