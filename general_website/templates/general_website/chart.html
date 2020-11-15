@@ -147,6 +147,18 @@
             </div>
         </div>
     </div>
+    <div id="chart_options" class="mt-3 row" hidden>
+        <div class=" col-12 col-md-6">
+            <button class="btn spec-btn {{ chart.wow_class.tokenized_name }}-button active" type="button">
+                {% translate "Soulbinds" %}
+            </button>
+        </div>
+        <div class=" col-12 col-md-6">
+            <button class="btn spec-btn {{ chart.wow_class.tokenized_name }}-button" type="button">
+                {% translate "Nodes" %}
+            </button>
+        </div>
+    </div>
     <div id="value_style_switch" class="form-group form-check text-right" hidden>
         <input type="checkbox" class="form-check-input" id="relative_values">
         <label class="form-check-label text-muted" for="relative_values">{% translate "Use relative values" %}</label>
@@ -187,6 +199,7 @@
 
 <div id="chart" class="bloodmallet_chart" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent" data-value-style="absolute"></div>
 
+<div id="post_chart" class="mt-5" hidden></div>
 
 {% endblock %}
 
