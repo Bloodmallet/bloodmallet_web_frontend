@@ -447,3 +447,11 @@ select::-ms-expand {
     border-bottom: 0;
     border-left: .3em solid transparent;
 }
+
+// style to allow jumping to headlines witout overlap from top menus
+:target::before {
+    content: "";
+    display: block;
+    height: 122px; /* fixed header height, using 122 for double-menus*/
+    margin: -122px 0 0; /* negative fixed header height */
+}
