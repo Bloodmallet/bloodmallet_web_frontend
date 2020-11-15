@@ -516,8 +516,20 @@ function bloodmallet_chart_import() {
       chart.series[0].remove(false);
     }
 
-    let category_list = dps_ordered_keys
-      .map(element => get_category_name(state, element, data));
+    let category_list = undefined;
+    if (data_type === "talents") {
+      category_list = dps_ordered_keys
+        .map(element => {
+          let links = [];
+          for (let i = 0; i < element.length; i++) {
+            links.push(get_category_name(state, (i + 1).toString() + element[i], data));
+          }
+          return links.join("");
+        });
+    } else {
+      category_list = dps_ordered_keys
+        .map(element => get_category_name(state, element, data));
+    }
 
     if (debug) {
       console.log(category_list);
@@ -1095,15 +1107,25 @@ function bloodmallet_chart_import() {
         a.href += "&ilvl=" + ilvl;
       } else if (data.hasOwnProperty("spell_ids") && data["spell_ids"].hasOwnProperty(key)) {
         a.href += "spell=" + data["spell_ids"][key] + '/' + slugify(key);
+      } else if (state.data_type === "talents") {
+        if (key[1] === "0") {
+          return key[1];
+        } else {
+          a.href += "spell=" + data["talent_data"][key[0]][key[1]]["spell_id"];
+        }
       }
-      try {
-        a.appendChild(document.createTextNode(data["translations"][key][language_table[state.language]]));
-      } catch (error) {
+      if (state.data_type === "talents") {
+        a.appendChild(document.createTextNode(key[1]));
+      } else {
         try {
-          a.appendChild(document.createTextNode(data["languages"][key][language_table[state.language]]));
+          a.appendChild(document.createTextNode(data["translations"][key][language_table[state.language]]));
         } catch (error) {
-          a.appendChild(document.createTextNode(key));
-          // console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+          try {
+            a.appendChild(document.createTextNode(data["languages"][key][language_table[state.language]]));
+          } catch (error) {
+            a.appendChild(document.createTextNode(key));
+            // console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+          }
         }
       }
 
