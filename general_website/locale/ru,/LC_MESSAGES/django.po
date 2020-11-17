@@ -187,7 +187,7 @@ msgstr "Адреса электронной почты"
 
 #: general_website/templates/allauth/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr "Следующие e-mail адреса привязаны привязаны к Вашему аккаунту"
+msgstr "Следующие адреса электронной почты привязаны к Вашему аккаунту:"
 
 #: general_website/templates/allauth/account/email.html:24
 msgid "Verified"
@@ -224,7 +224,7 @@ msgid ""
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 "На данный момент у Вас нет приязанного адреса электронной почты. Добавьте"
-"адрес электронной почты чтобы Вы могли получать уведомления, восстановить пароль и т.д."
+"адрес электронной почты, чтобы Вы могли получать уведомления, восстановить пароль и т.д."
 
 #: general_website/templates/allauth/account/email.html:48
 msgid "Add E-mail Address"
@@ -250,10 +250,10 @@ msgid ""
 msgstr ""
 "Привет от %(site_name)s!\n"
 "\n"
-"Вы получили это письмо потому, что %(user_display)s указал этот"
+"Вы получили это письмо, потому что %(user_display)s указал этот"
 "адрес электронной почты для привязки аккаунта.\n"
 "\n"
-"Для подтверждения, перейдите на %(activate_url)s\n"
+"Для подтверждения перейдите на %(activate_url)s\n"
 
 
 #: general_website/templates/allauth/account/email/email_confirmation_message.txt:7
@@ -315,7 +315,7 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Пожалуйста, подтвердите что <a href=\"mailto:%(email)s\">%(email)s</a> это адрес "
+"Пожалуйста, подтвердите, что <a href=\"mailto:%(email)s\">%(email)s</a> это адрес "
 "электронной почты пользователя %(user_display)s."
 
 #: general_website/templates/allauth/account/email_confirm.html:20
@@ -328,7 +328,7 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Эта ссыка на подтверждение истекла или некорректна. Пожалуйста <a href="
+"Эта ссылка на подтверждение истекла или некорректна. Пожалуйста <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 
 #: general_website/templates/allauth/account/login.html:6
@@ -360,7 +360,7 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
-"Если Вы еще не зарегистрировались, то пожалуйста\n"
+"Если Вы еще не зарегистрировались, то, пожалуйста,\n"
 "<a href=\"%(signup_url)s\">создайте аккаунт</a>."
 
 #: general_website/templates/allauth/account/login.html:42
@@ -454,7 +454,7 @@ msgstr "Сбросить пароль"
 
 #: general_website/templates/allauth/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr "Пожалуйста, сообщите нам если у Вас возникли сложности со сбросом пароля"
+msgstr "Пожалуйста, сообщите нам, если у Вас возникли сложности со сбросом пароля"
 
 #: general_website/templates/allauth/account/password_reset_done.html:15
 msgid ""
@@ -475,7 +475,7 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
-"Ссылка на восстановление пароля повреждена, возможно потому что уже "
+"Ссылка на восстановление пароля повреждена, возможно, она уже "
 "использовалась. Пожалуйста, заново запросите <a href=\"%(passwd_reset_url)s\">восстановление пароля</"
 "a>."
 
@@ -616,7 +616,7 @@ msgid ""
 "\">sign in</a>."
 msgstr ""
 "Вы решили отменить вход на наш сайт с помощью ваших существующих "
-"аккаунтов. Если это произошло по ошибке, пожалуйста перейдите на <a href=\"%(login_url)s"
+"аккаунтов. Если это произошло по ошибке, пожалуйста, перейдите на <a href=\"%(login_url)s"
 "\">вход</a>."
 
 #: general_website/templates/allauth/socialaccount/messages/account_connected.txt:2
@@ -638,7 +638,7 @@ msgid ""
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
 "Вы собираетесь использовать Ваш аккаунт %(provider_name)s для входа на\n"
-"%(site_name)s. Это финальный шаг, пожалуйста заполните следующий раздел:"
+"%(site_name)s. Это финальный шаг, пожалуйста, заполните следующий раздел:"
 
 #: general_website/templates/general_website/about.html:10
 #: general_website/templates/general_website/layout/nav_bottom.html:56
@@ -803,7 +803,7 @@ msgid ""
 "For indepth information about your spec use your theorycrafters guides.\n"
 msgstr ""
 "\n"
-"Для углубленной информации обратитесь к гайдам теорикрафтеров на Вашу специализацию.\n"
+"Для углубленной информации обратитесь к гайдам теорикрафтеров на Вашей специализации.\n"
 
 #: general_website/templates/general_website/index.html:59
 msgid "Warning"
@@ -826,7 +826,7 @@ msgstr ""
 "предоставляют информацию специально под Вашего персонажа.<br/><br/>\n"
 "\n"
 "    <a href=\"https://github.com/simulationcraft/simc\">SimulationCraft</a> "
-"являет открытым проектом и всегда готов принять Вашу помощь.\n"
+"является открытым проектом и всегда готов принять Вашу помощь.\n"
 "    "
 
 #: general_website/templates/general_website/index.html:86
@@ -940,7 +940,7 @@ msgstr "Профиль"
 
 #: general_website/templates/general_website/layout/nav_settings.html:28
 msgid "Connections"
-msgstr ""
+msgstr "Привязки"
 
 #: general_website/templates/general_website/layout/nav_top.html:21
 #: general_website/templates/general_website/my_charts.html:9
@@ -978,7 +978,7 @@ msgid ""
 "I couldn't care less about what you enter. Nothing is shared with others and "
 "data is wiped regularly."
 msgstr ""
-"Нас не интересуют Ваши данные. Мы ничего не распространяем и "
+"Нас не интересуют Ваши данные. Мы ничего не распространяем, и "
 "вся информация регулярно удаляется."
 
 #: general_website/templates/general_website/my_charts.html:12
@@ -987,7 +987,7 @@ msgstr "Список моих отчетов"
 
 #: general_website/templates/general_website/my_charts.html:15
 msgid "You can free up slots by deleting charts."
-msgstr "Вы можете освободить слоты удалив отчеты"
+msgstr "Вы можете освободить слоты, удалив отчеты"
 
 #: general_website/templates/general_website/my_charts.html:24
 msgid "New Chart"
@@ -1064,17 +1064,18 @@ msgid ""
 "them. Let me know about more fixed position portals. This list is NOT "
 "intended to include teleporting items or skills."
 msgstr ""
-"Вы когда нибудь задумывались, какие порталы существую в игре? Я тоже. Вот их "
+"Вы когда-нибудь задумывались, какие порталы существую в игре? Я тоже. Вот их "
 "список. Сообщите мне о других фиксированных порталах. Этот список НЕ включает "
 "в себя вещи или способности с возможностью телепортации."
-
 
 
 #: general_website/templates/general_website/portals.html:15
 msgid ""
 "And of course Blizzard nuked portals the moment I started building this "
 "page. I'm sorry."
-msgstr "Прошу прощения"
+msgstr ""
+"И, конечное же, Blizzard избававились от порталов, как только я принялся "
+делать эту страницу. Прошу прощения"
 
 #: general_website/templates/general_website/portals.html:32
 msgid "Target"
@@ -1165,7 +1166,7 @@ msgstr ""
 "><br/>\n"
 "\n"
 "Эти Условия и положения могут и будут изменены без дальнейших уведомлений "
-"Если у Вас есть вопросы, пожалуйста свяжитесь с нами перейдя в этот <a "
+"Если у Вас есть вопросы, пожалуйста свяжитесь с нами, перейдя в этот <a "
 "href=\"%(about)s\">раздел</a>.\n"
 
 #: general_website/views/account.py:40
@@ -1302,7 +1303,7 @@ msgstr "Озаренный дреней"
 
 #: general_website.Race/tokenized_name:10
 msgid "dark_iron_dwarf"
-msgstr "Озаренный дреней"
+msgstr "Дворфы из клана Черного Железа"
 
 #: general_website.Race/tokenized_name:11
 msgid "kul_tiran"
@@ -1498,7 +1499,7 @@ msgstr "Ликвидация"
 
 #: general_website.WowSpec/tokenized_name:21
 msgid "outlaw"
-msgstr "Головорец"
+msgstr "Головорез"
 
 #: general_website.WowSpec/tokenized_name:22
 msgid "subtlety"
