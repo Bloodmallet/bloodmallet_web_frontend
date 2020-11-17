@@ -803,7 +803,7 @@ msgid ""
 "For indepth information about your spec use your theorycrafters guides.\n"
 msgstr ""
 "\n"
-"Для углубленной информации обратитесь к гайдам теорикрафтеров на Вашей специализации.\n"
+"Для углубленной информации обратитесь к гайдам теорикрафтеров Вашей специализации.\n"
 
 #: general_website/templates/general_website/index.html:59
 msgid "Warning"
