@@ -6,7 +6,7 @@ start_location=`pwd`
 
 echo -n "Starting virtual environment"
 # Activate virtual env (here could be a list search that looks for env, venv and .env instead)
-. ./env/bin/activate
+. ~/envs/django_bloodmallet/bin/activate
 echo -e "    \e[32mDone\e[0m"
 
 echo -n "Preparing Styles"
