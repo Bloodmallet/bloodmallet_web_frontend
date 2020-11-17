@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: general_website/forms.py:72
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-15 16:47+0000\n"
+"POT-Creation-Date: 2020-10-28 21:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,179 +20,116 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: bloodmallet/settings/common.py:122
+
+#: bloodmallet/settings/common.py:121
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
+
+#: bloodmallet/settings/common.py:122
+msgid "English"
+msgstr "Английский"
 
 #: bloodmallet/settings/common.py:123
-msgid "English"
-msgstr ""
+msgid "Spanish"
+msgstr "Испанский"
 
 #: bloodmallet/settings/common.py:124
-msgid "Spanish"
-msgstr ""
+msgid "French"
+msgstr "Французский"
 
 #: bloodmallet/settings/common.py:125
-msgid "French"
-msgstr ""
+msgid "Italian"
+msgstr "Итальянский"
 
 #: bloodmallet/settings/common.py:126
-msgid "Italian"
-msgstr ""
+msgid "Korean"
+msgstr "Корейский"
 
 #: bloodmallet/settings/common.py:127
-msgid "Korean"
-msgstr ""
+msgid "Portuguese (Brazil)"
+msgstr "Португальский (Бразильский)"
 
 #: bloodmallet/settings/common.py:128
-msgid "Portuguese (Brazil)"
-msgstr ""
+msgid "Russian"
+msgstr "Русский"
 
 #: bloodmallet/settings/common.py:129
-msgid "Russian"
-msgstr ""
-
-#: bloodmallet/settings/common.py:130
 msgid "Chinese"
-msgstr ""
+msgstr "Китайский"
 
 #: compute_api/models.py:18
 msgid "booting up"
-msgstr ""
+msgstr "загрузка"
 
 #: compute_api/models.py:19
 msgid "idle"
-msgstr ""
+msgstr "ожидание"
 
 #: compute_api/models.py:20
 msgid "calculating"
-msgstr ""
+msgstr "расчет"
 
 #: compute_api/models.py:21 general_website/models/simulation.py:94
 msgid "done"
-msgstr ""
+msgstr "выполнено"
 
 #: compute_api/templates/compute_api/index.html:71
 #: compute_api/templates/compute_api/index.html:88
 msgid "Generation in progress"
-msgstr ""
+msgstr "Идет генерация"
 
 #: compute_api/templates/compute_api/index.html:108
 msgid "Deleting ALL instances"
-msgstr ""
+msgstr "Удалить ВСЕ примеры"
+
+#: general_website/forms.py:56
+msgid "Auto-remove oldest chart"
+msgstr "Авто-удаление самого старого отчета"
 
 #: general_website/forms.py:57
-msgid "Auto-remove oldest chart"
-msgstr ""
-
-#: general_website/forms.py:58
 msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
 msgstr ""
+"Если у Вас закончились слоты, включите эту настройку для автоматического удаления
+"самого старого отчета"
 
-#: general_website/forms.py:62
-msgid "45 seconds"
-msgstr ""
-
-#: general_website/forms.py:63
-msgid "1 minute"
-msgstr ""
-
-#: general_website/forms.py:64
-msgid "1 minute and 30 seconds"
-msgstr ""
-
-#: general_website/forms.py:65
-msgid "2 minutes"
-msgstr ""
-
-#: general_website/forms.py:66
-msgid "3 minutes"
-msgstr ""
-
-#: general_website/forms.py:67
-msgid "5 minutes"
-msgstr ""
-
-#: general_website/forms.py:68
-msgid "7 minutes"
-msgstr ""
-
-#: general_website/forms.py:69
-msgid "10 minutes"
-msgstr ""
-
-#: general_website/forms.py:72
-msgid "Fight Length"
-msgstr ""
-
-#: general_website/forms.py:74
-msgid "Boss"
-msgstr ""
-
-#: general_website/forms.py:75
-msgid "Bosses"
-msgstr ""
-
-#: general_website/forms.py:90
-msgid "Boss count"
-msgstr ""
-
-#: general_website/forms.py:126
-msgid "Advanced"
-msgstr ""
-
-#: general_website/forms.py:150
+#: general_website/forms.py:94
 msgid "Paste your /simc output into this element."
-msgstr ""
+msgstr "Вставьте в эту область Ваш текст /simc"
 
-#: general_website/forms.py:154 general_website/forms.py:184
+#: general_website/forms.py:98
 msgid "Create Chart"
-msgstr ""
-
-#: general_website/forms.py:162
-#: general_website/templates/general_website/chart.html:123
-msgid "Fight style"
-msgstr ""
-
-#: general_website/forms.py:174
-msgid "APL"
-msgstr ""
-
-#: general_website/forms.py:194 general_website/forms.py:202
-#: general_website/forms.py:210
-msgid "An illegal input was detected."
-msgstr ""
+msgstr "Создать отчет"
 
 #: general_website/models/account.py:59
 msgid "Patron UUID"
-msgstr ""
+msgstr "UUID аккаунта Patreon"
 
 #: general_website/models/account.py:61
 msgid "Patron Name"
-msgstr ""
+msgstr "Имя Patreon"
 
 #: general_website/models/account.py:63
 msgid "Patron Tier"
-msgstr ""
+msgstr "Уровень Patreon"
 
 #: general_website/models/account.py:65
 msgid "Is a recognized guide writer"
-msgstr ""
+msgstr "Является автором гайдов"
 
 #: general_website/models/account.py:67
 msgid "Is a SimulationCraft developer"
-msgstr ""
+msgstr "Является разработчиком SimulationCraft"
 
 #: general_website/models/dynamic_config.py:27
 #: general_website/models/dynamic_config.py:29
 msgid "Broadcast will be shown from start_at to end_at."
-msgstr ""
+msgstr "Оповещение будет показано со start_at до end_at"
 
 #: general_website/models/simulation.py:51
 msgid "Name of the chart"
-msgstr ""
+msgstr "Имя отчета"
 
 #: general_website/models/simulation.py:56
 msgid ""
@@ -202,102 +138,109 @@ msgid ""
 "mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
+"Укажите здесь Вашего персонажа, чей профиль будет использоваться вместо
+стандартного. Вставьте результат <a href=\"https://"
+"mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
+"\">SimulationCraft</a> /simc в эту область."
+
 
 #: general_website/models/simulation.py:59
 msgid "Define your own fight_style."
-msgstr ""
+msgstr "Укажите необходимый fight_style"
 
 #: general_website/models/simulation.py:61
 msgid "Define your characters APL."
-msgstr ""
+msgstr "Укажите APL Ваших персонажей"
 
 #: general_website/models/simulation.py:92
 msgid "pending"
-msgstr ""
+msgstr "ожидание"
 
 #: general_website/models/simulation.py:93
 msgid "in progress"
-msgstr ""
+msgstr "в процессе"
 
 #: general_website/models/simulation.py:95
 msgid "error"
-msgstr ""
+msgstr "ошибка"
 
 #: general_website/models/world_of_warcraft.py:102
 msgid "Name of the simulation type. Like 'trinket simulations'."
-msgstr ""
+msgstr "Название симуляции. Например `сим аксессуаров`."
 
 #: general_website/models/world_of_warcraft.py:108
 msgid "Removes SimulationType from being generated."
-msgstr ""
+msgstr "Удалить SimulationType из генерации"
 
 #: general_website/templates/allauth/account/account_inactive.html:5
 #: general_website/templates/allauth/account/account_inactive.html:8
 msgid "Account Inactive"
-msgstr ""
+msgstr "Аккаунт не активен"
 
 #: general_website/templates/allauth/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr ""
+msgstr "Этот аккаунт не активен"
 
 #: general_website/templates/allauth/account/email.html:5
 msgid "Account"
-msgstr ""
+msgstr "Аккаунт"
 
 #: general_website/templates/allauth/account/email.html:8
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "Адреса электронной почты"
 
 #: general_website/templates/allauth/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Следующие адреса электронной почты привязаны к Вашему аккаунту:"
 
 #: general_website/templates/allauth/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Подтвержденный"
 
 #: general_website/templates/allauth/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Не подтвержденный"
 
 #: general_website/templates/allauth/account/email.html:28
 msgid "Primary"
-msgstr ""
+msgstr "Основной"
 
 #: general_website/templates/allauth/account/email.html:34
 msgid "Make Primary"
-msgstr ""
+msgstr "Сделать основным"
 
 #: general_website/templates/allauth/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Отправить повторно"
 
 #: general_website/templates/allauth/account/email.html:36
 #: general_website/templates/allauth/socialaccount/connections.html:35
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: general_website/templates/allauth/account/email.html:43
 msgid "Warning:"
-msgstr ""
+msgstr "Предупреждение"
 
 #: general_website/templates/allauth/account/email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
+"На данный момент у Вас нет приязанного адреса электронной почты. Добавьте"
+"адрес электронной почты, чтобы Вы могли получать уведомления, восстановить пароль и т.д."
 
 #: general_website/templates/allauth/account/email.html:48
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "Добавить адрес электронной почты"
 
 #: general_website/templates/allauth/account/email.html:53
 msgid "Add E-mail"
-msgstr ""
+msgstr "Добавить E-mail"
 
 #: general_website/templates/allauth/account/email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Вы действительно хотите удалить выбранный адрес электронной почты?"
 
 #: general_website/templates/allauth/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -309,6 +252,13 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
+"Привет от %(site_name)s!\n"
+"\n"
+"Вы получили это письмо, потому что %(user_display)s указал этот"
+"адрес электронной почты для привязки аккаунта.\n"
+"\n"
+"Для подтверждения перейдите на %(activate_url)s\n"
+
 
 #: general_website/templates/allauth/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -316,10 +266,12 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Спасибо Вам от %(site_name)s!\n"
+"%(site_domain)s"
 
 #: general_website/templates/allauth/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr ""
+msgstr "Пожалуйста, подтвердите Ваш адрес электронной почты"
 
 #: general_website/templates/allauth/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -331,11 +283,17 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
+"Привет от %(site_name)s!\n"
+"\n"
+"Вы получили это пиьсмо, потому что кто-то запросил"
+"пароль для Вашего аккаунта.\n"
+"Если запрос отправили не Вы, то просто проигнорируйте это письмо. Или перейдите по"
+"ссылке ниже для восстановления пароля."
 
 #: general_website/templates/allauth/account/email/password_reset_key_message.txt:8
 #, python-format
 msgid "In case you forgot, your username is %(username)s."
-msgstr ""
+msgstr "На случай если Вы забыли, Ваше имя пользователя %(username)s."
 
 #: general_website/templates/allauth/account/email/password_reset_key_message.txt:10
 #, python-format
@@ -343,15 +301,17 @@ msgid ""
 "Thank you for using %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Спасибо за использование %(site_name)s!\n"
+"%(site_domain)s"
 
 #: general_website/templates/allauth/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr ""
+msgstr "Сбросить пароль"
 
 #: general_website/templates/allauth/account/email_confirm.html:6
 #: general_website/templates/allauth/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
-msgstr ""
+msgstr "Подтвердить адрес электронной почты"
 
 #: general_website/templates/allauth/account/email_confirm.html:16
 #, python-format
@@ -359,10 +319,12 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
+"Пожалуйста, подтвердите, что <a href=\"mailto:%(email)s\">%(email)s</a> это адрес "
+"электронной почты пользователя %(user_display)s."
 
 #: general_website/templates/allauth/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Подтвердить"
 
 #: general_website/templates/allauth/account/email_confirm.html:27
 #, python-format
@@ -370,12 +332,14 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
 "\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
+"Эта ссылка на подтверждение истекла или некорректна. Пожалуйста <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 
 #: general_website/templates/allauth/account/login.html:6
 #: general_website/templates/allauth/account/login.html:10
 #: general_website/templates/allauth/account/login.html:43
 msgid "Sign In"
-msgstr ""
+msgstr "Войти"
 
 #: general_website/templates/allauth/account/login.html:15
 #, python-format
@@ -385,10 +349,14 @@ msgid ""
 "up</a>\n"
 "for a %(site_name)s account and sign in below:"
 msgstr ""
+"Пожалуйста, войдите с помощью одного из \n"
+"Ваших сторонних аккаунтов. Или <a href=\"%(signup_url)s\">войдите "
+"</a>\n"
+"через %(site_name)s аккаунт::"
 
 #: general_website/templates/allauth/account/login.html:25
 msgid "or"
-msgstr ""
+msgstr "или"
 
 #: general_website/templates/allauth/account/login.html:32
 #, python-format
@@ -396,65 +364,67 @@ msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
+"Если Вы еще не зарегистрировались, то, пожалуйста,\n"
+"<a href=\"%(signup_url)s\">создайте аккаунт</a>."
 
 #: general_website/templates/allauth/account/login.html:42
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: general_website/templates/allauth/account/logout.html:5
 #: general_website/templates/allauth/account/logout.html:8
 #: general_website/templates/allauth/account/logout.html:17
 msgid "Sign Out"
-msgstr ""
+msgstr "Выйти"
 
 #: general_website/templates/allauth/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Вы уверены, что хотите выйти из аккаунта?"
 
 #: general_website/templates/allauth/account/messages/cannot_delete_primary_email.txt:2
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)."
-msgstr ""
+msgstr "Вы не можете удалить Ваш основной адрес электронной почты (%(email)s)"
 
 #: general_website/templates/allauth/account/messages/email_confirmation_sent.txt:2
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s."
-msgstr ""
+msgstr "Подтверждение адреса электронной почты отправлено на %(email)s."
 
 #: general_website/templates/allauth/account/messages/email_confirmed.txt:2
 #, python-format
 msgid "You have confirmed %(email)s."
-msgstr ""
+msgstr "Вы подтвердили %(email)s."
 
 #: general_website/templates/allauth/account/messages/email_deleted.txt:2
 #, python-format
 msgid "Removed e-mail address %(email)s."
-msgstr ""
+msgstr "Удален адрес электронной почты %(email)s."
 
 #: general_website/templates/allauth/account/messages/logged_in.txt:4
 #, python-format
 msgid "Successfully signed in as %(name)s."
-msgstr ""
+msgstr "Успешный вход как %(name)s."
 
 #: general_website/templates/allauth/account/messages/logged_out.txt:2
 msgid "You have signed out."
-msgstr ""
+msgstr "Вы вышли из аккаунта"
 
 #: general_website/templates/allauth/account/messages/password_changed.txt:2
 msgid "Password successfully changed."
-msgstr ""
+msgstr "Пароль успешно изменен"
 
 #: general_website/templates/allauth/account/messages/password_set.txt:2
 msgid "Password successfully set."
-msgstr ""
+msgstr "Пароль успешно установлен"
 
 #: general_website/templates/allauth/account/messages/primary_email_set.txt:2
 msgid "Primary e-mail address set."
-msgstr ""
+msgstr "Основной адрес электронной почты установлен"
 
 #: general_website/templates/allauth/account/messages/unverified_primary_email.txt:2
 msgid "Your primary e-mail address must be verified."
-msgstr ""
+msgstr "Ваш основной адрес электронной почты должен быть подтвержден"
 
 #: general_website/templates/allauth/account/password_change.html:5
 #: general_website/templates/allauth/account/password_change.html:8
@@ -465,38 +435,42 @@ msgstr ""
 #: general_website/templates/allauth/account/password_reset_from_key_done.html:7
 #: general_website/templates/general_website/profile.html:30
 msgid "Change Password"
-msgstr ""
+msgstr "Сменить пароль"
 
 #: general_website/templates/allauth/account/password_reset.html:6
 #: general_website/templates/allauth/account/password_reset.html:10
 #: general_website/templates/allauth/account/password_reset_done.html:6
 #: general_website/templates/allauth/account/password_reset_done.html:9
 msgid "Password Reset"
-msgstr ""
+msgstr "Пароль сброшен"
 
 #: general_website/templates/allauth/account/password_reset.html:15
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
+"Забыли пароль? Введите свой адрес электронной почты, и мы отправим "
+"Вам письмо для восстановления."
 
 #: general_website/templates/allauth/account/password_reset.html:20
 msgid "Reset My Password"
-msgstr ""
+msgstr "Сбросить пароль"
 
 #: general_website/templates/allauth/account/password_reset.html:23
 msgid "Please contact us if you have any trouble resetting your password."
-msgstr ""
+msgstr "Пожалуйста, сообщите нам, если у Вас возникли сложности со сбросом пароля"
 
 #: general_website/templates/allauth/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
+"Мы отправили вам электронное письмо. Пожалуйста, сообщите нам, если Вы "
+"его не получили в течение нескольких минут"
 
 #: general_website/templates/allauth/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr ""
+msgstr "Некорректный ключ"
 
 #: general_website/templates/allauth/account/password_reset_from_key.html:11
 #, python-format
@@ -505,64 +479,67 @@ msgid ""
 "used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
 "a>."
 msgstr ""
+"Ссылка на восстановление пароля повреждена, возможно, она уже "
+"использовалась. Пожалуйста, заново запросите <a href=\"%(passwd_reset_url)s\">восстановление пароля</"
+"a>."
 
 #: general_website/templates/allauth/account/password_reset_from_key.html:17
 msgid "change password"
-msgstr ""
+msgstr "сменить пароль"
 
 #: general_website/templates/allauth/account/password_reset_from_key.html:20
 #: general_website/templates/allauth/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Ваш пароль успешно изменен"
 
 #: general_website/templates/allauth/account/password_set.html:5
 #: general_website/templates/allauth/account/password_set.html:8
 #: general_website/templates/allauth/account/password_set.html:13
 msgid "Set Password"
-msgstr ""
+msgstr "Установить пароль"
 
 #: general_website/templates/allauth/account/signup.html:5
 #: general_website/templates/allauth/socialaccount/signup.html:5
 msgid "Signup"
-msgstr ""
+msgstr "Регистрация"
 
 #: general_website/templates/allauth/account/signup.html:8
 #: general_website/templates/allauth/account/signup.html:18
 #: general_website/templates/allauth/socialaccount/signup.html:8
 #: general_website/templates/allauth/socialaccount/signup.html:19
 msgid "Sign Up"
-msgstr ""
+msgstr "Регистрация"
 
 #: general_website/templates/allauth/account/signup.html:10
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
-msgstr ""
+msgstr "У Вас уже есть аккаунт? Пожалуйста, <a href=\"%(login_url)s\">зайдите</a>."
 
 #: general_website/templates/allauth/account/signup_closed.html:5
 #: general_website/templates/allauth/account/signup_closed.html:8
 msgid "Sign Up Closed"
-msgstr ""
+msgstr "Регистрация закрыта"
 
 #: general_website/templates/allauth/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
-msgstr ""
+msgstr "Мы приносим свои извинения, но регистрация сейчас закрыта"
 
 #: general_website/templates/allauth/account/snippets/already_logged_in.html:5
 msgid "Note"
-msgstr ""
+msgstr "Заметка"
 
 #: general_website/templates/allauth/account/snippets/already_logged_in.html:5
 #, python-format
 msgid "you are already logged in as %(user_display)s."
-msgstr ""
+msgstr "вы уже зашли как %(user_display)s."
 
 #: general_website/templates/allauth/account/verification_sent.html:5
 #: general_website/templates/allauth/account/verification_sent.html:8
 #: general_website/templates/allauth/account/verified_email_required.html:5
 #: general_website/templates/allauth/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr ""
+msgstr "Подтвердите Ваш адрес электронной почты "
 
 #: general_website/templates/allauth/account/verification_sent.html:10
 msgid ""
@@ -570,6 +547,9 @@ msgid ""
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
+"Мы отправили Вам электронное письмо для подтверждения. Перейдите по ссылке "
+"для завершения регистрации. Пожалуйста, сообщите нам, если Вы "
+"её не получили в течение нескольких минут."
 
 #: general_website/templates/allauth/account/verified_email_required.html:12
 msgid ""
@@ -577,6 +557,9 @@ msgid ""
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
+"Эта часть сайта доступна только после подтверждения вашего\n"
+"адреса электронной почты. Пожалуйста, подтвердите\n"
+"свой адрес электронной почты для продолжения. "
 
 #: general_website/templates/allauth/account/verified_email_required.html:16
 msgid ""
@@ -584,6 +567,9 @@ msgid ""
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
+"Мы отправили подтверждение на Ваш адрес электронной почты.\n"
+"Перейдите по ссылке в письме для продолжения. Пожалуйста, сообщите нам, если Вы "
+"не получили письмо в течение нескольких минут."
 
 #: general_website/templates/allauth/account/verified_email_required.html:20
 #, python-format
@@ -591,38 +577,40 @@ msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
+"<strong>Важно:</strong> Вы все еще можете <a href=\"%(email_url)s\">сменить Ваш"
+"адрес электронной почты</a>."
 
 #: general_website/templates/allauth/socialaccount/authentication_error.html:5
 #: general_website/templates/allauth/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr ""
+msgstr "Неудачная попытка подключения к аккаунту социальной сети."
 
 #: general_website/templates/allauth/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "Обнаружена ошибка при попытке подключения аккаунта социальной сети"
 
 #: general_website/templates/allauth/socialaccount/connections.html:5
 #: general_website/templates/allauth/socialaccount/connections.html:8
 msgid "Account Connections"
-msgstr ""
+msgstr "Связи с аккаунтом"
 
 #: general_website/templates/allauth/socialaccount/connections.html:11
 msgid "Your account is connected to the following 3rd Party Accounts:"
-msgstr ""
+msgstr "Ваш аккаунт подключен к следующим сторонним аккаунтам:"
 
 #: general_website/templates/allauth/socialaccount/connections.html:41
 msgid "You currently have no 3rd Party Accounts connected to this account."
-msgstr ""
+msgstr "К Вашему аккаунту не подключены никакие сторонние аккаунты."
 
 #: general_website/templates/allauth/socialaccount/connections.html:46
 msgid "Add a 3rd Party Account"
-msgstr ""
+msgstr "Подключить сторонний аккаунт."
 
 #: general_website/templates/allauth/socialaccount/login_cancelled.html:5
 #: general_website/templates/allauth/socialaccount/login_cancelled.html:9
 msgid "Login Cancelled"
-msgstr ""
+msgstr "Вход отменен"
 
 #: general_website/templates/allauth/socialaccount/login_cancelled.html:13
 #, python-format
@@ -631,18 +619,21 @@ msgid ""
 "accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
 "\">sign in</a>."
 msgstr ""
+"Вы решили отменить вход на наш сайт с помощью ваших существующих "
+"аккаунтов. Если это произошло по ошибке, пожалуйста, перейдите на <a href=\"%(login_url)s"
+"\">вход</a>."
 
 #: general_website/templates/allauth/socialaccount/messages/account_connected.txt:2
 msgid "The social account has been connected."
-msgstr ""
+msgstr "Аккаунт социальной сети был подключен"
 
 #: general_website/templates/allauth/socialaccount/messages/account_connected_other.txt:2
 msgid "The social account is already connected to a different account."
-msgstr ""
+msgstr "Этот аккаунт социальной сети уже подключен к другому аккаунту."
 
 #: general_website/templates/allauth/socialaccount/messages/account_disconnected.txt:2
 msgid "The social account has been disconnected."
-msgstr ""
+msgstr "Социальный аккаунт был отключен."
 
 #: general_website/templates/allauth/socialaccount/signup.html:10
 #, python-format
@@ -650,185 +641,115 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr ""
+"Вы собираетесь использовать Ваш аккаунт %(provider_name)s для входа на\n"
+"%(site_name)s. Это финальный шаг, пожалуйста, заполните следующий раздел:"
 
 #: general_website/templates/general_website/about.html:10
 #: general_website/templates/general_website/layout/nav_bottom.html:56
 msgid "About"
-msgstr ""
+msgstr "Подробнее"
 
 #: general_website/templates/general_website/about.html:12
 msgid "Operating Company"
-msgstr ""
+msgstr "Управляющая компания"
 
 #: general_website/templates/general_website/about.html:17
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: general_website/templates/general_website/about.html:23
 msgid "Director"
-msgstr ""
+msgstr "Директор"
 
 #: general_website/templates/general_website/about.html:28
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: general_website/templates/general_website/about.html:33
 msgid "Commercial Register"
-msgstr ""
+msgstr "Коммерческий регистр"
 
 #: general_website/templates/general_website/about.html:38
 msgid "Banking Information"
-msgstr ""
+msgstr "Информация о банке"
 
-#: general_website/templates/general_website/chart.html:29
+#: general_website/templates/general_website/chart.html:9
 msgid "bloodmallet"
-msgstr ""
+msgstr "bloodmallet"
+
+#: general_website/templates/general_website/chart.html:21
+msgid "Character profile"
+msgstr "Профиль персонажа"
 
 #: general_website/templates/general_website/chart.html:41
-msgid "Character profile"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:61
 msgid "Covenant"
-msgstr ""
+msgstr "Ковенант"
 
-#: general_website/templates/general_website/chart.html:67
+#: general_website/templates/general_website/chart.html:47
 msgid "Soulbind"
-msgstr ""
+msgstr "Медиум"
 
-#: general_website/templates/general_website/chart.html:114
+#: general_website/templates/general_website/chart.html:94
 msgid "SimulationCraft settings"
-msgstr ""
+msgstr "Настройки SimulationCraft"
 
-#: general_website/templates/general_website/chart.html:127
+#: general_website/templates/general_website/chart.html:103
+msgid "Fight style"
+msgstr "Тип боя"
+
+#: general_website/templates/general_website/chart.html:107
 msgid "Iterations"
-msgstr ""
+msgstr "Итерации"
 
-#: general_website/templates/general_website/chart.html:131
+#: general_website/templates/general_website/chart.html:111
 msgid "PTR"
-msgstr ""
+msgstr "PTR"
 
-#: general_website/templates/general_website/chart.html:135
+#: general_website/templates/general_website/chart.html:115
 msgid "SimulationCraft Hash"
-msgstr ""
+msgstr "Хэш SimulationCraft"
 
-#: general_website/templates/general_website/chart.html:139
+#: general_website/templates/general_website/chart.html:119
 msgid "Target Error"
-msgstr ""
+msgstr "Ошибка цели"
 
-#: general_website/templates/general_website/chart.html:143
+#: general_website/templates/general_website/chart.html:123
 msgid "Base profile"
-msgstr ""
+msgstr "Базовый профиль"
 
-#: general_website/templates/general_website/chart.html:169
-#: general_website/templates/general_website/index.html:89
-#: general_website.SimulationType/name:12
-msgid "Soulbinds"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:175
-msgid "Nodes/Conduits"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:184
-msgid "Kyrian"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:190
-msgid "Necrolord"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:196
-msgid "Night Fae"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:202
-msgid "Venthyr"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:209
-msgid "Use relative values"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:212
-msgid "Disclaimer"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:213
-msgid "Talent simulations are quite fragile for the following reasons:"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:215
-msgid "Not all talent combinations might be equally supported by the APL."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:216
-msgid "Not all Fight styles might be supported equally."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:217
-msgid ""
-"Secondary stats aren't changed during simulation, but some talents might "
-"favor a different distribution."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:218
-msgid ""
-"Different Covenants might synergize with talents differently, but aren't "
-"changed during simulation."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:219
-msgid "Soulbinds might affect talents, but aren't changed during simulation."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:220
-msgid ""
-"Legendaries might support specific talents. So consider your result "
-"legendary specific."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:221
-msgid ""
-"Conduits might affect the worth of talents. But yet again Conduits aren't "
-"changed during this simulation."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:226
+#: general_website/templates/general_website/chart.html:134
 msgid "All values in this table are gains."
-msgstr ""
+msgstr "Все значения в этой таблице это выгода."
 
 #: general_website/templates/general_website/create_chart.html:7
 msgid "Create a Chart"
-msgstr ""
+msgstr "Создать Отчет"
 
-#: general_website/templates/general_website/create_chart.html:12
-#, python-format
+#: general_website/templates/general_website/create_chart.html:10
+msgid "You lack permission to create charts."
+msgstr "У Вас нет разрешения создавать отчеты."
+
+#: general_website/templates/general_website/create_chart.html:16
 msgid ""
-"\n"
-"    You lack permission to create charts. Head to <a href="
-"\"%(connection_settings)s\">your settings</a> to connect your account with "
-"your patreon-account.\n"
-"    "
+"Almost all comments will be removed. Chart creation will take a while (stuff "
+"needs to be simulated)."
 msgstr ""
-
-#: general_website/templates/general_website/create_chart.html:21
-msgid "Chart creation will take a while (stuff needs to be simulated)."
-msgstr ""
+"Практически все комментарии будут удалены. Создание отчета займет некоторое время (просчет "
+"всяких штук)."
 
 #: general_website/templates/general_website/error.html:13
 msgid "Unknown error"
-msgstr ""
+msgstr "Неизвестная ошибка"
 
 #: general_website/templates/general_website/faq.html:20
-#: general_website/templates/general_website/layout/base.html:17
+#: general_website/templates/general_website/layout/base.html:15
 msgid "Become a Patron"
-msgstr ""
+msgstr "Подпишитесь на Patreon"
 
 #: general_website/templates/general_website/faq.html:116
 #: general_website/templates/general_website/privacy_policy.html:26
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Аналитика"
 
 #: general_website/templates/general_website/faq.html:118
 msgid ""
@@ -840,18 +761,25 @@ msgid ""
 "reject this. Your choice will be saved on your device in a cookie.\n"
 "        "
 msgstr ""
+"\n"
+"        bloodmallet.com хотел бы использовать <a href=\"https://support.google."
+"com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Аналитику (GA)</a>, "
+"чтобы узнать, как много людей используют этот сайт. Вы можете либо принять, "
+"либо отклонить это предложение. Ваш выбор будет сохранен на вашем устройстве в файле cookie.\n"
+"        "
 
 #: general_website/templates/general_website/faq.html:123
-#: general_website/templates/general_website/layout/base.html:67
+#: general_website/templates/general_website/layout/base.html:64
 #: general_website/templates/general_website/privacy_policy.html:33
 msgid "Accept GA tracking"
-msgstr ""
+msgstr "Принять сбор статистики для GA"
 
 #: general_website/templates/general_website/faq.html:124
-#: general_website/templates/general_website/layout/base.html:68
+#: general_website/templates/general_website/layout/base.html:65
 #: general_website/templates/general_website/privacy_policy.html:34
 msgid "Reject GA tracking"
-msgstr ""
+msgstr "Отклонить сбор статистики для GA"
 
 #: general_website/templates/general_website/index.html:42
 msgid ""
@@ -864,16 +792,26 @@ msgid ""
 "own charts by becoming a <a href=\"https://www.patreon.com/bloodmallet"
 "\">Patreon</a>.</span>\n"
 msgstr ""
+"\n"
+"Этот сайт предоставляет расчеты многих аспектов практически для "
+"всех специализаций в World of Warcraft\n"
+"используя <a href=\"http://www.simulationcraft.org/\">SimulationCraft</a>. Эти "
+"обзоры\n"
+"подходят для общего ознакомления. <span class=\"monk-color\">Вы также можете создавать свои "
+"собственные отчеты, подписавшись на <a href=\"https://www.patreon.com/bloodmallet"
+"\">Patreon</a>.</span>\n"
 
 #: general_website/templates/general_website/index.html:49
 msgid ""
 "\n"
 "For indepth information about your spec use your theorycrafters guides.\n"
 msgstr ""
+"\n"
+"Для углубленной информации обратитесь к гайдам теорикрафтеров Вашей специализации.\n"
 
 #: general_website/templates/general_website/index.html:59
 msgid "Warning"
-msgstr ""
+msgstr "Предупреждение"
 
 #: general_website/templates/general_website/index.html:61
 msgid ""
@@ -886,294 +824,243 @@ msgid ""
 "is an open source project and is always looking for help.\n"
 "    "
 msgstr ""
+"\n"
+"    Симуляции препатча (50 уровень) не совсем корректны.<br/>\n"
+"    Симуляции для 60 уровня на данный момент доступны только подписчикам Patreon и "
+"предоставляют информацию специально под Вашего персонажа.<br/><br/>\n"
+"\n"
+"    <a href=\"https://github.com/simulationcraft/simc\">SimulationCraft</a> "
+"является открытым проектом и всегда готов принять Вашу помощь.\n"
+"    "
 
 #: general_website/templates/general_website/index.html:86
 msgid "Data Type"
-msgstr ""
+msgstr "Тип Данных"
 
 #: general_website/templates/general_website/index.html:88
 #: general_website.SimulationType/name:1
 msgid "Trinkets"
-msgstr ""
+msgstr "Аксессуары"
+
+#: general_website/templates/general_website/index.html:89
+#: general_website.SimulationType/name:8
+msgid "Soulbinds"
+msgstr "Медиумы"
 
 #: general_website/templates/general_website/index.html:90
 #: general_website.SimulationType/name:7
 msgid "Legendaries"
-msgstr ""
+msgstr "Легендарные предметы"
 
 #: general_website/templates/general_website/index.html:91
 #: general_website.SimulationType/name:2
 msgid "Races"
-msgstr ""
+msgstr "Расы"
 
 #: general_website/templates/general_website/index.html:92
 msgid "Secondary distributions"
-msgstr ""
+msgstr "Вторичные характеристики"
 
 #: general_website/templates/general_website/index.html:96
 msgid "Fight Style"
-msgstr ""
+msgstr "Тип Боя"
 
 #: general_website/templates/general_website/index.html:98
 msgid "Patchwerk"
-msgstr ""
+msgstr "Patchwerk"
 
 #: general_website/templates/general_website/index.html:99
 msgid "HecticAddCleave"
-msgstr ""
+msgstr "HecticAddCleave"
 
 #: general_website/templates/general_website/index.html:103
 msgid "Advanced Options"
-msgstr ""
+msgstr "Дополнительные Настройки"
 
 #: general_website/templates/general_website/index.html:105
 msgid "Show"
-msgstr ""
+msgstr "Показать"
 
-#: general_website/templates/general_website/layout/base.html:61
+#: general_website/templates/general_website/layout/base.html:58
 msgid ""
 "\n"
 "            Greetings,<br/>\n"
-"            bloodmallet.com would like to use <a href=\"https://support."
-"google.com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"            bloodmallet.com хотел бы использовать <a href=\"https://support."
+"google.com/analytics/answer/2763052\">анонимно</a> <a href=\"https://"
 "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
-"to know how many people are using the website. You can either accept or "
-"reject this. Your choice will be saved on your device in a cookie.\n"
+"чтобы узнать, как много людей используют этот сайт. Вы можете либо принять, "
+"либо отклонить это предложение. Ваш выбор будет сохранен на вашем устройстве в файле cookie.\n"
 "            "
-msgstr ""
+"\n"
+"            Приветствую,<br/>\n"
+"            bloodmallet.com хотел бы использовать <a href=\"https://support."
+"google.com/analytics/answer/2763052\">анонимно</a> <a href=\"https://"
+"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
+"чтобы узнать, как много людей используют этот сайт. Вы можете либо принять, "
+"либо отклонить это предложение. Ваш выбор будет сохранен на вашем устройстве в файле cookie.\n"
+"            "msgstr ""
 
-#: general_website/templates/general_website/layout/head.html:6
+
+#: general_website/templates/general_website/layout/head.html:7
 msgid "data for all"
-msgstr ""
+msgstr "данные для всех"
 
 #: general_website/templates/general_website/layout/messages.html:5
 msgid "close"
-msgstr ""
+msgstr "закрыть"
 
 #: general_website/templates/general_website/layout/nav_bottom.html:12
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: general_website/templates/general_website/layout/nav_bottom.html:20
 msgid "Patreon"
-msgstr ""
+msgstr "Patreon"
 
 #: general_website/templates/general_website/layout/nav_bottom.html:29
 msgid "Report an error"
-msgstr ""
+msgstr "Сообщить об ошибке"
 
 #: general_website/templates/general_website/layout/nav_bottom.html:59
 #: general_website/templates/general_website/terms_and_conditions.html:5
 #: general_website/templates/general_website/terms_and_conditions.html:10
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Условия и положения"
 
 #: general_website/templates/general_website/layout/nav_settings.html:14
-#: general_website/templates/general_website/layout/nav_top.html:41
+#: general_website/templates/general_website/layout/nav_top.html:40
 #: general_website/templates/general_website/settings.html:15
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: general_website/templates/general_website/layout/nav_settings.html:16
 msgid "General"
-msgstr ""
+msgstr "Главная"
 
 #: general_website/templates/general_website/layout/nav_settings.html:23
 #: general_website/templates/general_website/profile.html:16
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: general_website/templates/general_website/layout/nav_settings.html:28
 msgid "Connections"
-msgstr ""
+msgstr "Привязки"
 
-#: general_website/templates/general_website/layout/nav_top.html:22
+#: general_website/templates/general_website/layout/nav_top.html:21
 #: general_website/templates/general_website/my_charts.html:9
 msgid "My Charts"
-msgstr ""
+msgstr "Мои Отчеты"
 
-#: general_website/templates/general_website/layout/nav_top.html:26
+#: general_website/templates/general_website/layout/nav_top.html:25
 msgid "Meme"
-msgstr ""
+msgstr "Мемный рейтинг"
+
+#: general_website/templates/general_website/layout/nav_top.html:33
+#: general_website/templates/general_website/login.html:14
+msgid "Login"
+msgstr "Войти"
 
 #: general_website/templates/general_website/layout/nav_top.html:34
-#: general_website/templates/general_website/login.html:7
-#: general_website/templates/general_website/login.html:13
-#: general_website/templates/general_website/password_reset_complete.html:10
-msgid "Login"
-msgstr ""
-
-#: general_website/templates/general_website/layout/nav_top.html:35
 msgid "Register"
-msgstr ""
+msgstr "Зарегистрироваться"
+
+#: general_website/templates/general_website/layout/nav_top.html:37
+msgid "Superuser"
+msgstr "Супер-юзер"
 
 #: general_website/templates/general_website/layout/nav_top.html:38
-msgid "Superuser"
-msgstr ""
-
-#: general_website/templates/general_website/layout/nav_top.html:39
 msgid "Admin"
-msgstr ""
+msgstr "Админ"
 
-#: general_website/templates/general_website/layout/nav_top.html:43
+#: general_website/templates/general_website/layout/nav_top.html:42
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
-#: general_website/templates/general_website/login.html:14
-msgid "Dang, I forgot my password."
+#: general_website/templates/general_website/login.html:15
+#: general_website/templates/general_website/signup.html:12
+msgid ""
+"I couldn't care less about what you enter. Nothing is shared with others and "
+"data is wiped regularly."
 msgstr ""
+"Нас не интересуют Ваши данные. Мы ничего не распространяем, и "
+"вся информация регулярно удаляется."
 
 #: general_website/templates/general_website/my_charts.html:12
 msgid "A list of my charts"
-msgstr ""
+msgstr "Список моих отчетов"
 
 #: general_website/templates/general_website/my_charts.html:15
 msgid "You can free up slots by deleting charts."
-msgstr ""
+msgstr "Вы можете освободить слоты, удалив отчеты"
 
 #: general_website/templates/general_website/my_charts.html:24
 msgid "New Chart"
-msgstr ""
+msgstr "Новый Отчет"
 
 #: general_website/templates/general_website/my_charts.html:34
 msgid "~"
-msgstr ""
+msgstr "~"
 
 #: general_website/templates/general_website/my_charts.html:35
 #: general_website/templates/general_website/my_charts.html:165
 #: general_website/templates/general_website/my_charts.html:166
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: general_website/templates/general_website/my_charts.html:42
 #: general_website/templates/general_website/my_charts.html:202
 msgid "View"
-msgstr ""
+msgstr "Обзор"
 
 #: general_website/templates/general_website/my_charts.html:43
 #: general_website/templates/general_website/my_charts.html:89
 #: general_website/templates/general_website/my_charts.html:217
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: general_website/templates/general_website/my_charts.html:50
 #: general_website/templates/general_website/my_charts.html:224
 msgid "Pending"
-msgstr ""
+msgstr "Ожидание"
 
 #: general_website/templates/general_website/my_charts.html:50
 #: general_website/templates/general_website/my_charts.html:57
 msgid "Position in queue"
-msgstr ""
+msgstr "Позиция в очереди"
 
 #: general_website/templates/general_website/my_charts.html:57
 #: general_website/templates/general_website/my_charts.html:229
 msgid "Simulating"
-msgstr ""
+msgstr "Расчет"
 
 #: general_website/templates/general_website/my_charts.html:62
 msgid "Unknown state reached. Please refresh page"
-msgstr ""
+msgstr "Получено неизвестное состояние. Пожалуйста, обновите страницу"
 
 #: general_website/templates/general_website/my_charts.html:80
 msgid "Delete Chart and Simulation data"
-msgstr ""
+msgstr "Удалить Отчет и данные симуляции"
 
 #: general_website/templates/general_website/my_charts.html:86
 msgid ""
 "Are you sure you want to delete this chart? All associated data will be "
 "gone, too."
 msgstr ""
+"Вы уверены, что хотите удалить этот отчет? Все связанные с ним данные "
+"тоже исчезнут."
 
 #: general_website/templates/general_website/my_charts.html:144
 #: general_website/templates/general_website/my_charts.html:154
 msgid "Deleting"
-msgstr ""
+msgstr "Удаление"
 
 #: general_website/templates/general_website/my_charts.html:160
 msgid "Deleted"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset.html:7
-#: general_website/templates/general_website/password_reset_complete.html:6
-#: general_website/templates/general_website/password_reset_done.html:6
-msgid "Password reset"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset.html:9
-msgid ""
-"Forgotten your password? Enter your email address below, and we'll email "
-"instructions for setting a new one."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset.html:15
-msgid "Reset my password"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_complete.html:8
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_confirm.html:7
-msgid "Password reset confirmation"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_confirm.html:11
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_confirm.html:16
-msgid "Change my password"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_confirm.html:21
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_done.html:8
-msgid ""
-"We've emailed you instructions for setting your password, if an account "
-"exists with the email you entered. You should receive them shortly."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_done.html:10
-msgid ""
-"If you don't receive an email, please make sure you've entered the address "
-"you registered with, and check your spam folder."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_mail.html:2
-msgid "Greetings"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_mail.html:3
-#, python-format
-msgid ""
-"Greetings,\n"
-"you're receiving this email because a password reset for your user account "
-"at %(site_name)s was requested. If you didn't request the password reset "
-"ignore this email."
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_mail.html:6
-msgid "Please go to the following page and choose a new password:"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_mail.html:10
-msgid "Your username, in case you've forgotten:"
-msgstr ""
-
-#: general_website/templates/general_website/password_reset_mail.html:12
-msgid "Thanks for using the site!"
-msgstr ""
+msgstr "Удалено"
 
 #: general_website/templates/general_website/portals.html:12
 msgid "Portals"
-msgstr ""
+msgstr "Порталы"
 
 #: general_website/templates/general_website/portals.html:14
 msgid ""
@@ -1181,83 +1068,85 @@ msgid ""
 "them. Let me know about more fixed position portals. This list is NOT "
 "intended to include teleporting items or skills."
 msgstr ""
+"Вы когда-нибудь задумывались, какие порталы существую в игре? Я тоже. Вот их "
+"список. Сообщите мне о других фиксированных порталах. Этот список НЕ включает "
+"в себя вещи или способности с возможностью телепортации."
+
 
 #: general_website/templates/general_website/portals.html:15
 msgid ""
 "And of course Blizzard nuked portals the moment I started building this "
 "page. I'm sorry."
 msgstr ""
+"И, конечное же, Blizzard избававились от порталов, как только я принялся "
+делать эту страницу. Прошу прощения"
 
 #: general_website/templates/general_website/portals.html:32
 msgid "Target"
-msgstr ""
+msgstr "Цель"
 
 #: general_website/templates/general_website/portals.html:33
 msgid "Location"
-msgstr ""
+msgstr "Локация"
 
 #: general_website/templates/general_website/portals.html:34
 msgid "Coordinates"
-msgstr ""
+msgstr "Координаты"
 
 #: general_website/templates/general_website/portals.html:35
 msgid "More information"
-msgstr ""
+msgstr "Больше информации"
 
 #: general_website/templates/general_website/privacy_policy.html:28
 msgid ""
 "\n"
-"    bloodmallet.com would like to use <a href=\"https://support.google.com/"
-"analytics/answer/2763052\">anonymized</a> <a href=\"https://"
+"    bloodmallet.com хотел бы использовать <a href=\"https://support.google.com/"
+"analytics/answer/2763052\">анонимно</a> <a href=\"https://"
 "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
-"to know how many people are using the website. You can either accept or "
-"reject this. Your choice will be saved on your device in a cookie.\n"
+"чтобы узнать, как много людей используют этот сайт. Вы можете либо принять, "
+"либо отклонить это предложение. Ваш выбор будет сохранен на вашем устройстве в файле cookie.\n"
 "    "
 msgstr ""
 
 #: general_website/templates/general_website/profile.html:35
 msgid "Change password"
-msgstr ""
+msgstr "Сменить пароль"
 
 #: general_website/templates/general_website/settings.html:16
 msgid "A settings page...more to come"
-msgstr ""
+msgstr "Страница настроек... будет дополнена"
 
 #: general_website/templates/general_website/settings.html:23
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: general_website/templates/general_website/settings.html:36
 msgid "Set language"
-msgstr ""
+msgstr "Установить язык"
 
 #: general_website/templates/general_website/signup.html:11
 msgid "Sign up"
-msgstr ""
-
-#: general_website/templates/general_website/signup.html:12
-msgid ""
-"I couldn't care less about what you enter. Nothing is shared with others and "
-"data is wiped regularly."
-msgstr ""
+msgstr "Войти"
 
 #: general_website/templates/general_website/tears.html:8
 msgid "T-List"
-msgstr ""
+msgstr "Т-Лист"
 
 #: general_website/templates/general_website/tears.html:11
 msgid ""
 "Everyone's doing a list right now? Here I present my own Tear-List. And I "
 "assure you it's highly subjective and different for everyone."
 msgstr ""
+"Сейчас модно делать рейтинги, не так ли? Представляю Вам мой Tear-List. И я "
+"уверяю вас, он крайне субъективен и отличается для всех."
 
 #: general_website/templates/general_website/tears.html:16
 msgid "All values are absolutely random and have no meaning."
-msgstr ""
+msgstr "Все значения абсолютно случайны и не имеют смысла."
 
 #: general_website/templates/general_website/tears.html:19
 msgid "Specs"
-msgstr ""
+msgstr "Специализации"
 
 #: general_website/templates/general_website/terms_and_conditions.html:14
 #, python-format
@@ -1273,405 +1162,377 @@ msgid ""
 "If you have questions, please reach out to us using the means provided <a "
 "href=\"%(about)s\">here</a>.\n"
 msgstr ""
+"\n"
+"Дополненные Условия и положения будут готовы так скоро, как только возможно. "
+"А пока Компания разработчик Kruse Analytics UG (haftungsbeschränkt) "
+"намеревается предоставлять услуги, описанные в списке уровней поддержки на <a "
+"href=\"https://www.patreon.com/bloodmallet\">patreon - bloodmallet</a>.<br/"
+"><br/>\n"
+"\n"
+"Эти Условия и положения могут и будут изменены без дальнейших уведомлений "
+"Если у Вас есть вопросы, пожалуйста свяжитесь с нами, перейдя в этот <a "
+"href=\"%(about)s\">раздел</a>.\n"
 
 #: general_website/views/account.py:40
 msgid "Couldn't log in. Please check your input."
-msgstr ""
+msgstr "Невозможно подключиться. Проверьте правильность введенных данных."
 
 #: general_website/views/account.py:80
 msgid "Account created."
-msgstr ""
+msgstr "Аккаунт создан."
 
 #: general_website/views/account.py:83
 msgid "Account creation failed."
-msgstr ""
+msgstr "Создание аккаунта не удалось"
 
 #: general_website/views/account.py:96
 msgid "Profile was updated!"
-msgstr ""
+msgstr "Профиль был обновлен!"
 
 #: general_website/views/account.py:123
 msgid "Password was updated!"
-msgstr ""
+msgstr "Пароль был обновлен!"
 
 #: general_website/views/account.py:125
 msgid "Password update failed. Check your input."
-msgstr ""
+msgstr "Не удалось обновить пароль. Проверьте правильность введенных данных."
 
 #: general_website/views/error.py:10 general_website/views/error.py:22
 msgid "Page not found"
-msgstr ""
+msgstr "Страница не найдена"
 
 #: general_website/views/error.py:26
 msgid "Something went wrong. Try again later"
-msgstr ""
+msgstr "Что-то пошло не так. Попробуйте позже"
 
-#: general_website/views/general.py:483
+#: general_website/views/general.py:469
 msgid "Simulation not found."
-msgstr ""
+msgstr "Симуляция не найдена."
 
-#: general_website/views/general.py:549
+#: general_website/views/general.py:534
 msgid "Simulation data could not be found."
-msgstr ""
+msgstr "Данные симуляции не могут быть найдены."
 
-#: general_website/views/general.py:580
+#: general_website/views/general.py:565
 msgid "No standard chart with these values found."
-msgstr ""
+msgstr "Не найдено стандартных отчетов с этими данными"
+
+#: general_website/views/general.py:574
+msgid "Incomplete data, either provide id or look for a standard chart."
+msgstr "Неполные данные, предоставьте id или посмотрите стандартный отчет"
 
 #: general_website/views/general.py:589
-msgid "Incomplete data, either provide id or look for a standard chart."
-msgstr ""
-
-#: general_website/views/general.py:604
 msgid "Chart deletion works only with POST and if chart_id is provided."
-msgstr ""
+msgstr "Удаление отчета работает только с POST и если был предоставлен chart_id"
 
-#: general_website/views/general.py:611
+#: general_website/views/general.py:596
 msgid "An error occured while trying to delete a chart."
-msgstr ""
+msgstr "Обнаружена ошибка при попытке удаления отчета."
 
-#: general_website/views/general.py:618
+#: general_website/views/general.py:603
 msgid "Chart was deleted."
-msgstr ""
+msgstr "Отчет был удален."
 
-#: general_website/views/general.py:620
+#: general_website/views/general.py:605
 msgid "You don't have the permission for that action."
-msgstr ""
+msgstr "У Вас недостаточно прав для этого действия."
 
-#: general_website/views/general.py:656
+#: general_website/views/general.py:641
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
+"У Вас не осталось свободных бесплатных слотов. Вы можете удалить лишние слоты "
+"чтобы освободить место."
 
-#: general_website/views/general.py:673
+#: general_website/views/general.py:658
 msgid "A chart was added to the queue. Simulations will start soon."
-msgstr ""
+msgstr "Отчет был добавлен в очередь. Симуляция скоро начнется."
 
-#: general_website/views/general.py:679
+#: general_website/views/general.py:664
 msgid "You don't have permission to create a chart."
-msgstr ""
+msgstr "У Вас недостаточно прав для создания отчета."
 
 #: general_website.Faction/name:1
 msgid "Alliance"
-msgstr ""
+msgstr "Альянс"
 
 #: general_website.Faction/name:2
 msgid "Horde"
-msgstr ""
+msgstr "Орда"
 
 #: general_website.FightStyle/tokenized_name:1
 msgid "patchwerk"
-msgstr ""
+msgstr "patchwerk"
 
 #: general_website.FightStyle/tokenized_name:2
 msgid "hecticaddcleave"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:3
-msgid "beastlord"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:4
-msgid "castingpatchwerk"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:5
-msgid "cleaveadd"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:6
-msgid "dungeonslice"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:7
-msgid "heavymovement"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:8
-msgid "helterskelter"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:9
-msgid "lightmovement"
-msgstr ""
-
-#: general_website.FightStyle/tokenized_name:10
-msgid "ultraxion"
-msgstr ""
+msgstr "hecticaddcleave"
 
 #: general_website.Race/tokenized_name:1
 msgid "draenei"
-msgstr ""
+msgstr "Дреней"
 
 #: general_website.Race/tokenized_name:2
 msgid "dwarf"
-msgstr ""
+msgstr "Дворф"
 
 #: general_website.Race/tokenized_name:3
 msgid "gnome"
-msgstr ""
+msgstr "Гном"
 
 #: general_website.Race/tokenized_name:4
 msgid "human"
-msgstr ""
+msgstr "Человек"
 
 #: general_website.Race/tokenized_name:5
 msgid "night_elf"
-msgstr ""
+msgstr "Ночной эльф"
 
 #: general_website.Race/tokenized_name:6
 msgid "pandaren"
-msgstr ""
+msgstr "Пандарен"
 
 #: general_website.Race/tokenized_name:7
 msgid "worgen"
-msgstr ""
+msgstr "Ворген"
 
 #: general_website.Race/tokenized_name:8
 msgid "void_elf"
-msgstr ""
+msgstr "Эльф Бездны"
 
 #: general_website.Race/tokenized_name:9
 msgid "lightforged_draenei"
-msgstr ""
+msgstr "Озаренный дреней"
 
 #: general_website.Race/tokenized_name:10
 msgid "dark_iron_dwarf"
-msgstr ""
+msgstr "Дворфы из клана Черного Железа"
 
 #: general_website.Race/tokenized_name:11
 msgid "kul_tiran"
-msgstr ""
+msgstr "Култирасец"
 
 #: general_website.Race/tokenized_name:12
 msgid "blood_elf"
-msgstr ""
+msgstr "Эльф крови"
 
 #: general_website.Race/tokenized_name:13
 msgid "goblin"
-msgstr ""
+msgstr "Гоблин"
 
 #: general_website.Race/tokenized_name:14
 msgid "orc"
-msgstr ""
+msgstr "Орк"
 
 #: general_website.Race/tokenized_name:16
 msgid "tauren"
-msgstr ""
+msgstr "Таурен"
 
 #: general_website.Race/tokenized_name:17
 msgid "troll"
-msgstr ""
+msgstr "Тролль"
 
 #: general_website.Race/tokenized_name:18
 msgid "undead"
-msgstr ""
+msgstr "Нежить"
 
 #: general_website.Race/tokenized_name:19
 msgid "nightborne"
-msgstr ""
+msgstr "Ночнорожденный"
 
 #: general_website.Race/tokenized_name:20
 msgid "highmountain_tauren"
-msgstr ""
+msgstr "Таурен Крутогорья"
 
 #: general_website.Race/tokenized_name:21
 msgid "maghar_orc"
-msgstr ""
+msgstr "Маг'хар"
 
 #: general_website.Race/tokenized_name:22
 msgid "zandalari_troll"
-msgstr ""
+msgstr "Зандалар"
 
 #: general_website.SimulationType/name:3
 msgid "Azerite Traits"
-msgstr ""
+msgstr "Азеритовые трейты"
 
 #: general_website.SimulationType/name:4
 msgid "Secondary Distributions"
-msgstr ""
+msgstr "Вторичные Характеристики"
 
 #: general_website.SimulationType/name:5
 msgid "Corruptions"
-msgstr ""
+msgstr "Порча"
 
 #: general_website.SimulationType/name:6
 msgid "Azerite Essences"
-msgstr ""
-
-#: general_website.SimulationType/name:8
-msgid "Soulbind Nodes"
-msgstr ""
+msgstr "Сущности Сердца Азерот"
 
 #: general_website.SimulationType/name:9
 msgid "Conduits"
-msgstr ""
+msgstr "Проводники"
 
 #: general_website.SimulationType/name:10
 msgid "Talents"
-msgstr ""
-
-#: general_website.SimulationType/name:11
-msgid "Covenants"
-msgstr ""
+msgstr "Таланты"
 
 #: general_website.WowClass/tokenized_name:1
 msgid "death_knight"
-msgstr ""
+msgstr "Рыцарь смерти"
 
 #: general_website.WowClass/tokenized_name:2
 msgid "demon_hunter"
-msgstr ""
+msgstr "Охотник на демонов"
 
 #: general_website.WowClass/tokenized_name:3
 msgid "druid"
-msgstr ""
+msgstr "Друид"
 
 #: general_website.WowClass/tokenized_name:4
 msgid "hunter"
-msgstr ""
+msgstr "Охотник"
 
 #: general_website.WowClass/tokenized_name:5
 msgid "mage"
-msgstr ""
+msgstr "Маг"
 
 #: general_website.WowClass/tokenized_name:6
 msgid "monk"
-msgstr ""
+msgstr "Монах"
 
 #: general_website.WowClass/tokenized_name:7
 msgid "paladin"
-msgstr ""
+msgstr "Паладин"
 
 #: general_website.WowClass/tokenized_name:8
 msgid "priest"
-msgstr ""
+msgstr "Жрец"
 
 #: general_website.WowClass/tokenized_name:9
 msgid "rogue"
-msgstr ""
+msgstr "Разбойник"
 
 #: general_website.WowClass/tokenized_name:10
 msgid "shaman"
-msgstr ""
+msgstr "Шаман"
 
 #: general_website.WowClass/tokenized_name:11
 msgid "warlock"
-msgstr ""
+msgstr "Чернокнижник"
 
 #: general_website.WowClass/tokenized_name:12
 msgid "warrior"
-msgstr ""
+msgstr "Воин"
 
 #: general_website.WowSpec/tokenized_name:1
 msgid "blood"
-msgstr ""
+msgstr "Кровь"
 
 #: general_website.WowSpec/tokenized_name:2
 msgid "frost"
-msgstr ""
+msgstr "Лед"
 
 #: general_website.WowSpec/tokenized_name:3
 msgid "unholy"
-msgstr ""
+msgstr "Нечестивость"
 
 #: general_website.WowSpec/tokenized_name:4
 msgid "havoc"
-msgstr ""
+msgstr "Истребление"
 
 #: general_website.WowSpec/tokenized_name:5
 msgid "vengeance"
-msgstr ""
+msgstr "Месть"
 
 #: general_website.WowSpec/tokenized_name:6
 msgid "feral"
-msgstr ""
+msgstr "Сила зверя"
 
 #: general_website.WowSpec/tokenized_name:7
 msgid "guardian"
-msgstr ""
+msgstr "Страж"
 
 #: general_website.WowSpec/tokenized_name:8
 msgid "balance"
-msgstr ""
+msgstr "Баланс"
 
 #: general_website.WowSpec/tokenized_name:9
 msgid "beast_mastery"
-msgstr ""
+msgstr "Повелитель зверей"
 
 #: general_website.WowSpec/tokenized_name:10
 msgid "marksmanship"
-msgstr ""
+msgstr "Стрельба"
 
 #: general_website.WowSpec/tokenized_name:11
 msgid "survival"
-msgstr ""
+msgstr "Выживание"
 
 #: general_website.WowSpec/tokenized_name:12
 msgid "arcane"
-msgstr ""
+msgstr "Тайная магия"
 
 #: general_website.WowSpec/tokenized_name:13
 msgid "fire"
-msgstr ""
+msgstr "Огонь"
 
 #: general_website.WowSpec/tokenized_name:15
 msgid "brewmaster"
-msgstr ""
+msgstr "Хмелевар"
 
 #: general_website.WowSpec/tokenized_name:16
 msgid "windwalker"
-msgstr ""
+msgstr "Танцующий с ветром"
 
 #: general_website.WowSpec/tokenized_name:17
 msgid "protection"
-msgstr ""
+msgstr "Защита"
 
 #: general_website.WowSpec/tokenized_name:18
 msgid "retribution"
-msgstr ""
+msgstr "Воздаяние"
 
 #: general_website.WowSpec/tokenized_name:19
 msgid "shadow"
-msgstr ""
+msgstr "Тьма"
 
 #: general_website.WowSpec/tokenized_name:20
 msgid "assassination"
-msgstr ""
+msgstr "Ликвидация"
 
 #: general_website.WowSpec/tokenized_name:21
 msgid "outlaw"
-msgstr ""
+msgstr "Головорез"
 
 #: general_website.WowSpec/tokenized_name:22
 msgid "subtlety"
-msgstr ""
+msgstr "Скрытность"
 
 #: general_website.WowSpec/tokenized_name:23
 msgid "elemental"
-msgstr ""
+msgstr "Стихии"
 
 #: general_website.WowSpec/tokenized_name:24
 msgid "enhancement"
-msgstr ""
+msgstr "Совершенствование"
 
 #: general_website.WowSpec/tokenized_name:25
 msgid "affliction"
-msgstr ""
+msgstr "Колдовство"
 
 #: general_website.WowSpec/tokenized_name:26
 msgid "demonology"
-msgstr ""
+msgstr "Демонология"
 
 #: general_website.WowSpec/tokenized_name:27
 msgid "destruction"
-msgstr ""
+msgstr "Разрушение"
 
 #: general_website.WowSpec/tokenized_name:28
 msgid "arms"
-msgstr ""
+msgstr "Оружие"
 
 #: general_website.WowSpec/tokenized_name:29
 msgid "fury"
-msgstr ""
+msgstr "Неистовство"
