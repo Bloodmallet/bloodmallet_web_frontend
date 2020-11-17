@@ -91,7 +91,7 @@ msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
 msgstr ""
-"Если у Вас закончились слоты, включите эту настройку для автоматического удаления
+"Если у Вас закончились слоты, включите эту настройку для автоматического удаления "
 "самого старого отчета"
 
 #: general_website/forms.py:94
@@ -138,8 +138,8 @@ msgid ""
 "mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
-"Укажите здесь Вашего персонажа, чей профиль будет использоваться вместо
-стандартного. Вставьте результат <a href=\"https://"
+"Укажите здесь Вашего персонажа, чей профиль будет использоваться вместо "
+"стандартного. Вставьте результат <a href=\"https://"
 "mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
 "\">SimulationCraft</a> /simc в эту область."
 
@@ -1079,7 +1079,7 @@ msgid ""
 "page. I'm sorry."
 msgstr ""
 "И, конечное же, Blizzard избававились от порталов, как только я принялся "
-делать эту страницу. Прошу прощения"
+"делать эту страницу. Прошу прощения"
 
 #: general_website/templates/general_website/portals.html:32
 msgid "Target"
