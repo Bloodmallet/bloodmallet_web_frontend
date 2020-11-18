@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 18:17+0000\n"
+"POT-Creation-Date: 2020-11-18 20:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,15 +21,15 @@ msgstr ""
 
 #: bloodmallet/settings/common.py:122
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: bloodmallet/settings/common.py:123
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: bloodmallet/settings/common.py:124
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: bloodmallet/settings/common.py:125
 msgid "French"
@@ -88,7 +88,7 @@ msgstr ""
 msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
-msgstr ""
+msgstr "adasd"
 
 #: general_website/forms.py:62
 msgid "45 seconds"
@@ -139,8 +139,6 @@ msgid "Boss count"
 msgstr ""
 
 #: general_website/forms.py:126
-#, fuzzy
-#| msgid "Advanced Options"
 msgid "Advanced"
 msgstr "Erweiterte Optionen"
 
@@ -154,8 +152,6 @@ msgstr ""
 
 #: general_website/forms.py:162
 #: general_website/templates/general_website/chart.html:123
-#, fuzzy
-#| msgid "Fight Style"
 msgid "Fight style"
 msgstr "Kampfstil"
 
@@ -953,6 +949,7 @@ msgid "Fight Style"
 msgstr "Kampfstil"
 
 #: general_website/templates/general_website/index.html:98
+#: general_website.FightStyle/name:1
 msgid "Patchwerk"
 msgstr ""
 
@@ -1441,128 +1438,130 @@ msgstr ""
 msgid "Horde"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:1
-msgid "patchwerk"
+#: general_website.FightStyle/name:2
+msgid "Hectic Add Cleave"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:2
-msgid "hecticaddcleave"
+#: general_website.FightStyle/name:3
+msgid "Beastlord"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:3
-msgid "beastlord"
+#: general_website.FightStyle/name:4
+msgid "Casting Patchwerk"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:4
-msgid "castingpatchwerk"
+#: general_website.FightStyle/name:5
+msgid "Cleave Add"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:5
-msgid "cleaveadd"
+#: general_website.FightStyle/name:6
+msgid "Dungeon Slice"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:6
-msgid "dungeonslice"
+#: general_website.FightStyle/name:7
+msgid "Heavy Movement"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:7
-msgid "heavymovement"
+#: general_website.FightStyle/name:8
+msgid "Helter Skelter"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:8
-msgid "helterskelter"
+#: general_website.FightStyle/name:9
+#, fuzzy
+#| msgid "Fight Length"
+msgid "Light Movement"
+msgstr "Kampfdauer"
+
+#: general_website.FightStyle/name:10
+msgid "Ultraxion"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:9
-msgid "lightmovement"
+#: general_website.Race/name:1
+msgid "Draenei"
 msgstr ""
 
-#: general_website.FightStyle/tokenized_name:10
-msgid "ultraxion"
+#: general_website.Race/name:2
+msgid "Dwarf"
 msgstr ""
 
-#: general_website.Race/tokenized_name:1
-msgid "draenei"
+#: general_website.Race/name:3
+msgid "Gnome"
 msgstr ""
 
-#: general_website.Race/tokenized_name:2
-msgid "dwarf"
+#: general_website.Race/name:4
+msgid "Human"
 msgstr ""
 
-#: general_website.Race/tokenized_name:3
-msgid "gnome"
+#: general_website.Race/name:5
+#, fuzzy
+#| msgid "Fight Style"
+msgid "Night Elf"
+msgstr "Kampfstil"
+
+#: general_website.Race/name:6
+msgid "Pandaren"
 msgstr ""
 
-#: general_website.Race/tokenized_name:4
-msgid "human"
+#: general_website.Race/name:7
+msgid "Worgen"
 msgstr ""
 
-#: general_website.Race/tokenized_name:5
-msgid "night_elf"
+#: general_website.Race/name:8
+msgid "Void Elf"
 msgstr ""
 
-#: general_website.Race/tokenized_name:6
-msgid "pandaren"
+#: general_website.Race/name:9
+msgid "Lightforged Draenei"
 msgstr ""
 
-#: general_website.Race/tokenized_name:7
-msgid "worgen"
+#: general_website.Race/name:10
+msgid "Dark Iron Dwarf"
 msgstr ""
 
-#: general_website.Race/tokenized_name:8
-msgid "void_elf"
+#: general_website.Race/name:11
+msgid "Kul Tiran"
 msgstr ""
 
-#: general_website.Race/tokenized_name:9
-msgid "lightforged_draenei"
+#: general_website.Race/name:12
+msgid "Blood Elf"
 msgstr ""
 
-#: general_website.Race/tokenized_name:10
-msgid "dark_iron_dwarf"
+#: general_website.Race/name:13
+msgid "Goblin"
 msgstr ""
 
-#: general_website.Race/tokenized_name:11
-msgid "kul_tiran"
+#: general_website.Race/name:14
+msgid "Orc"
 msgstr ""
 
-#: general_website.Race/tokenized_name:12
-msgid "blood_elf"
+#: general_website.Race/name:16
+msgid "Tauren"
 msgstr ""
 
-#: general_website.Race/tokenized_name:13
-msgid "goblin"
+#: general_website.Race/name:17
+msgid "Troll"
 msgstr ""
 
-#: general_website.Race/tokenized_name:14
-msgid "orc"
+#: general_website.Race/name:18
+msgid "Undead"
 msgstr ""
 
-#: general_website.Race/tokenized_name:16
-msgid "tauren"
+#: general_website.Race/name:19
+#, fuzzy
+#| msgid "Fight Style"
+msgid "Nightborne"
+msgstr "Kampfstil"
+
+#: general_website.Race/name:20
+msgid "Highmountain Tauren"
 msgstr ""
 
-#: general_website.Race/tokenized_name:17
-msgid "troll"
+#: general_website.Race/name:21
+msgid "Mag'har Orc"
 msgstr ""
 
-#: general_website.Race/tokenized_name:18
-msgid "undead"
-msgstr ""
-
-#: general_website.Race/tokenized_name:19
-msgid "nightborne"
-msgstr ""
-
-#: general_website.Race/tokenized_name:20
-msgid "highmountain_tauren"
-msgstr ""
-
-#: general_website.Race/tokenized_name:21
-msgid "maghar_orc"
-msgstr ""
-
-#: general_website.Race/tokenized_name:22
-msgid "zandalari_troll"
+#: general_website.Race/name:22
+msgid "Zandalari Troll"
 msgstr ""
 
 #: general_website.SimulationType/name:3
@@ -1597,164 +1596,168 @@ msgstr ""
 msgid "Covenants"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:1
-msgid "death_knight"
+#: general_website.WowClass/name:1
+msgid "Death Knight"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:2
-msgid "demon_hunter"
+#: general_website.WowClass/name:2
+msgid "Demon Hunter"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:3
-msgid "druid"
+#: general_website.WowClass/name:3
+msgid "Druid"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:4
-msgid "hunter"
+#: general_website.WowClass/name:4
+msgid "Hunter"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:5
-msgid "mage"
+#: general_website.WowClass/name:5
+msgid "Mage"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:6
-msgid "monk"
+#: general_website.WowClass/name:6
+msgid "Monk"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:7
-msgid "paladin"
+#: general_website.WowClass/name:7
+msgid "Paladin"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:8
-msgid "priest"
+#: general_website.WowClass/name:8
+msgid "Priest"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:9
-msgid "rogue"
+#: general_website.WowClass/name:9
+msgid "Rogue"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:10
-msgid "shaman"
+#: general_website.WowClass/name:10
+msgid "Shaman"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:11
-msgid "warlock"
+#: general_website.WowClass/name:11
+msgid "Warlock"
 msgstr ""
 
-#: general_website.WowClass/tokenized_name:12
-msgid "warrior"
+#: general_website.WowClass/name:12
+msgid "Warrior"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:1
-msgid "blood"
+#: general_website.WowSpec/name:1
+msgid "Blood"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:2
-msgid "frost"
+#: general_website.WowSpec/name:2
+msgid "Frost"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:3
-msgid "unholy"
+#: general_website.WowSpec/name:3
+msgid "Unholy"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:4
-msgid "havoc"
+#: general_website.WowSpec/name:4
+msgid "Havoc"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:5
-msgid "vengeance"
+#: general_website.WowSpec/name:5
+msgid "Vengeance"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:6
-msgid "feral"
+#: general_website.WowSpec/name:6
+#, fuzzy
+#| msgid "General"
+msgid "Feral"
+msgstr "Allgemein"
+
+#: general_website.WowSpec/name:7
+msgid "Guardian"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:7
-msgid "guardian"
+#: general_website.WowSpec/name:8
+msgid "Balance"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:8
-msgid "balance"
+#: general_website.WowSpec/name:9
+msgid "Beast Mastery"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:9
-msgid "beast_mastery"
+#: general_website.WowSpec/name:10
+msgid "Marksmanship"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:10
-msgid "marksmanship"
+#: general_website.WowSpec/name:11
+msgid "Survival"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:11
-msgid "survival"
+#: general_website.WowSpec/name:12
+msgid "Arcane"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:12
-msgid "arcane"
+#: general_website.WowSpec/name:13
+msgid "Fire"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:13
-msgid "fire"
+#: general_website.WowSpec/name:15
+msgid "Brewmaster"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:15
-msgid "brewmaster"
+#: general_website.WowSpec/name:16
+msgid "Windwalker"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:16
-msgid "windwalker"
+#: general_website.WowSpec/name:17
+#, fuzzy
+#| msgid "Connections"
+msgid "Protection"
+msgstr "Verbindungen"
+
+#: general_website.WowSpec/name:18
+msgid "Retribution"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:17
-msgid "protection"
+#: general_website.WowSpec/name:19
+msgid "Shadow"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:18
-msgid "retribution"
+#: general_website.WowSpec/name:20
+msgid "Assassination"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:19
-msgid "shadow"
+#: general_website.WowSpec/name:21
+msgid "Outlaw"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:20
-msgid "assassination"
+#: general_website.WowSpec/name:22
+msgid "Subtlety"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:21
-msgid "outlaw"
+#: general_website.WowSpec/name:23
+msgid "Elemental"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:22
-msgid "subtlety"
+#: general_website.WowSpec/name:24
+msgid "Enhancement"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:23
-msgid "elemental"
+#: general_website.WowSpec/name:25
+msgid "Affliction"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:24
-msgid "enhancement"
+#: general_website.WowSpec/name:26
+msgid "Demonology"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:25
-msgid "affliction"
+#: general_website.WowSpec/name:27
+msgid "Destruction"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:26
-msgid "demonology"
+#: general_website.WowSpec/name:28
+msgid "Arms"
 msgstr ""
 
-#: general_website.WowSpec/tokenized_name:27
-msgid "destruction"
-msgstr ""
-
-#: general_website.WowSpec/tokenized_name:28
-msgid "arms"
-msgstr ""
-
-#: general_website.WowSpec/tokenized_name:29
-msgid "fury"
+#: general_website.WowSpec/name:29
+msgid "Fury"
 msgstr ""
 
 #~ msgid "You lack permission to create charts."
