@@ -10,15 +10,17 @@
 <p class="alert-warning">
     {% url 'account_connections' as connection_settings %}
     {% blocktranslate %}
-    You lack permission to create charts. Head to <a href="{{connection_settings}}">your settings</a> to connect your account with your patreon-account.
+    You lack permission to create charts. Head to <a href="{{connection_settings}}">your settings</a> to connect your
+    account with your patreon-account.
     {% endblocktranslate %}
 </p>
 {% endif %}
 
-<form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}"{% endif %}>
+<form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}" {% endif %}>
     {% crispy form form.helper %}
 
-    <small id="dataDisclaimer" class="form-text text-muted">{% translate "Chart creation will take a while (stuff needs to be simulated)." %}</small>
+    <small id="dataDisclaimer"
+        class="form-text text-muted">{% translate "Chart creation will take a while (stuff needs to be simulated)." %}</small>
 </form>
 
 
@@ -26,127 +28,137 @@
 
 {% block extraimport %}
 <script>
-function react_to_input() {
-    clean_custom_profile();
-    update_form();
-}
-function clean_custom_profile() {
-    let element = document.getElementById('id_custom_profile');
-    element.value = element.value.split("\n").filter(line => {
-        if (line.startsWith("# SimC Addon")) {
-            return true;
-        } else if (line.startsWith("#")) {
-            return false;
-        } else {
-            return true;
-        }
-    }).join("\n");
-}
-function update_form() {
-    let input = document.getElementById('id_custom_profile').value.split("\n");
-    function get_options() {
-        const options = document.getElementById("id_wow_spec").options;
-        let filtered_options = [];
-        for (let i = 0; i < options.length; i++) {
-            const index = i;
-            const parts = options[i].text.split(" ");
-            if (parts.length == 1) {
-                continue;
-            }
-            let wow_spec = undefined;
-            let wow_class = undefined;
-            if (parts.length > 2) {
-                if (parts.includes("Beast")) {
-                    wow_class = parts[0];
-                    wow_spec = parts[1] + " " + parts[2];
-                } else {
-                    wow_class = parts[0] + " " + parts[1];
-                    wow_spec = parts[2];
-                }
+    function react_to_input() {
+        clean_custom_profile();
+        update_form();
+    }
+    function clean_custom_profile() {
+        let element = document.getElementById('id_custom_profile');
+        element.value = element.value.split("\n").filter(line => {
+            if (line.startsWith("# SimC Addon")) {
+                return true;
+            } else if (line.startsWith("#")) {
+                return false;
+            } else if (line.startsWith("actions")) {
+                return false;
             } else {
-                wow_class = parts[0];
-                wow_spec = parts[1];
+                return true;
             }
-            wow_class = wow_class.toLowerCase();
-            wow_spec = wow_spec.toLowerCase();
-            wow_class = wow_class.replace(" ", "_");
-            wow_spec = wow_spec.replace(" ", "_");
+        }).map(line => {
+            if (line.startsWith("talents=")) {
+                let splits = line.split("=");
+                if (splits.length === 3) {
+                    return [splits[0], splits[2]].join("=");
+                }
+            }
+            return line;
+        }).join("\n");
+    }
+    function update_form() {
+        let input = document.getElementById('id_custom_profile').value.split("\n");
+        function get_options() {
+            const options = document.getElementById("id_wow_spec").options;
+            let filtered_options = [];
+            for (let i = 0; i < options.length; i++) {
+                const index = i;
+                const parts = options[i].text.split(" ");
+                if (parts.length == 1) {
+                    continue;
+                }
+                let wow_spec = undefined;
+                let wow_class = undefined;
+                if (parts.length > 2) {
+                    if (parts.includes("Beast")) {
+                        wow_class = parts[0];
+                        wow_spec = parts[1] + " " + parts[2];
+                    } else {
+                        wow_class = parts[0] + " " + parts[1];
+                        wow_spec = parts[2];
+                    }
+                } else {
+                    wow_class = parts[0];
+                    wow_spec = parts[1];
+                }
+                wow_class = wow_class.toLowerCase();
+                wow_spec = wow_spec.toLowerCase();
+                wow_class = wow_class.replace(" ", "_");
+                wow_spec = wow_spec.replace(" ", "_");
 
-            filtered_options.push([index, wow_class, wow_spec]);
+                filtered_options.push([index, wow_class, wow_spec]);
+            }
+
+            return filtered_options;
+        }
+        function get_spec(strings) {
+            let spec = undefined
+            for (let string of strings) {
+                if (string.indexOf("spec=") > -1) {
+                    spec = string.split("spec=")[1].trim();
+                }
+            }
+            return spec;
+        }
+        function get_class(strings, options) {
+            let wow_classes = options.map(option => { return option[1] });
+            let wow_class = undefined;
+            for (const string of strings) {
+                if (wow_classes.some(e => { return string.startsWith(e) })) {
+                    wow_class = string.split("=")[0];
+                }
+            }
+            return wow_class;
+        }
+        const options = get_options();
+        const wow_spec = get_spec(input);
+        const wow_class = get_class(input, options);
+        try {
+            const index = options.filter(e => { return e[1] === wow_class && e[2] === wow_spec })[0][0];
+            document.getElementById("id_wow_spec").options[index].selected = true;
+        } catch (error) { }
+    }
+    function update_custom_fight_style() {
+        let element = document.getElementById("id_custom_fight_style");
+        let fight_style = document.getElementById("id_fight_style").value;
+        fight_style_names = {
+            1: "Patchwerk",
+            2: "HecticAddCleave",
+            3: "Beastlord",
+            4: "CastingPatchwerk",
+            5: "CleaveAdd",
+            6: "DungeonSlice",
+            7: "HeavyMovement",
+            8: "HelterSkelter",
+            9: "LightMovement",
+            10: "Ultraxion"
+        }
+        let fight_length = document.getElementById("id_fight_length").value;
+        let targets = document.getElementById("id_targets").value;
+
+        let custom = [];
+        if (fight_style !== undefined && fight_style !== "") {
+            custom.push("fight_style=" + fight_style_names[fight_style]);
+        }
+        if (fight_length !== undefined && fight_length !== "") {
+            custom.push("duration=" + fight_length);
+        }
+        if (targets !== undefined && targets !== "") {
+            custom.push("desired_targets=" + targets);
         }
 
-        return filtered_options;
-    }
-    function get_spec(strings) {
-        let spec = undefined
-        for (let string of strings) {
-            if (string.indexOf("spec=") > -1) {
-                spec = string.split("spec=")[1].trim();
-            }
+        if (custom.length > 0) {
+            console.log("Found something, trying to write");
+            element.value = custom.join("\n");
         }
-        return spec;
     }
-    function get_class(strings, options) {
-        let wow_classes = options.map(option => { return option[1] });
-        let wow_class = undefined;
-        for (const string of strings) {
-            if (wow_classes.some(e => { return string.startsWith(e) })) {
-                wow_class = string.split("=")[0];
-            }
-        }
-        return wow_class;
-    }
-    const options = get_options();
-    const wow_spec = get_spec(input);
-    const wow_class = get_class(input, options);
-    try {
-        const index = options.filter(e => { return e[1] === wow_class && e[2] === wow_spec })[0][0];
-        document.getElementById("id_wow_spec").options[index].selected = true;
-    } catch (error) {}
-}
-function update_custom_fight_style() {
-    let element = document.getElementById("id_custom_fight_style");
-    let fight_style = document.getElementById("id_fight_style").value;
-    fight_style_names = {
-        1: "Patchwerk",
-        2: "HecticAddCleave",
-        3: "Beastlord",
-        4: "CastingPatchwerk",
-        5: "CleaveAdd",
-        6: "DungeonSlice",
-        7: "HeavyMovement",
-        8: "HelterSkelter",
-        9: "LightMovement",
-        10: "Ultraxion"
-    }
-    let fight_length = document.getElementById("id_fight_length").value;
-    let targets = document.getElementById("id_targets").value;
+    document.addEventListener("DOMContentLoaded", function () {
+        // probably overkill, but hey at least some errors will be prevented
+        document.getElementById('id_custom_profile').addEventListener("change", react_to_input);
+        document.getElementById('id_custom_profile').addEventListener("input", react_to_input);
+        document.getElementById('id_custom_profile').addEventListener("paste", react_to_input);
 
-    let custom = [];
-    if (fight_style !== undefined && fight_style !== "") {
-        custom.push("fight_style=" + fight_style_names[fight_style]);
-    }
-    if (fight_length !== undefined && fight_length !== "") {
-        custom.push("duration=" + fight_length);
-    }
-    if (targets !== undefined && targets !== "") {
-        custom.push("desired_targets=" + targets);
-    }
-
-    if (custom.length > 0) {
-        console.log("Found something, trying to write");
-        element.value = custom.join("\n");
-    }
-}
-document.addEventListener("DOMContentLoaded", function () {
-    // probably overkill, but hey at least some errors will be prevented
-    document.getElementById('id_custom_profile').addEventListener("change", react_to_input);
-    document.getElementById('id_custom_profile').addEventListener("input", react_to_input);
-    document.getElementById('id_custom_profile').addEventListener("paste", react_to_input);
-
-    document.getElementById('id_fight_style').addEventListener("change", update_custom_fight_style);
-    document.getElementById('id_fight_length').addEventListener("change", update_custom_fight_style);
-    document.getElementById('id_targets').addEventListener("change", update_custom_fight_style);
-});
+        document.getElementById('id_fight_style').addEventListener("change", update_custom_fight_style);
+        document.getElementById('id_fight_length').addEventListener("change", update_custom_fight_style);
+        document.getElementById('id_targets').addEventListener("change", update_custom_fight_style);
+    });
 </script>
 {% endblock %}
