@@ -127,9 +127,6 @@ footer {
 #navBarDataMenu {
     z-index: 45;
     top: 0px;
-    // visibility: visible;
-    -webkit-animation: fadein_class_nav 0.6s;
-    animation: fadein_class_nav 0.6s;
 }
 // there was an animation here...it somehow broke. maybe due to "sticky-top" class
 @-webkit-keyframes fadein_class_nav {
