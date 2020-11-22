@@ -456,7 +456,11 @@ def chart(request, chart_id=None):
 
     try:
         simulation: Simulation = Simulation.objects.select_related(
-            'result', 'wow_class', 'wow_spec', 'simulation_type', 'fight_style'
+            'result',
+            'wow_class',
+            'wow_spec',
+            'simulation_type',
+            'fight_style',
         ).get(
             id=chart_id,
             result__isnull=False,
@@ -466,6 +470,46 @@ def chart(request, chart_id=None):
 
     context["chart"] = {}
     if simulation:
+        context["chart"] = simulation
+
+    return render(request, 'general_website/chart.html', context=context)
+
+
+def standard_chart(request, simulation_type: str, fight_style: str, wow_class: str, wow_spec: str):
+    """Shows a standard chart
+    """
+    logger.debug('called')
+
+    context = {
+        'general_result': True,
+        'simulation_type': simulation_type,
+        'fight_style': fight_style,
+        'wow_class': wow_class,
+        'wow_spec': wow_spec,
+    }
+
+    try:
+        simulation: Simulation = Simulation.objects.select_related(
+            'result',
+            'wow_class',
+            'wow_spec',
+            'simulation_type',
+            'fight_style',
+        ).get(
+            wow_class__tokenized_name=wow_class,
+            wow_spec__tokenized_name=wow_spec,
+            fight_style__tokenized_name=fight_style,
+            simulation_type__command=simulation_type,
+            result__general_result__isnull=False,
+        )
+    except Simulation.DoesNotExist:
+        simulation = None
+
+    logger.info(simulation)
+
+    context["chart"] = {}
+    if simulation:
+        context["chart_id"] = simulation.id
         context["chart"] = simulation
 
     return render(request, 'general_website/chart.html', context=context)

@@ -3,6 +3,7 @@
 {% load static %}
 {% load i18n %}
 {% load multiply %}
+{% load replace_underscore_with_space %}
 
 {% block extrahead %}
 {% comment %} https://ogp.me/ {% endcomment %}
@@ -10,16 +11,42 @@
 <meta property="og:site_name" content="bloodmallet">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 {% if chart %}
-<meta property="og:title" content="{{ chart.wow_spec.name }} {{ chart.wow_class.name }} {{ chart.simulation_type.name }} {{ chart.fight_style.name }}">
+<meta property="og:title"
+    content="{{ chart.wow_spec.name }} {{ chart.wow_class.name }} {{ chart.simulation_type.name }} {{ chart.fight_style.name }}">
 {% else %}
 <meta property="og:title" content="404 chart not found">
 {% endif %}
 <meta property="og:description" content="Data for all.">
-{% comment %} <meta property="og:image" content="">
+{% comment %}
+<meta property="og:image" content="">
 <meta property="og:image:width" content="360">
 <meta property="og:image:height" content="50">
 <meta property="og:image:type" content="image/png"> {% endcomment %}
 
+{% endblock %}
+
+
+{% block precontent%}
+{% if general_result %}
+<div id="navBarDataMenuPlaceholder" class="sticky-top">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu">
+        <!-- Menu button if device is too small for full menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu"
+            aria-controls="navbarClassMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Menu list -->
+        <div class="collapse navbar-collapse" id="navbarClassMenu">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle rogue-color rogue-menu-border" href="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" id="navbar_wow_class_selection"> </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -35,13 +62,15 @@
         <div class="card">
             <div class="card-header bg-dark" id="character-profile-label">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left caret" type="button" data-toggle="collapse" data-target="#character-profile" aria-controls="character-profile">
-                    {% translate "Character profile" %}
+                    <button class="btn btn-link btn-block text-left caret" type="button" data-toggle="collapse"
+                        data-target="#character-profile" aria-controls="character-profile">
+                        {% translate "Character profile" %}
                     </button>
                 </h2>
             </div>
 
-            <div id="character-profile" class="collapse" aria-labelledby="character-profile-label" data-parent="#meta-info">
+            <div id="character-profile" class="collapse" aria-labelledby="character-profile-label"
+                data-parent="#meta-info">
                 <div class="card-body">
                     <table class="table table-dark table-sm text-center">
                         <tbody>
@@ -108,8 +137,10 @@
         <div class="card">
             <div class="card-header bg-dark" id="simulationcraft-settings">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed caret" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    {% translate "SimulationCraft settings" %}
+                    <button class="btn btn-link btn-block text-left collapsed caret" type="button"
+                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
+                        {% translate "SimulationCraft settings" %}
                     </button>
                 </h2>
             </div>
@@ -146,7 +177,8 @@
                     {% if chart %}
                     <div class="form-group">
                         <label for="custom_fight_style">{% translate "Custom fight style" %}</label>
-                        <textarea class="form-control" id="custom_fight_style" rows="3">{{ chart.custom_fight_style }}</textarea>
+                        <textarea class="form-control" id="custom_fight_style"
+                            rows="3">{{ chart.custom_fight_style }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="custom_apl">{% translate "Custom APL" %}</label>
@@ -161,7 +193,8 @@
         <div class="col-12 col-md-6">
             <legend>Chart mode</legend>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="chart_mode" id="soulbinds_mode" value="soulbinds" checked>
+                <input class="form-check-input" type="radio" name="chart_mode" id="soulbinds_mode" value="soulbinds"
+                    checked>
                 <label class="form-check-label" for="soulbinds_mode">
                     {% translate "Soulbinds" %}
                 </label>
@@ -176,25 +209,29 @@
         <div class="col-12 col-md-6" id="covenant_selection" hidden>
             <legend>Covenant</legend>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="kyrian_selection" value="Kyrian" checked>
+                <input class="form-check-input" type="radio" name="covenant_selection" id="kyrian_selection"
+                    value="Kyrian" checked>
                 <label class="form-check-label" for="kyrian_selection">
                     {% translate "Kyrian" %}
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="necrolord_selection" value="Necrolord">
+                <input class="form-check-input" type="radio" name="covenant_selection" id="necrolord_selection"
+                    value="Necrolord">
                 <label class="form-check-label" for="necrolord_selection">
                     {% translate "Necrolord" %}
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="night_fae_selection" value="Night Fae">
+                <input class="form-check-input" type="radio" name="covenant_selection" id="night_fae_selection"
+                    value="Night Fae">
                 <label class="form-check-label" for="night_fae_selection">
                     {% translate "Night Fae" %}
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="venthyr_selection" value="Venthyr">
+                <input class="form-check-input" type="radio" name="covenant_selection" id="venthyr_selection"
+                    value="Venthyr">
                 <label class="form-check-label" for="venthyr_selection">
                     {% translate "Venthyr" %}
                 </label>
@@ -211,11 +248,15 @@
         <ul>
             <li>{% translate "Not all talent combinations might be equally supported by the APL." %}</li>
             <li>{% translate "Not all Fight styles might be supported equally." %}</li>
-            <li>{% translate "Secondary stats aren't changed during simulation, but some talents might favor a different distribution." %}</li>
-            <li>{% translate "Different Covenants might synergize with talents differently, but aren't changed during simulation." %}</li>
+            <li>{% translate "Secondary stats aren't changed during simulation, but some talents might favor a different distribution." %}
+            </li>
+            <li>{% translate "Different Covenants might synergize with talents differently, but aren't changed during simulation." %}
+            </li>
             <li>{% translate "Soulbinds might affect talents, but aren't changed during simulation." %}</li>
-            <li>{% translate "Legendaries might support specific talents. So consider your result legendary specific." %}</li>
-            <li>{% translate "Conduits might affect the worth of talents. But yet again Conduits aren't changed during this simulation." %}</li>
+            <li>{% translate "Legendaries might support specific talents. So consider your result legendary specific." %}
+            </li>
+            <li>{% translate "Conduits might affect the worth of talents. But yet again Conduits aren't changed during this simulation." %}
+            </li>
         </ul>
     </div>
     <div id="talent-table" hidden>
@@ -226,12 +267,12 @@
             <table class="table">
                 <tbody>
                     {% for row in '1234567'|make_list %}
-                        <tr>
-                            <th scope="row">{% if row == '1' %}15{% else %}{{ row|multiply:"5"|add:"15" }}{% endif %}</th>
-                            {% for column in '123'|make_list %}
-                                <td id="{{ row }}{{ column }}">-</td>
-                            {% endfor %}
-                        </tr>
+                    <tr>
+                        <th scope="row">{% if row == '1' %}15{% else %}{{ row|multiply:"5"|add:"15" }}{% endif %}</th>
+                        {% for column in '123'|make_list %}
+                        <td id="{{ row }}{{ column }}">-</td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -239,7 +280,8 @@
     </div>
 </div>
 
-<div id="chart" class="bloodmallet_chart mt-3" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent" data-value-style="absolute"></div>
+<div id="chart" class="bloodmallet_chart mt-3" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}"
+    data-entries="10000" data-background-color="transparent" data-value-style="absolute"></div>
 
 <div id="post_chart" class="mt-5" hidden></div>
 
@@ -248,47 +290,51 @@
 {% block extraimport %}
 
 {% include 'general_website/layout/wowhead_tooltips.html' %}
+{% if general_result %}
+<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
+<script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
+{% endif %}
 {% include 'general_website/layout/chart_import.html' %}
 
 <script>
-function update_value_style() {
-    const element = document.getElementById("relative_values");
-    let chart = document.getElementById("chart");
-    console.log(element, element.checked);
-    if (element.checked) {
-        chart.dataset.valueStyle = "relative";
-    } else {
-        chart.dataset.valueStyle = "absolute";
-    }
+    function update_value_style() {
+        const element = document.getElementById("relative_values");
+        let chart = document.getElementById("chart");
+        console.log(element, element.checked);
+        if (element.checked) {
+            chart.dataset.valueStyle = "relative";
+        } else {
+            chart.dataset.valueStyle = "absolute";
+        }
 
-    bloodmallet_chart_import();
-}
-function update_chart_mode() {
-    document.getElementsByName("chart_mode").forEach(element=>{
-        if (element.checked) {
-            document.getElementById("covenant_selection").hidden = element.value === "soulbinds";
-            document.getElementById("chart").dataset.chartMode = element.value;
-            bloodmallet_chart_import();
-        }
+        bloodmallet_chart_import();
+    }
+    function update_chart_mode() {
+        document.getElementsByName("chart_mode").forEach(element => {
+            if (element.checked) {
+                document.getElementById("covenant_selection").hidden = element.value === "soulbinds";
+                document.getElementById("chart").dataset.chartMode = element.value;
+                bloodmallet_chart_import();
+            }
+        });
+    }
+    function update_covenant() {
+        document.getElementsByName("covenant_selection").forEach(element => {
+            if (element.checked) {
+                document.getElementById("chart").dataset.covenant = element.value;
+                bloodmallet_chart_import();
+            }
+        });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("relative_values").addEventListener("change", update_value_style);
+        document.getElementsByName("chart_mode").forEach(element => {
+            element.addEventListener("change", update_chart_mode);
+        });
+        document.getElementsByName("covenant_selection").forEach(element => {
+            element.addEventListener("change", update_covenant);
+        });
     });
-}
-function update_covenant() {
-    document.getElementsByName("covenant_selection").forEach(element=>{
-        if (element.checked) {
-            document.getElementById("chart").dataset.covenant = element.value;
-            bloodmallet_chart_import();
-        }
-    });
-}
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("relative_values").addEventListener("change", update_value_style);
-    document.getElementsByName("chart_mode").forEach(element=>{
-        element.addEventListener("change", update_chart_mode);
-    });
-    document.getElementsByName("covenant_selection").forEach(element=>{
-        element.addEventListener("change", update_covenant);
-    });
-});
 </script>
 
 {% endblock %}

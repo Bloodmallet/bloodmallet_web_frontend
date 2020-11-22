@@ -1,113 +1,183 @@
-// let debug = false;
-
+if (typeof debug === 'undefined') {
+    var debug = false;
+}
 document.addEventListener("DOMContentLoaded", function () {
     if (debug) {
         console.log("DOMContentLoaded");
     }
-    if (window.location.hash) {
-        update_state_from_hash();
-        update_navbarClassMenu(state.wow_class, state.wow_spec);
-    }
+    update_navbarClassMenu(get_state());
 });
 
-function update_navbarClassMenu(wow_class, wow_spec) {
+/**
+ * Checks url pathname for data and returns all provided information or default values.
+ */
+function get_state() {
+    if (debug) {
+        console.log("update_state_from_path");
+    }
+    let path = window.location.pathname;
+    let state = {};
+    [
+        state.wow_class,
+        state.wow_spec,
+        state.simulation_type,
+        state.fight_style
+    ] = path.split("/").slice(2, 6);
+    return state;
+}
+
+function update_navbarClassMenu(state) {
     if (debug) {
         console.log("update_navbarClassMenu");
     }
-    document.getElementById('navBarDataMenu').hidden = false;
+    const simulation_type_dict = {
+        "soul_binds": "Soulbinds",
+        "trinkets": "Trinkets",
+        "races": "Races",
+        "legendaries": "Legendaries",
+        "talents": "Talents",
+        "secondary_distributions": "Secondary Distributions"
+    };
+    const simulation_types = Object.keys(simulation_type_dict).sort();
+    const fight_style_dict = {
+        "castingpatchwerk": "Casting Patchwerk",
+        "hecticaddcleave": "Hectic Add Cleave",
+    };
+    const fight_styles = Object.keys(fight_style_dict).sort();
 
     let navbarClassMenu = document.getElementById("navbarClassMenu");
 
     let ul_nav = document.createElement("ul");
     ul_nav.className = "navbar-nav";
 
-    if (wow_class.length === 0) {
-        // add class selection (horizontal list)
-        for (tmp_class of Object.keys(classes_specs)) {
-            let li_nav_item = document.createElement("li");
-            li_nav_item.className = "nav-item";
-            ul_nav.appendChild(li_nav_item);
-            let a_nav_link = document.createElement("a");
-            a_nav_link.className = "nav-link " + tmp_class + "-color " + tmp_class + "-menu-border translate_" + tmp_class
-            a_nav_link.href = "#" + tmp_class + "_" + classes_specs[tmp_class][0];
-            a_nav_link.id = "navbar_" + tmp_class + "_menu";
-            a_nav_link.innerText = capitalize_first_letters(tmp_class).replace("_", " ");
-            li_nav_item.appendChild(a_nav_link);
-        }
-    } else { // if wow_class has a name
+    // add class selection (dropdown)
+    // create base element with selected class
+    let li_nav_item_class = document.createElement("li");
+    li_nav_item_class.className = "nav-item dropdown";
+    ul_nav.appendChild(li_nav_item_class);
+    let a_nav_link = document.createElement("a");
+    a_nav_link.className = "nav-link dropdown-toggle " + state.wow_class + "-color " + state.wow_class + "-menu-border";
+    a_nav_link.href = "";
+    a_nav_link.setAttribute("data-toggle", "dropdown");
+    a_nav_link.setAttribute("aria-haspopup", "true");
+    a_nav_link.setAttribute("aria-expanded", "false");
+    a_nav_link.id = "navbar_wow_class_selection";
 
-        // add class selection (dropdown)
-        // create base element with selected class
-        let li_nav_item_class = document.createElement("li");
-        li_nav_item_class.className = "nav-item dropdown";
-        ul_nav.appendChild(li_nav_item_class);
+    a_nav_link.innerText = capitalize_first_letters(state.wow_class).replace("_", " ");
+    li_nav_item_class.appendChild(a_nav_link);
+
+    // create drop down div
+    let div_dropdown = document.createElement("div");
+    div_dropdown.className = "dropdown-menu " + state.wow_class + "-border-top";
+    div_dropdown.setAttribute("aria-labelledby", "navbar_wow_class_selection");
+
+    for (tmp_class of Object.keys(classes_specs)) {
         let a_nav_link = document.createElement("a");
-        a_nav_link.className = "nav-link dropdown-toggle " + wow_class + "-color " + wow_class + "-menu-border translate_" + wow_class;
-        a_nav_link.href = "";
-        a_nav_link.setAttribute("data-toggle", "dropdown");
-        a_nav_link.setAttribute("aria-haspopup", "true");
-        a_nav_link.setAttribute("aria-expanded", "false");
-        a_nav_link.id = "navbar_class_selection";
-
-        a_nav_link.innerText = capitalize_first_letters(wow_class).replace("_", " ");
-        li_nav_item_class.appendChild(a_nav_link);
-
-        // create drop down div
-        let div_dropdown = document.createElement("div");
-        div_dropdown.className = "dropdown-menu " + wow_class + "-border-top";
-        div_dropdown.setAttribute("aria-labelledby", "navbar_class_selection");
-
-        for (tmp_class of Object.keys(classes_specs)) {
-            let a_nav_link = document.createElement("a");
-            a_nav_link.className = "dropdown-item " + tmp_class + "-button translate_" + tmp_class;
-            a_nav_link.href = "#" + tmp_class + "_" + classes_specs[tmp_class][0];
-            a_nav_link.id = "navbar_" + tmp_class + "_selector";
-            a_nav_link.innerText = capitalize_first_letters(tmp_class).replace("_", " ");
-            div_dropdown.appendChild(a_nav_link);
-        }
-
-        // add all classes to the dropdown
-        li_nav_item_class.appendChild(div_dropdown);
-
-        // add ">" sign
-        let li_greater_then = document.createElement("li");
-        li_greater_then.className = "navbar-text " + wow_class + "-color navbar-spacer";
-        li_greater_then.innerHTML = "&nbsp;";
-
-        ul_nav.appendChild(li_greater_then);
-        //ul_nav.appendChild(li_greater_then.cloneNode(true));
-
-        // add spec selection (horizontal list)
-        // get default spec if none was selected yet
-        if (wow_spec.length === 0) {
-            wow_spec = classes_specs[wow_class][0];
-        }
-        // create spec element
-
-        for (let tmp_spec_id = 0; tmp_spec_id < classes_specs[wow_class].length; tmp_spec_id++) {
-            let tmp_spec = classes_specs[wow_class][tmp_spec_id];
-            let a_nav_link_spec = document.createElement("a");
-            let class_list = "nav-link " + wow_class + "-color " + wow_class + "-menu-border translate_" + tmp_spec;
-            if (tmp_spec === wow_spec) {
-                class_list += " active";
-            }
-            a_nav_link_spec.className = class_list;
-            a_nav_link_spec.href = "#" + wow_class + "_" + tmp_spec;
-            a_nav_link_spec.id = "navbar_" + wow_class + "_" + tmp_spec + "_selector";
-            a_nav_link_spec.innerText = capitalize_first_letters(tmp_spec).replace("_", " ");
-            ul_nav.appendChild(a_nav_link_spec);
-
-            // add "|" spacer
-            if (tmp_spec_id !== classes_specs[wow_class].length - 1) {
-                let li_vertical_line = li_greater_then.cloneNode(true);
-                li_vertical_line.innerHTML = "|";
-                ul_nav.appendChild(li_vertical_line);
-            }
-        }
-
-
-
+        a_nav_link.className = "dropdown-item " + tmp_class + "-button";
+        a_nav_link.href = "/" + ["chart", tmp_class, classes_specs[tmp_class][0], state.simulation_type, state.fight_style].join("/");
+        a_nav_link.id = "navbar_" + tmp_class + "_selector";
+        a_nav_link.innerText = capitalize_first_letters(tmp_class).replace("_", " ");
+        div_dropdown.appendChild(a_nav_link);
     }
+
+    // add all classes to the dropdown
+    li_nav_item_class.appendChild(div_dropdown);
+
+    // wow specs
+    let li_nav_item_spec = document.createElement("li");
+    li_nav_item_spec.className = "nav-item dropdown";
+    ul_nav.appendChild(li_nav_item_spec);
+    let a_nav_link_spec = document.createElement("a");
+    a_nav_link_spec.className = "nav-link dropdown-toggle " + state.wow_class + "-color " + state.wow_class + "-menu-border";
+    a_nav_link_spec.href = "";
+    a_nav_link_spec.setAttribute("data-toggle", "dropdown");
+    a_nav_link_spec.setAttribute("aria-haspopup", "true");
+    a_nav_link_spec.setAttribute("aria-expanded", "false");
+    a_nav_link_spec.id = "navbar_wow_spec_selection";
+
+    a_nav_link_spec.innerText = capitalize_first_letters(state.wow_spec).replace("_", " ");
+    li_nav_item_spec.appendChild(a_nav_link_spec);
+
+    // create drop down div
+    let div_dropdown_spec = document.createElement("div");
+    div_dropdown_spec.className = "dropdown-menu " + state.wow_class + "-border-top";
+    div_dropdown_spec.setAttribute("aria-labelledby", "navbar_wow_spec_selection");
+
+    for (tmp_spec of classes_specs[state.wow_class]) {
+        let a_nav_link = document.createElement("a");
+        a_nav_link.className = "dropdown-item " + state.wow_class + "-button";
+        a_nav_link.href = "/" + ["chart", state.wow_class, tmp_spec, state.simulation_type, state.fight_style].join("/");
+        a_nav_link.id = "navbar_" + tmp_spec + "_selector";
+        a_nav_link.innerText = capitalize_first_letters(tmp_spec).replace("_", " ");
+        div_dropdown_spec.appendChild(a_nav_link);
+    }
+
+    // add simulation_type to the dropdown
+    li_nav_item_spec.appendChild(div_dropdown_spec);
+
+    // simulation type
+    let li_nav_item_simulation_type = document.createElement("li");
+    li_nav_item_simulation_type.className = "nav-item dropdown";
+    ul_nav.appendChild(li_nav_item_simulation_type);
+    let a_nav_link_simulation_type = document.createElement("a");
+    a_nav_link_simulation_type.className = "nav-link dropdown-toggle " + state.wow_class + "-color " + state.wow_class + "-menu-border";
+    a_nav_link_simulation_type.href = "";
+    a_nav_link_simulation_type.setAttribute("data-toggle", "dropdown");
+    a_nav_link_simulation_type.setAttribute("aria-haspopup", "true");
+    a_nav_link_simulation_type.setAttribute("aria-expanded", "false");
+    a_nav_link_simulation_type.id = "navbar_simulation_type_selection";
+
+    a_nav_link_simulation_type.innerText = simulation_type_dict[state.simulation_type];
+    li_nav_item_simulation_type.appendChild(a_nav_link_simulation_type);
+
+    // create drop down div
+    let div_dropdown_simulation_type = document.createElement("div");
+    div_dropdown_simulation_type.className = "dropdown-menu " + state.wow_class + "-border-top";
+    div_dropdown_simulation_type.setAttribute("aria-labelledby", "navbar_simulation_type_selection");
+
+    for (tmp_type of simulation_types) {
+        let a_nav_link = document.createElement("a");
+        a_nav_link.className = "dropdown-item " + state.wow_class + "-button";
+        a_nav_link.href = "/" + ["chart", state.wow_class, state.wow_spec, tmp_type, state.fight_style].join("/");
+        a_nav_link.id = "navbar_" + tmp_type + "_selector";
+        a_nav_link.innerText = simulation_type_dict[tmp_type];
+        div_dropdown_simulation_type.appendChild(a_nav_link);
+    }
+
+    // add simulation_type to the dropdown
+    li_nav_item_simulation_type.appendChild(div_dropdown_simulation_type);
+
+    // fight style
+    let li_nav_item_fight_style = document.createElement("li");
+    li_nav_item_fight_style.className = "nav-item dropdown";
+    ul_nav.appendChild(li_nav_item_fight_style);
+    let a_nav_link_fight_style = document.createElement("a");
+    a_nav_link_fight_style.className = "nav-link dropdown-toggle " + state.wow_class + "-color " + state.wow_class + "-menu-border";
+    a_nav_link_fight_style.href = "";
+    a_nav_link_fight_style.setAttribute("data-toggle", "dropdown");
+    a_nav_link_fight_style.setAttribute("aria-haspopup", "true");
+    a_nav_link_fight_style.setAttribute("aria-expanded", "false");
+    a_nav_link_fight_style.id = "navbar_fight_style_selection";
+
+    a_nav_link_fight_style.innerText = fight_style_dict[state.fight_style];
+    li_nav_item_fight_style.appendChild(a_nav_link_fight_style);
+
+    // create drop down div
+    let div_dropdown_fight_style = document.createElement("div");
+    div_dropdown_fight_style.className = "dropdown-menu " + state.wow_class + "-border-top";
+    div_dropdown_fight_style.setAttribute("aria-labelledby", "navbar_fight_style_selection");
+
+    for (tmp_style of fight_styles) {
+        let a_nav_link = document.createElement("a");
+        a_nav_link.className = "dropdown-item " + state.wow_class + "-button";
+        a_nav_link.href = "/" + ["chart", state.wow_class, state.wow_spec, state.simulation_type, tmp_style].join("/");
+        a_nav_link.id = "navbar_" + tmp_style + "_selector";
+        a_nav_link.innerText = fight_style_dict[tmp_style];
+        div_dropdown_fight_style.appendChild(a_nav_link);
+    }
+
+    // add simulation_type to the dropdown
+    li_nav_item_fight_style.appendChild(div_dropdown_fight_style);
 
     // replace old navigation with new styled one
     while (navbarClassMenu.firstChild) {

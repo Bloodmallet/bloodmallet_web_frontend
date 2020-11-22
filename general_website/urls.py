@@ -26,6 +26,11 @@ urlpatterns = [
     path('my_charts', views.my_charts, name='my_charts'),
     path('chart/', views.chart, name='chart_ph'),
     path('chart/<uuid:chart_id>', views.chart, name='chart'),
+    path(
+        'chart/<str:wow_class>/<str:wow_spec>/<str:simulation_type>/<str:fight_style>',
+        views.standard_chart,
+        name='standard_chart'
+    ),
     path('chart/create', views.create_chart, name='create_chart'),
     path('chart/delete', views.delete_chart, name='delete_chart'),
     path('chart/get/<uuid:chart_id>', views.get_chart_data, name='get_chart_data'),

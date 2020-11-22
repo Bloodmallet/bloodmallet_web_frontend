@@ -4,127 +4,40 @@
 {% load static %}
 {% load replace_underscore_with_space %}
 
-{% block precontent%}
-<div id="navBarDataMenuPlaceholder" class="sticky-top">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu" hidden>
-        <!-- Menu button if device is too small for full menu -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu" aria-controls="navbarClassMenu"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Menu list -->
-        <div class="collapse navbar-collapse" id="navbarClassMenu">
-            <!-- Wow classes -->
-            <ul class="navbar-nav">
-
-                {# create a list of all specs and autogenerate the standard links #}
-                {# will need to generate the list in the backend and provide proper translations #}
-                {% with "death_knight demon_hunter druid hunter mage monk paladin priest rogue shaman warlock warrior" as specs %}
-                    {% for spec in specs.split %}
-                        <li class="nav-item">
-                            <a class="nav-link {{ spec }}-color {{ spec }}-menu-border translate_{{ spec }}" href="#{{ spec }}" id="navbar_{{ spec }}_menu">{{ spec|title|replace_underscore_with_space }}</a>
-                        </li>
-                    {% endfor %}
-                {% endwith %}
-
-            </ul>
-        </div>
-    </nav>
-</div>
-{% endblock %}
-
-
 {% block content %}
 
 <h1 class="display-4 mt-3 mb-3 text-center" id="primary_headline">bloodmallet</h1>
 
 <p>
-{% blocktranslate %}
-This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
-using <a href="http://www.simulationcraft.org/">SimulationCraft</a>. These overviews
-are an entry point. <span class="monk-color">You can also generate your own charts by becoming a <a href="https://www.patreon.com/bloodmallet">Patreon</a>.</span>
-{% endblocktranslate %}
+    {% blocktranslate %}
+    This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
+    using <a href="http://www.simulationcraft.org/">SimulationCraft</a>. These overviews
+    are an entry point.
+    <span class="monk-color">You can generate your own charts by becoming a <a href="https://www.patreon.com/bloodmallet">Patreon</a>.</span>
+    {% endblocktranslate %}
 </p>
 <p>
-{% blocktranslate %}
-For indepth information about your spec use your theorycrafters guides.
-{% endblocktranslate %}
-</p>
-
-<div class="alert alert-info" role="alert">
-    8.3 data can be found at <a href="https://bfa.bloodmallet.com/">bfa.bloodmallet.com</a>.
-</div>
-
-<div class="alert alert-warning" role="alert">
-<p>{% translate "Warning"|upper %}</p>
-    <p>
     {% blocktranslate %}
-    Pre-patch (level 50) simulations are trickling in.<br/>
-    Level 60 simulations are still on hold unless you're a patron and provide your own custom profile for your personalized chart.<br/><br/>
-
-    <a href="https://github.com/simulationcraft/simc">SimulationCraft</a> is an open source project and is always looking for help.
+    For indepth information about your spec use your theorycrafters guides.
     {% endblocktranslate %}
-    </p>
-</div>
+</p>
 
 {% comment %}
 <p>
-{% blocktranslate %}
-For indepth information about your spec use your theorycrafters guides linked below the charts.
-{% endblocktranslate %}
+    {% blocktranslate %}
+    For indepth information about your spec use your theorycrafters guides linked below the charts.
+    {% endblocktranslate %}
 </p>
 {% endcomment %}
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row text-center" id="spec_table"></div>
 </div>
-
-{# Chart manipulators / options #}
-<div id="chart_options" hidden>
-    <div class="row">
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="data_type">{% translate "Data Type" %}</label>
-            <select class="form-control btn-data" id="data_type">
-                <option value="trinkets" selected>{% translate "Trinkets" %}</option>
-                <option value="soul_binds">{% translate "Soulbinds" %}</option>
-                <option value="legendaries">{% translate "Legendaries" %}</option>
-                <option value="races">{% translate "Races" %}</option>
-                <option value="secondary_distributions">{% translate "Secondary distributions" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="fight_style">{% translate "Fight Style" %}</label>
-            <select class="form-control btn-data" id="fight_style">
-                <option value="patchwerk" selected>{% translate "Patchwerk" %}</option>
-                <option value="hecticaddcleave">{% translate "HecticAddCleave" %}</option>
-            </select>
-        </div>
-        <div class="col-md-6 col-xl-4 bottom-spacer">
-            <label class="btn-data-label" for="advanced_chart_options_button">{% translate "Advanced Options" %}</label>
-            <button class="btn-data form-control druid-menu-border" type="button" data-toggle="collapse" data-target="#advanced_chart_options_area" aria-expanded="false" aria-controls="advanced_chart_options_area" id="advanced_chart_options_button">
-            {% translate "Show" %}
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="collapse col-md-12" id="advanced_chart_options_area">
-            <div class="card card-body" id="advanced_chart_options" >
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="chart" data-entries="100" hidden></div>
 
 {% endblock %}
 
 {% block extraimport %}
-{% comment %} <script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script> {% endcomment %}
+<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
 <script src="{% static 'general_website/js/class_spec_table.js' %}"></script>
-{% comment %} <script src="{% static 'general_website/js/chart_options.js' %}"></script> {% endcomment %}
 
-{% include 'general_website/layout/wowhead_tooltips.html' %}
-{% include 'general_website/layout/chart_import.html' %}
-
-<script src="{% static 'general_website/js/index.js' %}"></script>
 {% endblock %}
