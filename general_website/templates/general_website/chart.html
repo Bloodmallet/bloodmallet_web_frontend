@@ -280,8 +280,10 @@
     </div>
 </div>
 
-<div id="chart" class="bloodmallet_chart mt-3" data-chart-id="{{ chart_id }}" data-language="{{ LANGUAGE_CODE }}"
-    data-entries="10000" data-background-color="transparent" data-value-style="absolute"></div>
+<div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
+    data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}" {% else %}
+    data-chart-id="{{ chart_id }}" {% endif %} data-language="{{ LANGUAGE_CODE }}" data-entries="10000"
+    data-background-color="transparent" data-value-style="absolute"></div>
 
 <div id="post_chart" class="mt-5" hidden></div>
 
