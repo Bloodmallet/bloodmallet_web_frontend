@@ -69,7 +69,7 @@ function bloodmallet_chart_import() {
    *  patchwerk - default
    *  hecticaddcleave
    */
-  const default_fight_style = "patchwerk";
+  const default_fight_style = "castingpatchwerk";
 
   /**
    * options:
@@ -1716,12 +1716,12 @@ function bloodmallet_chart_import() {
       let boni = [];
       try {
         boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
-      } catch (error) {}
+      } catch (error) { }
       try {
         if (data["profile"]["items"][item_key].hasOwnProperty("ilevel")) {
           boni.push("ilvl=" + data["profile"]["items"][item_key]["ilevel"]);
         }
-      } catch (error) {}
+      } catch (error) { }
       if (boni.length > 0) {
         icon.href += "?" + boni.join("&");
       }
