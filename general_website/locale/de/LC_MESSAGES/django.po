@@ -233,32 +233,32 @@ msgstr "Name des Simulationstypen. z.B. 'Schmuckstücke'."
 
 #: general_website/models/world_of_warcraft.py:108
 msgid "Removes SimulationType from being generated."
-msgstr ""
+msgstr "Entfernt Simulationstyp von der Auswahl."
 
 #: general_website/templates/allauth/account/account_inactive.html:5
 #: general_website/templates/allauth/account/account_inactive.html:8
 msgid "Account Inactive"
-msgstr ""
+msgstr "Profil inaktiv"
 
 #: general_website/templates/allauth/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr ""
+msgstr "Dieses Profil ist inaktiv"
 
 #: general_website/templates/allauth/account/email.html:5
 msgid "Account"
-msgstr ""
+msgstr "Profil"
 
 #: general_website/templates/allauth/account/email.html:8
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "E-Mail Adresse"
 
 #: general_website/templates/allauth/account/email.html:10
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "Die folgenden E-Mail Adressen wurden mit deinem Profil verbunden:"
 
 #: general_website/templates/allauth/account/email.html:24
 msgid "Verified"
-msgstr ""
+msgstr "Verifiziert"
 
 #: general_website/templates/allauth/account/email.html:26
 msgid "Unverified"
