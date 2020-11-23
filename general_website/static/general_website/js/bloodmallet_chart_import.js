@@ -1640,7 +1640,7 @@ function bloodmallet_chart_import() {
    * @param {*} data
    */
   function provide_meta_data(state, data) {
-    if (!["bloodmallet.com", "127.0.0.1"].includes(window.location.hostname)) {
+    if (!["bloodmallet.com", "127.0.0.1:8000"].includes(window.location.host)) {
       return
     }
     if (debug) {
