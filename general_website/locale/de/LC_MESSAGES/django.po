@@ -33,94 +33,96 @@ msgstr "Spanisch"
 
 #: bloodmallet/settings/common.py:125
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 #: bloodmallet/settings/common.py:126
 msgid "Italian"
-msgstr ""
+msgstr "Italienisch"
 
 #: bloodmallet/settings/common.py:127
 msgid "Korean"
-msgstr ""
+msgstr "Koreanisch"
 
 #: bloodmallet/settings/common.py:128
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Brasilianisches Portugisisch"
 
 #: bloodmallet/settings/common.py:129
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: bloodmallet/settings/common.py:130
 msgid "Chinese"
-msgstr ""
+msgstr "Chinesisch"
 
 #: compute_api/models.py:18
 msgid "booting up"
-msgstr ""
+msgstr "Start"
 
 #: compute_api/models.py:19
 msgid "idle"
-msgstr ""
+msgstr "Leerlauf"
 
 #: compute_api/models.py:20
 msgid "calculating"
-msgstr ""
+msgstr "Berechnung"
 
 #: compute_api/models.py:21 general_website/models/simulation.py:94
 msgid "done"
-msgstr ""
+msgstr "Erledigt"
 
 #: compute_api/templates/compute_api/index.html:71
 #: compute_api/templates/compute_api/index.html:88
 msgid "Generation in progress"
-msgstr ""
+msgstr "Erzeugung läuft"
 
 #: compute_api/templates/compute_api/index.html:108
 msgid "Deleting ALL instances"
-msgstr ""
+msgstr "Löschen ALLER Instanzen"
 
 #: general_website/forms.py:57
 msgid "Auto-remove oldest chart"
-msgstr ""
+msgstr "Automatisches Löschen alter Diagramme"
 
 #: general_website/forms.py:58
 msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
-msgstr "adasd"
+msgstr ""
+"Falls alle Diagramm-Plätze belegt sind, wird das aktivieren dieser Checkbox "
+"automatisch das ältereste Diagramm löschen."
 
 #: general_website/forms.py:62
 msgid "45 seconds"
-msgstr ""
+msgstr "45 Sekunden"
 
 #: general_website/forms.py:63
 msgid "1 minute"
-msgstr ""
+msgstr "1 Minute"
 
 #: general_website/forms.py:64
 msgid "1 minute and 30 seconds"
-msgstr ""
+msgstr "1 Minute und 30 Sekunden"
 
 #: general_website/forms.py:65
 msgid "2 minutes"
-msgstr ""
+msgstr "2 Minuten"
 
 #: general_website/forms.py:66
 msgid "3 minutes"
-msgstr ""
+msgstr "3 Minuten"
 
 #: general_website/forms.py:67
 msgid "5 minutes"
-msgstr ""
+msgstr "5 Minuten"
 
 #: general_website/forms.py:68
 msgid "7 minutes"
-msgstr ""
+msgstr "7 Minuten"
 
 #: general_website/forms.py:69
 msgid "10 minutes"
-msgstr ""
+msgstr "10 Minuten"
 
 #: general_website/forms.py:72
 msgid "Fight Length"
@@ -128,27 +130,27 @@ msgstr "Kampfdauer"
 
 #: general_website/forms.py:74
 msgid "Boss"
-msgstr ""
+msgstr "Boss"
 
 #: general_website/forms.py:75
 msgid "Bosses"
-msgstr ""
+msgstr "Bosse"
 
 #: general_website/forms.py:90
 msgid "Boss count"
-msgstr ""
+msgstr "Bossanzahl"
 
 #: general_website/forms.py:126
 msgid "Advanced"
-msgstr "Erweiterte Optionen"
+msgstr "Erweitert"
 
 #: general_website/forms.py:150
 msgid "Paste your /simc output into this element."
-msgstr ""
+msgstr "Füge deinen /simc Text in dieses Element."
 
 #: general_website/forms.py:154 general_website/forms.py:184
 msgid "Create Chart"
-msgstr ""
+msgstr "Diagramm erstellen"
 
 #: general_website/forms.py:162
 #: general_website/templates/general_website/chart.html:154
@@ -157,41 +159,41 @@ msgstr "Kampfstil"
 
 #: general_website/forms.py:174
 msgid "APL"
-msgstr ""
+msgstr "APL"
 
 #: general_website/forms.py:194 general_website/forms.py:202
 #: general_website/forms.py:210
 msgid "An illegal input was detected."
-msgstr ""
+msgstr "Eine illegale Eingabe wurde gefunden."
 
 #: general_website/models/account.py:59
 msgid "Patron UUID"
-msgstr ""
+msgstr "Patron UUID"
 
 #: general_website/models/account.py:61
 msgid "Patron Name"
-msgstr ""
+msgstr "Patron Name"
 
 #: general_website/models/account.py:63
 msgid "Patron Tier"
-msgstr ""
+msgstr "Patron Stufe"
 
 #: general_website/models/account.py:65
 msgid "Is a recognized guide writer"
-msgstr ""
+msgstr "Ist ein anerkannter Anleitungsschreiber"
 
 #: general_website/models/account.py:67
 msgid "Is a SimulationCraft developer"
-msgstr ""
+msgstr "Ist ein SimulationCraft Entwickler"
 
 #: general_website/models/dynamic_config.py:27
 #: general_website/models/dynamic_config.py:29
 msgid "Broadcast will be shown from start_at to end_at."
-msgstr ""
+msgstr "Mitteilung wird von start_at bis end_at eingeblendet."
 
 #: general_website/models/simulation.py:51
 msgid "Name of the chart"
-msgstr ""
+msgstr "Name des Diagramms"
 
 #: general_website/models/simulation.py:56
 msgid ""
@@ -200,30 +202,34 @@ msgid ""
 "mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
+"Beschreibe deinen eigenen Charakter hier. Anstelle der Standardprofile "
+"wird deine Eingabe verwendet. Füge den Text von <a href=\"https://"
+"mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
+"\">SimulationCraft</a> /simc hier ein."
 
 #: general_website/models/simulation.py:59
 msgid "Define your own fight_style."
-msgstr ""
+msgstr "Definiere deinen eigenen Kampfstil."
 
 #: general_website/models/simulation.py:61
 msgid "Define your characters APL."
-msgstr ""
+msgstr "Definiere deine eigene APL."
 
 #: general_website/models/simulation.py:92
 msgid "pending"
-msgstr ""
+msgstr "Warteschlange"
 
 #: general_website/models/simulation.py:93
 msgid "in progress"
-msgstr ""
+msgstr "Simulation läuft"
 
 #: general_website/models/simulation.py:95
 msgid "error"
-msgstr ""
+msgstr "Fehler"
 
 #: general_website/models/world_of_warcraft.py:102
 msgid "Name of the simulation type. Like 'trinket simulations'."
-msgstr ""
+msgstr "Name des Simulationstypen. z.B. 'Schmuckstücke'."
 
 #: general_website/models/world_of_warcraft.py:108
 msgid "Removes SimulationType from being generated."
