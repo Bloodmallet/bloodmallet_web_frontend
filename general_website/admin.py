@@ -91,6 +91,9 @@ class SimulationAdmin(admin.ModelAdmin):
         "user__email",
         "id",
     ]
+    readonly_fields = (
+        'created_at',
+    )
 
 
 @admin.register(Queue)
