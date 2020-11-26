@@ -34,7 +34,11 @@ class Simulation(models.Model):
         help_text="Uuid used to identify a specific Simulation."
     )
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='simulations')
+        User,
+        on_delete=models.CASCADE,
+        related_name='simulations',
+        null=True,
+    )
     wow_class = models.ForeignKey(
         WowClass, on_delete=models.CASCADE, related_name='simulations')
     wow_spec = models.ForeignKey(
