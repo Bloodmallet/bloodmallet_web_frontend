@@ -48,13 +48,21 @@ function build_table() {
             let a_spec_btn = document.createElement('a');
             // It's a simulated spec
             if ([
+                "death_knight_frost",
+                "death_knight_unholy",
+                "mage_arcane",
+                "mage_fire",
+                "mage_frost",
                 "demon_hunter_havoc",
                 "priest_shadow",
                 "rogue_assassination",
                 "rogue_outlaw",
                 "rogue_subtlety",
                 "shaman_elemental",
-                "shaman_enhancement"
+                "shaman_enhancement",
+                "warlock_affliction",
+                "warlock_demonology",
+                "warlock_destruction"
             ].indexOf(wow_class + "_" + wow_spec) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
                 a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/soul_binds/castingpatchwerk';
