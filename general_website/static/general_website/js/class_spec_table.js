@@ -50,10 +50,12 @@ function build_table() {
             if ([
                 "death_knight_frost",
                 "death_knight_unholy",
+                "demon_hunter_havoc",
+                "hunter_beast_mastery",
                 "mage_arcane",
                 "mage_fire",
                 "mage_frost",
-                "demon_hunter_havoc",
+                "paladin_retribution",
                 "priest_shadow",
                 "rogue_assassination",
                 "rogue_outlaw",
@@ -62,7 +64,9 @@ function build_table() {
                 "shaman_enhancement",
                 "warlock_affliction",
                 "warlock_demonology",
-                "warlock_destruction"
+                "warlock_destruction",
+                "warrior_arms",
+                "warrior_fury"
             ].indexOf(wow_class + "_" + wow_spec) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
                 a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/soul_binds/castingpatchwerk';

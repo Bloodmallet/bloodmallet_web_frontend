@@ -3,18 +3,21 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     {% include 'general_website/layout/head.html' %}
     {% block extrahead %}
     {% endblock %}
 </head>
+
 <body>
     {% include 'general_website/layout/nav_top.html' %}
 
     {% if not user.is_superuser %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
-            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}" alt="{% translate 'Become a Patron' %}" height="42" style="vertical-align: text-top;" />
+            <img src="{% static 'general_website/assets/become_a_patron_button.png' %}"
+                alt="{% translate 'Become a Patron' %}" height="42" style="vertical-align: text-top;" />
         </a>
     </div>
     {% endif %}
@@ -44,8 +47,11 @@
     {% block postcontent %}
     {% endblock %}
 
-    <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet.svg'%}');"></div>
+    <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet.svg'%}');">
+    </div>
     <!-- <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet_logo.svg'%}');"></div> -->
+
+    <div style="height: 60px;"></div>
     {% include 'general_website/layout/nav_bottom.html' %}
 
     {# importer of js scripts #}
@@ -56,17 +62,25 @@
     {# Cookie Policy overlay #}
     <div id="cookie_information_overlay" class="cookie_information_overlay" hidden>
     </div>
-    <div id="cookie_information_box" class="centered-axis-xy cookie_box alert alert-info" style="position: fixed;" hidden>
+    <div id="cookie_information_box" class="centered-axis-xy cookie_box alert alert-info" style="position: fixed;"
+        hidden>
         <p>
             {% blocktranslate %}
-            Greetings,<br/>
-            bloodmallet.com would like to use <a href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many people are using the website. You can either accept or reject this. Your choice will be saved on your device in a cookie.
+            Greetings,<br />
+            bloodmallet.com would like to use <a
+                href="https://support.google.com/analytics/answer/2763052">anonymized</a> <a
+                href="https://marketingplatform.google.com/about/analytics/">Google Analytics (GA)</a>, to know how many
+            people are using the website. You can either accept or reject this. Your choice will be saved on your device
+            in a cookie.
             {% endblocktranslate %}
         </p>
         <div class="btn-group float-right">
-            <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">{% translate "Accept GA tracking" %}</button>
-            <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">{% translate "Reject GA tracking" %}</button>
+            <button type="button" class="btn btn-primary"
+                onclick="acceptGATracking(true)">{% translate "Accept GA tracking" %}</button>
+            <button type="button" class="btn btn-secondary"
+                onclick="acceptGATracking(false)">{% translate "Reject GA tracking" %}</button>
         </div>
     </div>
 </body>
+
 </html>

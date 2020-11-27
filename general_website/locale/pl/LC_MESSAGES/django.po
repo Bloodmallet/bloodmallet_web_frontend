@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-22 19:26+0000\n"
+"POT-Creation-Date: 2020-11-27 10:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,10 @@ msgstr ""
 msgid "Chinese"
 msgstr ""
 
+#: compute_api/forms.py:40
+msgid "Create Charts"
+msgstr ""
+
 #: compute_api/models.py:18
 msgid "booting up"
 msgstr ""
@@ -69,17 +73,22 @@ msgstr ""
 msgid "calculating"
 msgstr ""
 
-#: compute_api/models.py:21 general_website/models/simulation.py:94
+#: compute_api/models.py:21 general_website/models/simulation.py:98
 msgid "done"
 msgstr ""
 
-#: compute_api/templates/compute_api/index.html:71
-#: compute_api/templates/compute_api/index.html:88
+#: compute_api/templates/compute_api/index.html:80
+#: compute_api/templates/compute_api/index.html:97
 msgid "Generation in progress"
 msgstr ""
 
-#: compute_api/templates/compute_api/index.html:108
+#: compute_api/templates/compute_api/index.html:117
 msgid "Deleting ALL instances"
+msgstr ""
+
+#: compute_api/views.py:832
+#, python-format
+msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
 
 #: general_website/forms.py:57
@@ -161,8 +170,8 @@ msgstr ""
 msgid "APL"
 msgstr ""
 
-#: general_website/forms.py:194 general_website/forms.py:202
-#: general_website/forms.py:210
+#: general_website/forms.py:195 general_website/forms.py:204
+#: general_website/forms.py:213
 msgid "An illegal input was detected."
 msgstr ""
 
@@ -191,11 +200,11 @@ msgstr ""
 msgid "Broadcast will be shown from start_at to end_at."
 msgstr ""
 
-#: general_website/models/simulation.py:51
+#: general_website/models/simulation.py:55
 msgid "Name of the chart"
 msgstr ""
 
-#: general_website/models/simulation.py:56
+#: general_website/models/simulation.py:60
 msgid ""
 "Define your own character here, instead of using the standard profile (your "
 "input will overwrite the standard profile). Paste your <a href=\"https://"
@@ -203,23 +212,23 @@ msgid ""
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
 
-#: general_website/models/simulation.py:59
+#: general_website/models/simulation.py:63
 msgid "Define your own fight_style."
 msgstr ""
 
-#: general_website/models/simulation.py:61
+#: general_website/models/simulation.py:65
 msgid "Define your characters APL."
 msgstr ""
 
-#: general_website/models/simulation.py:92
+#: general_website/models/simulation.py:96
 msgid "pending"
 msgstr ""
 
-#: general_website/models/simulation.py:93
+#: general_website/models/simulation.py:97
 msgid "in progress"
 msgstr ""
 
-#: general_website/models/simulation.py:95
+#: general_website/models/simulation.py:99
 msgid "error"
 msgstr ""
 
@@ -828,7 +837,7 @@ msgid "Unknown error"
 msgstr ""
 
 #: general_website/templates/general_website/faq.html:20
-#: general_website/templates/general_website/layout/base.html:17
+#: general_website/templates/general_website/layout/base.html:20
 msgid "Become a Patron"
 msgstr ""
 
@@ -849,13 +858,13 @@ msgid ""
 msgstr ""
 
 #: general_website/templates/general_website/faq.html:123
-#: general_website/templates/general_website/layout/base.html:67
+#: general_website/templates/general_website/layout/base.html:79
 #: general_website/templates/general_website/privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr ""
 
 #: general_website/templates/general_website/faq.html:124
-#: general_website/templates/general_website/layout/base.html:68
+#: general_website/templates/general_website/layout/base.html:81
 #: general_website/templates/general_website/privacy_policy.html:34
 msgid "Reject GA tracking"
 msgstr ""
@@ -880,15 +889,18 @@ msgid ""
 "    "
 msgstr ""
 
-#: general_website/templates/general_website/layout/base.html:61
+#: general_website/templates/general_website/layout/base.html:68
 msgid ""
 "\n"
-"            Greetings,<br/>\n"
-"            bloodmallet.com would like to use <a href=\"https://support."
-"google.com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
-"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
-"to know how many people are using the website. You can either accept or "
-"reject this. Your choice will be saved on your device in a cookie.\n"
+"            Greetings,<br />\n"
+"            bloodmallet.com would like to use <a\n"
+"                href=\"https://support.google.com/analytics/"
+"answer/2763052\">anonymized</a> <a\n"
+"                href=\"https://marketingplatform.google.com/about/analytics/"
+"\">Google Analytics (GA)</a>, to know how many\n"
+"            people are using the website. You can either accept or reject "
+"this. Your choice will be saved on your device\n"
+"            in a cookie.\n"
 "            "
 msgstr ""
 
