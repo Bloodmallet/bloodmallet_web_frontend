@@ -52,6 +52,8 @@ function build_table() {
                 "death_knight_unholy",
                 "demon_hunter_havoc",
                 "hunter_beast_mastery",
+                "hunter_marksmanship",
+                "hunter_survival",
                 "mage_arcane",
                 "mage_fire",
                 "mage_frost",
