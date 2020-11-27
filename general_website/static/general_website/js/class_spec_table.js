@@ -51,6 +51,8 @@ function build_table() {
                 "death_knight_frost",
                 "death_knight_unholy",
                 "demon_hunter_havoc",
+                // "druid_balance",
+                "druid_feral",
                 "hunter_beast_mastery",
                 "hunter_marksmanship",
                 "hunter_survival",
