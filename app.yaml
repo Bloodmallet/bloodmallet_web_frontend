@@ -10,6 +10,10 @@ handlers:
 # Ensure old import paths will keep working when we'll do the switch.
 - url: /js
   static_dir: static/general_website/js
+# add favicon https://cloud.google.com/appengine/docs/standard/python3/serving-static-files#configuring_your_static_file_handlers
+- url: /favicon\.ico
+  static_files: static/general_website/favicon.ico
+  upload: favicon\.ico
 # This handler routes all requests not caught above to your main app. It is
 # required when static routes are defined, but can be omitted (along with
 # the entire handlers section) when there are no static files defined.
