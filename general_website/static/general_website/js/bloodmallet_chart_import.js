@@ -122,7 +122,26 @@ function bloodmallet_chart_import() {
     "ko": "ko_KR",
     "pt": "pt_BR",
     "ru": "ru_RU"
-  }
+  };
+
+  const covenants = {
+    "Kyrian": {
+      "id": 1,
+      "color": "#69ccf0"
+    },
+    "Venthyr": {
+      "id": 2,
+      "color": "#c41f3b"
+    },
+    "Night Fae": {
+      "id": 3,
+      "color": "#a330c9"
+    },
+    "Necrolord": {
+      "id": 4,
+      "color": "#abd473"
+    }
+  };
 
   /**
    *
@@ -631,7 +650,31 @@ function bloodmallet_chart_import() {
         showInLegend: false
       }, false);
 
-    } else { // race simulations, soul bind simulations
+    } else if (["soulbinds"].includes(data_type) && state.chart_mode === "soulbinds") {
+      for (const covenant of Object.keys(covenants).sort().reverse()) {
+        const covenant_id = covenants[covenant]["id"];
+
+        let dps_array = [];
+        for (let i = 0; i < dps_ordered_keys.length; i++) {
+          let dps_key = dps_ordered_keys[i];
+
+          let dps_key_values = 0;
+          if (data["covenant_mapping"][dps_key][0] === covenant_id) {
+            dps_key_values = data["data"][dps_key][state.conduit_rank];
+          }
+
+          dps_array.push(dps_key_values);
+        }
+
+        chart.addSeries({
+          data: dps_array,
+          name: get_translated_name(covenant, data),
+          showInLegend: true,
+          color: covenants[covenant]["color"]
+        }, false);
+      }
+
+    } else { // race simulations
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -1045,7 +1088,7 @@ function bloodmallet_chart_import() {
   }
 
   /**
-   *
+   * Create tooltip-ready link
    * @param {string} key name of the div/chart
    * @param {json} data loaded data from bloodmallet.com for this chart
    */
@@ -2025,7 +2068,6 @@ function bloodmallet_chart_import() {
     return return_name;
   }
 
-
   function get_lowest_gain(row_column, data) {
     let row = row_column.slice(0, 1);
     let column = row_column.slice(1, 2);
@@ -2062,7 +2104,6 @@ function bloodmallet_chart_import() {
     return [talent_combination, gain];
   }
 
-
   function get_average_gain(row_column, data) {
     if (debug) {
       console.log("get_average_gain");
@@ -2091,7 +2132,6 @@ function bloodmallet_chart_import() {
     }
     return Math.round((talent_value * 100 / no_talent_value - 100) * 100) / 100;
   }
-
 
 }
 
