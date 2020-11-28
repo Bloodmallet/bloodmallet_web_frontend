@@ -1173,17 +1173,29 @@ function bloodmallet_chart_import() {
         }
       }
 
+      if (state.data_type === "talents") {
+        if (key[1] === "0") {
+          return key[1];
+        } else {
+          a.href += "spells/" + data["talent_data"][key[0]][key[1]]["spell_id"];
+        }
+      }
+
       a.dataset.tooltipHref = a.href;
 
       let translation = undefined;
-      try {
-        translation = document.createTextNode(data["translations"][key][language_table[state.language]])
-      } catch (error) {
+      if (state.data_type === "talents") {
+        translation = key[1];
+      } else {
         try {
-          translation = document.createTextNode(data["languages"][key][language_table[state.language]])
+          translation = data["translations"][key][language_table[state.language]];
         } catch (error) {
-          translation = key;
-          //console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+          try {
+            translation = data["languages"][key][language_table[state.language]];
+          } catch (error) {
+            translation = key;
+            //console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
+          }
         }
       }
 
