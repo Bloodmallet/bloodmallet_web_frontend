@@ -189,6 +189,10 @@
             </div>
         </div>
     </div>
+    <div id="value_style_switch" class="form-group form-check text-right" hidden>
+        <input type="checkbox" class="form-check-input" id="absolute_values">
+        <label class="form-check-label text-muted" for="absolute_values">{% translate "Use absolute values" %}</label>
+    </div>
     <div id="chart_options" class="mt-3 row" hidden>
         <div class="col-12 col-md-6">
             <legend>Chart mode</legend>
@@ -238,10 +242,6 @@
             </div>
         </div>
     </div>
-    <div id="value_style_switch" class="form-group form-check text-right" hidden>
-        <input type="checkbox" class="form-check-input" id="relative_values">
-        <label class="form-check-label text-muted" for="relative_values">{% translate "Use relative values" %}</label>
-    </div>
     <div id="talent-warning" class="mt-3" hidden>
         <h3>{% translate "Disclaimer" %}</h3>
         <p>{% translate "Talent simulations are quite fragile for the following reasons:" %}</p>
@@ -283,7 +283,7 @@
 <div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}" {% else %}
     data-chart-id="{{ chart_id }}" {% endif %} data-language="{{ LANGUAGE_CODE }}" data-entries="10000"
-    data-background-color="transparent" data-value-style="absolute"></div>
+    data-background-color="transparent" data-value-style="relative"></div>
 
 <div id="post_chart" class="mt-5" hidden></div>
 
@@ -300,13 +300,12 @@
 
 <script>
     function update_value_style() {
-        const element = document.getElementById("relative_values");
+        const element = document.getElementById("absolute_values");
         let chart = document.getElementById("chart");
-        console.log(element, element.checked);
         if (element.checked) {
-            chart.dataset.valueStyle = "relative";
-        } else {
             chart.dataset.valueStyle = "absolute";
+        } else {
+            chart.dataset.valueStyle = "relative";
         }
 
         bloodmallet_chart_import();
@@ -329,7 +328,7 @@
         });
     }
     document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("relative_values").addEventListener("change", update_value_style);
+        document.getElementById("absolute_values").addEventListener("change", update_value_style);
         document.getElementsByName("chart_mode").forEach(element => {
             element.addEventListener("change", update_chart_mode);
         });
