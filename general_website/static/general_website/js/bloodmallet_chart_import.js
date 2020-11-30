@@ -470,7 +470,7 @@ function bloodmallet_chart_import() {
     }
 
     const data = spec_data;
-
+    console.log(data);
     // Azerite Trait stacking uses the second sorted data key list
     let dps_ordered_keys;
     let baseline_dps;
@@ -1116,25 +1116,17 @@ function bloodmallet_chart_import() {
 
     // fallback
     if (state.tooltip_engine != "wowhead" && state.tooltip_engine != "wowdb") {
-      try {
-        return data["translations"][key][language_table[state.language]];
-      } catch (error) {
-        return data["languages"][key][language_table[state.language]];
-      }
+      return get_translated_name(key, data);
     }
 
     // races don't have links/tooltips
     if (["races"].includes(state.data_type)) {
-      try {
-        return data["translations"][key][language_table[state.language]];
-      } catch (error) {
-        return data["languages"][key][language_table[state.language]];
-      }
+      return get_translated_name(key, data);
     }
 
     if (["soulbinds"].includes(state.data_type) && state.chart_mode === "soulbinds") {
       let link = '<a href="#' + key + '">';
-      link += data["translations"][key][language_table[state.language]];
+      link += get_translated_name(key, data);
       link += '</a>';
       return link;
     }
@@ -1173,16 +1165,7 @@ function bloodmallet_chart_import() {
       if (state.data_type === "talents") {
         a.appendChild(document.createTextNode(key[1]));
       } else {
-        try {
-          a.appendChild(document.createTextNode(data["translations"][key][language_table[state.language]]));
-        } catch (error) {
-          try {
-            a.appendChild(document.createTextNode(data["languages"][key][language_table[state.language]]));
-          } catch (error) {
-            a.appendChild(document.createTextNode(key));
-            // console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
-          }
-        }
+        a.appendChild(document.createTextNode(get_translated_name(key, data)));
       }
 
       return a.outerHTML;
@@ -1243,16 +1226,7 @@ function bloodmallet_chart_import() {
       if (state.data_type === "talents") {
         translation = key[1];
       } else {
-        try {
-          translation = data["translations"][key][language_table[state.language]];
-        } catch (error) {
-          try {
-            translation = data["languages"][key][language_table[state.language]];
-          } catch (error) {
-            translation = key;
-            //console.log("Bloodmallet charts: Translation for " + key + " wasn't found. Please help improving the reasource at bloodmallet.com.");
-          }
-        }
+        translation = get_translated_name(key, data);
       }
 
       a.appendChild(document.createTextNode(translation));
@@ -1840,7 +1814,7 @@ function bloodmallet_chart_import() {
                 if (data.hasOwnProperty("spell_ids") && data["spell_ids"].hasOwnProperty(node)) {
                   a.href += "spell=" + data["spell_ids"][node] + '/' + slugify(node);
                 }
-                a.appendChild(document.createTextNode(data["translations"][node][language_table[state.language]]));
+                a.appendChild(document.createTextNode(get_translated_name(node, data)));
                 collect.push(a);
               }
             }
@@ -2051,18 +2025,6 @@ function bloodmallet_chart_import() {
       console.log("get_translated_name " + name);
     }
 
-    let language_table = {
-      "zh-hans": "cn_CN",
-      "en": "en_US",
-      "de": "de_DE",
-      "es": "es_ES",
-      "fr": "fr_FR",
-      "it": "it_IT",
-      "ko": "ko_KR",
-      "pt": "pt_BR",
-      "ru": "ru_RU"
-    }
-
     let return_name = "";
     try {
       return_name = data["translations"][name][language_table[language]];
@@ -2076,6 +2038,10 @@ function bloodmallet_chart_import() {
 
     if (debug) {
       console.log("Translated name: " + return_name);
+    }
+
+    if (return_name === undefined) {
+      return_name = name;
     }
 
     return return_name;
