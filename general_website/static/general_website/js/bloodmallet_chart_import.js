@@ -144,6 +144,19 @@ function bloodmallet_chart_import() {
   };
 
   /**
+   * Conduits have ranks...and those are mapped to itemlevels. Players see their itemlevels ingame, not the rank
+   */
+  const rank_to_ilevel = {
+    1: 145,
+    2: 158,
+    3: 171,
+    4: 184,
+    5: 200,
+    6: 213,
+    7: 226
+  }
+
+  /**
    *
    * Functions
    *
@@ -416,11 +429,7 @@ function bloodmallet_chart_import() {
       console.log("update_chart");
     }
 
-    let chart_id = state.chart_id;
     let data_type = state.data_type;
-    let fight_style = state.fight_style;
-    let wow_class = state.wow_class;
-    let wow_spec = state.wow_spec;
     let limit = state.limit;
     let chart_engine = state.chart_engine;
 
@@ -625,6 +634,8 @@ function bloodmallet_chart_import() {
           simulation_step_clean = simulation_step.split("_")[1];
         } else if (data_type === "azerite_traits_stacking") {
           simulation_step_clean = simulation_step.split("_")[0];
+        } else if (data_type === "soulbinds" && state.chart_mode === "nodes") {
+          simulation_step_clean = rank_to_ilevel[simulation_step_clean];
         }
 
         chart.addSeries({
