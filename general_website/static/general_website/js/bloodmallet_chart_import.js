@@ -515,6 +515,8 @@ function bloodmallet_chart_import() {
       }
       if (["races", "talents"].includes(data_type)) {
         baseline_dps = 0;
+      } else if (["soulbinds"].includes(data_type) && state.chart_mode === "nodes") {
+        baseline_dps = data["data"]["baseline"][state.covenant];
       } else if (["legendaries", "soulbind_nodes", "soulbinds", "covenants"].includes(data_type)) {
         baseline_dps = data["data"]["baseline"];
       } else {
@@ -1714,7 +1716,7 @@ function bloodmallet_chart_import() {
     }
 
     // value switch
-    if (["trinkets", "covenants", "conduits", "soulbind_nodes"].includes(state.data_type)) {
+    if (["trinkets", "covenants", "conduits", "soulbind_nodes", "legendaries", "soulbinds"].includes(state.data_type)) {
       document.getElementById("value_style_switch").hidden = false;
     }
 
