@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 10:47+0000\n"
+"POT-Creation-Date: 2020-11-30 19:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr "Идет генерация"
 msgid "Deleting ALL instances"
 msgstr "Удалить ВСЕ примеры"
 
-#: compute_api/views.py:832
+#: compute_api/views.py:841
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -803,37 +803,37 @@ msgstr "Тип боя"
 msgid "Custom APL"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:201
+#: general_website/templates/general_website/chart.html:196
+msgid "Use absolute values"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:205
 #: general_website.SimulationType/name:12
 msgid "Soulbinds"
 msgstr "Медиумы"
 
-#: general_website/templates/general_website/chart.html:207
+#: general_website/templates/general_website/chart.html:211
 #, fuzzy
 #| msgid "Conduits"
 msgid "Nodes/Conduits"
 msgstr "Проводники"
 
-#: general_website/templates/general_website/chart.html:217
+#: general_website/templates/general_website/chart.html:221
 msgid "Kyrian"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:224
+#: general_website/templates/general_website/chart.html:228
 msgid "Necrolord"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:231
+#: general_website/templates/general_website/chart.html:235
 #, fuzzy
 #| msgid "Fight style"
 msgid "Night Fae"
 msgstr "Тип боя"
 
-#: general_website/templates/general_website/chart.html:238
+#: general_website/templates/general_website/chart.html:242
 msgid "Venthyr"
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:245
-msgid "Use relative values"
 msgstr ""
 
 #: general_website/templates/general_website/chart.html:248
