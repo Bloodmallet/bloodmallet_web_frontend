@@ -48,10 +48,11 @@ function build_table() {
             let a_spec_btn = document.createElement('a');
             // It's a simulated spec
             if ([
+                "death_knight_blood",
                 "death_knight_frost",
                 "death_knight_unholy",
                 "demon_hunter_havoc",
-                // "druid_balance",
+                "druid_balance",
                 "druid_feral",
                 "hunter_beast_mastery",
                 "hunter_marksmanship",
