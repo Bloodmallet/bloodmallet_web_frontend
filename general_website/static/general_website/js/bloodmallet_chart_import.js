@@ -121,7 +121,8 @@ function bloodmallet_chart_import() {
     "it": "it_IT",
     "ko": "ko_KR",
     "pt": "pt_BR",
-    "ru": "ru_RU"
+    "ru": "ru_RU",
+    "zh-hans": "cn_CN"
   };
 
   const covenants = {
@@ -681,7 +682,7 @@ function bloodmallet_chart_import() {
 
         chart.addSeries({
           data: dps_array,
-          name: get_translated_name(covenant, data),
+          name: get_translated_name(covenant, data, state),
           showInLegend: true,
           color: covenants[covenant]["color"]
         }, false);
@@ -1116,17 +1117,17 @@ function bloodmallet_chart_import() {
 
     // fallback
     if (state.tooltip_engine != "wowhead" && state.tooltip_engine != "wowdb") {
-      return get_translated_name(key, data);
+      return get_translated_name(key, data, state);
     }
 
     // races don't have links/tooltips
     if (["races"].includes(state.data_type)) {
-      return get_translated_name(key, data);
+      return get_translated_name(key, data, state);
     }
 
     if (["soulbinds"].includes(state.data_type) && state.chart_mode === "soulbinds") {
       let link = '<a href="#' + key + '">';
-      link += get_translated_name(key, data);
+      link += get_translated_name(key, data, state);
       link += '</a>';
       return link;
     }
@@ -1165,7 +1166,7 @@ function bloodmallet_chart_import() {
       if (state.data_type === "talents") {
         a.appendChild(document.createTextNode(key[1]));
       } else {
-        a.appendChild(document.createTextNode(get_translated_name(key, data)));
+        a.appendChild(document.createTextNode(get_translated_name(key, data, state)));
       }
 
       return a.outerHTML;
@@ -1226,7 +1227,7 @@ function bloodmallet_chart_import() {
       if (state.data_type === "talents") {
         translation = key[1];
       } else {
-        translation = get_translated_name(key, data);
+        translation = get_translated_name(key, data, state);
       }
 
       a.appendChild(document.createTextNode(translation));
@@ -1790,7 +1791,7 @@ function bloodmallet_chart_import() {
         const id = data["covenant_ids"][covenant];
 
         let headline = document.createElement("h3");
-        headline.appendChild(document.createTextNode(get_translated_name(covenant, data)));
+        headline.appendChild(document.createTextNode(get_translated_name(covenant, data, state)));
         parent.appendChild(headline);
 
         let order = 0;
@@ -1799,7 +1800,7 @@ function bloodmallet_chart_import() {
             order += 1;
 
             let s_headline = document.createElement("h4");
-            s_headline.appendChild(document.createTextNode(order + ". " + get_translated_name(soulbind, data)));
+            s_headline.appendChild(document.createTextNode(order + ". " + get_translated_name(soulbind, data, state)));
             s_headline.classList += "ml-3";
             s_headline.id = soulbind;
             parent.appendChild(s_headline);
@@ -1814,7 +1815,7 @@ function bloodmallet_chart_import() {
                 if (data.hasOwnProperty("spell_ids") && data["spell_ids"].hasOwnProperty(node)) {
                   a.href += "spell=" + data["spell_ids"][node] + '/' + slugify(node);
                 }
-                a.appendChild(document.createTextNode(get_translated_name(node, data)));
+                a.appendChild(document.createTextNode(get_translated_name(node, data, state)));
                 collect.push(a);
               }
             }
@@ -2010,7 +2011,7 @@ function bloodmallet_chart_import() {
     s += data["talent_data"][row_column.slice(0, 1)][row_column.slice(1, 2)]["spell_id"];
     s += "\"";
     s += ">";
-    s += get_translated_name(name, data);
+    s += get_translated_name(name, data, state);
     s += "</a>";
 
     return s;
@@ -2020,14 +2021,14 @@ function bloodmallet_chart_import() {
    * Get the translation of a name (item, trait, race) from the data file
    * @param {string} name
    */
-  function get_translated_name(name, data) {
+  function get_translated_name(name, data, state) {
     if (debug) {
       console.log("get_translated_name " + name);
     }
 
     let return_name = "";
     try {
-      return_name = data["translations"][name][language_table[language]];
+      return_name = data["translations"][name][language_table[state.language]];
     } catch (error) {
       if (debug) {
         console.log(`No translation for ${name} found.`);
