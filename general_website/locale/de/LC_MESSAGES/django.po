@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 19:36+0000\n"
+"POT-Creation-Date: 2020-12-03 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,10 +84,12 @@ msgstr "Erzeugung läuft"
 msgid "Deleting ALL instances"
 msgstr "Löschen ALLER Instanzen"
 
-#: compute_api/views.py:841
+#: compute_api/views.py:844
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
+"%(count)s Standarddiagramm-Simulationen wurden zur Warteschlange "
+"hinzugefügt. Entspann dich!"
 
 #: general_website/forms.py:57
 msgid "Auto-remove oldest chart"
@@ -271,7 +273,7 @@ msgstr "Verifiziert"
 
 #: general_website/templates/allauth/account/email.html:26
 msgid "Unverified"
-msgstr ""
+msgstr "Unbestätigt"
 
 #: general_website/templates/allauth/account/email.html:28
 msgid "Primary"
@@ -283,34 +285,36 @@ msgstr ""
 
 #: general_website/templates/allauth/account/email.html:35
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Versende Bestätigungsmail erneut"
 
 #: general_website/templates/allauth/account/email.html:36
 #: general_website/templates/allauth/socialaccount/connections.html:35
 msgid "Remove"
-msgstr ""
+msgstr "Löschen"
 
 #: general_website/templates/allauth/account/email.html:43
 msgid "Warning:"
-msgstr ""
+msgstr "Warnung:"
 
 #: general_website/templates/allauth/account/email.html:43
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
+"Du hast im Moment keine E-Mailadresse eingetragen. Du solltest eine hinterlegen "
+"um Benachrichtungen z.B. zum Zurücksetzen deines Passworts zu empfangen."
 
 #: general_website/templates/allauth/account/email.html:48
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "E-Mailadresse hinzufügen"
 
 #: general_website/templates/allauth/account/email.html:53
 msgid "Add E-mail"
-msgstr ""
+msgstr "E-Mail hinzufügen"
 
 #: general_website/templates/allauth/account/email.html:62
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "Möchtest du die ausgewählte E-Mailadresse wirklich löschen?"
 
 #: general_website/templates/allauth/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -322,6 +326,13 @@ msgid ""
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
+"Hallo von %(site_name)s!\n"
+"\n"
+"Du bekommst diese E-Mail, weil der Nutzer %(user_display)s sie angegeben, "
+"um sie mit dem Account zu verbinden.\n"
+"\n"
+"Falls diese Handlung von dir vorgenommen wurde, bestätige sie über den\n"
+"folgenden Link. %(activate_url)s\n"
 
 #: general_website/templates/allauth/account/email/email_confirmation_message.txt:7
 #, python-format
@@ -329,10 +340,12 @@ msgid ""
 "Thank you from %(site_name)s!\n"
 "%(site_domain)s"
 msgstr ""
+"Vielen Dank von %(site_name)s!\n"
+"%(site_domain)s"
 
 #: general_website/templates/allauth/account/email/email_confirmation_subject.txt:3
 msgid "Please Confirm Your E-mail Address"
-msgstr ""
+msgstr "Bitte bestätige deine E-Mailadresse"
 
 #: general_website/templates/allauth/account/email/password_reset_key_message.txt:1
 #, python-format
@@ -344,6 +357,12 @@ msgid ""
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password."
 msgstr ""
+"Hallo von %(site_name)s!\n"
+"\n"
+"Du bekommst diese E-Mail, weil du oder jemand Anderes eine Zurücksetzung des "
+"Passworts für diesen Account beantragt hat.\n"
+"Du kannst diese E-Mail unbesorgt ignorieren, falls du diese Zurücksetzung nicht "
+"beantragt hast. Zum Zurücksetzen des Passworts klicke auf den unten stehenden Link."
 
 #: general_website/templates/allauth/account/email/password_reset_key_message.txt:8
 #, python-format
@@ -974,10 +993,14 @@ msgid "Patreon"
 msgstr ""
 
 #: general_website/templates/general_website/layout/nav_bottom.html:29
-msgid "Report an error"
-msgstr "Fehler melden"
+msgid "Bugreport"
+msgstr ""
 
-#: general_website/templates/general_website/layout/nav_bottom.html:59
+#: general_website/templates/general_website/layout/nav_bottom.html:29
+msgid "Suggestion"
+msgstr ""
+
+#: general_website/templates/general_website/layout/nav_bottom.html:60
 #: general_website/templates/general_website/terms_and_conditions.html:5
 #: general_website/templates/general_website/terms_and_conditions.html:10
 msgid "Terms and Conditions"
@@ -1736,6 +1759,9 @@ msgstr ""
 #: general_website.WowSpec/name:29
 msgid "Fury"
 msgstr ""
+
+#~ msgid "Report an error"
+#~ msgstr "Fehler melden"
 
 #~ msgid "Data Type"
 #~ msgstr "Datentypen"
