@@ -76,7 +76,8 @@ function build_table() {
                 "warlock_demonology",
                 "warlock_destruction",
                 "warrior_arms",
-                "warrior_fury"
+                "warrior_fury",
+                "warrior_protection"
             ].indexOf(wow_class + "_" + wow_spec) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
                 a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/soul_binds/castingpatchwerk';
