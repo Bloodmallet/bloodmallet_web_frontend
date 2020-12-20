@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 19:36+0000\n"
+"POT-Creation-Date: 2020-12-20 12:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgstr "Erzeugung läuft"
 msgid "Deleting ALL instances"
 msgstr "Löschen ALLER Instanzen"
 
-#: compute_api/views.py:841
+#: compute_api/views.py:845
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -974,10 +974,14 @@ msgid "Patreon"
 msgstr ""
 
 #: general_website/templates/general_website/layout/nav_bottom.html:29
-msgid "Report an error"
+msgid "Bugreport"
 msgstr "Fehler melden"
 
-#: general_website/templates/general_website/layout/nav_bottom.html:59
+#: general_website/templates/general_website/layout/nav_bottom.html:29
+msgid "Suggestion"
+msgstr "Vorschläge"
+
+#: general_website/templates/general_website/layout/nav_bottom.html:60
 #: general_website/templates/general_website/terms_and_conditions.html:5
 #: general_website/templates/general_website/terms_and_conditions.html:10
 msgid "Terms and Conditions"
@@ -1736,6 +1740,9 @@ msgstr ""
 #: general_website.WowSpec/name:29
 msgid "Fury"
 msgstr ""
+
+#~ msgid "Report an error"
+#~ msgstr "Fehler melden"
 
 #~ msgid "Data Type"
 #~ msgstr "Datentypen"
