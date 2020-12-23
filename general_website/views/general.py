@@ -20,6 +20,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # support
+RENOWN = 12
 
 # views
 
@@ -471,6 +472,7 @@ def chart(request, chart_id=None):
     context["chart"] = {}
     if simulation:
         context["chart"] = simulation
+        context["renown"] = RENOWN
 
     return render(request, 'general_website/chart.html', context=context)
 
@@ -486,6 +488,7 @@ def standard_chart(request, simulation_type: str, fight_style: str, wow_class: s
         'fight_style': fight_style,
         'wow_class': wow_class,
         'wow_spec': wow_spec,
+        'renown': RENOWN,
     }
 
     try:
