@@ -1696,9 +1696,6 @@ function bloodmallet_chart_import() {
     }
 
     // chart options
-    if (["soulbinds"].includes(state.data_type)) {
-      document.getElementById("chart_options").hidden = false;
-    }
 
     let element = document.getElementById("meta-info");
     element.hidden = false;

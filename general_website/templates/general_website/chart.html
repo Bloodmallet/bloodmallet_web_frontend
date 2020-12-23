@@ -193,7 +193,8 @@
         <input type="checkbox" class="form-check-input" id="absolute_values">
         <label class="form-check-label text-muted" for="absolute_values">{% translate "Use absolute values" %}</label>
     </div>
-    <div id="chart_options" class="mt-3 row" hidden>
+    <div id="chart_options" class="mt-3 row">
+        {% if chart.simulation_type.command == "soul_binds" %}
         <div class="col-12 form-row">
             <div class="col-auto">
                 <legend>Renown</legend>
@@ -253,25 +254,37 @@
                 </label>
             </div>
         </div>
+        {% endif %}
     </div>
+    {% if chart.simulation_type.command == "talents" %}
     <div id="talent-warning" class="mt-3" hidden>
         <h3>{% translate "Disclaimer" %}</h3>
         <p>{% translate "Talent simulations are quite fragile for the following reasons:" %}</p>
         <ul>
             <li>{% translate "Not all talent combinations might be equally supported by the APL." %}</li>
             <li>{% translate "Not all Fight styles might be supported equally." %}</li>
-            <li>{% translate "Secondary stats aren't changed during simulation, but some talents might favor a different
-                distribution." %}
+            <li>{% blocktranslate %}
+                Secondary stats aren't changed during simulation, but some talents might favor a different
+                distribution.
+                {% endblocktranslate %}
             </li>
-            <li>{% translate "Different Covenants might synergize with talents differently, but aren't changed during
-                simulation." %}
+            <li>{% blocktranslate %}
+                Different Covenants might synergize with talents differently, but aren't changed during
+                simulation.
+                {% endblocktranslate %}
             </li>
-            <li>{% translate "Soulbinds might affect talents, but aren't changed during simulation." %}</li>
-            <li>{% translate "Legendaries might support specific talents. So consider your result legendary specific."
-                %}
+            <li>{% blocktranslate %}
+                Soulbinds might affect talents, but aren't changed during simulation.
+                {% endblocktranslate %}
             </li>
-            <li>{% translate "Conduits might affect the worth of talents. But yet again Conduits aren't changed during
-                this simulation." %}
+            <li>{% blocktranslate %}
+                Legendaries might support specific talents. So consider your result legendary specific.
+                {% endblocktranslate %}
+            </li>
+            <li>{% blocktranslate %}
+                Conduits might affect the worth of talents. But yet again Conduits aren't changed during
+                this simulation.
+                {% endblocktranslate %}
             </li>
         </ul>
     </div>
@@ -294,6 +307,7 @@
             </table>
         </div>
     </div>
+    {% endif %} {# talents #}
 </div>
 
 <div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
@@ -326,6 +340,7 @@
 
         bloodmallet_chart_import();
     }
+    {% if chart.simulation_type.command == "soul_binds" %}
     function update_chart_mode() {
         document.getElementsByName("chart_mode").forEach(element => {
             if (element.checked) {
@@ -343,14 +358,18 @@
             }
         });
     }
+    {% endif %}
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("absolute_values").addEventListener("change", update_value_style);
+
+        {% if chart.simulation_type.command == "soul_binds" %}
         document.getElementsByName("chart_mode").forEach(element => {
             element.addEventListener("change", update_chart_mode);
         });
         document.getElementsByName("covenant_selection").forEach(element => {
             element.addEventListener("change", update_covenant);
         });
+        {% endif %}
     });
 </script>
 
