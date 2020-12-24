@@ -85,6 +85,7 @@ function bloodmallet_chart_import() {
 
   const default_azerite_tier = "all"
   const default_conduit_rank = "7";
+  const default_renown = "35";
   const default_covenant = "Kyrian";
 
   /**
@@ -206,6 +207,7 @@ function bloodmallet_chart_import() {
           fight_style: default_fight_style,
           chart_mode: default_chart_mode,
           covenant: default_covenant,
+          renown: default_renown,
           // style
           axis_color: default_axis_color,
           background_color: default_background_color,
@@ -267,6 +269,9 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-covenant")) {
           state.covenant = html_element.getAttribute("data-covenant");
+        }
+        if (html_element.getAttribute("data-renown")) {
+          state.renown = html_element.getAttribute("data-renown");
         }
         if (html_element.getAttribute("data-azerite-tier")) {
           state.azerite_tier = html_element.getAttribute("data-azerite-tier");
@@ -471,7 +476,7 @@ function bloodmallet_chart_import() {
     }
 
     const data = spec_data;
-    console.log(data);
+
     // Azerite Trait stacking uses the second sorted data key list
     let dps_ordered_keys;
     let baseline_dps;
@@ -530,6 +535,11 @@ function bloodmallet_chart_import() {
       console.log("Baseline dps: " + baseline_dps);
     }
 
+    // filters
+    // renown
+    if (data_type === "soulbinds" && state.chart_mode !== "nodes") {
+      dps_ordered_keys = sort_soulbinds_by_dps(state, get_soulbinds_for_renown(state, data), data);
+    }
 
     // set title and subtitle
     chart.setTitle(
@@ -674,7 +684,7 @@ function bloodmallet_chart_import() {
 
           let dps_key_values = 0;
           if (data["covenant_mapping"][dps_key][0] === covenant_id) {
-            dps_key_values = data["data"][dps_key][state.conduit_rank];
+            dps_key_values = get_souldbind_dps_for_renown(state, dps_key, data);
           }
 
           dps_array.push(dps_key_values);
@@ -735,6 +745,103 @@ function bloodmallet_chart_import() {
     if (state.tooltip_engine == "wowdb") {
       setTimeout(function () { readd_wowdb_tooltips(html_element.id); }, 1);
     }
+  }
+
+  /**
+   * Get the maximum dps of a soulbind for the renown level (in state).
+   * @param {object} state state of the chart
+   * @param {String} soulbind Name of the wanted Soulbind
+   * @param {object} data loaded data object
+   */
+  function get_souldbind_dps_for_renown(state, soulbind, data) {
+    const covenant = get_covenant_from_soulbind(soulbind, data);
+    const shortened_paths = get_soulbind_paths_for_renown(state, soulbind, data);
+    const base_dps = data["data"]["baseline"][covenant];
+
+    const dps_paths = get_soulbind_paths_dps(state, soulbind, shortened_paths, data);
+
+    const index_of_max = dps_paths.indexOf(Math.max(...dps_paths));
+
+    return base_dps + dps_paths[index_of_max];
+  }
+
+  function get_soulbinds_for_renown(state, data) {
+    return data["sorted_data_keys"][state.conduit_rank].filter((soul_bind) => {
+      return data["renowns"][soul_bind][0] <= state.renown;
+    })
+  }
+
+  function get_covenant_from_soulbind(soulbind, data) {
+    return covenant = Object.entries(data["covenant_ids"]).filter(key_value => {
+      return key_value[1] === data["covenant_mapping"][soulbind][0];
+    })[0][0];
+  }
+
+  function get_soulbind_paths_for_renown(state, soulbind, data) {
+    const full_paths = data["paths"][soulbind].slice(0, data["paths"][soulbind].length);
+    const shortened_paths = full_paths.map(nodes => {
+      return nodes.filter((node, index) => {
+        return data["renowns"][soulbind][index] <= state.renown;
+      });
+    })
+    return shortened_paths;
+  }
+
+  function get_soulbind_paths_dps(state, soulbind, paths, data) {
+    const covenant = get_covenant_from_soulbind(soulbind, data);
+    const base_dps = data["data"]["baseline"][covenant];
+
+    return paths.map(path => {
+      const potency_indizes = path
+        .map((element, index) => [element, index])
+        .filter(element => element[0] === "Potency Conduit")
+        .map(element => element[1]);
+      return path.map((node, index) => {
+
+        let base = 0;
+        try {
+          base = data["data"][node][covenant] - base_dps;
+        } catch (e) {
+          // nothing happens
+        }
+        if (node === "Potency Conduit") {
+          let sorted_name = "sorted_data_keys_" + slugify(covenant).replace("-", "_") + "_" + state.conduit_rank;
+          base = data["data"][
+            data[sorted_name]
+              .filter(element => data["conduits"].indexOf(element) > -1)[potency_indizes.indexOf(index)]
+          ][covenant][state.conduit_rank] - base_dps;
+        }
+
+        return base;
+      }).reduce((a, b) => { return a + b }, 0);
+    });
+  }
+
+  function get_best_soulbind_path_for_renown(state, soulbind, data) {
+    const paths = get_soulbind_paths_for_renown(state, soulbind, data);
+    const dpss = get_soulbind_paths_dps(state, soulbind, paths, data);
+    const index_of_max = dpss.indexOf(Math.max(...dpss));
+    const best_path = paths[index_of_max];
+    const potency_indizes = best_path
+      .map((element, index) => [element, index])
+      .filter(element => element[0] === "Potency Conduit")
+      .map(element => element[1]);
+    const full_best_path = best_path.map((node, index) => {
+      if (node === "Potency Conduit") {
+        const sorted_name = "sorted_data_keys_" + slugify(covenant).replace("-", "_") + "_" + state.conduit_rank;
+        return data[sorted_name]
+          .filter(element => data["conduits"].indexOf(element) > -1)[potency_indizes.indexOf(index)];
+      } else {
+        return node;
+      }
+    });
+    return full_best_path;
+  }
+
+  function sort_soulbinds_by_dps(state, soulbinds, data) {
+    return soulbinds.map(soulbind => [soulbind, get_souldbind_dps_for_renown(state, soulbind, data)])
+      .sort((a, b) => b[1] - a[1])
+      .map(e => e[0]);
   }
 
   function simulation_error(html_element, error_response) {
@@ -1792,7 +1899,8 @@ function bloodmallet_chart_import() {
         parent.appendChild(headline);
 
         let order = 0;
-        for (const soulbind of data["sorted_data_keys"][data["simulated_steps"][0]]) {
+        const sorted_soulbinds = sort_soulbinds_by_dps(state, get_soulbinds_for_renown(state, data), data);
+        for (const soulbind of sorted_soulbinds) {
           if (data["covenant_mapping"][soulbind].indexOf(id) > -1) {
             order += 1;
 
@@ -1805,7 +1913,7 @@ function bloodmallet_chart_import() {
             let nodes = document.createElement("p");
             nodes.classList += "ml-5";
             let collect = []
-            for (const node of data["soul_bind_paths"][data["simulated_steps"][0]][soulbind]) {
+            for (const node of get_best_soulbind_path_for_renown(state, soulbind, data)) {
               if (data["data"].hasOwnProperty(node)) {
                 let a = document.createElement("a");
                 a.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
