@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-20 12:29+0000\n"
+"POT-Creation-Date: 2020-12-28 15:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -745,84 +745,123 @@ msgstr "Kampfstil"
 msgid "Custom APL"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:196
+#: general_website/templates/general_website/chart.html:199
+msgid "Advanced Options"
+msgstr "Erweiterte Optionen"
+
+#: general_website/templates/general_website/chart.html:209
+msgid "Itemlevels"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:213
+msgid "Sources"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:217
+msgid "Show"
+msgstr "Anzeigen"
+
+#: general_website/templates/general_website/chart.html:221
+msgid "On Use"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:226
+msgid "Passive"
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:237
 #, fuzzy
 #| msgid "|x| - absolute value"
 msgid "Use absolute values"
 msgstr "|x| - absoluter Wert"
 
-#: general_website/templates/general_website/chart.html:205
+#: general_website/templates/general_website/chart.html:263
 #: general_website.SimulationType/name:12
 msgid "Soulbinds"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:211
+#: general_website/templates/general_website/chart.html:269
 msgid "Nodes/Conduits"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:221
+#: general_website/templates/general_website/chart.html:279
 msgid "Kyrian"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:228
+#: general_website/templates/general_website/chart.html:286
 msgid "Necrolord"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:235
+#: general_website/templates/general_website/chart.html:293
 #, fuzzy
 #| msgid "Fight Style"
 msgid "Night Fae"
 msgstr "Kampfstil"
 
-#: general_website/templates/general_website/chart.html:242
+#: general_website/templates/general_website/chart.html:300
 msgid "Venthyr"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:248
+#: general_website/templates/general_website/chart.html:308
 msgid "Disclaimer"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:249
+#: general_website/templates/general_website/chart.html:309
 msgid "Talent simulations are quite fragile for the following reasons:"
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:251
+#: general_website/templates/general_website/chart.html:311
 msgid "Not all talent combinations might be equally supported by the APL."
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:252
+#: general_website/templates/general_website/chart.html:312
 msgid "Not all Fight styles might be supported equally."
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:253
+#: general_website/templates/general_website/chart.html:313
 msgid ""
-"Secondary stats aren't changed during simulation, but some talents might "
-"favor a different distribution."
+"\n"
+"                Secondary stats aren't changed during simulation, but some "
+"talents might favor a different\n"
+"                distribution.\n"
+"                "
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:255
+#: general_website/templates/general_website/chart.html:318
 msgid ""
-"Different Covenants might synergize with talents differently, but aren't "
-"changed during simulation."
+"\n"
+"                Different Covenants might synergize with talents "
+"differently, but aren't changed during\n"
+"                simulation.\n"
+"                "
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:257
-msgid "Soulbinds might affect talents, but aren't changed during simulation."
-msgstr ""
-
-#: general_website/templates/general_website/chart.html:258
+#: general_website/templates/general_website/chart.html:323
 msgid ""
-"Legendaries might support specific talents. So consider your result "
-"legendary specific."
+"\n"
+"                Soulbinds might affect talents, but aren't changed during "
+"simulation.\n"
+"                "
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:260
+#: general_website/templates/general_website/chart.html:327
 msgid ""
-"Conduits might affect the worth of talents. But yet again Conduits aren't "
-"changed during this simulation."
+"\n"
+"                Legendaries might support specific talents. So consider your "
+"result legendary specific.\n"
+"                "
 msgstr ""
 
-#: general_website/templates/general_website/chart.html:266
+#: general_website/templates/general_website/chart.html:331
+msgid ""
+"\n"
+"                Conduits might affect the worth of talents. But yet again "
+"Conduits aren't changed during\n"
+"                this simulation.\n"
+"                "
+msgstr ""
+
+#: general_website/templates/general_website/chart.html:340
 msgid "All values in this table are gains."
 msgstr ""
 
@@ -1349,49 +1388,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: general_website/views/general.py:527
+#: general_website/views/general.py:530
 msgid "Simulation not found."
 msgstr ""
 
-#: general_website/views/general.py:593
+#: general_website/views/general.py:596
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: general_website/views/general.py:624
+#: general_website/views/general.py:627
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: general_website/views/general.py:633
+#: general_website/views/general.py:636
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: general_website/views/general.py:648
+#: general_website/views/general.py:651
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: general_website/views/general.py:655
+#: general_website/views/general.py:658
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: general_website/views/general.py:662
+#: general_website/views/general.py:665
 msgid "Chart was deleted."
 msgstr ""
 
-#: general_website/views/general.py:664
+#: general_website/views/general.py:667
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: general_website/views/general.py:700
+#: general_website/views/general.py:703
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: general_website/views/general.py:717
+#: general_website/views/general.py:720
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: general_website/views/general.py:723
+#: general_website/views/general.py:726
 msgid "You don't have permission to create a chart."
 msgstr ""
 
@@ -1752,12 +1791,6 @@ msgstr ""
 
 #~ msgid "Fight Style"
 #~ msgstr "Kampfstil"
-
-#~ msgid "Advanced Options"
-#~ msgstr "Erweiterte Optionen"
-
-#~ msgid "Show"
-#~ msgstr "Anzeigen"
 
 #~ msgid "You lack permission to create charts."
 #~ msgstr "Dir fehlt die Berechtigung ein Diagramm zu erzeugen."
