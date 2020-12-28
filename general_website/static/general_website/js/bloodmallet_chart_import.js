@@ -535,10 +535,54 @@ function bloodmallet_chart_import() {
       console.log("Baseline dps: " + baseline_dps);
     }
 
+    let simulated_steps = [];
+    if (data_type == "azerite_traits_stacking") {
+      let base_ilevel = data["simulated_steps"][0].replace("1_", "");
+      simulated_steps.push("3_" + base_ilevel);
+      simulated_steps.push("2_" + base_ilevel);
+      simulated_steps.push("1_" + base_ilevel);
+    } else if (data_type == "soulbinds" && state.chart_mode === "soulbinds") {
+      simulated_steps = undefined;
+    } else {
+      simulated_steps = data["simulated_steps"];
+    }
+    if (debug) {
+      console.log("simulated_steps: " + simulated_steps);
+    }
+
     // filters
     // renown
     if (data_type === "soulbinds" && state.chart_mode !== "nodes") {
       dps_ordered_keys = sort_soulbinds_by_dps(state, get_soulbinds_for_renown(state, data), data);
+    }
+
+    // trinkets
+    if (data_type === "trinkets") {
+      // Itemlevels
+      if (state.html_element.dataset.filterItemlevels !== undefined) {
+        const ilevels = state.html_element.dataset.filterItemlevels.split(";");
+        simulated_steps = simulated_steps.filter(element => ilevels.indexOf(element.toString()) === -1);
+      }
+      // Active - Passive
+      if (state.html_element.dataset.filterActivePassive !== undefined) {
+        const active_passives = state.html_element.dataset.filterActivePassive.split(";");
+        let filter_active_passive = [];
+        active_passives.map(element => {
+          if (element === "active") {
+            filter_active_passive.push(true);
+          } else if (element === "passive") {
+            filter_active_passive.push(false);
+          }
+        });
+        dps_ordered_keys = dps_ordered_keys.filter(element =>
+          filter_active_passive.indexOf(data["data_active"][element]) === -1
+        );
+      }
+      // Sources
+      if (state.html_element.dataset.filterSources !== undefined) {
+        const sources = state.html_element.dataset.filterSources.split(";");
+        dps_ordered_keys = dps_ordered_keys.filter(element => sources.indexOf(data["data_sources"][element]) === -1);
+      }
     }
 
     // set title and subtitle
@@ -587,20 +631,6 @@ function bloodmallet_chart_import() {
       chart.xAxis[0].setCategories(category_list, false);
     }
 
-    let simulated_steps = [];
-    if (data_type == "azerite_traits_stacking") {
-      let base_ilevel = data["simulated_steps"][0].replace("1_", "");
-      simulated_steps.push("3_" + base_ilevel);
-      simulated_steps.push("2_" + base_ilevel);
-      simulated_steps.push("1_" + base_ilevel);
-    } else if (data_type == "soulbinds" && state.chart_mode === "soulbinds") {
-      simulated_steps = undefined;
-    } else {
-      simulated_steps = data["simulated_steps"];
-    }
-    if (debug) {
-      console.log("simulated_steps: " + simulated_steps);
-    }
 
     if (simulated_steps) {
 
