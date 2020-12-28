@@ -1828,7 +1828,12 @@ function bloodmallet_chart_import() {
       try {
         let c_entry = document.getElementById("c_" + character_key);
         c_entry.innerHTML = "";
-        let text = document.createTextNode(title(data["profile"]["character"][character_key]));
+        let text = undefined;
+        if (character_key === "soulbind") {
+          text = document.createTextNode(data["profile"]["character"][character_key].replaceAll(",", " ").replaceAll("/", " "));
+        } else {
+          text = document.createTextNode(title(data["profile"]["character"][character_key]));
+        }
         c_entry.appendChild(text);
       } catch (error) {
       }
