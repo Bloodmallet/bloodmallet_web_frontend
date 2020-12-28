@@ -1943,9 +1943,120 @@ function bloodmallet_chart_import() {
 
     }
 
+    // add filters
+    // trinkets
+    if (state.data_type === "trinkets") {
+      // itemlevels
+      let parent_itemlevels = document.getElementById("filter-itemlevels-options");
+      parent_itemlevels.innerHTML = "";
+      let chart = document.getElementById("chart");
+      for (let itemlevel of data["simulated_steps"]) {
+        let step = "step_" + itemlevel;
+        let form_check = document.createElement("div");
+        form_check.className += " form-check";
+
+        let input = document.createElement("input");
+        input.className += " form-check-input";
+        input.className += " filter-itemlevels";
+        input.type = "checkbox";
+        input.id = step;
+        input.value = itemlevel;
+        if (chart.dataset.filterItemlevels === undefined) {
+          input.checked = true;
+        } else {
+          input.checked = chart.dataset.filterItemlevels.split(";").indexOf(itemlevel.toString()) === -1;
+        }
+
+        form_check.appendChild(input);
+
+        let label = document.createElement("label");
+        label.className = " form-check-label"
+        label.htmlFor = step;
+        label.appendChild(document.createTextNode(itemlevel));
+
+        form_check.appendChild(label);
+
+        parent_itemlevels.appendChild(form_check);
+
+        input.addEventListener("change", (element, event) => {
+          set_itemlevel_filter(element.target.value, element.target.checked);
+          bloodmallet_chart_import();
+        });
+      }
+
+      // sources
+      let parent_sources = document.getElementById("filter-sources-options");
+      parent_sources.innerHTML = "";
+      // unique sources
+      let sources = Object.values(data["data_sources"]).filter((item, i, ar) => ar.indexOf(item) === i).sort();
+      for (let source of sources) {
+        let step = "step_" + source.replaceAll(" ", "_");
+        let form_check = document.createElement("div");
+        form_check.className += " form-check";
+
+        let input = document.createElement("input");
+        input.className += " form-check-input";
+        input.className += " filter-sources";
+        input.type = "checkbox";
+        input.id = step;
+        input.value = source;
+        if (chart.dataset.filterSources === undefined) {
+          input.checked = true;
+        } else {
+          input.checked = chart.dataset.filterSources.split(";").indexOf(source.toString()) === -1;
+        }
+
+        form_check.appendChild(input);
+
+        let label = document.createElement("label");
+        label.className = " form-check-label"
+        label.htmlFor = step;
+        label.appendChild(document.createTextNode(source));
+
+        form_check.appendChild(label);
+
+        parent_sources.appendChild(form_check);
+
+        input.addEventListener("change", (element, event) => {
+          set_source_filter(element.target.value, element.target.checked);
+          bloodmallet_chart_import();
+        });
+      }
+    }
+
     try {
       $WowheadPower.refreshLinks();
     } catch (error) { }
+  }
+
+  function set_itemlevel_filter(value, checked) {
+    let chart = document.getElementById("chart");
+    let itemlevel_filters = chart.dataset.filterItemlevels;
+    // remove from filter
+    if (checked) {
+      chart.dataset.filterItemlevels = itemlevel_filters.split(";").filter(v => v !== value).join(";");
+    } else { // add to filter
+      if (itemlevel_filters === undefined || itemlevel_filters.length === 0) {
+        chart.dataset.filterItemlevels = value;
+      } else {
+        chart.dataset.filterItemlevels = itemlevel_filters + ";" + value;
+      }
+    }
+  }
+
+  function set_source_filter(value, checked) {
+    let chart = document.getElementById("chart");
+    let source_filters = chart.dataset.filterSources;
+    // remove from filter
+    if (checked) {
+      chart.dataset.filterSources = source_filters.split(";").filter(v => v !== value).join(";");
+    } else { // add to filter
+      if (source_filters === undefined || source_filters.length === 0) {
+        chart.dataset.filterSources = value;
+      } else {
+        chart.dataset.filterSources = source_filters + ";" + value;
+      }
+    }
   }
 
   /**

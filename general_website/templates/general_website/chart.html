@@ -188,6 +188,47 @@
                 </div>
             </div>
         </div>
+        {% if chart.simulation_type.command == "trinkets" %}
+        <div class="card">
+            <div class="card-header bg-dark" id="advanced_options-label">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left caret" type="button" data-toggle="collapse"
+                        data-target="#advanced_options" aria-controls="advanced_options">
+                        {% translate "Advanced Options" %}
+                    </button>
+                </h2>
+            </div>
+
+            <div id="advanced_options" class="collapse" aria-labelledby="advanced_options-label"
+                data-parent="#meta-info">
+                <div class="card-body row">
+                    {% if chart.simulation_type.command == "trinkets" %}
+                    <div class="col-md-4" id="filter-itemlevels">
+                        {% translate "Itemlevels" %}:<br />
+                        <div id="filter-itemlevels-options"></div>
+                    </div>
+                    <div class="col-md-4" id="filter-sources">
+                        {% translate "Sources" %}:<br />
+                        <div id="filter-sources-options"></div>
+                    </div>
+                    <div class="col-md-4" id="filter-active-passive">
+                        {% translate "Show" %}:<br />
+                        <div class="form-check">
+                            <input name="filter-active-passive" class="form-check-input" type="checkbox"
+                                id="step_active" value="active" checked>
+                            <label class="form-check-label" for="step_active">{% translate "On Use" %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input name="filter-active-passive" class="form-check-input" type="checkbox"
+                                id="step_passive" value="passive" checked>
+                            <label class="form-check-label" for="step_passive">{% translate "Passive" %}</label>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     <div id="value_style_switch" class="form-group form-check text-right" hidden>
         <input type="checkbox" class="form-check-input" id="absolute_values">
@@ -371,6 +412,22 @@
         bloodmallet_chart_import();
     }
     {% endif %}
+    {% if chart.simulation_type.command == "trinkets" %}
+    function set_active_passive(value, checked) {
+        let chart = document.getElementById("chart");
+        let active_passive_filters = chart.dataset.filterActivePassive;
+        // remove from filter
+        if (checked) {
+            chart.dataset.filterActivePassive = active_passive_filters.split(";").filter(v => v !== value).join(";");
+        } else { // add to filter
+            if (active_passive_filters === undefined || active_passive_filters.length === 0) {
+                chart.dataset.filterActivePassive = value;
+            } else {
+                chart.dataset.filterActivePassive = active_passive_filters + ";" + value;
+            }
+        }
+    }
+    {% endif %}
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("absolute_values").addEventListener("change", update_value_style);
 
@@ -382,6 +439,15 @@
             element.addEventListener("change", update_covenant);
         });
         document.getElementById("renown").addEventListener("change", update_renown);
+        {% endif %}
+
+        {% if chart.simulation_type.command == "trinkets" %}
+        document.getElementsByName("filter-active-passive").forEach(element => {
+            element.addEventListener("change", (element, event) => {
+                set_active_passive(element.target.value, element.target.checked);
+                bloodmallet_chart_import();
+            });
+        });
         {% endif %}
     });
 </script>
