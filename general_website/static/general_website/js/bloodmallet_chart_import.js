@@ -1617,6 +1617,32 @@ function bloodmallet_chart_import() {
             style: {
               textOutline: false,
               fontSize: font_size,
+            },
+            point: {
+              events: {
+                click: function (event) {
+                  var chart = this.series.yAxis;
+                  chart.removePlotLine('helperLine');
+                  chart.addPlotLine({
+                    value: this.stackY,
+                    color: state.font_color,
+                    width: 2,
+                    id: 'helperLine',
+                    zIndex: 5,
+                    label: {
+                      text: this.series.name + ' ' + this.category,
+                      style: {
+                        color: state.font_color,
+                        fontSize: font_size,
+                      },
+                      align: 'left',
+                      verticalAlign: 'bottom',
+                      rotation: 0,
+                      y: -5
+                    },
+                  });
+                }
+              }
             }
           }
         },
