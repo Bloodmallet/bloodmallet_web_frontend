@@ -6,7 +6,7 @@ $start_location = pwd
 Write-Host "Starting virtual environment" -NoNewline
 
 # Activate virtual env (here could be a list search that looks for env, venv and .env instead)
-../env/Scripts/activate
+./env/Scripts/activate
 Write-Host "    Done" -ForegroundColor Green
 
 Write-Host "Preparing Styles" -NoNewline
@@ -23,7 +23,7 @@ Write-Host "          Done" -ForegroundColor Green
 # Deploy
 gcloud app deploy --no-promote --quiet
 
-gcloud app deploy cron.yaml
+gcloud app deploy cron.yaml --quiet
 
 Write-Host "Cleaning up" -NoNewline
 # remove compiled css files
