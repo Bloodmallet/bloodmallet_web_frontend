@@ -431,7 +431,7 @@ function bloodmallet_chart_import() {
     } else {
       spec_data = loaded_data[data_type][fight_style][wow_class][wow_spec];
     }
-    if (spec_data["error"] === true) {
+    if (spec_data['status'] === 'error') {
       return simulation_error(html_element, spec_data);
     } else {
       wow_class = spec_data['simc_settings']['class'];
