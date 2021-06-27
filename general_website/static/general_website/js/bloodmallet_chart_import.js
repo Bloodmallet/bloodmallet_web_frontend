@@ -155,7 +155,11 @@ function bloodmallet_chart_import() {
     4: 184,
     5: 200,
     6: 213,
-    7: 226
+    7: 226,
+    8: 239,
+    9: 252,
+    10: 265,
+    11: 278,
   }
 
   /**
@@ -375,6 +379,7 @@ function bloodmallet_chart_import() {
     } catch (error) {
       if (debug) {
         console.log("Data needs to be loaded.");
+        console.log(error);
       }
     }
 
