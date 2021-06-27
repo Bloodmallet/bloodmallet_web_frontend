@@ -20,7 +20,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # support
-RENOWN: int = 35
+RENOWN: int = 40
 
 # views
 
