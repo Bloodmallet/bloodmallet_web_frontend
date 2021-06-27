@@ -16,14 +16,20 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
 
 from general_website.views import login as app_login
 
-urlpatterns = [
-    path('', include('general_website.urls')),
-    path('admin/login/', app_login),
-    path('admin/', admin.site.urls),
-]
+urlpatterns = (
+    [
+        path("", include("general_website.urls")),
+        path("admin/login/", app_login),
+        path("admin/", admin.site.urls),
+    ]
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
+
 
 try:
     import compute_api
@@ -31,13 +37,17 @@ except ModuleNotFoundError:
     pass
 else:
     urlpatterns.append(
-        path('compute_api/', include('compute_api.urls', namespace='compute_engine')))
+        path("compute_api/", include("compute_api.urls", namespace="compute_engine"))
+    )
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns.append(path('__debug__/', include(debug_toolbar.urls)),)
 
-handler400 = 'general_website.views.handler404'
-handler403 = 'general_website.views.handler404'
-handler404 = 'general_website.views.handler404'
-handler500 = 'general_website.views.handler500'
+    urlpatterns.append(
+        path("__debug__/", include(debug_toolbar.urls)),
+    )
+
+handler400 = "general_website.views.handler404"
+handler403 = "general_website.views.handler404"
+handler404 = "general_website.views.handler404"
+handler500 = "general_website.views.handler500"
