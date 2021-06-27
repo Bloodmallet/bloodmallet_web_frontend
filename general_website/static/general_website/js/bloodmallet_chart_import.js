@@ -73,13 +73,12 @@ function bloodmallet_chart_import() {
 
   /**
    * options:
-   *   trinkets - default
-   *   races
-   *   azerite_items_chest
-   *   azerite_items_head
-   *   azerite_items_shoulders
-   *   azerite_traits_itemlevel
-   *   azerite_traits_stacking
+   *   - trinkets - default
+   *   - races
+   *   - conduits
+   *   - soul_binds
+   *   - legendaries
+   *   - domination_shards
    */
   const default_data_type = "trinkets";
 
@@ -528,7 +527,7 @@ function bloodmallet_chart_import() {
         baseline_dps = 0;
       } else if (["soulbinds"].includes(data_type) && state.chart_mode === "nodes") {
         baseline_dps = data["data"]["baseline"][state.covenant];
-      } else if (["legendaries", "soulbind_nodes", "soulbinds", "covenants"].includes(data_type)) {
+      } else if (["legendaries", "soulbind_nodes", "soulbinds", "covenants", "domination_shards"].includes(data_type)) {
         baseline_dps = data["data"]["baseline"];
       } else {
         baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
@@ -541,12 +540,7 @@ function bloodmallet_chart_import() {
     }
 
     let simulated_steps = [];
-    if (data_type == "azerite_traits_stacking") {
-      let base_ilevel = data["simulated_steps"][0].replace("1_", "");
-      simulated_steps.push("3_" + base_ilevel);
-      simulated_steps.push("2_" + base_ilevel);
-      simulated_steps.push("1_" + base_ilevel);
-    } else if (data_type == "soulbinds" && state.chart_mode === "soulbinds") {
+    if (data_type == "soulbinds" && state.chart_mode === "soulbinds") {
       simulated_steps = undefined;
     } else {
       simulated_steps = data["simulated_steps"];
@@ -692,7 +686,7 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
-    } else if (["legendaries", "soulbind_nodes", "covenants"].includes(data_type)) {
+    } else if (["legendaries", "soulbind_nodes", "covenants", "domination_shards"].includes(data_type)) {
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -758,7 +752,7 @@ function bloodmallet_chart_import() {
     // add new legend title
     if (["trinkets", "azerite_items_chest", "azerite_items_head", "azerite_items_shoulders", "azerite_traits_itemlevel"].indexOf(data_type) > -1) {
       chart.legend.title.attr({ text: "Itemlevel" });
-    } else if (data_type === "races") {
+    } else if (data_type === "races" || data_type === "domination_shards") {
       chart.legend.title.attr({ text: "" });
     } else if (data_type === "azerite_traits_stacking") {
       chart.legend.title.attr({ text: "Trait count" });
@@ -1288,14 +1282,16 @@ function bloodmallet_chart_import() {
             a.href += ":" + trait["id"];
           }
         }
-        let ilvl = data["simulated_steps"][data["simulated_steps"].length - 1];
-        // fix special case of azerite items "1_340"
-        if (typeof ilvl === 'string') {
-          if (ilvl.indexOf("_") > -1) {
-            ilvl = ilvl.split("_")[1];
+        if (data["simulated_steps"] !== undefined) {
+          let ilvl = data["simulated_steps"][data["simulated_steps"].length - 1];
+          // fix special case of azerite items "1_340"
+          if (typeof ilvl === 'string') {
+            if (ilvl.indexOf("_") > -1) {
+              ilvl = ilvl.split("_")[1];
+            }
           }
+          a.href += "&ilvl=" + ilvl;
         }
-        a.href += "&ilvl=" + ilvl;
       } else if (data.hasOwnProperty("spell_ids") && data["spell_ids"].hasOwnProperty(key)) {
         a.href += "spell=" + data["spell_ids"][key] + '/' + slugify(key);
       } else if (state.data_type === "talents") {
