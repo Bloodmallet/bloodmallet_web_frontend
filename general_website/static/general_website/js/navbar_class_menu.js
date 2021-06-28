@@ -36,7 +36,8 @@ function update_navbarClassMenu(state) {
         "races": "Races",
         "legendaries": "Legendaries",
         "talents": "Talents",
-        "secondary_distributions": "Secondary Distributions"
+        "secondary_distributions": "Secondary Distributions",
+        "domination_shards": "Domination Shards",
     };
     const simulation_types = Object.keys(simulation_type_dict).sort();
     const fight_style_dict = {
