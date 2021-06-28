@@ -242,7 +242,7 @@
             </div>
             <div class="col-1" style="min-width: 65px;">
                 <select class="form-control form-control-sm" id="renown">
-                    {% for i in "x"|ljust:"35" %}
+                    {% for i in "x"|ljust:"60" %}
                     {% if forloop.counter == renown %}
                     <option value="{{ forloop.counter }}" selected>{{ forloop.counter }}</option>
                     {% else %}
