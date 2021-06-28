@@ -455,7 +455,7 @@ function bloodmallet_chart_import() {
       return;
     }
 
-    if (spec_data["error"] === true) {
+    if (spec_data["error"] === true || spec_data["status"] === "error") {
       return simulation_error(html_element, spec_data);
     } else {
       wow_class = spec_data['simc_settings']['class'];
@@ -877,55 +877,62 @@ function bloodmallet_chart_import() {
     let element = html_element;
     element.innerHTML = "";
 
-    let information = document.createElement('p');
-    information.innerText = "An error occured during simulation.";
-    element.appendChild(information);
+    if (error_response["status"] === "error") {
+      let information = document.createElement('p');
+      information.innerText = error_response["message"];
+      element.appendChild(information);
+    } else {
+      let information = document.createElement('p');
+      information.innerText = "An error occured during simulation.";
+      element.appendChild(information);
 
-    let list = document.createElement('ul');
+      let list = document.createElement('ul');
 
-    let title = document.createElement('li');
-    title.textContent = "Title: " + (error_response["title"] ? error_response["title"] : '~');
-    list.appendChild(title);
+      let title = document.createElement('li');
+      title.textContent = "Title: " + (error_response["title"] ? error_response["title"] : '~');
+      list.appendChild(title);
 
-    let spec = document.createElement('li');
-    spec.textContent = "Spec: " + error_response["wow_spec"] + " " + error_response["wow_class"];
-    list.appendChild(spec);
+      let spec = document.createElement('li');
+      spec.textContent = "Spec: " + error_response["wow_spec"] + " " + error_response["wow_class"];
+      list.appendChild(spec);
 
-    let type = document.createElement('li');
-    type.textContent = "Type: " + error_response["simulation_type"];
-    list.appendChild(type);
+      let type = document.createElement('li');
+      type.textContent = "Type: " + error_response["simulation_type"];
+      list.appendChild(type);
 
-    let fight_style = document.createElement('li');
-    fight_style.textContent = "Fight style: " + error_response["fight_style"];
-    list.appendChild(fight_style);
+      let fight_style = document.createElement('li');
+      fight_style.textContent = "Fight style: " + error_response["fight_style"];
+      list.appendChild(fight_style);
 
-    let simulation_id = document.createElement('li');
-    simulation_id.textContent = "ID: " + error_response["id"];
-    list.appendChild(simulation_id);
+      let simulation_id = document.createElement('li');
+      simulation_id.textContent = "ID: " + error_response["id"];
+      list.appendChild(simulation_id);
 
-    let custom_profile = document.createElement('li');
-    custom_profile.textContent = "Custom profile:";
-    list.appendChild(custom_profile);
-    custom_profile.appendChild(document.createElement('br'));
-    let profile = document.createElement('textarea');
-    profile.readOnly = true;
-    profile.value = error_response["custom_profile"];
-    profile.placeholder = "No custom profile";
-    profile.style.width = "100%";
-    custom_profile.appendChild(profile);
+      let custom_profile = document.createElement('li');
+      custom_profile.textContent = "Custom profile:";
+      list.appendChild(custom_profile);
+      custom_profile.appendChild(document.createElement('br'));
+      let profile = document.createElement('textarea');
+      profile.readOnly = true;
+      profile.value = error_response["custom_profile"];
+      profile.placeholder = "No custom profile";
+      profile.style.width = "100%";
+      custom_profile.appendChild(profile);
 
-    let log_item = document.createElement('li');
-    log_item.textContent = "Log:";
-    list.appendChild(log_item);
-    log_item.appendChild(document.createElement('br'));
-    let log = document.createElement('textarea');
-    log.readOnly = true;
-    log.value = error_response["log"];
-    log.placeholder = "No log available";
-    log.style.width = "100%";
-    log_item.appendChild(log);
+      let log_item = document.createElement('li');
+      log_item.textContent = "Log:";
+      list.appendChild(log_item);
+      log_item.appendChild(document.createElement('br'));
+      let log = document.createElement('textarea');
+      log.readOnly = true;
+      log.value = error_response["log"];
+      log.placeholder = "No log available";
+      log.style.width = "100%";
+      log_item.appendChild(log);
 
-    element.appendChild(list);
+      element.appendChild(list);
+    }
+
   }
 
   function get_styled_value(state, dps, baseline_dps) {
