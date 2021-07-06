@@ -4,7 +4,11 @@ import logging
 
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    PasswordChangeForm,
+)
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -22,16 +26,16 @@ logger = logging.getLogger(__name__)
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
-        max_length=254, help_text='Required. 254 characters or fewer.'
+        max_length=254, help_text="Required. 254 characters or fewer."
     )
 
     class Meta:
         model = User
         fields = (
-            'username',
-            'email',
-            'password1',
-            'password2',
+            "username",
+            "email",
+            "password1",
+            "password2",
         )
 
 
@@ -40,22 +44,25 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserUpdateForm(PasswordChangeForm):
-    """Settings form for the user to update his own profile.
-    """
+    """Settings form for the user to update his own profile."""
+
     pass
 
 
 class ProfileUpdateForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = ()
 
 
 class SimulationCreationForm(forms.ModelForm):
-    dynamic_delete = forms.BooleanField(required=False, label=_(
-        "Auto-remove oldest chart"), help_text=_(
-        "If your slots are filled, enabling this checkbox will auto-remove the oldest chart to free up a slot."),
+    dynamic_delete = forms.BooleanField(
+        required=False,
+        label=_("Auto-remove oldest chart"),
+        help_text=_(
+            "If your slots are filled, enabling this checkbox will auto-remove the oldest chart to free up a slot."
+        ),
+        initial=True,
     )
     time_choices = (
         ("", "---------"),
@@ -69,7 +76,8 @@ class SimulationCreationForm(forms.ModelForm):
         (600, _("10 minutes")),
     )
     fight_length = forms.ChoiceField(
-        choices=time_choices, required=False, help_text=_(""), label=_("Fight Length"))
+        choices=time_choices, required=False, help_text=_(""), label=_("Fight Length")
+    )
 
     boss = _("Boss")
     bosses = _("Bosses")
@@ -87,18 +95,19 @@ class SimulationCreationForm(forms.ModelForm):
         (10, f"10 {bosses}"),
     )
     targets = forms.ChoiceField(
-        choices=target_choices, required=False, label=_("Boss count"))
+        choices=target_choices, required=False, label=_("Boss count")
+    )
 
     class Meta:
         model = Simulation
         fields = (
-            'name',
-            'wow_spec',
-            'simulation_type',
-            'fight_style',
-            'custom_profile',
-            'custom_fight_style',
-            'custom_apl',
+            "name",
+            "wow_spec",
+            "simulation_type",
+            "fight_style",
+            "custom_profile",
+            "custom_fight_style",
+            "custom_apl",
         )
 
     def __init__(self, *args, **kwargs):
@@ -125,34 +134,39 @@ class SimulationCreationForm(forms.ModelForm):
 
         advanced = _("Advanced")
 
-        self.fields['simulation_type'].queryset = SimulationType.objects.filter(
+        self.fields["simulation_type"].queryset = SimulationType.objects.filter(
             is_deleted=False
-        ).order_by(
-            'name'
-        )
-        self.fields['wow_spec'].queryset = WowSpec.objects.order_by(
-            'wow_class__tokenized_name', 'tokenized_name'
+        ).order_by("name")
+        self.fields["wow_spec"].queryset = WowSpec.objects.order_by(
+            "wow_class__tokenized_name", "tokenized_name"
         )
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                Div(Field('name'), css_class='col-12 col-md-6'),
-                Div(Field('wow_spec'), css_class='col-12 col-md-6'),
-                css_class='row'
+                Div(Field("name"), css_class="col-12 col-md-6"),
+                Div(Field("wow_spec"), css_class="col-12 col-md-6"),
+                css_class="row",
             ),
             Div(
-                Div(Field('simulation_type'), css_class='col-12 col-md-6'),
-                Div(Field('fight_style'), css_class='col-12 col-md-6'),
-                css_class='row'
+                Div(Field("simulation_type"), css_class="col-12 col-md-6"),
+                Div(Field("fight_style"), css_class="col-12 col-md-6"),
+                css_class="row",
             ),
-            Div(Div(Field('custom_profile', placeholder=_(
-                "Paste your /simc output into this element."
-            )), css_class='col-12'), css_class='row'),
-            Div(Div(Field('dynamic_delete'), css_class='col-12'), css_class='row'),
+            Div(
+                Div(
+                    Field(
+                        "custom_profile",
+                        placeholder=_("Paste your /simc output into this element."),
+                    ),
+                    css_class="col-12",
+                ),
+                css_class="row",
+            ),
+            Div(Div(Field("dynamic_delete"), css_class="col-12"), css_class="row"),
             StrictButton(
                 _("Create Chart"),
-                type='submit',
+                type="submit",
                 css_class="btn btn-primary",
             ),
             Div(HTML(f"<h2>{advanced}</h2>"), css_class="mt-3"),
@@ -161,55 +175,75 @@ class SimulationCreationForm(forms.ModelForm):
                     AccordionGroup(
                         _("Fight style"),
                         Div(
-                            Div(Field("fight_length"),
-                                css_class="col-6 col-md-4"),
+                            Div(Field("fight_length"), css_class="col-6 col-md-4"),
                             Div(Field("targets"), css_class="col-6 col-md-4"),
-                            Div(Field('custom_fight_style'), css_class="col-12"),
+                            Div(Field("custom_fight_style"), css_class="col-12"),
                             css_class="form-row",
                         ),
                         active=False,
-                        template="general_website/forms/accordion-group.html"
+                        template="general_website/forms/accordion-group.html",
                     ),
                     AccordionGroup(
                         _("APL"),
-                        Field('custom_apl'),
+                        Field("custom_apl"),
                         active=False,
-                        template="general_website/forms/accordion-group.html"
+                        template="general_website/forms/accordion-group.html",
                     ),
-                    template="general_website/forms/accordion.html"
+                    template="general_website/forms/accordion.html",
                 ),
                 css_class="mb-3",
             ),
             StrictButton(
                 _("Create Chart"),
-                type='submit',
+                type="submit",
                 css_class="btn btn-primary",
-            )
+            ),
         )
 
     def clean_custom_profile(self):
-        data = self.cleaned_data['custom_profile']
+        data = self.cleaned_data["custom_profile"]
 
-        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
+        if any(
+            [
+                group in self.illegal_input
+                for line in data.splitlines()
+                for group in line.split()
+            ]
+        ):
             raise ValidationError(
-                _("An illegal input was detected."), code="illegal input")
+                _("An illegal input was detected."), code="illegal input"
+            )
 
         return data[:10000]
 
     def clean_custom_fight_style(self):
         data = self.cleaned_data["custom_fight_style"]
 
-        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
+        if any(
+            [
+                group in self.illegal_input
+                for line in data.splitlines()
+                for group in line.split()
+            ]
+        ):
             raise ValidationError(
-                _("An illegal input was detected."), code="illegal input")
+                _("An illegal input was detected."), code="illegal input"
+            )
 
         return data[:2048]
 
     def clean_custom_apl(self):
         data = self.cleaned_data["custom_apl"]
 
-        if any([group in self.illegal_input for line in data.splitlines() for group in line.split()]):
+        if any(
+            [
+                group in self.illegal_input
+                for line in data.splitlines()
+                for group in line.split()
+            ]
+        ):
             raise ValidationError(
-                _("An illegal input was detected."), code="illegal input")
+                _("An illegal input was detected."), code="illegal input"
+            )
 
         return data[:2048]
