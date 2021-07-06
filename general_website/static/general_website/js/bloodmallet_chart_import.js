@@ -161,6 +161,13 @@ function bloodmallet_chart_import() {
     11: 278,
   }
 
+  const domination_shard_colours = {
+    "unholy": "#abd473",
+    "frost": "#69ccf0",
+    "blood": "#c41f3b"
+  }
+
+
   /**
    *
    * Functions
@@ -686,7 +693,7 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
-    } else if (["legendaries", "soulbind_nodes", "covenants", "domination_shards"].includes(data_type)) {
+    } else if (["legendaries", "soulbind_nodes", "covenants"].includes(data_type)) {
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -702,6 +709,31 @@ function bloodmallet_chart_import() {
         name: "Data",
         showInLegend: false
       }, false);
+
+    } else if (["domination_shards"].includes(data_type)) {
+      for (let shard_type of Object.keys(domination_shard_colours)) {
+
+        let dps_array = [];
+
+        for (let i = 0; i < dps_ordered_keys.length; i++) {
+          let dps_key = dps_ordered_keys[i];
+          if (data["shard_type"][dps_key] === shard_type) {
+            console.log(dps_key);
+            let dps_key_values = data["data"][dps_key] - baseline_dps;
+
+            dps_array.push(get_styled_value(state, dps_key_values, baseline_dps));
+          } else {
+            dps_array.push(get_styled_value(state, 0, baseline_dps));
+          }
+        }
+
+        chart.addSeries({
+          data: dps_array,
+          name: shard_type,
+          showInLegend: true,
+          color: domination_shard_colours[shard_type]
+        }, false);
+      }
 
     } else if (["soulbinds"].includes(data_type) && state.chart_mode === "soulbinds") {
       for (const covenant of Object.keys(covenants).sort().reverse()) {
