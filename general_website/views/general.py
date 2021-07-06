@@ -12,15 +12,17 @@ from general_website.models.simulation import GeneralResult
 from general_website.models.simulation import Simulation
 from general_website.models.simulation import QueueState
 
-from random import randint
-
+import datetime
 import json
 import logging
 
 logger = logging.getLogger(__name__)
 
 # support
-RENOWN: int = 40
+days_since_9_1_launch = (
+    datetime.datetime.utcnow() - datetime.datetime.fromisoformat("2021-06-29")
+).days
+RENOWN: int = 42 + (days_since_9_1_launch // 7) * 2
 
 # views
 
