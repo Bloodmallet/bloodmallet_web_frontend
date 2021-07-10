@@ -82,7 +82,6 @@ function bloodmallet_chart_import() {
    */
   const default_data_type = "trinkets";
 
-  const default_azerite_tier = "all"
   const default_conduit_rank = "7";
   const default_renown = "35";
   const default_covenant = "Kyrian";
@@ -212,7 +211,6 @@ function bloodmallet_chart_import() {
           wow_class: undefined,
           wow_spec: undefined,
           data_type: default_data_type,
-          azerite_tier: default_azerite_tier,
           conduit_rank: default_conduit_rank,
           fight_style: default_fight_style,
           chart_mode: default_chart_mode,
@@ -282,9 +280,6 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-renown")) {
           state.renown = html_element.getAttribute("data-renown");
-        }
-        if (html_element.getAttribute("data-azerite-tier")) {
-          state.azerite_tier = html_element.getAttribute("data-azerite-tier");
         }
         if (html_element.getAttribute("data-conduit-rank")) {
           state.conduit_rank = html_element.getAttribute("data-conduit-rank");
@@ -391,11 +386,6 @@ function bloodmallet_chart_import() {
 
     let data_group = data_type;
 
-    // partial fix to link to get data
-    if (data_group.indexOf("azerite") > -1) {
-      data_group = "azerite_traits";
-    }
-
     let data_name = fight_style;
     data_name += "/" + wow_class;
     data_name += "/" + wow_spec;
@@ -478,68 +468,31 @@ function bloodmallet_chart_import() {
       return update_secondary_distribution_chart(state, html_element, chart);
     }
 
-    if (spec_data['data_type'] === 'azerite_traits') {
-      if (data_type.indexOf('azerite_items') === -1) {
-        data_type = "azerite_traits_stacking";
-      }
-    } else {
-      data_type = spec_data['data_type'];
-    }
+    data_type = spec_data['data_type'];
 
     const data = spec_data;
 
-    // Azerite Trait stacking uses the second sorted data key list
     let dps_ordered_keys;
     let baseline_dps;
-    if (data_type.indexOf("azerite_traits") > -1) {
-
-      if (data_type === "azerite_traits_stacking") {
-
-        if (state.azerite_tier === "all") {
-          dps_ordered_keys = data["sorted_data_keys_2"].slice(0, limit);
-        } else if (state.azerite_tier === "1" || state.azerite_tier === "3") {
-          dps_ordered_keys = data["sorted_azerite_tier_3_trait_stacking"].slice(0, limit);
-        } else if (state.azerite_tier === "2") {
-          dps_ordered_keys = data["sorted_azerite_tier_2_trait_stacking"].slice(0, limit);
-        }
-        baseline_dps = data["data"]["baseline"][data["simulated_steps"][0]];
-
-      } else if (data_type === "azerite_traits_itemlevel") {
-
-        if (state.azerite_tier === "all") {
-          dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
-        } else if (state.azerite_tier === "1" || state.azerite_tier === "3") {
-          dps_ordered_keys = data["sorted_azerite_tier_3_itemlevel"].slice(0, limit);
-        } else if (state.azerite_tier === "2") {
-          dps_ordered_keys = data["sorted_azerite_tier_2_itemlevel"].slice(0, limit);
-        }
-        baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
-
+    if (data_type === "soulbinds") {
+      if (state.chart_mode === "nodes") {
+        dps_ordered_keys = data["sorted_data_keys_" + slugify(state.covenant).replace("-", "_") + "_" + state.conduit_rank].slice(0, limit);
       } else {
-        console.log("Chart found, but unknown data-type detected.")
-        return;
+        dps_ordered_keys = data["sorted_data_keys"][state.conduit_rank].slice(0, limit);
       }
-
     } else {
-      if (data_type === "soulbinds") {
-        if (state.chart_mode === "nodes") {
-          dps_ordered_keys = data["sorted_data_keys_" + slugify(state.covenant).replace("-", "_") + "_" + state.conduit_rank].slice(0, limit);
-        } else {
-          dps_ordered_keys = data["sorted_data_keys"][state.conduit_rank].slice(0, limit);
-        }
-      } else {
-        dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
-      }
-      if (["races", "talents"].includes(data_type)) {
-        baseline_dps = 0;
-      } else if (["soulbinds"].includes(data_type) && state.chart_mode === "nodes") {
-        baseline_dps = data["data"]["baseline"][state.covenant];
-      } else if (["legendaries", "soulbind_nodes", "soulbinds", "covenants", "domination_shards"].includes(data_type)) {
-        baseline_dps = data["data"]["baseline"];
-      } else {
-        baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
-      }
+      dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
     }
+    if (["races", "talents"].includes(data_type)) {
+      baseline_dps = 0;
+    } else if (["soulbinds"].includes(data_type) && state.chart_mode === "nodes") {
+      baseline_dps = data["data"]["baseline"][state.covenant];
+    } else if (["legendaries", "soulbind_nodes", "soulbinds", "covenants", "domination_shards"].includes(data_type)) {
+      baseline_dps = data["data"]["baseline"];
+    } else {
+      baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
+    }
+
 
     if (debug) {
       console.log(dps_ordered_keys);
@@ -679,11 +632,7 @@ function bloodmallet_chart_import() {
         }
 
         let simulation_step_clean = simulation_step;
-        if (["azerite_items_chest", "azerite_items_head", "azerite_items_shoulders", "azerite_traits_itemlevel"].indexOf(data_type) > -1) {
-          simulation_step_clean = simulation_step.split("_")[1];
-        } else if (data_type === "azerite_traits_stacking") {
-          simulation_step_clean = simulation_step.split("_")[0];
-        } else if (data_type === "soulbinds" && state.chart_mode === "nodes") {
+        if (data_type === "soulbinds" && state.chart_mode === "nodes") {
           simulation_step_clean = rank_to_ilevel[simulation_step_clean];
         }
 
@@ -782,12 +731,10 @@ function bloodmallet_chart_import() {
     }
 
     // add new legend title
-    if (["trinkets", "azerite_items_chest", "azerite_items_head", "azerite_items_shoulders", "azerite_traits_itemlevel"].indexOf(data_type) > -1) {
+    if (["trinkets"].indexOf(data_type) > -1) {
       chart.legend.title.attr({ text: "Itemlevel" });
     } else if (data_type === "races" || data_type === "domination_shards") {
       chart.legend.title.attr({ text: "" });
-    } else if (data_type === "azerite_traits_stacking") {
-      chart.legend.title.attr({ text: "Trait count" });
     } else if (data_type === "soulbinds" && state.chart_mode === "nodes") {
       chart.legend.title.attr({ text: "Conduit Rank" });
     }
@@ -1314,16 +1261,9 @@ function bloodmallet_chart_import() {
       if (data.hasOwnProperty("item_ids") && data["item_ids"].hasOwnProperty(key)) {
         a.href += "item=" + data["item_ids"][key] + "/" + slugify(key);
 
-        if (data.hasOwnProperty("class_id") && data.hasOwnProperty("used_azerite_traits_per_item")) {
-          a.href += "?azerite-powers=" + data["class_id"];
-          for (let i = 0; i < data["used_azerite_traits_per_item"][key].length; i++) {
-            const trait = data["used_azerite_traits_per_item"][key][i];
-            a.href += ":" + trait["id"];
-          }
-        }
         if (data["simulated_steps"] !== undefined) {
           let ilvl = data["simulated_steps"][data["simulated_steps"].length - 1];
-          // fix special case of azerite items "1_340"
+          // fix special case of effects named "XYZ 1_340"
           if (typeof ilvl === 'string') {
             if (ilvl.indexOf("_") > -1) {
               ilvl = ilvl.split("_")[1];
@@ -1361,24 +1301,16 @@ function bloodmallet_chart_import() {
         }
       }
 
-      // if it's an item try to add azerite ids and itemlevel
+      // if it's an item try to add itemlevel
       if (a.href.indexOf("items") > -1) {
         let ilvl = data["simulated_steps"][data["simulated_steps"].length - 1];
-        // fix special case of azerite items "1_340"
+        // fix special case of effects e.g. "XYZ 1_340"
         if (typeof ilvl === 'string') {
           if (ilvl.indexOf("_") > -1) {
             ilvl = ilvl.split("_")[1];
           }
         }
         a.href += "?itemLevel=" + ilvl;
-        if (data.hasOwnProperty("class_id") && data.hasOwnProperty("used_azerite_traits_per_item")) {
-          a.href += "&azerite=";
-          a.href += data["class_id"] + ":0";
-          for (let i = 0; i < data["used_azerite_traits_per_item"][key].length; i++) {
-            const trait = data["used_azerite_traits_per_item"][key][i];
-            a.href += ":" + trait["id"];
-          }
-        }
       }
 
       try {
