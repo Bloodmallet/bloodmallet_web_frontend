@@ -166,6 +166,9 @@ function bloodmallet_chart_import() {
     "blood": "#c41f3b"
   }
 
+  const absolute_damage_per_second = "\u0394 Damage per second";
+  const relative_damage_per_second = "% Damage per second";
+
 
   /**
    *
@@ -776,6 +779,8 @@ function bloodmallet_chart_import() {
           color: covenants[covenant]["color"]
         }, false);
       }
+      chart.yAxis[0].options.title.text = absolute_damage_per_second;
+      chart.yAxis[1].options.title.text = absolute_damage_per_second;
 
     } else { // race simulations
       var dps_array = [];
@@ -1765,7 +1770,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: state.value_style === "absolute" ? "\u0394 Damage per second" : "% Damage per second",
+            text: state.value_style === "absolute" ? absolute_damage_per_second : relative_damage_per_second,
             style: {
               color: default_axis_color
             }
@@ -1795,7 +1800,7 @@ function bloodmallet_chart_import() {
             }
           },
           title: {
-            text: state.value_style === "absolute" ? "\u0394 Damage per second" : "% Damage per second",
+            text: state.value_style === "absolute" ? absolute_damage_per_second : relative_damage_per_second,
             style: {
               color: default_axis_color
             }
@@ -1853,7 +1858,7 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" ? "%" : "")));
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" && !(state.data_type === "soulbinds" && state.chart_mode === "soulbinds") ? "%" : "")));
           }
         }
 
