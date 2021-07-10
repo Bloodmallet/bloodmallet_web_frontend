@@ -474,6 +474,7 @@ function bloodmallet_chart_import() {
 
     let dps_ordered_keys;
     let baseline_dps;
+    let other_baselines = {};
     if (data_type === "soulbinds") {
       if (state.chart_mode === "nodes") {
         dps_ordered_keys = data["sorted_data_keys_" + slugify(state.covenant).replace("-", "_") + "_" + state.conduit_rank].slice(0, limit);
@@ -492,11 +493,18 @@ function bloodmallet_chart_import() {
     } else {
       baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
     }
+    // add other baseline profiles, e.g. covenant profiles for legendaries
+    for (let key of Object.keys(data["data"])) {
+      if (key[0] === "{" && key[key.length - 1] === "}") {
+        other_baselines[key] = data["data"][key];
+      }
+    }
 
 
     if (debug) {
       console.log(dps_ordered_keys);
       console.log("Baseline dps: " + baseline_dps);
+      console.log("other baseline dps: " + other_baselines);
     }
 
     let simulated_steps = [];
@@ -572,7 +580,11 @@ function bloodmallet_chart_import() {
         });
     } else {
       category_list = dps_ordered_keys
-        .map(element => get_category_name(state, element, data));
+        .map(element => {
+          // correct names which use a specific different baseline
+          let shortened_name = element.indexOf("} ") > -1 ? element.slice(element.indexOf("} ") + 2, element.length) : element;
+          return get_category_name(state, shortened_name, data);
+        });
     }
 
     if (debug) {
@@ -642,7 +654,7 @@ function bloodmallet_chart_import() {
         }, false);
 
       }
-    } else if (["legendaries", "soulbind_nodes", "covenants"].includes(data_type)) {
+    } else if (["soulbind_nodes", "covenants"].includes(data_type)) {
       var dps_array = [];
 
       for (let i = 0; i < dps_ordered_keys.length; i++) {
@@ -659,6 +671,63 @@ function bloodmallet_chart_import() {
         showInLegend: false
       }, false);
 
+    } else if (["legendaries"].includes(data_type)) {
+      let dps_array = [];
+      let baseline_name = "{" + data["profile"]["character"]["covenant"] + "}";
+      let special_cases = {}
+      for (let special_case of Object.keys(other_baselines)) {
+        special_cases[special_case] = [];
+      }
+      special_cases[baseline_name] = [];
+
+      for (let dps_key of dps_ordered_keys) {
+        let tmp_baseline_dps = baseline_dps;
+
+        // special baseline profile
+        if (dps_key.indexOf("} ") > -1) {
+          let special_case_name = dps_key.slice(0, dps_key.indexOf("} ") + 1);
+          tmp_baseline_dps = other_baselines[special_case_name];
+          special_cases[special_case_name].push(get_styled_value(state, tmp_baseline_dps, baseline_dps));
+          for (let special_case of Object.keys(special_cases)) {
+            if (special_case !== special_case_name) {
+              special_cases[special_case].push(0);
+            }
+          }
+        } else {
+          for (let special_case of Object.keys(special_cases)) {
+            if (special_case !== baseline_name) {
+              special_cases[special_case].push(0);
+            }
+            else {
+              special_cases[special_case].push(get_styled_value(state, tmp_baseline_dps, tmp_baseline_dps));
+            }
+          }
+        }
+
+        let dps_key_values = data["data"][dps_key] - tmp_baseline_dps;
+        dps_array.push(get_styled_value(state, dps_key_values, tmp_baseline_dps));
+      }
+
+      chart.addSeries({
+        data: dps_array,
+        name: "Legendary effect",
+        showInLegend: true,
+        color: "#ff7d0a"
+      }, false);
+      let mapper = {
+        "night_fae": "Night Fae",
+        "necrolord": "Necrolord",
+        "venthyr": "Venthyr",
+        "kyrian": "Kyrian"
+      }
+      for (let special_case of Object.keys(special_cases)) {
+        chart.addSeries({
+          data: special_cases[special_case],
+          name: mapper[special_case.slice(1, special_case.length - 1)],
+          showInLegend: true,
+          color: covenants[mapper[special_case.slice(1, special_case.length - 1)]]["color"]
+        }, false);
+      }
     } else if (["domination_shards"].includes(data_type)) {
       for (let shard_type of Object.keys(domination_shard_colours)) {
 
@@ -914,6 +983,13 @@ function bloodmallet_chart_import() {
 
   }
 
+  /**
+   * 
+   * @param {object} state 
+   * @param {float} dps 
+   * @param {float} baseline_dps 
+   * @returns based on value_style either absolute or relative gain
+   */
   function get_styled_value(state, dps, baseline_dps) {
     if (state.value_style === "absolute") {
       return dps;
