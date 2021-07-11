@@ -533,6 +533,10 @@ function bloodmallet_chart_import() {
         const ilevels = state.html_element.dataset.filterItemlevels.split(";");
         simulated_steps = simulated_steps.filter(element => ilevels.indexOf(element.toString()) === -1);
       }
+      // filter by availability of simulated_steps
+      dps_ordered_keys = dps_ordered_keys.filter(element =>
+        simulated_steps.some(step => data["data"][element][step] !== undefined)
+      );
       // Active - Passive
       if (state.html_element.dataset.filterActivePassive !== undefined) {
         const active_passives = state.html_element.dataset.filterActivePassive.split(";");
@@ -553,6 +557,20 @@ function bloodmallet_chart_import() {
         const sources = state.html_element.dataset.filterSources.split(";");
         dps_ordered_keys = dps_ordered_keys.filter(element => sources.indexOf(data["data_sources"][element]) === -1);
       }
+
+      // resort dps_ordered_keys
+      let tmp_list = [];
+      for (let trinket of dps_ordered_keys) {
+        let dps = undefined;
+        for (let step of simulated_steps) {
+          if (dps === undefined && data["data"][trinket][step] !== undefined) {
+            dps = data["data"][trinket][step];
+          }
+        }
+        tmp_list.push([trinket, dps]);
+      }
+      tmp_list.sort((trinket1, trinket2) => trinket1[1] <= trinket2[1]);
+      dps_ordered_keys = tmp_list.map(element => element[0]);
     }
 
     // set title and subtitle
