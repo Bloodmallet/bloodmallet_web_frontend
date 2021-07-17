@@ -22,7 +22,16 @@ logger = logging.getLogger(__name__)
 days_since_9_1_launch = (
     datetime.datetime.utcnow() - datetime.datetime.fromisoformat("2021-06-29")
 ).days
-RENOWN: int = 42 + (days_since_9_1_launch // 7) * 2
+days_since_60_renown = (
+    datetime.datetime.utcnow() - datetime.datetime.fromisoformat("2021-08-10")
+).days
+before_switch = 42 + (days_since_9_1_launch // 7) * 3 < 60
+RENOWN: int = min(
+    42 + (days_since_9_1_launch // 7) * 3
+    if before_switch
+    else 60 + (days_since_60_renown // 7) * 2,
+    80,
+)
 
 # views
 
