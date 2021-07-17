@@ -604,6 +604,7 @@ function bloodmallet_chart_import() {
         .map(element => {
           // correct names which use a specific different baseline
           let shortened_name = element.indexOf("} ") > -1 ? element.slice(element.indexOf("} ") + 2, element.length) : element;
+          shortened_name = shortened_name.indexOf(" +") > -1 ? shortened_name.slice(0, shortened_name.indexOf(" +")) : shortened_name;
           return get_category_name(state, shortened_name, data);
         });
     }
@@ -754,23 +755,46 @@ function bloodmallet_chart_import() {
 
         let dps_array = [];
 
-        for (let i = 0; i < dps_ordered_keys.length; i++) {
-          let dps_key = dps_ordered_keys[i];
-          if (data["shard_type"][dps_key] === shard_type) {
-            console.log(dps_key);
-            let dps_key_values = data["data"][dps_key] - baseline_dps;
+        for (let dps_key of dps_ordered_keys) {
+          let shard_name = dps_key;
+          let alternative_dps_baseline = baseline_dps;
+          if (dps_key.indexOf(" +") > -1) {
+            shard_name = dps_key.split(" +")[0];
+            alternative_dps_baseline = data["data"][shard_name];
+          }
 
-            dps_array.push(get_styled_value(state, dps_key_values, baseline_dps));
+          if (data["shard_type"][shard_name] === shard_type) {
+
+            let dps_key_values = data["data"][dps_key] - alternative_dps_baseline;
+
+            dps_array.push(get_styled_value(state, dps_key_values, alternative_dps_baseline));
           } else {
-            dps_array.push(get_styled_value(state, 0, baseline_dps));
+            dps_array.push(get_styled_value(state, 0, alternative_dps_baseline));
           }
         }
 
         chart.addSeries({
           data: dps_array,
-          name: shard_type,
+          name: shard_type + (dps_ordered_keys[0].indexOf(" +") > -1 ? " set" : ""),
           showInLegend: true,
           color: domination_shard_colours[shard_type]
+        }, false);
+      }
+
+      if (dps_ordered_keys[0].indexOf(" +") > -1) {
+        let set_array = [];
+        for (let name of dps_ordered_keys) {
+          let shard_name = name.split(" +")[0];
+          let dps_key_values = data["data"][shard_name] - baseline_dps;
+
+          set_array.push(get_styled_value(state, dps_key_values, baseline_dps));
+        }
+
+        chart.addSeries({
+          data: set_array,
+          name: "shard",
+          showInLegend: true,
+          color: "#ff7d0a"
         }, false);
       }
 
