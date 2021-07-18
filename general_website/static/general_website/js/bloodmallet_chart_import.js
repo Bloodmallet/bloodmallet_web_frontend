@@ -463,6 +463,9 @@ function bloodmallet_chart_import() {
       fight_style = spec_data['simc_settings']['fight_style'];
     }
     state.data_type = data_type = spec_data["data_type"];
+    if (data_type === "soulbinds") {
+      state.conduit_rank = Math.max(...spec_data["simulated_steps"]).toString();
+    }
 
     provide_meta_data(state, spec_data);
 
