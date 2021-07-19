@@ -484,6 +484,17 @@ function bloodmallet_chart_import() {
     if (data_type === "soulbinds") {
       if (state.chart_mode === "nodes") {
         dps_ordered_keys = data["sorted_data_keys_" + slugify(state.covenant).replace("-", "_") + "_" + state.conduit_rank].slice(0, limit);
+
+        // dynamic sorted dps_ordered_keys to straighten strange sorting errors from the backend
+        dps_ordered_keys = dps_ordered_keys.map(
+          key => [key, Math.max(...(
+            data["simulated_steps"].map(
+              step => Number.isInteger(data["data"][key][state.covenant]) ? data["data"][key][state.covenant] : data["data"][key][state.covenant][step] || 0
+            )
+          ))]
+        ).sort(
+          (a, b) => b[1] - a[1]
+        ).map(element => element[0]);
       } else {
         dps_ordered_keys = data["sorted_data_keys"][state.conduit_rank].slice(0, limit);
       }
@@ -629,7 +640,6 @@ function bloodmallet_chart_import() {
 
 
     if (simulated_steps) {
-
       let tmp_dps_values = {};
       for (const name in data["data"]) {
         if (data["data"].hasOwnProperty(name)) {
@@ -647,11 +657,21 @@ function bloodmallet_chart_import() {
             const step = simulated_steps[i];
             let tmp_info = information.hasOwnProperty(state.covenant) ? information[state.covenant] : information;
             if (Number.isInteger(tmp_info)) {
-              tmp_dps_values[name][step] = tmp_info - previous_value;
-              previous_value = tmp_info;
-            } else if (tmp_info.hasOwnProperty(step)) {
-              tmp_dps_values[name][step] = tmp_info[step] - previous_value;
+              tmp_dps_values[name][step] = Math.max(tmp_info - previous_value, 0);
+              previous_value = tmp_dps_values[name][step] === 0 ? previous_value : tmp_info;
+            } else if (tmp_info.hasOwnProperty(step) && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
+              // find max dps of lower steps (target error is my enemy of very minor power increases)
+              let dyn_prev_max_value = simulated_steps.slice(i + 1).map(element => tmp_info[element]);
+              if (dyn_prev_max_value.length === 0) {
+                dyn_prev_max_value = baseline_dps;
+              } else {
+                dyn_prev_max_value = dyn_prev_max_value.reduce((a, b) => a > b ? a : b);
+              }
+              tmp_dps_values[name][step] = Math.max(tmp_info[step] - dyn_prev_max_value, 0);
               previous_value = tmp_info[step];
+            } else if (tmp_info.hasOwnProperty(step)) {
+              tmp_dps_values[name][step] = Math.max(tmp_info[step] - previous_value, 0);
+              previous_value = tmp_dps_values[name][step] === 0 ? previous_value : tmp_info[step];
             } else {
               tmp_dps_values[name][step] = 0;
             }
@@ -1890,7 +1910,16 @@ function bloodmallet_chart_import() {
         let cumulative_amount = 0;
         for (var i = this.points.length - 1; i >= 0; i--) {
           cumulative_amount += this.points[i].y;
-          if (this.points[i].y !== 0) {
+          let multi_values = false;
+          let tmp_val = 0;
+          for (let point of this.points) {
+            if (point.y !== 0 && tmp_val !== 0 && tmp_val !== point.y) {
+              multi_values = true;
+            } else if (point.y !== 0 && tmp_val === 0) {
+              tmp_val = point.y;
+            }
+          }
+          if (this.points[i].y !== 0 || multi_values && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
             let point_div = document.createElement('div');
             container.appendChild(point_div);
 
@@ -1903,7 +1932,8 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" && !(state.data_type === "soulbinds" && state.chart_mode === "soulbinds") ? "%" : "")));
+            // convoluted mess....does that count as art?
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" && !(state.data_type === "soulbinds" && state.chart_mode === "soulbinds") && state.data_type !== "races" ? "%" : "")));
           }
         }
 
