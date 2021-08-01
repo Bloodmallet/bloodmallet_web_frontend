@@ -7,11 +7,13 @@
             }
 
             .mallet-handle {
-                fill: #919395;
+                fill: #0070de;
             }
 
             .mallet-front {
-                fill: #0070de;
+                fill: #646667;
+                /* fill: #646667; darker-grey */
+                /* fill: #0070de; blue */
             }
         </style>
     </defs>
