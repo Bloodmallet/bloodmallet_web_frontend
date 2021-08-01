@@ -84,10 +84,8 @@ $alert-border-width: 5px;
 
 // container for primary page content
 main {
-    min-height: 93vh;
-    bottom:0;
-    right:0;
-    left:0;
+    min-height: 76vh;
+    margin-top: 7vh;
 }
 // bloodmallet hammer background image
 #background_image {
@@ -108,10 +106,13 @@ footer {
     position: relative;
     bottom: 0px;
     right: 0px;
-    margin-top: 2em;
+    margin-top: 3vh;
 }
 .top-nav, .bottom-nav {
-    min-height: 60px;
+    min-height: 7vh;
+}
+#navBarDataMenu ~ main {
+    margin-top: 0vh;
 }
 .light-border-bottom {
     border-bottom: $border-width solid $light-color;
@@ -120,13 +121,13 @@ footer {
     background: $darkest-color;
 }
 #navBarDataMenuPlaceholder {
-    top: 60px;
-    height: 62px;
+    top: 7vh;
+    height: 7vh;
     z-index: 500;
 }
 #navBarDataMenu {
     z-index: 45;
-    top: 0px;
+    top: 7vh;
 }
 // there was an animation here...it somehow broke. maybe due to "sticky-top" class
 @-webkit-keyframes fadein_class_nav {
@@ -296,11 +297,11 @@ a:hover .svg-icon {
     cursor: not-allowed;
 }
 
-// petreon
+// patreon
 .patreon-div {
     position: fixed;
     right: 24px;
-    top: 70px;
+    top: 8vh;
     z-index: 750;
 }
 
