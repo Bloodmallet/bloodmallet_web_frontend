@@ -88,4 +88,5 @@ urlpatterns = [
     ),
     # languages
     path("i18n/", include("django.conf.urls.i18n")),
+    path("logo_comparison", views.logo_comparison, name="logo_comparison"),
 ]

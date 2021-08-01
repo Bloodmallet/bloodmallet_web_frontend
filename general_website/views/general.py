@@ -785,3 +785,7 @@ def tears(request):
 
 def r_tears(request):
     return redirect("tears")
+
+
+def logo_comparison(request):
+    return render(request, "general_website/logo_comparison.html")
