@@ -29,7 +29,7 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xl-2 col-lg-2 col-md-1">
+                <div class="col-xl-2 col-lg-2 col-md-1 left-open-space">
                     {# free real estate #}
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-10">
@@ -37,7 +37,7 @@
                     {% block content %}
                     {% endblock %}
                 </div>
-                <div class="col-xl-2 col-lg-2 col-md-1">
+                <div class="col-xl-2 col-lg-2 col-md-1 right-open-space">
                     {# free real estate #}
                 </div>
             </div>
@@ -51,7 +51,6 @@
     </div>
     <!-- <div id="background_image" style="background-image: url('{% static 'general_website/assets/bloodmallet_logo.svg'%}');"></div> -->
 
-    <div style="height: 60px;"></div>
     {% include 'general_website/layout/nav_bottom.html' %}
 
     {# importer of js scripts #}
@@ -75,10 +74,12 @@
             {% endblocktranslate %}
         </p>
         <div class="btn-group float-right">
-            <button type="button" class="btn btn-primary"
-                onclick="acceptGATracking(true)">{% translate "Accept GA tracking" %}</button>
-            <button type="button" class="btn btn-secondary"
-                onclick="acceptGATracking(false)">{% translate "Reject GA tracking" %}</button>
+            <button type="button" class="btn btn-primary" onclick="acceptGATracking(true)">
+                {% translate "Accept GA tracking" %}
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="acceptGATracking(false)">
+                {% translate "Reject GA tracking" %}
+            </button>
         </div>
     </div>
 </body>
