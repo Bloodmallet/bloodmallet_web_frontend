@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://discord.gg/sXfmMkm">
+                    <a class="nav-link" href="https://discord.gg/PKT2PWGB6w">
                         <div class="svg-icon">
                             <svg class="svg-icon">
                                 <use xlink:href="{% static 'general_website/assets/social-icons.svg' %}#discord"></use>
@@ -56,8 +56,9 @@
                     <a class="nav-link" href="{% url 'about' %}">{% translate "About" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                        href="{% url 'terms_and_conditions' %}">{% translate "Terms and Conditions" %}</a>
+                    <a class="nav-link" href="{% url 'terms_and_conditions' %}">
+                        {% translate "Terms and Conditions" %}
+                    </a>
                 </li>
                 {% comment %} <li class="nav-item">
                     <a class="nav-link" href="{% url 'privacy_policy' %}">{% translate "Privacy Policy" %}</a>
