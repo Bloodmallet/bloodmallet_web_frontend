@@ -8,9 +8,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarBottomMenu">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'faq' %}">{% translate "FAQ" %}</a>
-                </li>
                 {% if not user.is_superuser %}
                 <li class="nav-item patron-link">
                     <a class="nav-link" href="https://www.patreon.com/bloodmallet">
@@ -52,6 +49,12 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'faq' %}">
+                        {% translate "FAQ" %}
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">{% translate "About" %}</a>
                 </li>
