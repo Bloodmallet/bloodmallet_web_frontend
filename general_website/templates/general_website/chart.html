@@ -28,24 +28,22 @@
 
 {% block precontent%}
 {% if general_result %}
-<div id="navBarDataMenuPlaceholder" class="sticky-top">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navBarDataMenu">
-        <!-- Menu button if device is too small for full menu -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu"
-            aria-controls="navbarClassMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Menu list -->
-        <div class="collapse navbar-collapse" id="navbarClassMenu">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle rogue-color rogue-menu-border" href="" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" id="navbar_wow_class_selection"> </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top" id="navBarDataMenu">
+    <!-- Menu button if device is too small for full menu -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarClassMenu"
+        aria-controls="navbarClassMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Menu list -->
+    <div class="collapse navbar-collapse" id="navbarClassMenu">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle rogue-color rogue-menu-border" href="" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" id="navbar_wow_class_selection"> </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 {% endif %}
 {% endblock %}
 
