@@ -4,14 +4,18 @@
 
 {% block content %}
 
-<h2 class="mt-5">{% translate "Login" %}</h2>
+<h2 class="mb-5 display-4">{% translate "Login" %}</h2>
 
-<form method="post" action="{% url 'login' %}" style="top: 10vh; position: relative;">
+<form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     {{ login_form|crispy }}
 
     <button type="submit" class="btn btn-primary">{% translate "Login" %}</button>
-    <small class="form-text text-muted"><a href="{% url 'password_reset' %}">{% translate "Dang, I forgot my password." %}</a></small>
+    <small class="form-text text-muted">
+        <a href="{% url 'password_reset' %}">
+            {% translate "Dang, I forgot my password." %}
+        </a>
+    </small>
 </form>
 
 {% endblock %}

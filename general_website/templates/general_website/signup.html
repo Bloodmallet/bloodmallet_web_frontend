@@ -4,12 +4,18 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'signup' %}" style="top: 15vh; position: relative;">
+<h2 class="mb-5 display-4">{% translate "Register" %}</h2>
+
+<form method="post" action="{% url 'signup' %}">
     {% csrf_token %}
     {{ signup_form|crispy }}
 
     <button type="submit" class="btn btn-primary">{% translate "Sign up" %}</button>
-    <small id="dataDisclaimer" class="form-text text-muted">{% translate "I couldn't care less about what you enter. Nothing is shared with others and data is wiped regularly." %}</small>
+    <small id="dataDisclaimer" class="form-text text-muted">
+        {% blocktranslate %}
+        I couldn't care less about what you enter. Nothing is shared with others.
+        {% endblocktranslate %}
+    </small>
 </form>
 
 {% endblock %}
