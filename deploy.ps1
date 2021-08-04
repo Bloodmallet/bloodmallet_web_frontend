@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 Write-Host "Deploying to bloodmallet.com"
 
 # Save start location
