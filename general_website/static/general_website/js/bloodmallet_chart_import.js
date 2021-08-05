@@ -454,6 +454,7 @@ function bloodmallet_chart_import() {
       }
       return;
     }
+    state.data = spec_data;
 
     if (spec_data["error"] === true || spec_data["status"] === "error") {
       return simulation_error(html_element, spec_data);
@@ -1919,7 +1920,21 @@ function bloodmallet_chart_import() {
               tmp_val = point.y;
             }
           }
-          if (this.points[i].y !== 0 || multi_values && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
+          let name = new DOMParser().parseFromString(this.x, "text/html").body.firstChild.innerText;
+          // find name if a special baseprofile was used e.g. "{Kyrian} Legendary name"
+          if (!state.data["data"].hasOwnProperty(name)) {
+            let actual_name = undefined;
+            for (let tmp_name of Object.keys(state.data["data"])) {
+              if (tmp_name.slice(tmp_name.indexOf("} ") + 2) === name) {
+                actual_name = tmp_name;
+              }
+            }
+            if (actual_name !== undefined) {
+              name = actual_name;
+            }
+          }
+          let does_value_exist_in_original_data = state.data["data"][name].hasOwnProperty(this.points[i].series.name);
+          if (this.points[i].y !== 0 || does_value_exist_in_original_data || multi_values && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
             let point_div = document.createElement('div');
             container.appendChild(point_div);
 
@@ -1932,8 +1947,15 @@ function bloodmallet_chart_import() {
               block_span.appendChild(document.createTextNode(this.points[i].series.name + ":"));
             }
 
-            // convoluted mess....does that count as art?
-            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + (state.value_style === "relative" && !(state.data_type === "soulbinds" && state.chart_mode === "soulbinds") && state.data_type !== "races" ? "%" : "")));
+            let unit = "";
+            if (state.data_type === "soulbinds" && state.chart_mode === "soulbinds"
+              || state.data_type === "races"
+            ) {
+              unit = "";
+            } else if (state.value_style === "relative") {
+              unit = "%";
+            }
+            point_div.appendChild(document.createTextNode('\u00A0\u00A0' + Intl.NumberFormat().format(cumulative_amount) + unit));
           }
         }
 
