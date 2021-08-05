@@ -20,15 +20,11 @@ from django.conf.urls.static import static
 
 from general_website.views import login as app_login
 
-urlpatterns = (
-    [
-        path("", include("general_website.urls")),
-        path("admin/login/", app_login),
-        path("admin/", admin.site.urls),
-    ]
-    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-)
+urlpatterns = [
+    path("", include("general_website.urls")),
+    path("admin/login/", app_login),
+    path("admin/", admin.site.urls),
+]
 
 
 try:
@@ -46,6 +42,11 @@ if settings.DEBUG:
     urlpatterns.append(
         path("__debug__/", include(debug_toolbar.urls)),
     )
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)
+
 
 handler400 = "general_website.views.handler404"
 handler403 = "general_website.views.handler404"
