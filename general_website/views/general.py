@@ -30,7 +30,7 @@ RENOWN: int = min(
     42 + (days_since_9_1_launch // 7) * 3
     if before_switch
     else 60 + (days_since_60_renown // 7) * 2,
-    80,
+    60,
 )
 
 # views
