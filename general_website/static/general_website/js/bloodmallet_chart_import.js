@@ -307,6 +307,9 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-value-style")) {
           state.value_style = html_element.getAttribute("data-value-style");
+          if (state.data_type === "legendaries") {
+            state.value_style = "absolute";
+          }
         }
 
         // preparing necessary input to load data
@@ -1100,7 +1103,7 @@ function bloodmallet_chart_import() {
       try {
         new_chart = Highcharts.chart(html_id, styled_chart);
       } catch (error) {
-        console.log("When trying to create a highcharts chart the following error occured. Did you include the necessary Highcharts scripts?");
+        console.log("When trying to create a highcharts chart the following error occurred. Did you include the necessary Highcharts scripts?");
         console.log(error);
         return;
       }
@@ -1110,7 +1113,7 @@ function bloodmallet_chart_import() {
         tmp_styled_chart["chart"]["renderTo"] = html_id;
         new_chart = new Highcharts.Chart(tmp_styled_chart);
       } catch (error) {
-        console.log("When trying to create a highcharts_old chart the following error occured. Did you include the necessary Highcharts scripts?");
+        console.log("When trying to create a highcharts_old chart the following error occurred. Did you include the necessary Highcharts scripts?");
         console.log(error);
         return;
       }
@@ -2004,7 +2007,7 @@ function bloodmallet_chart_import() {
     }
 
     // value switch
-    if (["trinkets", "covenants", "conduits", "soulbind_nodes", "legendaries", "soulbinds"].includes(state.data_type)) {
+    if (["trinkets", "covenants", "conduits", "soulbind_nodes", "soulbinds"].includes(state.data_type)) {
       document.getElementById("value_style_switch").hidden = false;
     }
 
