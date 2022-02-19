@@ -1940,7 +1940,9 @@ function bloodmallet_chart_import() {
             // dealing with a name that is not a link, e.g. Races
             name = this.x;
           }
-          let does_value_exist_in_original_data = state.data["data"][name].hasOwnProperty(this.points[i].series.name);
+          // assume name is a translated one. get the base english version
+          let english_name = get_base_name_from_translation(name, state.data, state);
+          let does_value_exist_in_original_data = state.data["data"][english_name].hasOwnProperty(this.points[i].series.name);
           if (this.points[i].y !== 0 || does_value_exist_in_original_data || multi_values && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
             let point_div = document.createElement('div');
             container.appendChild(point_div);
@@ -2481,6 +2483,30 @@ function bloodmallet_chart_import() {
 
     return return_name;
   }
+
+  function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+
+  /**
+   * Get the translation of a name (item, trait, race) from the data file
+   */
+  function get_base_name_from_translation(name, data, state) {
+    if (debug) {
+      console.log("get_base_name_from_translation " + name);
+    }
+
+    for (let base_name of Object.keys(data["translations"])) {
+      if (language_table[state.language] === getKeyByValue(data["translations"][base_name], name)) {
+        if (debug) {
+          console.log("Base name: " + base_name);
+        }
+        return base_name;
+      }
+    }
+    return name;
+  }
+
 
   function get_lowest_gain(row_column, data) {
     let row = row_column.slice(0, 1);
