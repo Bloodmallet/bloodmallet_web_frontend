@@ -1936,6 +1936,10 @@ function bloodmallet_chart_import() {
               name = actual_name;
             }
           }
+          if (name === undefined) {
+            // dealing with a name that is not a link, e.g. Races
+            name = this.x;
+          }
           let does_value_exist_in_original_data = state.data["data"][name].hasOwnProperty(this.points[i].series.name);
           if (this.points[i].y !== 0 || does_value_exist_in_original_data || multi_values && state.data_type === "soulbinds" && state.chart_mode === "nodes") {
             let point_div = document.createElement('div');
