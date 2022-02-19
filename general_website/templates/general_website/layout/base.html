@@ -13,7 +13,7 @@
 <body>
     {% include 'general_website/layout/nav_top.html' %}
 
-    {% if not user.is_superuser %}
+    {% if not user.is_superuser and not user.patron_uuid and not user.is_guide_writer and not user.is_simulationcraft_developer %}
     <div class="patreon-div">
         <a href="https://www.patreon.com/bloodmallet">
             <img src="{% static 'general_website/assets/become_a_patron_button.png' %}"

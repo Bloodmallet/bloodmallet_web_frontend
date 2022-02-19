@@ -13,9 +13,14 @@
     This site provides an overview about several simulateable aspects for almost all specs in World of Warcraft
     using <a href="http://www.simulationcraft.org/">SimulationCraft</a>. These overviews
     are an entry point.
-    <span class="monk-color">You can generate your own charts by becoming a <a
-            href="https://www.patreon.com/bloodmallet">Patreon</a>.</span>
     {% endblocktranslate %}
+    {% if not user.is_superuser and not user.patron_uuid and not user.is_guide_writer and not user.is_simulationcraft_developer %}
+    <span class="monk-color">
+        {% blocktranslate %}
+        You can generate your own charts by becoming a <a href="https://www.patreon.com/bloodmallet">Patreon</a>.
+        {% endblocktranslate %}
+    </span>
+    {% endif %}
 </p>
 <p>
     {% blocktranslate %}

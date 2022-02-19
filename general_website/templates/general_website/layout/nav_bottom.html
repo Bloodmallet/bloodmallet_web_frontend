@@ -8,7 +8,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarBottomMenu">
             <ul class="navbar-nav mr-auto">
-                {% if not user.is_superuser %}
+                {% if not user.is_superuser and not user.patron_uuid and not user.is_guide_writer and not user.is_simulationcraft_developer %}
                 <li class="nav-item patron-link">
                     <a class="nav-link" href="https://www.patreon.com/bloodmallet">
                         <svg class="svg-icon">
