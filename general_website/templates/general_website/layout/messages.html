@@ -1,8 +1,8 @@
 {% load i18n %}
 
 {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="{% translate 'close' %}">&#215;</button>
-        {{ message }}
-    </div>
+<div class="alert {{ message.tags }} alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="{% translate 'close' %}">&#215;</button>
+    {{ message | safe }}
+</div>
 {% endfor %}
