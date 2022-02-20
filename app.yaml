@@ -1,9 +1,13 @@
-runtime: python38
+runtime: python39
 
 # https://cloud.google.com/appengine/docs/standard#second-gen-runtimes
 instance_class: F2 #default value
 
 handlers:
+# https://cloud.google.com/appengine/docs/standard/python3/config/appref
+- url: /static/general_website/js
+  static_dir: static/general_website/js
+  mime_type: text/javascript
 # This configures Google App Engine to serve the files in the app's static
 # directory.
 - url: /static
