@@ -54,7 +54,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "vinaigrette.middleware.VinaigretteAdminLanguageMiddleware",
-    # 'general_website.middlewares.broadcast.BroadcastMiddleware',
+    "general_website.middlewares.broadcast.BroadcastMiddleware",
 ]
 
 try:

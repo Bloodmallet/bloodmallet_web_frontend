@@ -8,7 +8,6 @@ logger = logging.getLogger(__name__)
 
 
 class BroadcastMiddleware(object):
-
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
@@ -28,7 +27,9 @@ class BroadcastMiddleware(object):
 
         now = timezone.now()
 
-        broadcasts = Broadcast.objects.filter(start_at__lte=now, end_at__gte=now)     # pylint: disable=no-member
+        broadcasts = Broadcast.objects.filter(
+            start_at__lte=now, end_at__gte=now
+        )  # pylint: disable=no-member
 
         for broadcast in broadcasts:
 
@@ -37,8 +38,9 @@ class BroadcastMiddleware(object):
 
             # TODO: add more in the future
             methods = {
-                'info': messages.info,
-                'warning': messages.warning,
+                "info": messages.info,
+                "warning": messages.warning,
+                "danger": messages.error,
             }
 
             already_present = False
