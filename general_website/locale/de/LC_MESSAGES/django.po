@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 09:23+0100\n"
+"POT-Creation-Date: 2022-02-20 21:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgstr "Erzeugung läuft"
 msgid "Deleting ALL instances"
 msgstr "Löschen ALLER Instanzen"
 
-#: .\compute_api\views.py:862
+#: .\compute_api\views.py:863
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -769,48 +769,23 @@ msgstr ""
 msgid "Use absolute values"
 msgstr "Verwende absolute Werte"
 
-#: .\general_website\templates\general_website\chart.html:261
-#: .\general_website.SimulationType/name:12
-msgid "Soulbinds"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:267
-msgid "Nodes/Conduits"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:277
-msgid "Kyrian"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:284
-msgid "Necrolord"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:291
-msgid "Night Fae"
-msgstr "Nachtfae"
-
-#: .\general_website\templates\general_website\chart.html:298
-msgid "Venthyr"
-msgstr "Venthyr"
-
-#: .\general_website\templates\general_website\chart.html:306
+#: .\general_website\templates\general_website\chart.html:239
 msgid "Disclaimer"
 msgstr "Warnung"
 
-#: .\general_website\templates\general_website\chart.html:307
+#: .\general_website\templates\general_website\chart.html:240
 msgid "Talent simulations are quite fragile for the following reasons:"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:309
+#: .\general_website\templates\general_website\chart.html:242
 msgid "Not all talent combinations might be equally supported by the APL."
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:310
+#: .\general_website\templates\general_website\chart.html:243
 msgid "Not all Fight styles might be supported equally."
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:311
+#: .\general_website\templates\general_website\chart.html:244
 msgid ""
 "\n"
 "                Secondary stats aren't changed during simulation, but some "
@@ -819,7 +794,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:316
+#: .\general_website\templates\general_website\chart.html:249
 msgid ""
 "\n"
 "                Different Covenants might synergize with talents "
@@ -828,7 +803,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:321
+#: .\general_website\templates\general_website\chart.html:254
 msgid ""
 "\n"
 "                Soulbinds might affect talents, but aren't changed during "
@@ -836,7 +811,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:325
+#: .\general_website\templates\general_website\chart.html:258
 msgid ""
 "\n"
 "                Legendaries might support specific talents. So consider your "
@@ -844,7 +819,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:329
+#: .\general_website\templates\general_website\chart.html:262
 msgid ""
 "\n"
 "                Conduits might affect the worth of talents. But yet again "
@@ -853,7 +828,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:338
+#: .\general_website\templates\general_website\chart.html:271
 msgid "All values in this table are gains."
 msgstr ""
 
@@ -1351,49 +1326,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:540
+#: .\general_website\views\general.py:524
 msgid "Simulation not found."
 msgstr ""
 
-#: .\general_website\views\general.py:607
+#: .\general_website\views\general.py:591
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: .\general_website\views\general.py:645
+#: .\general_website\views\general.py:629
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: .\general_website\views\general.py:660
+#: .\general_website\views\general.py:644
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: .\general_website\views\general.py:681
+#: .\general_website\views\general.py:665
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: .\general_website\views\general.py:689
+#: .\general_website\views\general.py:673
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:696
+#: .\general_website\views\general.py:680
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:698
+#: .\general_website\views\general.py:682
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: .\general_website\views\general.py:733
+#: .\general_website\views\general.py:717
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: .\general_website\views\general.py:754
+#: .\general_website\views\general.py:738
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: .\general_website\views\general.py:759
+#: .\general_website\views\general.py:743
 msgid "You don't have permission to create a chart."
 msgstr ""
 
@@ -1573,8 +1548,16 @@ msgstr ""
 msgid "Covenants"
 msgstr ""
 
+#: .\general_website.SimulationType/name:12
+msgid "Soulbinds"
+msgstr ""
+
 #: .\general_website.SimulationType/name:13
 msgid "Domination Shards"
+msgstr ""
+
+#: .\general_website.SimulationType/name:14
+msgid "Tier Set"
 msgstr ""
 
 #: .\general_website.WowClass/name:1
@@ -1736,6 +1719,12 @@ msgstr ""
 #: .\general_website.WowSpec/name:29
 msgid "Fury"
 msgstr ""
+
+#~ msgid "Night Fae"
+#~ msgstr "Nachtfae"
+
+#~ msgid "Venthyr"
+#~ msgstr "Venthyr"
 
 #~ msgid "Suggestion"
 #~ msgstr "Vorschläge"
