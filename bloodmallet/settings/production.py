@@ -18,6 +18,15 @@ ALLOWED_HOSTS = [
     ".bloodmallet.com",
     "bloodmallet.com",
 ]
+# https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-trusted-origins
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.appspot.com",
+    "https://*.bloodmallet.com",
+    "https://bloodmallet.com",
+    "http://*.appspot.com",
+    "http://*.bloodmallet.com",
+    "http://bloodmallet.com",
+]
 
 # logging
 LOGGING = {

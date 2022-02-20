@@ -10,6 +10,11 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
 ]
+# https://docs.djangoproject.com/en/4.0/ref/settings/#csrf-trusted-origins
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "https://127.0.0.1",
+]
 
 # logging
 LOGGING = {
