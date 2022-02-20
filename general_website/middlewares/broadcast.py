@@ -39,6 +39,7 @@ class BroadcastMiddleware:
             # TODO: add more in the future
             methods = {
                 "info": messages.info,
+                "success": messages.success,
                 "warning": messages.warning,
                 "danger": messages.error,
             }
