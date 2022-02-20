@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: .\general_website\forms.py:72
+#: .\general_website\forms.py:79
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-10 09:18+0200\n"
+"POT-Creation-Date: 2022-02-20 09:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr "Leerlauf"
 msgid "calculating"
 msgstr "Berechnung"
 
-#: .\compute_api\models.py:21 .\general_website\models\simulation.py:98
+#: .\compute_api\models.py:21 .\general_website\models\simulation.py:110
 msgid "done"
 msgstr "Erledigt"
 
@@ -84,16 +84,16 @@ msgstr "Erzeugung läuft"
 msgid "Deleting ALL instances"
 msgstr "Löschen ALLER Instanzen"
 
-#: .\compute_api\views.py:845
+#: .\compute_api\views.py:862
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
 
-#: .\general_website\forms.py:57
+#: .\general_website\forms.py:61
 msgid "Auto-remove oldest chart"
 msgstr "Automatisches Löschen alter Diagramme"
 
-#: .\general_website\forms.py:58
+#: .\general_website\forms.py:63
 msgid ""
 "If your slots are filled, enabling this checkbox will auto-remove the oldest "
 "chart to free up a slot."
@@ -101,77 +101,77 @@ msgstr ""
 "Falls alle Diagramm-Plätze belegt sind, wird das aktivieren dieser Checkbox "
 "automatisch das ältereste Diagramm löschen."
 
-#: .\general_website\forms.py:62
+#: .\general_website\forms.py:69
 msgid "45 seconds"
 msgstr "45 Sekunden"
 
-#: .\general_website\forms.py:63
+#: .\general_website\forms.py:70
 msgid "1 minute"
 msgstr "1 Minute"
 
-#: .\general_website\forms.py:64
+#: .\general_website\forms.py:71
 msgid "1 minute and 30 seconds"
 msgstr "1 Minute und 30 Sekunden"
 
-#: .\general_website\forms.py:65
+#: .\general_website\forms.py:72
 msgid "2 minutes"
 msgstr "2 Minuten"
 
-#: .\general_website\forms.py:66
+#: .\general_website\forms.py:73
 msgid "3 minutes"
 msgstr "3 Minuten"
 
-#: .\general_website\forms.py:67
+#: .\general_website\forms.py:74
 msgid "5 minutes"
 msgstr "5 Minuten"
 
-#: .\general_website\forms.py:68
+#: .\general_website\forms.py:75
 msgid "7 minutes"
 msgstr "7 Minuten"
 
-#: .\general_website\forms.py:69
+#: .\general_website\forms.py:76
 msgid "10 minutes"
 msgstr "10 Minuten"
 
-#: .\general_website\forms.py:72
+#: .\general_website\forms.py:79
 msgid "Fight Length"
 msgstr "Kampfdauer"
 
-#: .\general_website\forms.py:74
+#: .\general_website\forms.py:82
 msgid "Boss"
 msgstr "Boss"
 
-#: .\general_website\forms.py:75
+#: .\general_website\forms.py:83
 msgid "Bosses"
 msgstr "Bosse"
 
-#: .\general_website\forms.py:90
+#: .\general_website\forms.py:98
 msgid "Boss count"
 msgstr "Bossanzahl"
 
-#: .\general_website\forms.py:126
+#: .\general_website\forms.py:135
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: .\general_website\forms.py:150
+#: .\general_website\forms.py:160
 msgid "Paste your /simc output into this element."
 msgstr "Füge deinen /simc Text in dieses Element."
 
-#: .\general_website\forms.py:154 .\general_website\forms.py:184
+#: .\general_website\forms.py:168 .\general_website\forms.py:197
 msgid "Create Chart"
 msgstr "Diagramm erstellen"
 
-#: .\general_website\forms.py:162
-#: .\general_website\templates\general_website\chart.html:154
+#: .\general_website\forms.py:176
+#: .\general_website\templates\general_website\chart.html:152
 msgid "Fight style"
 msgstr "Kampfstil"
 
-#: .\general_website\forms.py:174
+#: .\general_website\forms.py:187
 msgid "APL"
 msgstr "APL"
 
-#: .\general_website\forms.py:195 .\general_website\forms.py:204
-#: .\general_website\forms.py:213
+#: .\general_website\forms.py:214 .\general_website\forms.py:230
+#: .\general_website\forms.py:246
 msgid "An illegal input was detected."
 msgstr "Eine illegale Eingabe wurde gefunden."
 
@@ -200,11 +200,11 @@ msgstr "Ist ein SimulationCraft Entwickler"
 msgid "Broadcast will be shown from start_at to end_at."
 msgstr "Mitteilung wird von start_at bis end_at eingeblendet."
 
-#: .\general_website\models\simulation.py:55
+#: .\general_website\models\simulation.py:57
 msgid "Name of the chart"
 msgstr "Name des Diagramms"
 
-#: .\general_website\models\simulation.py:60
+#: .\general_website\models\simulation.py:63
 msgid ""
 "Define your own character here, instead of using the standard profile (your "
 "input will overwrite the standard profile). Paste your <a href=\"https://"
@@ -216,23 +216,23 @@ msgstr ""
 "addons/wow/simulationcraft\" target=\"_blank\">SimulationCraft</a> /simc "
 "hier ein."
 
-#: .\general_website\models\simulation.py:63
+#: .\general_website\models\simulation.py:69
 msgid "Define your own fight_style."
 msgstr "Definiere deinen eigenen Kampfstil."
 
-#: .\general_website\models\simulation.py:65
+#: .\general_website\models\simulation.py:74
 msgid "Define your characters APL."
 msgstr "Definiere deine eigene APL."
 
-#: .\general_website\models\simulation.py:96
+#: .\general_website\models\simulation.py:108
 msgid "pending"
 msgstr "Warteschlange"
 
-#: .\general_website\models\simulation.py:97
+#: .\general_website\models\simulation.py:109
 msgid "in progress"
 msgstr "Simulation läuft"
 
-#: .\general_website\models\simulation.py:99
+#: .\general_website\models\simulation.py:111
 msgid "error"
 msgstr "Fehler"
 
@@ -665,7 +665,7 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\about.html:10
-#: .\general_website\templates\general_website\layout\nav_bottom.html:56
+#: .\general_website\templates\general_website\layout\nav_bottom.html:59
 msgid "About"
 msgstr "Impressum"
 
@@ -693,132 +693,124 @@ msgstr "Handelsregister"
 msgid "Banking Information"
 msgstr "Bankinformationen"
 
-#: .\general_website\templates\general_website\chart.html:56
+#: .\general_website\templates\general_website\chart.html:54
 msgid "bloodmallet"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:69
+#: .\general_website\templates\general_website\chart.html:67
 msgid "Character profile"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:90
+#: .\general_website\templates\general_website\chart.html:88
 msgid "Covenant"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:96
+#: .\general_website\templates\general_website\chart.html:94
 msgid "Soulbind"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:145
+#: .\general_website\templates\general_website\chart.html:143
 msgid "SimulationCraft settings"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:158
+#: .\general_website\templates\general_website\chart.html:156
 msgid "Iterations"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:162
+#: .\general_website\templates\general_website\chart.html:160
 msgid "PTR"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:166
+#: .\general_website\templates\general_website\chart.html:164
 msgid "SimulationCraft Hash"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:170
+#: .\general_website\templates\general_website\chart.html:168
 msgid "Target Error"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:174
-#, fuzzy
-#| msgid "Profile"
+#: .\general_website\templates\general_website\chart.html:172
 msgid "Base profile"
-msgstr "Profil"
+msgstr "Basisprofil"
 
-#: .\general_website\templates\general_website\chart.html:181
-#, fuzzy
-#| msgid "Fight Style"
+#: .\general_website\templates\general_website\chart.html:179
 msgid "Custom fight style"
-msgstr "Kampfstil"
+msgstr "Individueller Kampfstil"
 
-#: .\general_website\templates\general_website\chart.html:186
+#: .\general_website\templates\general_website\chart.html:184
 msgid "Custom APL"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:199
+#: .\general_website\templates\general_website\chart.html:197
 msgid "Advanced Options"
 msgstr "Erweiterte Optionen"
 
-#: .\general_website\templates\general_website\chart.html:209
+#: .\general_website\templates\general_website\chart.html:207
 msgid "Itemlevels"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:213
+#: .\general_website\templates\general_website\chart.html:211
 msgid "Sources"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:217
+#: .\general_website\templates\general_website\chart.html:215
 msgid "Show"
 msgstr "Anzeigen"
 
-#: .\general_website\templates\general_website\chart.html:221
+#: .\general_website\templates\general_website\chart.html:219
 msgid "On Use"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:226
+#: .\general_website\templates\general_website\chart.html:224
 msgid "Passive"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:237
-#, fuzzy
-#| msgid "|x| - absolute value"
+#: .\general_website\templates\general_website\chart.html:235
 msgid "Use absolute values"
-msgstr "|x| - absoluter Wert"
+msgstr "Verwende absolute Werte"
 
-#: .\general_website\templates\general_website\chart.html:263
+#: .\general_website\templates\general_website\chart.html:261
 #: .\general_website.SimulationType/name:12
 msgid "Soulbinds"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:269
+#: .\general_website\templates\general_website\chart.html:267
 msgid "Nodes/Conduits"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:279
+#: .\general_website\templates\general_website\chart.html:277
 msgid "Kyrian"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:286
+#: .\general_website\templates\general_website\chart.html:284
 msgid "Necrolord"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:293
-#, fuzzy
-#| msgid "Fight Style"
+#: .\general_website\templates\general_website\chart.html:291
 msgid "Night Fae"
-msgstr "Kampfstil"
+msgstr "Nachtfae"
 
-#: .\general_website\templates\general_website\chart.html:300
+#: .\general_website\templates\general_website\chart.html:298
 msgid "Venthyr"
-msgstr ""
+msgstr "Venthyr"
 
-#: .\general_website\templates\general_website\chart.html:308
+#: .\general_website\templates\general_website\chart.html:306
 msgid "Disclaimer"
-msgstr ""
+msgstr "Warnung"
 
-#: .\general_website\templates\general_website\chart.html:309
+#: .\general_website\templates\general_website\chart.html:307
 msgid "Talent simulations are quite fragile for the following reasons:"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:311
+#: .\general_website\templates\general_website\chart.html:309
 msgid "Not all talent combinations might be equally supported by the APL."
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:312
+#: .\general_website\templates\general_website\chart.html:310
 msgid "Not all Fight styles might be supported equally."
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:313
+#: .\general_website\templates\general_website\chart.html:311
 msgid ""
 "\n"
 "                Secondary stats aren't changed during simulation, but some "
@@ -827,7 +819,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:318
+#: .\general_website\templates\general_website\chart.html:316
 msgid ""
 "\n"
 "                Different Covenants might synergize with talents "
@@ -836,7 +828,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:323
+#: .\general_website\templates\general_website\chart.html:321
 msgid ""
 "\n"
 "                Soulbinds might affect talents, but aren't changed during "
@@ -844,7 +836,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:327
+#: .\general_website\templates\general_website\chart.html:325
 msgid ""
 "\n"
 "                Legendaries might support specific talents. So consider your "
@@ -852,7 +844,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:331
+#: .\general_website\templates\general_website\chart.html:329
 msgid ""
 "\n"
 "                Conduits might affect the worth of talents. But yet again "
@@ -861,7 +853,7 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:340
+#: .\general_website\templates\general_website\chart.html:338
 msgid "All values in this table are gains."
 msgstr ""
 
@@ -880,63 +872,53 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\create_chart.html:23
-#, fuzzy
-#| msgid ""
-#| "Almost all comments will be removed. Chart creation will take a while "
-#| "(stuff needs to be simulated)."
 msgid "Chart creation will take a while (stuff needs to be simulated)."
 msgstr ""
-"Fast alle Kommentare werden entfernt. Diagrammerzeugung wird eine Weile "
-"dauern (eine Menge Profile müssen simuliert werden)."
+"Diagrammerzeugung wird eine Weile dauern (eine Menge Profile müssen "
+"simuliert werden)."
 
 #: .\general_website\templates\general_website\error.html:13
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: .\general_website\templates\general_website\faq.html:20
+#: .\general_website\templates\general_website\faq.html:26
 #: .\general_website\templates\general_website\layout\base.html:20
 msgid "Become a Patron"
 msgstr "Werde Patron"
 
-#: .\general_website\templates\general_website\faq.html:116
+#: .\general_website\templates\general_website\faq.html:112
 #: .\general_website\templates\general_website\privacy_policy.html:26
 msgid "Google Analytics"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:118
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "    dev.bloodmallet.com would like to use <a href=\"https://support."
-#| "google.com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
-#| "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</"
-#| "a>, to know how many people are using the website. You can either accept "
-#| "or reject this. Your choice will be saved on your device in a cookie.\n"
-#| "    "
+#: .\general_website\templates\general_website\faq.html:114
 msgid ""
 "\n"
-"        bloodmallet.com would like to use <a href=\"https://support.google."
-"com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
-"marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a>, "
-"to know how many people are using the website. You can either accept or "
-"reject this. Your choice will be saved on your device in a cookie.\n"
-"        "
+"            bloodmallet.com would like to use <a\n"
+"                href=\"https://support.google.com/analytics/"
+"answer/2763052\">anonymized</a> <a\n"
+"                href=\"https://marketingplatform.google.com/about/analytics/"
+"\">Google Analytics (GA)</a>, to know how many\n"
+"            people are using the website. You can either accept or reject "
+"this. Your choice will be saved on your device\n"
+"            in a cookie.\n"
+"            "
 msgstr ""
 "\n"
-"    dev.bloodmallet.com würde gerne ein <a href=\"https://support.google.com/"
-"analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
+"            bloodmallet.com würde gerne ein <a href=\"https://support.google."
+"com/analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
 "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a> "
 "verwenden, um zu sehen wie viele Nutzer die Webseite besuchen. Dem kann "
 "entweder zugestimmt oder widersprochen werden. Die getroffene Wahl wird in "
 "einem Cookie auf dem Gerät gespeichert."
 
-#: .\general_website\templates\general_website\faq.html:123
-#: .\general_website\templates\general_website\layout\base.html:79
+#: .\general_website\templates\general_website\faq.html:124
+#: .\general_website\templates\general_website\layout\base.html:78
 #: .\general_website\templates\general_website\privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr "GA akzeptieren"
 
-#: .\general_website\templates\general_website\faq.html:124
+#: .\general_website\templates\general_website\faq.html:127
 #: .\general_website\templates\general_website\layout\base.html:81
 #: .\general_website\templates\general_website\privacy_policy.html:34
 msgid "Reject GA tracking"
@@ -950,30 +932,25 @@ msgid ""
 "    using <a href=\"http://www.simulationcraft.org/\">SimulationCraft</a>. "
 "These overviews\n"
 "    are an entry point.\n"
-"    <span class=\"monk-color\">You can generate your own charts by becoming "
-"a <a href=\"https://www.patreon.com/bloodmallet\">Patreon</a>.</span>\n"
 "    "
 msgstr ""
 
-#: .\general_website\templates\general_website\index.html:20
+#: .\general_website\templates\general_website\index.html:19
+msgid ""
+"\n"
+"        You can generate your own charts by becoming a <a href=\"https://www."
+"patreon.com/bloodmallet\">Patreon</a>.\n"
+"        "
+msgstr ""
+
+#: .\general_website\templates\general_website\index.html:26
 msgid ""
 "\n"
 "    For indepth information about your spec use your theorycrafters guides.\n"
 "    "
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\base.html:68
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "            Greetings,<br/>\n"
-#| "            dev.bloodmallet.com would like to use <a href=\"https://"
-#| "support.google.com/analytics/answer/2763052\">anonymized</a> <a href="
-#| "\"https://marketingplatform.google.com/about/analytics/\">Google "
-#| "Analytics (GA)</a>, to know how many people are using the website. You "
-#| "can either accept or reject this. Your choice will be saved on your "
-#| "device in a cookie.\n"
-#| "            "
+#: .\general_website\templates\general_website\layout\base.html:67
 msgid ""
 "\n"
 "            Greetings,<br />\n"
@@ -989,8 +966,8 @@ msgid ""
 msgstr ""
 "\n"
 "            Hey ho,<br/>\n"
-"            dev.bloodmallet.com würde gerne ein <a href=\"https://support."
-"google.com/analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
+"            bloodmallet.com würde gerne ein <a href=\"https://support.google."
+"com/analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
 "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a> "
 "verwenden, um zu sehen wie viele Nutzer die Webseite besuchen. Dem kann "
 "entweder zugestimmt oder widersprochen werden. Die getroffene Wahl wird in "
@@ -1004,81 +981,82 @@ msgstr "Daten für alle"
 msgid "close"
 msgstr "schließen"
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:12
-msgid "FAQ"
-msgstr ""
-
-#: .\general_website\templates\general_website\layout\nav_bottom.html:20
+#: .\general_website\templates\general_website\layout\nav_bottom.html:17
 msgid "Patreon"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:29
+#: .\general_website\templates\general_website\layout\nav_bottom.html:26
 msgid "Bugreport"
 msgstr "Fehler melden"
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:29
-msgid "Suggestion"
-msgstr "Vorschläge"
+#: .\general_website\templates\general_website\layout\nav_bottom.html:54
+msgid "FAQ"
+msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:60
+#: .\general_website\templates\general_website\layout\nav_bottom.html:63
 #: .\general_website\templates\general_website\terms_and_conditions.html:5
 #: .\general_website\templates\general_website\terms_and_conditions.html:10
 msgid "Terms and Conditions"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_settings.html:14
-#: .\general_website\templates\general_website\layout\nav_top.html:41
+#: .\general_website\templates\general_website\layout\nav_top.html:53
 #: .\general_website\templates\general_website\settings.html:15
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: .\general_website\templates\general_website\layout\nav_settings.html:16
+#: .\general_website\templates\general_website\layout\nav_settings.html:17
 msgid "General"
 msgstr "Allgemein"
 
-#: .\general_website\templates\general_website\layout\nav_settings.html:23
+#: .\general_website\templates\general_website\layout\nav_settings.html:25
 #: .\general_website\templates\general_website\profile.html:16
 msgid "Profile"
 msgstr "Profil"
 
-#: .\general_website\templates\general_website\layout\nav_settings.html:28
+#: .\general_website\templates\general_website\layout\nav_settings.html:31
 msgid "Connections"
 msgstr "Verbindungen"
 
-#: .\general_website\templates\general_website\layout\nav_top.html:22
+#: .\general_website\templates\general_website\layout\nav_top.html:24
 #: .\general_website\templates\general_website\my_charts.html:9
 msgid "My Charts"
 msgstr "Meine Diagramme"
 
-#: .\general_website\templates\general_website\layout\nav_top.html:26
+#: .\general_website\templates\general_website\layout\nav_top.html:29
 msgid "Meme"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:34
+#: .\general_website\templates\general_website\layout\nav_top.html:38
 #: .\general_website\templates\general_website\login.html:7
 #: .\general_website\templates\general_website\login.html:13
 #: .\general_website\templates\general_website\password_reset_complete.html:10
 msgid "Login"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:35
+#: .\general_website\templates\general_website\layout\nav_top.html:41
+#: .\general_website\templates\general_website\signup.html:7
 msgid "Register"
 msgstr "Registrieren"
 
-#: .\general_website\templates\general_website\layout\nav_top.html:38
+#: .\general_website\templates\general_website\layout\nav_top.html:46
 msgid "Superuser"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:39
+#: .\general_website\templates\general_website\layout\nav_top.html:49
 msgid "Admin"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:43
+#: .\general_website\templates\general_website\layout\nav_top.html:57
 msgid "Logout"
 msgstr ""
 
-#: .\general_website\templates\general_website\login.html:14
+#: .\general_website\templates\general_website\login.html:16
 msgid "Dang, I forgot my password."
+msgstr ""
+
+#: .\general_website\templates\general_website\logo_comparison.html:8
+msgid "Logo comparison"
 msgstr ""
 
 #: .\general_website\templates\general_website\my_charts.html:12
@@ -1165,10 +1143,8 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\password_reset.html:15
-#, fuzzy
-#| msgid "Change password"
 msgid "Reset my password"
-msgstr "Passwort ändern"
+msgstr "Passwort zurücksetzen"
 
 #: .\general_website\templates\general_website\password_reset_complete.html:8
 msgid "Your password has been set.  You may go ahead and log in now."
@@ -1185,8 +1161,6 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\password_reset_confirm.html:16
-#, fuzzy
-#| msgid "Change password"
 msgid "Change my password"
 msgstr "Passwort ändern"
 
@@ -1209,10 +1183,8 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\password_reset_mail.html:2
-#, fuzzy
-#| msgid "Settings"
 msgid "Greetings"
-msgstr "Einstellungen"
+msgstr "Hallo"
 
 #: .\general_website\templates\general_website\password_reset_mail.html:3
 #, python-format
@@ -1269,15 +1241,6 @@ msgid "More information"
 msgstr ""
 
 #: .\general_website\templates\general_website\privacy_policy.html:28
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "    dev.bloodmallet.com would like to use <a href=\"https://support."
-#| "google.com/analytics/answer/2763052\">anonymized</a> <a href=\"https://"
-#| "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</"
-#| "a>, to know how many people are using the website. You can either accept "
-#| "or reject this. Your choice will be saved on your device in a cookie.\n"
-#| "    "
 msgid ""
 "\n"
 "    bloodmallet.com would like to use <a href=\"https://support.google.com/"
@@ -1288,7 +1251,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    dev.bloodmallet.com würde gerne ein <a href=\"https://support.google.com/"
+"    bloodmallet.com würde gerne ein <a href=\"https://support.google.com/"
 "analytics/answer/2763052\">anonymisiertes</a> <a href=\"https://"
 "marketingplatform.google.com/about/analytics/\">Google Analytics (GA)</a> "
 "verwenden, um zu sehen wie viele Nutzer die Webseite besuchen. Dem kann "
@@ -1308,19 +1271,19 @@ msgid "Language"
 msgstr "Sprache"
 
 #: .\general_website\templates\general_website\settings.html:36
-#, fuzzy
-#| msgid "Language"
 msgid "Set language"
-msgstr "Sprache"
+msgstr "Sprache festlegen"
 
-#: .\general_website\templates\general_website\signup.html:11
+#: .\general_website\templates\general_website\signup.html:13
 msgid "Sign up"
 msgstr ""
 
-#: .\general_website\templates\general_website\signup.html:12
+#: .\general_website\templates\general_website\signup.html:15
 msgid ""
-"I couldn't care less about what you enter. Nothing is shared with others and "
-"data is wiped regularly."
+"\n"
+"        I couldn't care less about what you enter. Nothing is shared with "
+"others.\n"
+"        "
 msgstr ""
 
 #: .\general_website\templates\general_website\tears.html:8
@@ -1388,49 +1351,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:529
+#: .\general_website\views\general.py:540
 msgid "Simulation not found."
 msgstr ""
 
-#: .\general_website\views\general.py:596
+#: .\general_website\views\general.py:607
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: .\general_website\views\general.py:634
+#: .\general_website\views\general.py:645
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: .\general_website\views\general.py:649
+#: .\general_website\views\general.py:660
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: .\general_website\views\general.py:670
+#: .\general_website\views\general.py:681
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: .\general_website\views\general.py:678
+#: .\general_website\views\general.py:689
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:685
+#: .\general_website\views\general.py:696
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:687
+#: .\general_website\views\general.py:698
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: .\general_website\views\general.py:722
+#: .\general_website\views\general.py:733
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: .\general_website\views\general.py:743
+#: .\general_website\views\general.py:754
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: .\general_website\views\general.py:748
+#: .\general_website\views\general.py:759
 msgid "You don't have permission to create a chart."
 msgstr ""
 
@@ -1475,10 +1438,8 @@ msgid "Helter Skelter"
 msgstr ""
 
 #: .\general_website.FightStyle/name:9
-#, fuzzy
-#| msgid "Fight Length"
 msgid "Light Movement"
-msgstr "Kampfdauer"
+msgstr "Etwas Bewegung"
 
 #: .\general_website.FightStyle/name:10
 msgid "Ultraxion"
@@ -1501,10 +1462,8 @@ msgid "Human"
 msgstr ""
 
 #: .\general_website.Race/name:5
-#, fuzzy
-#| msgid "Fight Style"
 msgid "Night Elf"
-msgstr "Kampfstil"
+msgstr "Nachtelf"
 
 #: .\general_website.Race/name:6
 msgid "Pandaren"
@@ -1548,17 +1507,15 @@ msgstr ""
 
 #: .\general_website.Race/name:17
 msgid "Troll"
-msgstr ""
+msgstr "Troll"
 
 #: .\general_website.Race/name:18
 msgid "Undead"
-msgstr ""
+msgstr "Untot"
 
 #: .\general_website.Race/name:19
-#, fuzzy
-#| msgid "Fight Style"
 msgid "Nightborne"
-msgstr "Kampfstil"
+msgstr "Nachtgeboren"
 
 #: .\general_website.Race/name:20
 msgid "Highmountain Tauren"
@@ -1614,6 +1571,10 @@ msgstr ""
 
 #: .\general_website.SimulationType/name:11
 msgid "Covenants"
+msgstr ""
+
+#: .\general_website.SimulationType/name:13
+msgid "Domination Shards"
 msgstr ""
 
 #: .\general_website.WowClass/name:1
@@ -1685,10 +1646,8 @@ msgid "Vengeance"
 msgstr ""
 
 #: .\general_website.WowSpec/name:6
-#, fuzzy
-#| msgid "General"
 msgid "Feral"
-msgstr "Allgemein"
+msgstr ""
 
 #: .\general_website.WowSpec/name:7
 msgid "Guardian"
@@ -1727,10 +1686,8 @@ msgid "Windwalker"
 msgstr ""
 
 #: .\general_website.WowSpec/name:17
-#, fuzzy
-#| msgid "Connections"
 msgid "Protection"
-msgstr "Verbindungen"
+msgstr ""
 
 #: .\general_website.WowSpec/name:18
 msgid "Retribution"
@@ -1779,6 +1736,9 @@ msgstr ""
 #: .\general_website.WowSpec/name:29
 msgid "Fury"
 msgstr ""
+
+#~ msgid "Suggestion"
+#~ msgstr "Vorschläge"
 
 #~ msgid "Report an error"
 #~ msgstr "Fehler melden"
