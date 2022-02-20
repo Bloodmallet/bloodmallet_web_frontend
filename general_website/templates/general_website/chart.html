@@ -232,73 +232,6 @@
         <input type="checkbox" class="form-check-input" id="absolute_values">
         <label class="form-check-label text-muted" for="absolute_values">{% translate "Use absolute values" %}</label>
     </div>
-    <div id="chart_options" class="mt-3 row">
-        {% if chart.simulation_type.command == "soul_binds" %}
-        <div class="col-12 form-row">
-            <div class="col-auto">
-                <legend>Renown</legend>
-            </div>
-            <div class="col-1" style="min-width: 65px;">
-                <select class="form-control form-control-sm" id="renown">
-                    {% for i in "x"|ljust:"60" %}
-                    {% if forloop.counter == renown %}
-                    <option value="{{ forloop.counter }}" selected>{{ forloop.counter }}</option>
-                    {% else %}
-                    <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="col-12 col-md-6">
-            <legend>Chart mode</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="chart_mode" id="soulbinds_mode" value="soulbinds"
-                    checked>
-                <label class="form-check-label" for="soulbinds_mode">
-                    {% translate "Soulbinds" %}
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="chart_mode" id="nodes_mode" value="nodes">
-                <label class="form-check-label" for="nodes_mode">
-                    {% translate "Nodes/Conduits" %}
-                </label>
-            </div>
-        </div>
-        <div class="col-12 col-md-6" id="covenant_selection" hidden>
-            <legend>Covenant</legend>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="kyrian_selection"
-                    value="Kyrian" checked>
-                <label class="form-check-label" for="kyrian_selection">
-                    {% translate "Kyrian" %}
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="necrolord_selection"
-                    value="Necrolord">
-                <label class="form-check-label" for="necrolord_selection">
-                    {% translate "Necrolord" %}
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="night_fae_selection"
-                    value="Night Fae">
-                <label class="form-check-label" for="night_fae_selection">
-                    {% translate "Night Fae" %}
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="covenant_selection" id="venthyr_selection"
-                    value="Venthyr">
-                <label class="form-check-label" for="venthyr_selection">
-                    {% translate "Venthyr" %}
-                </label>
-            </div>
-        </div>
-        {% endif %}
-    </div>
     {% if chart.simulation_type.command == "talents" %}
     <div id="talent-warning" class="mt-3" hidden>
         <h3>{% translate "Disclaimer" %}</h3>
@@ -356,7 +289,7 @@
 <div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}" {% else %}
     data-chart-id="{{ chart_id }}" {% endif %} data-language="{{ LANGUAGE_CODE }}" data-entries="10000"
-    data-background-color="transparent" data-value-style="relative" data-renown="{{ renown }}"></div>
+    data-background-color="transparent" data-value-style="relative"></div>
 
 <div id="post_chart" class="mt-5" hidden></div>
 
@@ -386,30 +319,6 @@
 
         bloodmallet_chart_import();
     }
-    {% if chart.simulation_type.command == "soul_binds" %}
-    function update_chart_mode() {
-        document.getElementsByName("chart_mode").forEach(element => {
-            if (element.checked) {
-                document.getElementById("covenant_selection").hidden = element.value === "soulbinds";
-                get_chart().dataset.chartMode = element.value;
-                bloodmallet_chart_import();
-            }
-        });
-    }
-    function update_covenant() {
-        document.getElementsByName("covenant_selection").forEach(element => {
-            if (element.checked) {
-                get_chart().dataset.covenant = element.value;
-                bloodmallet_chart_import();
-            }
-        });
-    }
-    function update_renown() {
-        let renown = document.getElementById("renown").value;
-        get_chart().dataset.renown = renown;
-        bloodmallet_chart_import();
-    }
-    {% endif %}
     {% if chart.simulation_type.command == "trinkets" %}
     function set_active_passive(value, checked) {
         let chart = document.getElementById("chart");
@@ -428,16 +337,6 @@
     {% endif %}
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("absolute_values").addEventListener("change", update_value_style);
-
-        {% if chart.simulation_type.command == "soul_binds" %}
-        document.getElementsByName("chart_mode").forEach(element => {
-            element.addEventListener("change", update_chart_mode);
-        });
-        document.getElementsByName("covenant_selection").forEach(element => {
-            element.addEventListener("change", update_covenant);
-        });
-        document.getElementById("renown").addEventListener("change", update_renown);
-        {% endif %}
 
         {% if chart.simulation_type.command == "trinkets" %}
         document.getElementsByName("filter-active-passive").forEach(element => {

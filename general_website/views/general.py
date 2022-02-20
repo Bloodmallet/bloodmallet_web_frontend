@@ -12,26 +12,12 @@ from general_website.models.simulation import GeneralResult
 from general_website.models.simulation import Simulation
 from general_website.models.simulation import QueueState
 
-import datetime
 import json
 import logging
 
 logger = logging.getLogger(__name__)
 
 # support
-days_since_9_1_launch = (
-    datetime.datetime.utcnow() - datetime.datetime.fromisoformat("2021-06-29")
-).days
-days_since_60_renown = (
-    datetime.datetime.utcnow() - datetime.datetime.fromisoformat("2021-08-10")
-).days
-before_switch = 42 + (days_since_9_1_launch // 7) * 3 < 60
-RENOWN: int = min(
-    42 + (days_since_9_1_launch // 7) * 3
-    if before_switch
-    else 60 + (days_since_60_renown // 7) * 2,
-    60,
-)
 
 # views
 
@@ -483,7 +469,6 @@ def chart(request, chart_id=None):
     context["chart"] = {}
     if simulation:
         context["chart"] = simulation
-        context["renown"] = RENOWN
 
     return render(request, "general_website/chart.html", context=context)
 
@@ -500,7 +485,6 @@ def standard_chart(
         "fight_style": fight_style,
         "wow_class": wow_class,
         "wow_spec": wow_spec,
-        "renown": RENOWN,
     }
 
     try:
