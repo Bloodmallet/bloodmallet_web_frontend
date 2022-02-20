@@ -21,6 +21,10 @@ class BroadcastMiddleware:
         # Code to be executed for each request/response after
         # the view is called.
 
+        return response
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+
         now = timezone.now()
 
         broadcasts = Broadcast.objects.filter(
@@ -49,8 +53,4 @@ class BroadcastMiddleware:
             if not already_present:
                 methods[level](request, message)
 
-        return response
-
-    # def process_view(self, request, view_func, view_args, view_kwargs):
-
-    #     return None
+        return None
