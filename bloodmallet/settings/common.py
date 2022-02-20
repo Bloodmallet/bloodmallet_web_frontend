@@ -231,5 +231,5 @@ FILE_CHARSET = "utf-8"
 # duration of the language cookie (user selection) in seconds
 LANGUAGE_COOKIE_AGE = 180 * 24 * 60 * 60
 
-# django stopped assuming integer fields. so we're switching to uuid 
+# django stopped assuming integer fields. so we're switching to uuid
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
