@@ -37,6 +37,7 @@ function update_navbarClassMenu(state) {
         "legendaries": "Legendaries",
         "talents": "Talents",
         "secondary_distributions": "Secondary Distributions",
+        "tier_set": "Tier Sets",
     };
     const simulation_types = Object.keys(simulation_type_dict).sort();
     const fight_style_dict = {
