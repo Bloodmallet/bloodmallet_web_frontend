@@ -84,13 +84,6 @@ function bloodmallet_chart_import() {
 
   const default_covenant = "Kyrian";
 
-  /**
-   * Options:
-   *  - soulbinds
-   *  - nodes
-   */
-  const default_chart_mode = "soulbinds";
-
   const default_language = "en";
 
   /**
@@ -213,7 +206,6 @@ function bloodmallet_chart_import() {
           wow_spec: undefined,
           data_type: default_data_type,
           fight_style: default_fight_style,
-          chart_mode: default_chart_mode,
           covenant: default_covenant,
           // style
           axis_color: default_axis_color,
@@ -270,9 +262,6 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-type")) {
           state.data_type = html_element.getAttribute("data-type");
-        }
-        if (html_element.getAttribute("data-chart-mode")) {
-          state.chart_mode = html_element.getAttribute("data-chart-mode");
         }
         if (html_element.getAttribute("data-covenant")) {
           state.covenant = html_element.getAttribute("data-covenant");
