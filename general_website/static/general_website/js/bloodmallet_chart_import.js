@@ -288,6 +288,8 @@ function bloodmallet_chart_import() {
           state.value_style = html_element.getAttribute("data-value-style");
           if (state.data_type === "legendaries") {
             state.value_style = "absolute";
+          } else if (state.data_type === "tier_set") {
+            state.value_style = "absolute";
           }
         }
 
@@ -458,10 +460,15 @@ function bloodmallet_chart_import() {
 
     const data = spec_data;
 
-    let dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
+    let dps_ordered_keys;
     let baseline_dps;
     let other_baselines = {};
-    if (["races", "talents", "soulbinds"].includes(data_type)) {
+    if (data_type !== "tier_set") {
+      dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
+    } else if (data_type === "tier_set") {
+      dps_ordered_keys = Object.keys(data["data"]);
+    }
+    if (["races", "talents", "soulbinds", "tier_set"].includes(data_type)) {
       baseline_dps = 0;
     } else if (["legendaries", "soulbind_nodes", "covenants", "domination_shards"].includes(data_type)) {
       baseline_dps = data["data"]["baseline"];
@@ -483,8 +490,14 @@ function bloodmallet_chart_import() {
     }
 
     let simulated_steps = [];
-    if (data_type == "soulbinds") {
+    if (data_type === "soulbinds") {
       simulated_steps = undefined;
+    } else if (data_type === "tier_set") {
+      simulated_steps = [
+        "4p",
+        "2p",
+        "no tier",
+      ];
     } else {
       simulated_steps = data["simulated_steps"];
     }
@@ -558,7 +571,7 @@ function bloodmallet_chart_import() {
     }
 
     let category_list = undefined;
-    if (data_type === "talents") {
+    if (["talents"].indexOf(data_type) > -1) {
       category_list = dps_ordered_keys
         .map(element => {
           let links = [];
@@ -621,13 +634,18 @@ function bloodmallet_chart_import() {
         }
       }
 
+      if (debug) {
+        console.log(tmp_dps_values);
+      }
+
       for (const simulation_step of simulated_steps) {
 
         let dps_array = [];
 
         for (let i = 0; i < dps_ordered_keys.length; i++) {
           const dps_key = dps_ordered_keys[i];
-          dps_array.push(get_styled_value(state, tmp_dps_values[dps_key][simulation_step], baseline_dps));
+          let styled_value = get_styled_value(state, tmp_dps_values[dps_key][simulation_step], baseline_dps);
+          dps_array.push(styled_value);
         }
 
         let simulation_step_clean = simulation_step;
@@ -1230,7 +1248,7 @@ function bloodmallet_chart_import() {
     }
 
     // races don't have links/tooltips
-    if (["races"].includes(state.data_type)) {
+    if (["races", "tier_set"].includes(state.data_type)) {
       return get_translated_name(key, data, state);
     }
 
