@@ -286,11 +286,6 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-value-style")) {
           state.value_style = html_element.getAttribute("data-value-style");
-          if (state.data_type === "legendaries") {
-            state.value_style = "absolute";
-          } else if (state.data_type === "tier_set") {
-            state.value_style = "absolute";
-          }
         }
 
         // preparing necessary input to load data
@@ -448,6 +443,13 @@ function bloodmallet_chart_import() {
       fight_style = spec_data['simc_settings']['fight_style'];
     }
     state.data_type = data_type = spec_data["data_type"];
+
+    // determine special charts that are only shown with a predetermined value_style
+    if (state.data_type === "legendaries") {
+      state.value_style = "absolute";
+    } else if (state.data_type === "tier_set") {
+      state.value_style = "absolute";
+    }
 
     provide_meta_data(state, spec_data);
 
@@ -635,6 +637,7 @@ function bloodmallet_chart_import() {
       }
 
       if (debug) {
+        console.log("simulated_steps", simulated_steps);
         console.log(tmp_dps_values);
       }
 
