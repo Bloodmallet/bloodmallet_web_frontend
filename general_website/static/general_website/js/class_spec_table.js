@@ -54,7 +54,7 @@ function build_table() {
                 // "demon_hunter_havoc",
                 // "demon_hunter_vengeance",
                 // "druid_balance",
-                // "druid_feral",
+                "druid_feral",
                 // "druid_guardian",
                 // "hunter_beast_mastery",
                 // "hunter_marksmanship",
@@ -75,8 +75,8 @@ function build_table() {
                 "warlock_affliction",
                 "warlock_demonology",
                 "warlock_destruction",
-                // "warrior_arms",
-                // "warrior_fury",
+                "warrior_arms",
+                "warrior_fury",
                 // "warrior_protection"
             ].indexOf(wow_class + "_" + wow_spec) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
