@@ -1,1 +1,50 @@
 {% load i18n %}
+<h5>Talents</h5>
+<p>
+    This chart shows how much power each talent provides via some stats for each. Please read the
+    <a href="#talent-warning">Disclaimer</a> section carefully.
+</p>
+<p>
+    It uses the tier appropriate
+    <a href="https://github.com/simulationcraft/simc/tree/shadowlands/profiles">SimulationCraft profile</a>.
+    If the fight style is neither <code>patchwerk</code> nor <code>castingpatchwerk</code> a tier appropriate
+    <a href="https://github.com/Bloodmallet/bloodytools/tree/dev/fallback_profiles">fallback profile</a> is used to
+    improve the data quality. In a custom chart if the creator provided a profile, it replaces the formerly mentioned
+    profiles.
+</p>
+<p>
+    Stats are calculated by comparing a profile with a talent combination containing the specific talent to the same
+    profile that uses no talent in that row.
+</p>
+
+<h5>Stats</h5>
+<ul>
+    <li>
+        <strong>Mean</strong>: This is the <em>mean contribution</em> of this talent for all existing talent
+        combinations with this talent.
+    </li>
+    <li>
+        <strong>Min</strong>: This is the <em>minimal contribution</em> of this talent found in all existing talent
+        combinations with this talent. When hovering with your cursor over this line you'll see the talent combination.
+        In this talent combination this talent is at its weakest performance.
+    </li>
+    <li>
+        <strong>Max</strong>: This is the <em>highest contribution</em> of this talent found in all existing talent
+        combinations with this talent. When hovering with your cursor over this line you'll see the talent combination.
+        In this talent combination this talent is at its peak performance.
+    </li>
+    <li>
+        <strong>Max dps</strong>: This is the <em>contribution to the highest dps</em> talent combinations found
+        in all existing talent combinations with this talent. When hovering with your cursor over this
+        line you'll see the talent combination. This talent combination is the strongest of all talent combinations this
+        talent is part of.
+    </li>
+    <li>
+        <strong>Max dps minus global best</strong>: This is the
+        <em>minimal distance to the strongest talent combination</em>. E.g. if the best setup for the talent of your
+        choice is 2% weaker than the optimal talent combination, you'll see here a "-2.00%". Zero percent is the best
+        possible value here. When hovering with your cursor over this line you'll see the talent combination. This
+        talent combination is the strongest of all talent combinations this talent is part of. You see how much weaker
+        it is compared to the strongest one.
+    </li>
+</ul>
