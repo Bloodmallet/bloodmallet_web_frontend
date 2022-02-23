@@ -1,0 +1,9 @@
+{% with simulation_type_name=simulation_type|add:".html" %}
+<div>
+    <blockquote class="blockquote">
+        <p class="mb-0 h4">Simulation Type Explanation</p>
+        <footer class="blockquote-footer">What's going on here?</footer>
+    </blockquote>
+    {% include 'general_website/chart_information/simulation_type/'|add:simulation_type_name %}
+</div>
+{% endwith %}
