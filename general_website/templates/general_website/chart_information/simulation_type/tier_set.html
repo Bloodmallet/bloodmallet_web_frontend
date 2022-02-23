@@ -1,1 +1,47 @@
 {% load i18n %}
+<h5>Tier Sets</h5>
+<p>This chart shows how much power can be gained by adding Tier Set effects to a profile.</p>
+<p>
+    Uses the tier appropriate
+    <a href="https://github.com/simulationcraft/simc/tree/shadowlands/profiles">SimulationCraft profile</a>.
+    If the fight style is neither <code>patchwerk</code> nor <code>castingpatchwerk</code> a tier appropriate
+    <a href="https://github.com/Bloodmallet/bloodytools/tree/dev/fallback_profiles">fallback profile</a> is used to
+    improve the data quality. In a custom chart if the creator provided a profile, it replaces the formerly mentioned
+    profiles.
+</p>
+<p>
+    The profile is used by disabling all tier set effects (see example below). Additional profiles are being created
+    based on this base profile, but in these profiles more and more bonuses are being activated. Because the same
+    profile is used multiple times we can observe the dps gain the enabled tier set provides for this specific profile.
+</p>
+<pre>
+# disable the tier 28 two piece bonus
+set_bonus=tier28_2pc=0
+
+# disable the tier 28 four piece bonus
+set_bonus=tier28_4pc=0
+
+# enable the tier 28 two piece bonus
+set_bonus=tier28_2pc=1
+
+# enable the tier 28 four piece bonus
+set_bonus=tier28_4pc=1
+</pre>
+
+<h5>Special notes</h5>
+<ul>
+    <li>
+        SimulationCraft usually detects set bonuses and the number of equipped set items.
+        However for this chart we want to control the number of active bonuses.
+        Therefore we need above overrides.
+    </li>
+    <li>
+        In SimulationCraft it's possible to have a four piece bonus active without having a two piece bonus.
+        Enabling a four piece bonus does not enable the corresponding two piece bonus.
+        If working with above overrides both set bonuses need to be activated this way.
+    </li>
+    <li>
+        In SimulationCraft it's possible to enable any bonuses on any equip. Therefore even a profile without any set
+        items can be used to evaluate such bonuses.
+    </li>
+</ul>
