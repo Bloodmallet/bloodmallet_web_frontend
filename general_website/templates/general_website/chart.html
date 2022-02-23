@@ -265,9 +265,6 @@
         </ul>
     </div>
     <div id="talent-table" hidden>
-        <p>
-            {% translate "All values in this table are gains." %}
-        </p>
         <div class="table-responsive">
             <table class="table">
                 <tbody>
@@ -292,6 +289,8 @@
     data-background-color="transparent" data-value-style="relative"></div>
 
 <div id="post_chart" class="mt-5" hidden></div>
+
+{% include 'general_website/chart_information/simulation_type_information_importer.html' %}
 
 {% endblock %}
 
