@@ -108,6 +108,9 @@ footer {
     right: 0px;
     margin-top: 3vh;
 }
+blockquote > footer {
+    margin-top: unset;
+}
 .top-nav, .bottom-nav {
     min-height: 7vh;
 }
