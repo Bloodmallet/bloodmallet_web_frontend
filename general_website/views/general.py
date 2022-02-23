@@ -469,6 +469,10 @@ def chart(request, chart_id=None):
     context["chart"] = {}
     if simulation:
         context["chart"] = simulation
+        context["simulation_type"] = simulation.simulation_type.command
+        context["fight_style"] = simulation.fight_style.tokenized_name
+        context["wow_class"] = simulation.wow_class.tokenized_name
+        context["wow_spec"] = simulation.wow_spec.tokenized_name
 
     return render(request, "general_website/chart.html", context=context)
 
