@@ -893,10 +893,11 @@ function bloodmallet_chart_import() {
       list.appendChild(custom_profile);
       custom_profile.appendChild(document.createElement('br'));
       let profile = document.createElement('textarea');
-      profile.readOnly = true;
+      // profile.readOnly = true;
       profile.value = error_response["custom_profile"];
       profile.placeholder = "No custom profile";
       profile.style.width = "100%";
+      profile.classList.add("form-control");
       custom_profile.appendChild(profile);
 
       let log_item = document.createElement('li');
@@ -904,10 +905,11 @@ function bloodmallet_chart_import() {
       list.appendChild(log_item);
       log_item.appendChild(document.createElement('br'));
       let log = document.createElement('textarea');
-      log.readOnly = true;
+      // log.readOnly = true;
       log.value = error_response["log"];
       log.placeholder = "No log available";
       log.style.width = "100%";
+      log.classList.add("form-control");
       log_item.appendChild(log);
 
       element.appendChild(list);
