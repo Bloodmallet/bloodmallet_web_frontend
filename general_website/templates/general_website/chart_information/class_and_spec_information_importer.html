@@ -9,3 +9,8 @@
     {% include 'general_website/chart_information/wow_spec/'|add:class_spec_name %}
 </div>
 {% endwith %}
+
+
+{% if general_result and simulation_type == "tier_set" and wow_spec == "elemental" %}
+{% include 'general_website/chart_information/disclaimers/tier_set_shaman_elemental.html' %}
+{% endif %}
