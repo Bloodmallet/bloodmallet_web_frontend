@@ -55,7 +55,7 @@ function build_table() {
                 // "demon_hunter_vengeance",
                 "druid_balance",
                 "druid_feral",
-                // "druid_guardian",
+                "druid_guardian",
                 "hunter_beast_mastery",
                 "hunter_marksmanship",
                 "hunter_survival",
