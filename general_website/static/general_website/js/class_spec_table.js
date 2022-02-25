@@ -62,7 +62,7 @@ function build_table() {
                 "mage_arcane",
                 // "mage_fire",
                 // "mage_frost",
-                // "monk_brewmaster",
+                "monk_brewmaster",
                 "monk_windwalker",
                 // "paladin_protection",
                 "paladin_retribution",
