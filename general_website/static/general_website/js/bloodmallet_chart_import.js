@@ -465,9 +465,9 @@ function bloodmallet_chart_import() {
     let dps_ordered_keys;
     let baseline_dps;
     let other_baselines = {};
-    if (data_type !== "tier_set") {
+    if (Object.keys(data).indexOf("sorted_data_keys") > -1) {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
-    } else if (data_type === "tier_set") {
+    } else {
       dps_ordered_keys = Object.keys(data["data"]);
     }
     if (["races", "talents", "soulbinds", "tier_set"].includes(data_type)) {
