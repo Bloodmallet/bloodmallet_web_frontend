@@ -246,4 +246,14 @@ class SimulationCreationForm(forms.ModelForm):
                 _("An illegal input was detected."), code="illegal input"
             )
 
-        return data[:2048]
+        MAX_LENGTH = 65536
+        if len(data) > MAX_LENGTH:
+            error_message = _(
+                "APL input was too long. Input can have a max-length of %(MAX_LENGTH)s characters."
+            ) % {"MAX_LENGTH": MAX_LENGTH}
+            raise ValidationError(
+                error_message,
+                code="long input",
+            )
+
+        return data[:MAX_LENGTH]
