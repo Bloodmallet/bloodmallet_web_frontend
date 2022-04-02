@@ -15,20 +15,19 @@ $class-color-warlock: #9482c9;
 $class-color-warrior: #c79c6e;
 
 $class-colors: () !default;
-$class-colors: map-merge((
-  "death_knight":   $class-color-death-knight,
-  "demon_hunter":   $class-color-demon-hunter,
-  "druid":          $class-color-druid,
-  "hunter":         $class-color-hunter,
-  "mage":           $class-color-mage,
-  "monk":           $class-color-monk,
-  "paladin":        $class-color-paladin,
-  "priest":         $class-color-priest,
-  "rogue":          $class-color-rogue,
-  "shaman":         $class-color-shaman,
-  "warlock":        $class-color-warlock,
-  "warrior":        $class-color-warrior
-), $class-colors);
+$class-colors: map-merge(("death_knight": $class-color-death-knight,
+        "demon_hunter": $class-color-demon-hunter,
+        "druid": $class-color-druid,
+        "hunter": $class-color-hunter,
+        "mage": $class-color-mage,
+        "monk": $class-color-monk,
+        "paladin": $class-color-paladin,
+        "priest": $class-color-priest,
+        "rogue": $class-color-rogue,
+        "shaman": $class-color-shaman,
+        "warlock": $class-color-warlock,
+        "warrior": $class-color-warrior),
+    $class-colors, );
 
 $darkest-color: #232227;
 $dark-color: #343a40;
@@ -39,34 +38,34 @@ $lightest-color: #f8f9fa;
 $body-bg: $dark-color;
 $body-color: $lightest-color;
 
-$primary:       $class-color-shaman !default;
-$secondary:     $light-color !default;
-$success:       $class-color-monk !default;
-$info:          $class-color-mage !default;
-$warning:       $class-color-rogue !default;
-$danger:        $class-color-druid !default;
-$light:         $lightest-color !default;
-$dark:          $dark-color !default;
+$primary: $class-color-shaman !default;
+$secondary: $light-color !default;
+$success: $class-color-monk !default;
+$info: $class-color-mage !default;
+$warning: $class-color-rogue !default;
+$danger: $class-color-druid !default;
+$light: $lightest-color !default;
+$dark: $dark-color !default;
 
-$border-width:                1px;
-$border-radius:               0rem !default;
-$border-radius-lg:            0rem !default;
-$border-radius-sm:            0rem !default;
+$border-width: 1px;
+$border-radius: 0rem !default;
+$border-radius-lg: 0rem !default;
+$border-radius-sm: 0rem !default;
 
 
 // Links
 //
 // Style anchor elements.
-$link-color:                lighten($primary, 15%) !default;
-$link-decoration:           none !default;
-$link-hover-color:          $primary !default;
-$link-hover-decoration:     underline !default;
+$link-color: lighten($primary, 15%) !default;
+$link-decoration: none !default;
+$link-hover-color: $primary !default;
+$link-hover-decoration: underline !default;
 
 // General text
-$font-size-base:        1.1rem;
-$input-color:           $lightest-color;
-$input-bg:              $darkest-color;
-$input-border-color:    $light-color;
+$font-size-base: 1.1rem;
+$input-color: $lightest-color;
+$input-bg: $darkest-color;
+$input-border-color: $light-color;
 
 // card style override
 $card-bg: $body-bg;
@@ -90,6 +89,7 @@ main {
     min-height: 76vh;
     margin-top: 7vh;
 }
+
 // bloodmallet hammer background image
 #background_image {
     position: fixed;
@@ -103,6 +103,7 @@ main {
     z-index: -1;
     opacity: 0.2;
 }
+
 // container for bottom navigation
 footer {
     width: 100%;
@@ -111,39 +112,64 @@ footer {
     right: 0px;
     margin-top: 3vh;
 }
-blockquote > footer {
+
+blockquote>footer {
     margin-top: unset;
 }
-.top-nav, .bottom-nav {
+
+.top-nav,
+.bottom-nav {
     min-height: 7vh;
 }
-#navBarDataMenu ~ main {
+
+#navBarDataMenu~main {
     margin-top: 0vh;
 }
+
 .light-border-bottom {
     border-bottom: $border-width solid $light-color;
 }
+
 #navbarTopMenu {
     background: $darkest-color;
 }
+
 #navBarDataMenuPlaceholder {
     top: 7vh;
     height: 7vh;
     z-index: 500;
 }
+
 #navBarDataMenu {
     z-index: 45;
     top: 7vh;
 }
+
 // there was an animation here...it somehow broke. maybe due to "sticky-top" class
 @-webkit-keyframes fadein_class_nav {
-  from {top: -60px; opacity: 1;}
-  to {top: 0px; opacity: 1;}
+    from {
+        top: -60px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0px;
+        opacity: 1;
+    }
 }
+
 @keyframes fadein_class_nav {
-  from {top: -60px; opacity: 1;}
-  to {top: 0px; opacity: 1;}
+    from {
+        top: -60px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0px;
+        opacity: 1;
+    }
 }
+
 // Footer icons
 .svg-icon {
     display: inline-block;
@@ -153,6 +179,7 @@ blockquote > footer {
     fill: currentColor;
     vertical-align: text-top;
 }
+
 .tier-icon {
     display: inline-block;
     padding-right: 0px;
@@ -162,51 +189,62 @@ blockquote > footer {
     stroke: currentColor;
     vertical-align: text-top;
 }
+
 a:hover .svg-icon {
     fill: currentColor;
 }
 
 .bg-dark {
-    background-color: $darkest-color!important;
+    background-color: $darkest-color !important;
 }
 
 .dropdown-menu {
     background-color: $darkest-color;
     padding: 0rem;
 }
-.dropdown-item:hover, .dropdown-item:focus {
+
+.dropdown-item:hover,
+.dropdown-item:focus {
     background-color: $darkest-color;
 }
 
 // create necessary class specific css for nav and tables
-@each $class, $color-value in $class-colors {
+@each $class,
+$color-value in $class-colors {
     .#{$class}-color {
         color: $color-value;
     }
+
     .#{$class}-menu-border {
         // border-top: 3px solid transparent;
         border-bottom: 3px solid transparent;
         transition: border-bottom .05s ease-in;
+
         &:hover {
             border-bottom: 3px solid $color-value;
             transition: border-bottom .0s ease-in;
         }
+
         &:active {
             border-bottom: 3px solid $color-value;
         }
     }
+
     .#{$class}-menu-border.active {
         border-bottom: 3px solid $color-value;
     }
+
     .#{$class}-border-top {
         border-top: 3px solid $color-value;
     }
+
     .#{$class}-border-bottom {
         border-bottom: 3px solid $color-value;
     }
 
     // Hide the bottom border if the sub menu is active
-    .show .#{$class}-menu-border:hover, .show .#{$class}-menu-border.active {
+    .show .#{$class}-menu-border:hover,
+    .show .#{$class}-menu-border.active {
         border-bottom: 0px solid transparent;
     }
 
@@ -215,7 +253,9 @@ a:hover .svg-icon {
         border-right: 5px solid $darkest-color;
         border-left: 5px solid $darkest-color;
         transition: border .05s ease-in;
-        &:hover, &:active {
+
+        &:hover,
+        &:active {
             color: $color-value;
             border-left: 5px solid $color-value;
             transition: border .0s ease-in;
@@ -240,20 +280,24 @@ a:hover .svg-icon {
     padding-top: 3px;
     padding-bottom: 7px;
     font-size: 1.4rem;
-  }
+}
+
 /* enforces a small free space between border and content */
 .spec-cell {
     padding-right: 21px;
     margin-bottom: 30px;
 }
+
 @media only screen and (min-width: 1281px) {
     .spec-cell {
         padding-right: 40px;
     }
 }
+
 .btn-data-label {
     margin-right: $spacer;
 }
+
 .btn-data {
     background-color: $darkest-color;
     border: 0px solid $darkest-color;
@@ -264,14 +308,17 @@ a:hover .svg-icon {
     min-width: 120px;
     padding: .375rem .75rem;
     cursor: pointer;
+
     &:focus {
         border-bottom-color: inherit;
         // border-top-color: $darkest-color;
     }
+
     &:hover {
         border-bottom-color: inherit;
     }
 }
+
 .spec-btn {
     background-color: $darkest-color;
     //color: $lightest-color;
@@ -279,17 +326,20 @@ a:hover .svg-icon {
     font-weight: 500;
     width: 100%;
     cursor: pointer;
+
     &:hover {
         text-decoration: none;
         //color: $lightest-color;
     }
 }
+
 /* Mobile devices */
 @media only screen and (max-width: 500px) {
     .spec-btn {
         padding: 5px 5px;
     }
 }
+
 /* Desktop sizes */
 @media only screen and (min-width: 501px) {
     .spec-btn {
@@ -315,6 +365,7 @@ a:hover .svg-icon {
     .patreon-div {
         display: none;
     }
+
     .navbar-spacer {
         display: none;
     }
@@ -325,7 +376,9 @@ a:hover .svg-icon {
 ul {
     list-style-type: square;
 }
-select { // https://www.lugolabs.com/articles/style-select-html-element-with-css redo with this?
+
+select {
+    // https://www.lugolabs.com/articles/style-select-html-element-with-css redo with this?
     // or this https://codepen.io/raubaca/pen/VejpQP
     /* reset */
     margin: 0;
@@ -347,10 +400,12 @@ select { // https://www.lugolabs.com/articles/style-select-html-element-with-css
         5px 5px;
     background-repeat: no-repeat;
 }
+
 select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000;
 }
+
 select::-ms-expand {
     display: none;
 }
@@ -385,7 +440,8 @@ select::-ms-expand {
     }
 }
 
-@each $color, $value in $theme-colors {
+@each $color,
+$value in $theme-colors {
     .alert-#{$color} {
         @include alert-variant($value, $value, $value);
     }
@@ -410,7 +466,7 @@ select::-ms-expand {
     position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 .cookie_box {
@@ -429,7 +485,7 @@ select::-ms-expand {
 }
 
 .notransition {
-    transition: none!important;
+    transition: none !important;
 }
 
 .faq-question {
@@ -437,8 +493,10 @@ select::-ms-expand {
 }
 
 // remove border
-.iconlarge del, .iconmedium del, .iconsmall del {
-    background-image: none!important;
+.iconlarge del,
+.iconmedium del,
+.iconsmall del {
+    background-image: none !important;
 }
 
 .caret::before {
@@ -456,6 +514,8 @@ select::-ms-expand {
 :target::before {
     content: "";
     display: block;
-    height: 122px; /* fixed header height, using 122 for double-menus*/
-    margin: -122px 0 0; /* negative fixed header height */
+    height: 122px;
+    /* fixed header height, using 122 for double-menus*/
+    margin: -122px 0 0;
+    /* negative fixed header height */
 }
