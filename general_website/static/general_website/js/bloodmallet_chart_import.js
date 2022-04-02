@@ -845,6 +845,9 @@ function bloodmallet_chart_import() {
     if (state.tooltip_engine == "wowdb") {
       setTimeout(function () { readd_wowdb_tooltips(html_element.id); }, 1);
     }
+    if (state.tooltip_engine == "wowhead") {
+      setTimeout(() => { window.$WowheadPower.refreshLinks(); }, 1);
+    }
   }
 
   function get_covenant_from_soulbind(soulbind, data) {
