@@ -15,7 +15,7 @@
  * Minimal example of a patchwerk trinket chart for elemental shamans:
  * <div id="unique-id" class="bloodmallet_chart" data-wow-class="shaman" data-wow-spec="elemental"></div>
  *
- * For more information read the wiki at https://github.com/Bloodmallet/bloodmallet.github.io/wiki/How-to-import-charts-or-data
+ * For more information read the wiki at https://github.com/Bloodmallet/bloodmallet_web_frontend/wiki/How-to-import-charts
  *
  */
 
@@ -838,7 +838,7 @@ function bloodmallet_chart_import() {
 
     html_element.style.height = 200 + dps_ordered_keys.length * 30 + "px";
     if (chart_engine == "highcharts") {
-      chart.setSize(html_element.style.width, html_element.style.height);
+      chart.setSize(undefined, html_element.style.height);
     }
 
     // add wowdb tooltips, they don't check dynamically
@@ -1807,7 +1807,9 @@ function bloodmallet_chart_import() {
             }
             // assume name is a translated one. get the base english version
             let english_name = get_base_name_from_translation(name, state.data, state);
-            does_value_exist_in_original_data = state.data["data"][english_name].hasOwnProperty(this.points[i].series.name);
+            if (state.data["data"].hasOwnProperty(english_name)) {
+              does_value_exist_in_original_data = state.data["data"][english_name].hasOwnProperty(this.points[i].series.name);
+            }
           }
 
           if (this.points[i].y !== 0 || does_value_exist_in_original_data) {
@@ -2019,6 +2021,83 @@ function bloodmallet_chart_import() {
         }
 
       });
+
+      // create soulbind charts
+      setTimeout(() => {
+        Object.keys(data["covenant_ids"]).forEach(covenant => {
+          const id = data["covenant_ids"][covenant];
+
+          let headline = document.createElement("h3");
+          headline.appendChild(document.createTextNode(get_translated_name(covenant, data, state)));
+          parent.appendChild(headline);
+
+          let order = 0;
+          const sorted_soulbinds = data["sorted_data_keys"];
+          for (const soulbind of sorted_soulbinds) {
+            if (data["covenant_mapping"][soulbind].indexOf(id) > -1) {
+              order += 1;
+
+              let s_headline = document.createElement("h4");
+              s_headline.appendChild(document.createTextNode(order + ". " + get_translated_name(soulbind, data, state)));
+              s_headline.classList += "ml-3";
+              s_headline.id = soulbind;
+              parent.appendChild(s_headline);
+
+              // collect sorted data
+              let dps_values = Object.values(data["data"][soulbind]).sort((a, b) => { return b - a; });
+              let descending_names = dps_values.map(value => { return getKeyByValue(data["data"][soulbind], value) });
+
+              // create chart
+              let chart = document.createElement("div");
+              // add data to chart
+              let new_chart = Highcharts.chart(chart, update_chart_style(state))
+
+              new_chart.title.attr({ text: "" });
+              new_chart.subtitle.attr({ text: "" });
+
+              let linked_names = descending_names.map(name => {
+                let name_parts = name.split("+");
+
+                let new_name = name_parts.reduce((p_value, c_value) => {
+                  let a = document.createElement("a");
+                  a.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+                  a.href += "spell=" + data["spell_ids"][c_value] + '/' + slugify(c_value);
+                  // a.appendChild(document.createTextNode(get_translated_name(c_value, data, state)));
+                  // a.appendChild(document.createTextNode(" "));
+
+                  return p_value + a.outerHTML;
+
+                }, "");
+                return new_name;
+              });
+
+              new_chart.update({
+                xAxis: {
+                  categories: linked_names,
+                  labels: { step: 1 }
+                }
+              }, false);
+
+              new_chart.addSeries({
+                data: dps_values,
+                color: covenants[covenant]["color"],
+                showInLegend: false,
+              }, false);
+
+              new_chart.redraw();
+
+              // append chart
+              parent.appendChild(chart);
+
+              setTimeout(() => {
+                chart.style.height = 200 + descending_names.length * 30 + "px";
+                new_chart.setSize(undefined, chart.style.height);
+              }, 100);
+            }
+          }
+
+        });
+      }, 5);
 
     }
 
