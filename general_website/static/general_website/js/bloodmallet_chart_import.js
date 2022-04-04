@@ -1786,26 +1786,30 @@ function bloodmallet_chart_import() {
               tmp_val = point.y;
             }
           }
-          let name = new DOMParser().parseFromString(this.x, "text/html").body.firstChild.innerText;
-          // find name if a special baseprofile was used e.g. "{Kyrian} Legendary name"
-          if (!state.data["data"].hasOwnProperty(name)) {
-            let actual_name = undefined;
-            for (let tmp_name of Object.keys(state.data["data"])) {
-              if (tmp_name.slice(tmp_name.indexOf("} ") + 2) === name) {
-                actual_name = tmp_name;
+          let does_value_exist_in_original_data = undefined;
+          if (state.data_type !== "talents") {
+            let name = new DOMParser().parseFromString(this.x, "text/html").body.firstChild.innerText;
+            // find name if a special baseprofile was used e.g. "{Kyrian} Legendary name"
+            if (!state.data["data"].hasOwnProperty(name)) {
+              let actual_name = undefined;
+              for (let tmp_name of Object.keys(state.data["data"])) {
+                if (tmp_name.slice(tmp_name.indexOf("} ") + 2) === name) {
+                  actual_name = tmp_name;
+                }
+              }
+              if (actual_name !== undefined) {
+                name = actual_name;
               }
             }
-            if (actual_name !== undefined) {
-              name = actual_name;
+            if (name === undefined) {
+              // dealing with a name that is not a link, e.g. Races
+              name = this.x;
             }
+            // assume name is a translated one. get the base english version
+            let english_name = get_base_name_from_translation(name, state.data, state);
+            does_value_exist_in_original_data = state.data["data"][english_name].hasOwnProperty(this.points[i].series.name);
           }
-          if (name === undefined) {
-            // dealing with a name that is not a link, e.g. Races
-            name = this.x;
-          }
-          // assume name is a translated one. get the base english version
-          let english_name = get_base_name_from_translation(name, state.data, state);
-          let does_value_exist_in_original_data = state.data["data"][english_name].hasOwnProperty(this.points[i].series.name);
+
           if (this.points[i].y !== 0 || does_value_exist_in_original_data) {
             let point_div = document.createElement('div');
             container.appendChild(point_div);
@@ -1820,7 +1824,7 @@ function bloodmallet_chart_import() {
             }
 
             let unit = "";
-            if (state.data_type === "soulbinds" || state.data_type === "races") {
+            if (["soulbinds", "races", "talents"].includes(state.data_type)) {
               unit = "";
             } else if (state.value_style === "relative") {
               unit = "%";
