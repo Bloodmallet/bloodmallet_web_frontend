@@ -4,6 +4,7 @@
 $class-color-death-knight: #c41f3b;
 $class-color-demon-hunter: #a330c9;
 $class-color-druid: #ff7d0a;
+$class-color-evoker: #33937F;
 $class-color-hunter: #abd473;
 $class-color-mage: #69ccf0;
 $class-color-monk: #00ff96;
@@ -18,6 +19,7 @@ $class-colors: () !default;
 $class-colors: map-merge(("death_knight": $class-color-death-knight,
         "demon_hunter": $class-color-demon-hunter,
         "druid": $class-color-druid,
+        "evoker": $class-color-evoker,
         "hunter": $class-color-hunter,
         "mage": $class-color-mage,
         "monk": $class-color-monk,
