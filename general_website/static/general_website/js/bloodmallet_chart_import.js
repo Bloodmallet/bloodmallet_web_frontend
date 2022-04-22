@@ -831,7 +831,6 @@ function bloodmallet_chart_import() {
       chart.legend.title.attr({ text: "" });
     }
 
-    chart.redraw();
     if (chart_engine == "highcharts_old") {
       chart.reflow();
     }
@@ -843,10 +842,20 @@ function bloodmallet_chart_import() {
 
     // add wowdb tooltips, they don't check dynamically
     if (state.tooltip_engine == "wowdb") {
-      setTimeout(function () { readd_wowdb_tooltips(html_element.id); }, 1);
-    }
-    if (state.tooltip_engine == "wowhead") {
-      setTimeout(() => { window.$WowheadPower.refreshLinks(); }, 1);
+      setTimeout(() => {
+        readd_wowdb_tooltips(html_element.id);
+        chart.redraw();
+      }, 1);
+    } else if (state.tooltip_engine == "wowhead") {
+      setTimeout(() => {
+        window.$WowheadPower.refreshLinks();
+        // chart.reflow();
+        chart.redraw();
+      }, 1);
+    } else {
+      setTimeout(() => {
+        chart.redraw();
+      }, 1);
     }
   }
 
@@ -2084,10 +2093,10 @@ function bloodmallet_chart_import() {
                 showInLegend: false,
               }, false);
 
-              new_chart.redraw();
-
               // append chart
               parent.appendChild(chart);
+
+              new_chart.redraw();
 
               setTimeout(() => {
                 chart.style.height = 200 + descending_names.length * 30 + "px";
