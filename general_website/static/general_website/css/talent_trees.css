@@ -38,6 +38,7 @@ div.bloodmallets-talent-tree>div.btt-talent {
     background-position: center;
     position: relative;
     cursor: pointer;
+    z-index: 500;
     /* TODO: remove me */
     /* border: 1px solid black; */
 }
@@ -150,4 +151,55 @@ div.btt-talent>div.btt-talent-rank {
 
 .tooltip>.tooltip-inner {
     text-align: left;
+}
+
+.btt-gate-1 {
+    grid-row-start: 4;
+    grid-row-end: 6;
+    grid-column-start: 1;
+    grid-column-end: calc(var(--btt-talent-columns) + 1);
+    position: relative;
+}
+
+.btt-gate-line {
+    /* text-align: center; */
+    height: 100%;
+    /* margin-left: auto;
+    margin-right: auto; */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-shadow: -1px 0 2px black, 0 1px 2px black, 1px 0 2px black, 0 -1px 2px black;
+    z-index: 200;
+    position: relative;
+}
+
+.btt-gate-1:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    border-top: 2px solid var(--btt-not-selected);
+    width: 93%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.btt-gate-2 {
+    grid-row-start: 7;
+    grid-row-end: 9;
+    grid-column-start: 1;
+    grid-column-end: calc(var(--btt-talent-columns) + 1);
+    position: relative;
+}
+
+.btt-gate-2:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    border-top: 2px solid var(--btt-not-selected);
+    width: 93%;
+    transform: translateY(-50%);
 }
