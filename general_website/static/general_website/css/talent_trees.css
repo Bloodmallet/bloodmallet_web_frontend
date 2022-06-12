@@ -141,6 +141,12 @@ div.btt-talent>div.btt-talent-rank {
     font-weight: 700;
 }
 
+.btt-choice-name {
+    color: lightskyblue;
+}
+
+.btt-talent-description {}
+
 .tooltip>.tooltip-inner {
     text-align: left;
 }

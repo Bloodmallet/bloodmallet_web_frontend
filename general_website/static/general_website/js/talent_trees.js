@@ -18,7 +18,7 @@ class Talent {
     lines = [];
 
     name = "placeholder name";
-    desciption = "placeholder  description of awesome effects";
+    description = "placeholder description of awesome effects";
     max_rank = 1;
     coordinates = [-1, -1];
     child_coordinates = [];
@@ -48,7 +48,7 @@ class Talent {
      */
     constructor(object, html_parent, html_svg, wow_class, wow_spec) {
         this.name = object.name;
-        this.desciption = object.desciption;
+        this.description = object.description;
         this.max_rank = object.max_rank;
         this.coordinates = object.coordinates;
         this.child_coordinates = object.child_coordinates;
@@ -73,9 +73,14 @@ class Talent {
         // img shapes https://codepen.io/GeoffreyCrofte/pen/kOZyoL
         div.style.gridRow = this.row;
         div.style.gridColumn = this.column;
-        div.title = [this.name, this.desciption].join("\n");
+        div.title = [this.name, this.description].join("\n");
         // data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
-        let tooltip = "<span class=\"btt-talent-name\">" + this.name + "</span><br/><p class=\"btt-talent-description\">" + this.desciption + "</p>";
+        let tooltip = "";
+        if (this.type === "choice") {
+            tooltip = "<span class=\"btt-choice-name\">" + this.name + "</span><p class=\"btt-talent-description\">" + this.description + "</p>";
+        } else {
+            tooltip = "<span class=\"btt-talent-name\">" + this.name + "</span><p class=\"btt-talent-description\">" + this.description + "</p>";
+        }
         div.title = tooltip;
         div.dataset.toggle = "tooltip";
         div.dataset.html = "true";
@@ -126,7 +131,7 @@ class Talent {
     }
 
     /**
-     * Update talent colours
+     * Update talent colors
      */
     update_selection_state() {
         let not_selected = "btt-not-selected";
@@ -284,7 +289,7 @@ class Talent {
             return;
         }
 
-        // if any child is is selcted and depends on this node
+        // if any child is is selected and depends on this node
         if (this.children.length > 0 && this.children.some(child => {
             // not selected child
             if (child.rank <= 0) {
@@ -345,7 +350,7 @@ async function load_tree_json(spec_name) {
  * @param {Element} html_svg svg-element id
  * @param {Talent[]} talents_data talents of a tree
  * @param {String} wow_class name of the class (e.g. druid)
- * @param {String} wow_spec name of the spec (e.g. dferal)
+ * @param {String} wow_spec name of the spec (e.g. feral)
  * @param {String} tree_type name of the spec ("class" or "spec")
  */
 function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, tree_type) {
@@ -414,7 +419,7 @@ function add_bloodmallet_trees() {
         let wow_spec = tree.dataset.wowSpec;
         let tree_type = tree.dataset.treeType;
 
-        // add savekeeping tree state
+        // add save-keeping tree state
         tree.dataset.investedPoints = 0;
         // add visible tree state
         let invested_points = document.createElement("p");

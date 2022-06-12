@@ -1,7 +1,7 @@
 [
     {
         "name": "Rake",
-        "desciption": "Rake the target for Bleed damage and additional Bleed damage over 15 seconds. Awards 1 combo point.",
+        "description": "Rake the target for Bleed damage and additional Bleed damage over 15 seconds. Awards 1 combo point.",
         "max_rank": 1,
         "coordinates": [
             2,
@@ -22,7 +22,7 @@
     },
     {
         "name": "Frenzied Regeneration",
-        "desciption": "Heals you for 20% health over 3 seconds.",
+        "description": "Heals you for 20% health over 3 seconds.",
         "max_rank": 1,
         "coordinates": [
             4,
@@ -47,7 +47,7 @@
     },
     {
         "name": "Rejuvenation",
-        "desciption": "Heals the target over 12 seconds.",
+        "description": "Heals the target over 12 seconds.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -72,7 +72,7 @@
     },
     {
         "name": "Starfire",
-        "desciption": "Call down a burst of energy, causing Arcane damage to the target, and a small amount of Arcane damage to all other enemies within 8 yards. Generates 8 Astral Power.",
+        "description": "Call down a burst of energy, causing Arcane damage to the target, and a small amount of Arcane damage to all other enemies within 8 yards. Generates 8 Astral Power.",
         "max_rank": 1,
         "coordinates": [
             8,
@@ -93,7 +93,7 @@
     },
     {
         "name": "Thrash",
-        "desciption": "Thrash all nearby enemies, dealing immediate physical damage and periodic bleed damage. Damage varies by shapeshift form.",
+        "description": "Thrash all nearby enemies, dealing immediate physical damage and periodic bleed damage. Damage varies by shapeshift form.",
         "max_rank": 1,
         "coordinates": [
             3,
@@ -119,7 +119,7 @@
     },
     {
         "name": "Improved Barkskin",
-        "desciption": "Barkskin duration increased by [2/4] seconds. Two Rank Talent.",
+        "description": "Barkskin duration increased by [2/4] seconds. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             5,
@@ -138,7 +138,7 @@
     },
     {
         "name": "Swiftmend",
-        "desciption": "Consumes a Regrowth, Wild Growth, or Rejuvenation effect to instantly heal an ally for a large amount.",
+        "description": "Consumes a Regrowth, Wild Growth, or Rejuvenation effect to instantly heal an ally for a large amount.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -159,7 +159,7 @@
     },
     {
         "name": "Starsurge",
-        "desciption": "Launch a surge of stellar energies at the target, dealing Astral damage, and empowering the damage bonus of any active Eclipse for its duration.",
+        "description": "Launch a surge of stellar energies at the target, dealing Astral damage, and empowering the damage bonus of any active Eclipse for its duration.",
         "max_rank": 1,
         "coordinates": [
             8,
@@ -180,7 +180,7 @@
     },
     {
         "name": "Rip",
-        "desciption": "Finishing move that causes Bleed damage over time. Lasts longer per combo point.",
+        "description": "Finishing move that causes Bleed damage over time. Lasts longer per combo point.",
         "max_rank": 1,
         "coordinates": [
             2,
@@ -203,7 +203,7 @@
     },
     {
         "name": "Swipe",
-        "desciption": "Swipe nearby enemies, inflicting Physical damage. Damage varies by shapeshift form.",
+        "description": "Swipe nearby enemies, inflicting Physical damage. Damage varies by shapeshift form.",
         "max_rank": 1,
         "coordinates": [
             3,
@@ -226,7 +226,7 @@
     },
     {
         "name": "Improved Frenzied Regeneration [NNF]",
-        "desciption": "Frenzied Regeneration and Barkskin increase all healing received by 20%.",
+        "description": "Frenzied Regeneration and Barkskin increase all healing received by 20%.",
         "max_rank": 1,
         "coordinates": [
             5,
@@ -240,7 +240,7 @@
     },
     {
         "name": "Remove Corruption",
-        "desciption": "Nullifies corrupting effects on the friendly target, removing all Curse and Poison effects.",
+        "description": "Nullifies corrupting effects on the friendly target, removing all Curse and Poison effects.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -263,7 +263,7 @@
     },
     {
         "name": "Moonkin Form",
-        "desciption": "Shapeshift into Moonkin Form, increasing the damage of your spells by 10% and your armor by 125%, and granting protection from Polymorph effects. The act of shapeshifting frees you from movement impairing effects.",
+        "description": "Shapeshift into Moonkin Form, increasing the damage of your spells by 10% and your armor by 125%, and granting protection from Polymorph effects. The act of shapeshifting frees you from movement impairing effects.",
         "max_rank": 1,
         "coordinates": [
             8,
@@ -290,7 +290,7 @@
     },
     {
         "name": "Maim",
-        "desciption": "Finishing move that causes Physical damage and stuns the target. Damage and duration increased per combo point",
+        "description": "Finishing move that causes Physical damage and stuns the target. Damage and duration increased per combo point",
         "max_rank": 1,
         "coordinates": [
             1,
@@ -304,7 +304,7 @@
     },
     {
         "name": "Increased Armor and Physical Damage [NNF]",
-        "desciption": "Armor and Physical damage dealt increased by [2]/[4]/[6]%. Three Rank Talent.",
+        "description": "Armor and Physical damage dealt increased by [2]/[4]/[6]%. Three Rank Talent.",
         "max_rank": 3,
         "coordinates": [
             3,
@@ -323,7 +323,7 @@
     },
     {
         "name": "Ironfur",
-        "desciption": "Increases armor for 7 seconds.",
+        "description": "Increases armor for 7 seconds.",
         "max_rank": 1,
         "coordinates": [
             4,
@@ -342,7 +342,7 @@
     },
     {
         "name": "Increased Healing and Magic Damage [NNF]",
-        "desciption": "Healing and Magic damage dealt increased by [2]/[4]/[6%]. Three Rank Talent.",
+        "description": "Healing and Magic damage dealt increased by [2]/[4]/[6%]. Three Rank Talent.",
         "max_rank": 3,
         "coordinates": [
             7,
@@ -361,7 +361,7 @@
     },
     {
         "name": "Hibernate",
-        "desciption": "Forces the enemy target to sleep for up to 40 seconds. Any damage will awaken the target. Only one target can be forced to hibernate at a time. Only works on Beasts and Dragonkin.",
+        "description": "Forces the enemy target to sleep for up to 40 seconds. Any damage will awaken the target. Only one target can be forced to hibernate at a time. Only works on Beasts and Dragonkin.",
         "max_rank": 1,
         "coordinates": [
             9,
@@ -375,7 +375,7 @@
     },
     {
         "name": "Feline Swiftness",
-        "desciption": "Movement speed by [8/15]%. Two Rank Talent.",
+        "description": "Movement speed by [8/15]%. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             2,
@@ -398,7 +398,7 @@
     },
     {
         "name": "Skull Bash",
-        "desciption": "You charge and bash the target's skull, interrupting spellcasting and preventing any spell in that school from being cast for 4 seconds.",
+        "description": "You charge and bash the target's skull, interrupting spellcasting and preventing any spell in that school from being cast for 4 seconds.",
         "max_rank": 1,
         "coordinates": [
             3,
@@ -412,7 +412,7 @@
     },
     {
         "name": "Thick Hide",
-        "desciption": "Reduces all damage taken by [3/6%]. Two Rank Talent.",
+        "description": "Reduces all damage taken by [3/6%]. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             4,
@@ -435,7 +435,7 @@
     },
     {
         "name": "Choice Node",
-        "desciption": "Wild Charge\nFly to a nearby ally's position.\n\nTiger Dash\nShift into Cat Form and increas",
+        "description": "<p><span class=\"btt-talent-name\">Wild Charge</span><br/>Fly to a nearby ally's position.</p><p><span class=\"btt-talent-name\">Tiger Dash</span><br/>Shift into Cat Form and increase</p>",
         "max_rank": 1,
         "coordinates": [
             5,
@@ -453,7 +453,7 @@
     },
     {
         "name": "Increased Healing & Healing Taken [NNF]",
-        "desciption": "Healing done and healing taken increased by [3/6]%. Two Rank Talent.",
+        "description": "Healing done and healing taken increased by [3/6]%. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             6,
@@ -479,7 +479,7 @@
     },
     {
         "name": "Cyclone",
-        "desciption": "Tosses the enemy target into the air, disorienting them but making them invulnerable for up to 6 seconds. Only one target can be affected by your Cyclone at a time.",
+        "description": "Tosses the enemy target into the air, disorienting them but making them invulnerable for up to 6 seconds. Only one target can be affected by your Cyclone at a time.",
         "max_rank": 1,
         "coordinates": [
             7,
@@ -493,7 +493,7 @@
     },
     {
         "name": "Astral Influence",
-        "desciption": "Feral & Guardian: Increases the range of all your abilities by [1/3] yards. Two Rank talent.\nRestoration & Balance: Increases the range of all your abilities by [3/5] yards. Two Rank Talent.",
+        "description": "Feral & Guardian: Increases the range of all your abilities by [1/3] yards. Two Rank talent.\nRestoration & Balance: Increases the range of all your abilities by [3/5] yards. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             8,
@@ -516,7 +516,7 @@
     },
     {
         "name": "Tireless Pursuit",
-        "desciption": "For 2 sec after leaving Cat Form or Travel Form, you retain up to 40% movement speed.",
+        "description": "For 2 sec after leaving Cat Form or Travel Form, you retain up to 40% movement speed.",
         "max_rank": 1,
         "coordinates": [
             1,
@@ -530,7 +530,7 @@
     },
     {
         "name": "Soothe",
-        "desciption": "Soothes the target, dispelling all Enrage effects.",
+        "description": "Soothes the target, dispelling all Enrage effects.",
         "max_rank": 1,
         "coordinates": [
             5,
@@ -549,7 +549,7 @@
     },
     {
         "name": "Sunfire",
-        "desciption": "A quick beam of solar light burns the enemy for a small amount of Nature damage and then an additional Nature damage over 12 seconds.",
+        "description": "A quick beam of solar light burns the enemy for a small amount of Nature damage and then an additional Nature damage over 12 seconds.",
         "max_rank": 1,
         "coordinates": [
             7,
@@ -572,7 +572,7 @@
     },
     {
         "name": "Typhoon",
-        "desciption": "Blasts targets within 15 yards in front of you with a violent Typhoon, knocking them back and dazing them for 6 seconds. Usable in all shapeshift forms.",
+        "description": "Blasts targets within 15 yards in front of you with a violent Typhoon, knocking them back and dazing them for 6 seconds. Usable in all shapeshift forms.",
         "max_rank": 1,
         "coordinates": [
             9,
@@ -586,7 +586,7 @@
     },
     {
         "name": "Primal Fury",
-        "desciption": "When you critically strike with an attack that generates a combo point, you gain an additional combo point. Damage over time cannot trigger this effect.",
+        "description": "When you critically strike with an attack that generates a combo point, you gain an additional combo point. Damage over time cannot trigger this effect.",
         "max_rank": 1,
         "coordinates": [
             2,
@@ -605,7 +605,7 @@
     },
     {
         "name": "Ursoc's Endurance [NNF]",
-        "desciption": "When you use Barkskin or Survival Instincts, absorb a small amount of damage over 8 seconds.",
+        "description": "When you use Barkskin or Survival Instincts, absorb a small amount of damage over 8 seconds.",
         "max_rank": 1,
         "coordinates": [
             4,
@@ -628,7 +628,7 @@
     },
     {
         "name": "Stampeding Roar",
-        "desciption": "Shift into Bear Form and let loose a wild roar, increasing the movement speed of all friendly players within 15 yards by 60% for 8 seconds.",
+        "description": "Shift into Bear Form and let loose a wild roar, increasing the movement speed of all friendly players within 15 yards by 60% for 8 seconds.",
         "max_rank": 1,
         "coordinates": [
             5,
@@ -651,7 +651,7 @@
     },
     {
         "name": "Wild Growth",
-        "desciption": "Heals up to 5 injured allies within 30 yards of the target over 7 seconds. Healing starts high and declines over the duration.",
+        "description": "Heals up to 5 injured allies within 30 yards of the target over 7 seconds. Healing starts high and declines over the duration.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -674,7 +674,7 @@
     },
     {
         "name": "Improved Sunfire [NNF]",
-        "desciption": "Sunfire now applies its damage over time effect to all enemies within 8 yards.",
+        "description": "Sunfire now applies its damage over time effect to all enemies within 8 yards.",
         "max_rank": 1,
         "coordinates": [
             8,
@@ -688,7 +688,7 @@
     },
     {
         "name": "Choice Node",
-        "desciption": "Incapacitating Roar\nShift into Bear Form and invoke the spirit of Ursol to let loose a deafening roar, incapacitating all enemies within 10 yards for 3 seconds. Damage will cancel the effect.\n\nMighty Bash\nInvokes the spirit of Ursoc to stun the target for 4 seconds. Usable in all shapeshift forms.",
+        "description": "<p><span class=\"btt-talent-name\">Incapacitating Roar</span><br/>Shift into Bear Form and invoke the spirit of Ursol to let loose a deafening roar, incapacitating all enemies within 10 yards for 3 seconds. Damage will cancel the effect.</p><p><span class=\"btt-talent-name\">Mighty Bash</span><br/>Invokes the spirit of Ursoc to stun the target for 4 seconds. Usable in all shapeshift forms.</p>",
         "max_rank": 1,
         "coordinates": [
             3,
@@ -706,7 +706,7 @@
     },
     {
         "name": "Ursine Vigor",
-        "desciption": "For 4 sec after shifting into Bear Form, your health and armor are increased by [15/30]%. Two Rank Talent.",
+        "description": "For 4 sec after shifting into Bear Form, your health and armor are increased by [15/30]%. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             4,
@@ -720,7 +720,7 @@
     },
     {
         "name": "Lycara's Teachings [NNF]",
-        "desciption": "You gain [1%/2%/3%] of a stat based on your current form.\n\nNo Form: Haste\nCat Form: Critical Strike\nBear Form: Versatility\nMoonkin Form: Mastery",
+        "description": "You gain [1%/2%/3%] of a stat based on your current form.\n\nNo Form: Haste\nCat Form: Critical Strike\nBear Form: Versatility\nMoonkin Form: Mastery",
         "max_rank": 3,
         "coordinates": [
             5,
@@ -743,7 +743,7 @@
     },
     {
         "name": "Improved Rejuvenation [NNF]",
-        "desciption": "Rejuvenation's duration is increased by 3 seconds.",
+        "description": "Rejuvenation's duration is increased by 3 seconds.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -757,7 +757,7 @@
     },
     {
         "name": "Choice Node",
-        "desciption": "Mass Entanglement\nRoots the target and all enemies within 15 yards in place for 30 seconds. Damage may interrupt the effect. Usable in all shapeshift forms.\n\nUrsol's Vortex\nConjures a vortex of wind for 10 sec at the destination, reducing the movement speed of all enemies within 8 yards by 50%. The first time an enemy attempts to leave the vortex, winds will pull that enemy back to its center. Usable in all shapeshift forms.",
+        "description": "<p><span class=\"btt-talent-name\">Mass Entanglement</span><br/>Roots the target and all enemies within 15 yards in place for 30 seconds. Damage may interrupt the effect. Usable in all shapeshift forms.</p><p><span class=\"btt-talent-name\">Ursol's Vortex</span><br/>Conjures a vortex of wind for 10 sec at the destination, reducing the movement speed of all enemies within 8 yards by 50%. The first time an enemy attempts to leave the vortex, winds will pull that enemy back to its center. Usable in all shapeshift forms.</p>",
         "max_rank": 1,
         "coordinates": [
             7,
@@ -775,7 +775,7 @@
     },
     {
         "name": "Well-Honed Instincts",
-        "desciption": "When you fall below 40% health, you cast Frenzied Regeneration, up to once every [120/90] seconds. Two Rank Talent.",
+        "description": "When you fall below 40% health, you cast Frenzied Regeneration, up to once every [120/90] seconds. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
             3,
@@ -794,7 +794,7 @@
     },
     {
         "name": "Improved Stampeding Roar [NNF]",
-        "desciption": "Cooldown reduced by 60 seconds.",
+        "description": "Cooldown reduced by 60 seconds.",
         "max_rank": 1,
         "coordinates": [
             4,
@@ -813,7 +813,7 @@
     },
     {
         "name": "Renewal",
-        "desciption": "Instantly heals you for 30% of maximum health. Usable in all shapeshift forms.",
+        "description": "Instantly heals you for 30% of maximum health. Usable in all shapeshift forms.",
         "max_rank": 1,
         "coordinates": [
             6,
@@ -832,7 +832,7 @@
     },
     {
         "name": "Innervate",
-        "desciption": "Infuse a friendly healer with energy, allowing them to cast spells without spending mana for 10 seconds.",
+        "description": "Infuse a friendly healer with energy, allowing them to cast spells without spending mana for 10 seconds.",
         "max_rank": 1,
         "coordinates": [
             7,
@@ -851,7 +851,7 @@
     },
     {
         "name": "Furor",
-        "desciption": "When you shift into a form you haven't been in for 20 sec, abilities cost no Rage, Energy, Astral Power, or Mana for 4 seconds.",
+        "description": "When you shift into a form you haven't been in for 20 sec, abilities cost no Rage, Energy, Astral Power, or Mana for 4 seconds.",
         "max_rank": 1,
         "coordinates": [
             3,
@@ -864,7 +864,7 @@
     },
     {
         "name": "Heart of the Wild",
-        "desciption": "Abilities not associated with your chosen specialization are substantially empowered for 45 seconds.",
+        "description": "Abilities not associated with your chosen specialization are substantially empowered for 45 seconds.",
         "max_rank": 1,
         "coordinates": [
             5,
@@ -878,7 +878,7 @@
     },
     {
         "name": "Nature's Vigil",
-        "desciption": "For 20 sec, all single-target healing and damage spells and abilities also heal a nearby friendly target based on the amount done, 20% for heals, 40% for damage spells. 1.5 min cooldown.",
+        "description": "For 20 sec, all single-target healing and damage spells and abilities also heal a nearby friendly target based on the amount done, 20% for heals, 40% for damage spells. 1.5 min cooldown.",
         "max_rank": 1,
         "coordinates": [
             7,
