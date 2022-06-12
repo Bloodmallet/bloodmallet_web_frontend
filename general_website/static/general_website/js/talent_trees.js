@@ -1,4 +1,8 @@
 const endpoint = "/static/general_website/trees/"; // "http://127.0.0.1:8000/static/webapp/trees/"
+const type_max_points_map = {
+    "class": 31,
+    "spec": 30
+}
 
 class Talent {
     /**
@@ -230,6 +234,12 @@ class Talent {
 
     increment_rank(html_element, mouse_event) {
         // early exit
+        // if no additional points can be invested
+        if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points[this.type]) {
+            // console.warn("Talent can't be selected. Gate is not satisfied.", this);
+            return;
+        }
+
         // if already at max rank
         if (this.rank >= this.max_rank) {
             // console.warn("Rank is already at max or higher for", this);
