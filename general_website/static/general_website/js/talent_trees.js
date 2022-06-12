@@ -74,6 +74,12 @@ class Talent {
         div.style.gridRow = this.row;
         div.style.gridColumn = this.column;
         div.title = [this.name, this.desciption].join("\n");
+        // data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
+        let tooltip = "<span class=\"btt-talent-name\">" + this.name + "</span><br/><p class=\"btt-talent-description\">" + this.desciption + "</p>";
+        div.title = tooltip;
+        div.dataset.toggle = "tooltip";
+        div.dataset.html = "true";
+        div.dataset.placement = "right";
         this.html_element = div;
 
         // add spell icon
@@ -441,6 +447,9 @@ function add_bloodmallet_trees() {
         }
         soon_to_be_loaded.then(data => {
             build_tree(tree, svg, data, wow_class, wow_spec, tree_type);
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
         });
     }
 }
