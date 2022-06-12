@@ -6,6 +6,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
 )
 from . import views
+from .views import talent_trees
 
 from allauth.socialaccount.views import ConnectionsView
 
@@ -89,4 +90,10 @@ urlpatterns = [
     # languages
     path("i18n/", include("django.conf.urls.i18n")),
     path("logo_comparison", views.logo_comparison, name="logo_comparison"),
+    # dragonflight pre-stuff
+    path(
+        "dragonflight/talent_trees",
+        talent_trees.talent_trees,
+        name="talent_trees",
+    ),
 ]

@@ -1,0 +1,128 @@
+/* btt - Bloodmallets Talent Trees */
+
+:root {
+    --btt-box-size: 90px;
+    --btt-icon-size: 40px;
+    --line-strength: 2px;
+
+    --btt-talent-columns: 9;
+    --btt-talent-rows: 10;
+
+    /* talent selection colour */
+    --btt-not-selected: darkgrey;
+    --btt-partially-selected: yellow;
+    --btt-fully-selected: orange;
+}
+
+div.bloodmallets-talent-tree {
+    width: 100%;
+    /* min-width: 400px; */
+    display: grid;
+
+    /* grid-template: ; */
+    grid-template-columns: repeat(var(--btt-talent-columns), var(--btt-box-size));
+    grid-template-rows: repeat(var(--btt-talent-rows), var(--btt-box-size));
+    row-gap: calc(var(--btt-box-size) / 4);
+    column-gap: calc(var(--btt-box-size) / 5);
+}
+
+div.bloodmallets-talent-tree>div.btt-talent {
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    /* TODO: remove me */
+    /* border: 1px solid black; */
+}
+
+div.btt-talent>div.btt-talent-rank {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    text-align: right;
+    /* offset-x | offset-y | blur-radius | color */
+    text-shadow: 0px 0px 2px black;
+}
+
+.btt-not-selected {
+    color: var(--btt-not-selected);
+    stroke: var(--btt-not-selected);
+}
+
+.btt-partially-selected {
+    color: var(--btt-partially-selected);
+    stroke: var(--btt-not-selected);
+}
+
+.btt-fully-selected {
+    color: var(--btt-fully-selected);
+    stroke: var(--btt-fully-selected);
+}
+
+.btt-not-selected-bg {
+    background-color: var(--btt-not-selected);
+    filter: grayscale(100%);
+}
+
+.btt-partially-selected-bg {
+    background-color: var(--btt-partially-selected);
+}
+
+.btt-fully-selected-bg {
+    background-color: var(--btt-fully-selected);
+}
+
+
+.btt-svg {
+    width: 100%;
+    height: 100%;
+    grid-row-start: 1;
+    grid-row-end: calc(var(--btt-talent-rows) + 1);
+    grid-column-start: 1;
+    grid-column-end: calc(var(--btt-talent-columns) + 1);
+}
+
+.btt-talent-connector {
+    stroke-width: var(--line-strength);
+}
+
+/* https://stackoverflow.com/questions/31854185/how-to-add-border-in-my-clip-path-polygon-css-style */
+.btt-icon {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--btt-icon-size) + 2 * var(--line-strength));
+    height: calc(var(--btt-icon-size) + 2 * var(--line-strength));
+    box-sizing: border-box;
+}
+
+.btt-icon img {
+    position: absolute;
+    top: var(--line-strength);
+    /* equal to border thickness */
+    left: var(--line-strength);
+    /* equal to border thickness */
+    width: var(--btt-icon-size);
+    /* container height - (border thickness * 2) */
+    height: var(--btt-icon-size);
+    /* container height - (border thickness * 2) */
+}
+
+.btt-circle,
+.btt-circle img {
+    -webkit-clip-path: circle(50%);
+    clip-path: circle(50%);
+}
+
+.btt-square,
+.btt-square img {
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
+}
+
+.btt-octagon,
+.btt-octagon img {
+    -webkit-clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
+    clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
+}

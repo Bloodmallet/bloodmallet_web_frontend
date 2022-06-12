@@ -1,0 +1,29 @@
+{% extends 'general_website/layout/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="display-4 mb-3 text-center" id="primary_headline">{% translate "Talent trees" %}</h1>
+
+<h2>Class tree Balance Druid</h2>
+
+<div class="alert alert-warning" role="alert">
+    This website is under heavy development. Nevertheless please create <a
+        href="https://github.com/Bloodmallet/bloodmallet_web_frontend/issues">issues on github</a> for feature requests
+    and feedback.
+</div>
+
+<div id="main" class="bloodmallets-talent-tree" data-wow-class="druid" data-wow-spec="balance" data-tree-type="class">
+</div>
+{% endblock %}
+
+{% block extraimport %}
+<link rel="stylesheet" href="{% static 'general_website/css/talent_trees.css' %}" />
+<script src="{% static 'general_website/js/talent_trees.js' %}"></script>
+
+<script>
+    add_bloodmallet_trees();
+</script>
+{% endblock %}
