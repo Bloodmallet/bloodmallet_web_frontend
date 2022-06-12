@@ -235,7 +235,7 @@ class Talent {
     increment_rank(html_element, mouse_event) {
         // early exit
         // if no additional points can be invested
-        if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points[this.type]) {
+        if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points_map[this.type]) {
             // console.warn("Talent can't be selected. Gate is not satisfied.", this);
             return;
         }
@@ -374,6 +374,21 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
 }
 
 /**
+ * 
+ * @param {Element} element 
+ * @param {Number} invested_points
+ * @param {String} type
+ */
+function update_invested_points(element, invested_points, type) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+    element.appendChild(
+        document.createTextNode(invested_points + " / " + type_max_points_map[type])
+    );
+}
+
+/**
  * Find divs with class bloodmallets-talent-tree and build the in dataset described talent-tree.
  */
 function add_bloodmallet_trees() {
@@ -389,18 +404,31 @@ function add_bloodmallet_trees() {
             continue;
         }
 
+        let wow_class = tree.dataset.wowClass;
+        let wow_spec = tree.dataset.wowSpec;
+        let tree_type = tree.dataset.treeType;
+
         // add savekeeping tree state
         tree.dataset.investedPoints = 0;
+        // add visible tree state
+        let invested_points = document.createElement("p");
+        invested_points.classList.add("h3");
+        tree.parentNode.prepend(invested_points);
+        let observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "attributes" && mutation.attributeName === "data-invested-points") {
+                    update_invested_points(invested_points, tree.dataset.investedPoints, tree_type);
+                }
+            });
+        });
+        observer.observe(tree, { attributes: true });
+        update_invested_points(invested_points, tree.dataset.investedPoints, tree_type);
 
         // create svg area
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.classList.add("btt-svg");
         svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         tree.appendChild(svg);
-
-        let wow_class = tree.dataset.wowClass;
-        let wow_spec = tree.dataset.wowSpec;
-        let tree_type = tree.dataset.treeType;
 
         let soon_to_be_loaded = undefined;
         if (tree_type === "class") {
