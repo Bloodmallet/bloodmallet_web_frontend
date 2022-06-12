@@ -37,6 +37,7 @@ class Talent {
     img_url = "https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg";
     html_rank = undefined;
     html_icon = undefined;
+    tree_type = undefined;
 
     /**
      * 
@@ -45,8 +46,9 @@ class Talent {
      * @param {Element} html_svg 
      * @param {String} wow_class 
      * @param {String} wow_spec 
+     * @param {String} tree_type 
      */
-    constructor(object, html_parent, html_svg, wow_class, wow_spec) {
+    constructor(object, html_parent, html_svg, wow_class, wow_spec, tree_type) {
         this.name = object.name;
         this.description = object.description;
         this.max_rank = object.max_rank;
@@ -58,6 +60,7 @@ class Talent {
         this.html_parent = html_parent;
         this.wow_class = wow_class;
         this.wow_spec = wow_spec;
+        this.tree_type = tree_type;
 
         if (this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1) {
             this.rank = this.max_rank;
@@ -246,7 +249,7 @@ class Talent {
     increment_rank(html_element, mouse_event) {
         // early exit
         // if no additional points can be invested
-        if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points_map[this.type]) {
+        if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points_map[this.tree_type]) {
             // console.warn("Talent can't be selected. Gate is not satisfied.", this);
             return;
         }
@@ -358,7 +361,7 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
     let talents = [];
     for (let talent_data of talents_data) {
         talents.push(
-            new Talent(talent_data, html_element, html_svg, wow_class, wow_spec)
+            new Talent(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type)
         );
     }
 
