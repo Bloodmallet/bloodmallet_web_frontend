@@ -37,6 +37,7 @@ div.bloodmallets-talent-tree>div.btt-talent {
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
+    cursor: pointer;
     /* TODO: remove me */
     /* border: 1px solid black; */
 }
