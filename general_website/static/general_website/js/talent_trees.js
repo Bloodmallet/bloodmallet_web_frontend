@@ -9,13 +9,16 @@ class Talent {
      * See trees: https://worldofwarcraft.com/en-gb/news/23797209/world-of-warcraft-dragonflight-talent-preview
      * Guardian Druid: https://bnetcmsus-a.akamaihd.net/cms/template_resource/GO03FE89WQY81653669937765.png
      * Feral Druid: https://bnetcmsus-a.akamaihd.net/cms/template_resource/ZTDZ57EQUSTG1653669937329.png
-     * Row 7 Druid: done
      */
     rank = 0;
     children = [];
     parents = [];
     html_element = undefined;
+    /**
+     * Connector lines to children
+     */
     lines = [];
+    talents = [];
 
     name = "placeholder name";
     description = "placeholder description of awesome effects";
@@ -292,7 +295,7 @@ class Talent {
             return;
         }
 
-        // if any child is is selected and depends on this node
+        // if any child is selected and depends on this node
         if (this.children.length > 0 && this.children.some(child => {
             // not selected child
             if (child.rank <= 0) {
@@ -312,9 +315,23 @@ class Talent {
         }
 
         // if gate becomes unsatisfied for another talent
-        // if (parseInt(this.html_parent.dataset.investedPoints) === 20 || parseInt(this.html_parent.dataset.investedPoints) === 8) {
-        //     // NotImplemented
-        // }
+        for (let gate of [8, 20]) {
+            let affected_invested_points = this.talents.map(talent => {
+                if (talent.gate >= gate && talent.is_selected) {
+                    return talent.rank;
+                } else {
+                    return 0;
+                }
+            }).reduce((a, b) => a + b, 0);
+            let affects_gate = parseInt(this.html_parent.dataset.investedPoints) === gate + affected_invested_points;
+            let other_post_gate_elements_are_selected = this.talents.some(talent => {
+                return talent.gate === gate && talent.is_selected && talent !== this && this.gate < gate;
+            });
+
+            if (affects_gate && other_post_gate_elements_are_selected) {
+                return;
+            }
+        }
 
         this.rank--;
         this.html_parent.dataset.investedPoints = parseInt(this.html_parent.dataset.investedPoints) - 1;
@@ -379,6 +396,11 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
                 coord_talent_map[child_coords.toString()].parents.push(talent);
             }
         }
+    }
+
+    // add talents to each talent
+    for (let talent of talents) {
+        talent.talents = talents;
     }
 
     // update lines
