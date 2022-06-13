@@ -79,8 +79,7 @@ class Talent {
         // img shapes https://codepen.io/GeoffreyCrofte/pen/kOZyoL
         div.style.gridRow = this.row;
         div.style.gridColumn = this.column;
-        div.title = [this.name, this.description].join("\n");
-        // data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
+
         let tooltip = "";
         if (this.type === "choice") {
             tooltip = "<span class=\"btt-choice-name\">" + this.name + "</span><p class=\"btt-talent-description\">" + this.description + "</p>";
@@ -113,7 +112,7 @@ class Talent {
 
         if (this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) === -1) {
             let rank_div = document.createElement("div");
-            rank_div.classList.add("btt-talent-rank");
+            rank_div.classList.add("btt-talent-rank", "btt-text-shadow");
             this.html_rank = rank_div;
             this.html_element.appendChild(this.html_rank);
         }
@@ -249,6 +248,10 @@ class Talent {
         return this.rank > 0;
     }
 
+    get is_default() {
+        return this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1;
+    }
+
     increment_rank(html_element, mouse_event) {
         // early exit
         // if no additional points can be invested
@@ -291,7 +294,7 @@ class Talent {
         }
 
         // if default talent
-        if (this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1) {
+        if (this.is_default) {
             return;
         }
 
@@ -407,6 +410,8 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
     for (let talent of talents) {
         talent.update_lines();
     }
+
+    return talents;
 }
 
 /**
@@ -416,8 +421,9 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
  * @param {String} tree_type
  * @param {Element} gate_pre_5 
  * @param {Element} gate_pre_9 
+ * @param {Talent[]} talents 
  */
-function update_invested_points(element, invested_points, tree_type, gate_pre_5, gate_pre_9) {
+function update_invested_points(element, invested_points, tree_type, gate_pre_5, gate_pre_9, talents) {
     while (element.firstChild) {
         element.removeChild(element.firstChild);
     }
@@ -425,15 +431,31 @@ function update_invested_points(element, invested_points, tree_type, gate_pre_5,
         document.createTextNode(invested_points + " / " + type_max_points_map[tree_type])
     );
 
-    const gates = [8, 20];
-    if (invested_points === (gates[0] - 1)) {
-        gate_pre_5.classList.remove("btt-gate-line-satisfied");
-    } else if (invested_points === gates[0]) {
-        gate_pre_5.classList.add("btt-gate-line-satisfied");
-    } else if (invested_points === gates[1] - 1) {
-        gate_pre_9.classList.remove("btt-gate-line-satisfied");
-    } else if (invested_points === gates[1]) {
-        gate_pre_9.classList.add("btt-gate-line-satisfied");
+    // const gates = [8, 20];
+    const gate_map = {
+        8: gate_pre_5,
+        20: gate_pre_9
+    };
+    const gates = Object.keys(gate_map).map(key => parseInt(key));
+
+    for (let gate of gates) {
+        if (invested_points === gate - 1) {
+            gate_map[gate].classList.remove("btt-gate-line-satisfied");
+        } else if (invested_points === gate) {
+            gate_map[gate].classList.add("btt-gate-line-satisfied");
+        }
+
+        let applicable_talents = talents.filter(talent => talent.gate < gate && !talent.is_default);
+        let applicable_points = applicable_talents.reduce((a, b) => a + b.rank, 0);
+
+        while (gate_map[gate].firstChild) {
+            gate_map[gate].removeChild(gate_map[gate].firstChild);
+        }
+        gate_map[gate].appendChild(
+            document.createTextNode(
+                applicable_points + " / " + gate
+            )
+        );
     }
 }
 
@@ -459,19 +481,13 @@ function add_bloodmallet_trees() {
 
         // add gates
         let gate_pre_5 = document.createElement("div");
-        gate_pre_5.classList.add("btt-gate-line", "btt-gate-pre-5");
-        let gate_pre_5_value = document.createElement("div");
-        gate_pre_5_value.classList.add("btt-gate-value", "h3");
-        gate_pre_5_value.appendChild(document.createTextNode(8));
-        gate_pre_5.appendChild(gate_pre_5_value);
+        gate_pre_5.classList.add("btt-gate-line", "btt-gate-value", "btt-vertical-align-center", "btt-gate-pre-5", "h4");
+        gate_pre_5.appendChild(document.createTextNode(8));
         tree.appendChild(gate_pre_5);
 
         let gate_pre_9 = document.createElement("div");
-        gate_pre_9.classList.add("btt-gate-line", "btt-gate-pre-9");
-        let gate_pre_9_value = document.createElement("div");
-        gate_pre_9_value.classList.add("btt-gate-value", "h3");
-        gate_pre_9_value.appendChild(document.createTextNode(20));
-        gate_pre_9.appendChild(gate_pre_9_value);
+        gate_pre_9.classList.add("btt-gate-line", "btt-gate-value", "btt-vertical-align-center", "btt-gate-pre-9", "h4");
+        gate_pre_9.appendChild(document.createTextNode(20));
         tree.appendChild(gate_pre_9);
 
         // add save-keeping tree state
@@ -480,15 +496,6 @@ function add_bloodmallet_trees() {
         let invested_points = document.createElement("p");
         invested_points.classList.add("h3");
         tree.parentNode.prepend(invested_points);
-        let observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === "attributes" && mutation.attributeName === "data-invested-points") {
-                    update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9);
-                }
-            });
-        });
-        observer.observe(tree, { attributes: true });
-        update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9);
 
         // create svg area
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -506,7 +513,18 @@ function add_bloodmallet_trees() {
             continue;
         }
         soon_to_be_loaded.then(data => {
-            build_tree(tree, svg, data, wow_class, wow_spec, tree_type);
+            let talents = build_tree(tree, svg, data, wow_class, wow_spec, tree_type);
+
+            let observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === "attributes" && mutation.attributeName === "data-invested-points") {
+                        update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
+                    }
+                });
+            });
+            observer.observe(tree, { attributes: true });
+            update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
+
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });

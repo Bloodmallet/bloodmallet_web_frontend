@@ -51,6 +51,9 @@ div.btt-talent>div.btt-talent-rank {
     /* right: 0px; */
     text-align: center;
     /* offset-x | offset-y | blur-radius | color */
+}
+
+.btt-text-shadow {
     text-shadow: -1px 0 2px black, 0 1px 2px black, 1px 0 2px black, 0 -1px 2px black;
 }
 
@@ -157,9 +160,9 @@ div.btt-talent>div.btt-talent-rank {
     content: '';
     position: absolute;
     top: 50%;
-    left: 7%;
+    left: 13%;
     border-top: 2px solid var(--btt-not-selected);
-    width: 93%;
+    width: 87%;
     transform: translateY(-50%);
     z-index: 10;
 }
@@ -169,15 +172,7 @@ div.btt-talent>div.btt-talent-rank {
 }
 
 .btt-gate-value {
-    /* text-align: center; */
     height: 100%;
-    /* margin-left: auto;
-    margin-right: auto; */
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    text-shadow: -1px 0 2px black, 0 1px 2px black, 1px 0 2px black, 0 -1px 2px black;
     z-index: 200;
     position: relative;
 }
@@ -196,4 +191,11 @@ div.btt-talent>div.btt-talent-rank {
     grid-column-start: 1;
     grid-column-end: calc(var(--btt-talent-columns) + 1);
     position: relative;
+}
+
+.btt-vertical-align-center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
