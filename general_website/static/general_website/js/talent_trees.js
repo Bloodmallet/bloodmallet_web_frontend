@@ -471,6 +471,59 @@ function update_invested_points(element, invested_points, tree_type, gate_pre_5,
     }
 }
 
+function get_export_string(tree_type, wow_class, wow_spec, talents) {
+    let separator = ";"
+    let talent_string = talents.filter(talent => talent.is_selected).map(talent => talent.coordinates.toString() + ":" + talent.rank).join(separator);
+    let export_string = [wow_class, wow_spec, tree_type, talent_string].join(separator);
+    return export_string;
+}
+
+function update_tree(input_string, tree_type, wow_class, wow_spec, talents) {
+    // does string match current talents
+    let split_string = input_string.split(";");
+    if (wow_class !== split_string[0]) {
+        console.warn("Pasted string does not match current wow_class.");
+        return;
+    }
+    if (wow_spec !== split_string[1]) {
+        console.warn("Pasted string does not match current wow_spec.");
+        return;
+    }
+    if (tree_type !== split_string[2]) {
+        console.warn("Pasted string does not match current tree_type.");
+        return;
+    }
+
+    // reset talents
+    for (let talent of talents) {
+        if (!talent.is_default) {
+            talent.rank = 0;
+            talent.update_rank();
+            talent.update_selection_state();
+        }
+    }
+
+    // set new talent states
+    let talent_blops = split_string.slice(3, split_string.length);
+    let rank_sum = 0;
+    for (let talent_string of talent_blops) {
+        let coord_string = talent_string.split(":")[0];
+        let rank = parseInt(talent_string.split(":")[1]);
+        let coords = coord_string.split(",").map(coord => parseInt(coord));
+        for (let talent of talents) {
+            if (talent.x === coords[0] && talent.y === coords[1] && !talent.is_default) {
+                rank_sum += rank;
+                talent.rank = rank;
+                talent.update_rank();
+                talent.update_selection_state();
+            }
+        }
+    }
+    for (let i = 1; i <= rank_sum; i++) {
+        talents[0].html_parent.dataset.investedPoints = i;
+    }
+}
+
 /**
  * Find divs with class bloodmallets-talent-tree and build the in dataset described talent-tree.
  */
@@ -540,6 +593,48 @@ function add_bloodmallet_trees() {
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });
+
+            // add export button
+            let form_row = document.createElement("div");
+            form_row.classList.add("form-row");
+            tree.parentElement.appendChild(form_row);
+
+            let export_button = document.createElement("button");
+            export_button.type = "button";
+            export_button.classList.add("btn", "btn-primary", "col");
+            export_button.appendChild(document.createTextNode("Copy path to clipboard"));
+
+            export_button.addEventListener("click", () => {
+                navigator.clipboard.writeText(get_export_string(tree_type, wow_class, wow_spec, talents)).then(function () {
+                    /* clipboard successfully set */
+                    alert("Copied");
+                }, function () {
+                    /* clipboard write failed */
+                    alert("Failed");
+                });
+            });
+            form_row.appendChild(export_button);
+
+            // let simc_button = document.createElement("button");
+            // simc_button.disabled = true;
+            // simc_button.type = "button";
+            // simc_button.classList.add("btn", "btn-primary");
+            // simc_button.appendChild(document.createTextNode("Copy /simc"));
+            // tree.parentElement.appendChild(simc_button);
+
+            // add import text area
+            let import_text_area = document.createElement("input");
+            import_text_area.classList.add("form-control", "col");
+            import_text_area.placeholder = "Paste path into this element.";
+            import_text_area.addEventListener("input", (element, ev) => {
+                console.log(element);
+                if (element.inputType !== "insertFromPaste") {
+                    return;
+                }
+                let input_string = element.data.trim();
+                update_tree(input_string, tree_type, wow_class, wow_spec, talents);
+            });
+            form_row.appendChild(import_text_area);
         });
     }
 }
