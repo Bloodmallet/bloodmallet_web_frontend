@@ -495,13 +495,7 @@ function update_tree(input_string, tree_type, wow_class, wow_spec, talents) {
     }
 
     // reset talents
-    for (let talent of talents) {
-        if (!talent.is_default) {
-            talent.rank = 0;
-            talent.update_rank();
-            talent.update_selection_state();
-        }
-    }
+    reset_tree(talents);
 
     // set new talent states
     let talent_blops = split_string.slice(3, split_string.length);
@@ -520,6 +514,19 @@ function update_tree(input_string, tree_type, wow_class, wow_spec, talents) {
         }
     }
     for (let i = 1; i <= rank_sum; i++) {
+        talents[0].html_parent.dataset.investedPoints = i;
+    }
+}
+
+function reset_tree(talents) {
+    for (let talent of talents) {
+        if (!talent.is_default) {
+            talent.rank = 0;
+            talent.update_rank();
+            talent.update_selection_state();
+        }
+    }
+    for (let i = parseInt(talents[0].html_parent.dataset.investedPoints); i >= 0; i--) {
         talents[0].html_parent.dataset.investedPoints = i;
     }
 }
@@ -599,11 +606,17 @@ function add_bloodmallet_trees() {
             form_row.classList.add("form-row");
             tree.parentElement.appendChild(form_row);
 
+            let reset_button = document.createElement("button");
+            reset_button.type = "button";
+            reset_button.classList.add("btn", "btn-warning", "col");
+            reset_button.appendChild(document.createTextNode("Reset"));
+            reset_button.addEventListener("click", () => reset_tree(talents));
+            form_row.appendChild(reset_button);
+
             let export_button = document.createElement("button");
             export_button.type = "button";
             export_button.classList.add("btn", "btn-primary", "col");
             export_button.appendChild(document.createTextNode("Copy path to clipboard"));
-
             export_button.addEventListener("click", () => {
                 navigator.clipboard.writeText(get_export_string(tree_type, wow_class, wow_spec, talents)).then(function () {
                     /* clipboard successfully set */
