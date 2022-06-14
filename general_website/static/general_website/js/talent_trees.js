@@ -54,12 +54,24 @@ class Talent {
     constructor(object, html_parent, html_svg, wow_class, wow_spec, tree_type) {
         this.name = object.name;
         this.description = object.description;
-        this.max_rank = object.max_rank;
         this.coordinates = object.coordinates;
-        this.child_coordinates = object.child_coordinates;
         this.type = object.type;
         this.spell_id = object.spell_id;
-        this.default_for_specs = object.default_for_specs;
+        if ("max_rank" in object) {
+            this.max_rank = object.max_rank;
+        } else {
+            this.max_rank = 1;
+        }
+        if ("child_coordinates" in object) {
+            this.child_coordinates = object.child_coordinates;
+        } else {
+            this.child_coordinates = [];
+        }
+        if ("default_for_specs" in object) {
+            this.default_for_specs = object.default_for_specs;
+        } else {
+            this.default_for_specs = [];
+        }
         this.html_parent = html_parent;
         this.wow_class = wow_class;
         this.wow_spec = wow_spec;
