@@ -155,10 +155,8 @@ class Talent {
         let partially_selected = "btt-partially-selected";
         let fully_selected = "btt-fully-selected";
 
-        // remove old selection state
+        // style primary html element
         this.html_element.classList.remove(not_selected, partially_selected, fully_selected);
-
-        // set new selection state
         if (this.rank < 1) {
             this.html_element.classList.add(not_selected);
         } else if (this.rank >= this.max_rank) {
@@ -167,19 +165,22 @@ class Talent {
             this.html_element.classList.add(partially_selected);
         }
 
-        // fix lines
-        for (let line of this.lines) {
+        // style lines
+        for (let i in this.lines) {
+            let line = this.lines[i];
+            let child = this.children[i];
+
             line.classList.remove(not_selected, partially_selected, fully_selected);
             if (this.rank < 1) {
                 line.classList.add(not_selected);
-            } else if (this.rank >= this.max_rank) {
+            } else if (this.rank >= this.max_rank && (child === undefined || child.can_be_selected || child.rank > 0)) {
                 line.classList.add(fully_selected);
             } else {
                 line.classList.add(partially_selected);
             }
         }
 
-        // fix icon border
+        // style icon border
         let bg = "-bg";
         this.html_icon.classList.remove(not_selected + bg, partially_selected + bg, fully_selected + bg);
         if (this.rank < 1) {
@@ -264,28 +265,36 @@ class Talent {
         return this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1;
     }
 
-    increment_rank(html_element, mouse_event) {
-        // early exit
+    get can_be_selected() {
         // if no additional points can be invested
         if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points_map[this.tree_type]) {
             // console.warn("Talent can't be selected. Gate is not satisfied.", this);
-            return;
+            return false;
         }
 
         // if already at max rank
         if (this.rank >= this.max_rank) {
             // console.warn("Rank is already at max or higher for", this);
-            return;
+            return false;
         }
         // if no parent is at max_rank
         if (this.parents.length > 0 && this.parents.every(parent =>
             parent.rank !== parent.max_rank
         )) {
             // console.warn("Talent can't be selected. No parent is fully selected.", this);
-            return;
+            return false;
         }
         if (parseInt(this.html_parent.dataset.investedPoints) < this.gate) {
             // console.warn("Talent can't be selected. Gate is not satisfied.", this);
+            return false;
+        }
+
+        return true;
+    }
+
+    increment_rank(html_element, mouse_event) {
+        // early exit
+        if (!this.can_be_selected) {
             return;
         }
 
@@ -455,6 +464,11 @@ function update_invested_points(element, invested_points, tree_type, gate_pre_5,
             gate_map[gate].classList.remove("btt-gate-line-satisfied");
         } else if (invested_points === gate) {
             gate_map[gate].classList.add("btt-gate-line-satisfied");
+        }
+        if (invested_points === gate - 1 || invested_points === gate) {
+            for (let talent of talents) {
+                talent.update_selection_state();
+            }
         }
 
         let applicable_talents = talents.filter(talent => talent.gate < gate && !talent.is_default);
