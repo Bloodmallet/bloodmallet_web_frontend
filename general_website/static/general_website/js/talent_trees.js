@@ -620,7 +620,10 @@ function add_bloodmallet_trees() {
             export_button.addEventListener("click", () => {
                 navigator.clipboard.writeText(get_export_string(tree_type, wow_class, wow_spec, talents)).then(function () {
                     /* clipboard successfully set */
-                    alert("Copied");
+                    while (export_button.firstChild) {
+                        export_button.removeChild(export_button.firstChild);
+                    }
+                    export_button.appendChild(document.createTextNode("Copied!"));
                 }, function () {
                     /* clipboard write failed */
                     alert("Failed");
