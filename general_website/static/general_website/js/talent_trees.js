@@ -158,14 +158,14 @@ class Talent {
 
         // style primary html element
         this.html_element.classList.remove(not_selected, partially_selected, fully_selected, selectable);
-        if (!this.is_selected && this.can_be_selected) {
-            this.html_element.classList.add(selectable);
-        } else if (!this.is_selected && !this.can_be_selected) {
-            this.html_element.classList.add(not_selected);
-        } else if (this.rank >= this.max_rank) {
+        if (this.is_fully_selected) {
             this.html_element.classList.add(fully_selected);
-        } else {
+        } else if (this.is_selected) {
             this.html_element.classList.add(partially_selected);
+        } else if (this.is_selectable) {
+            this.html_element.classList.add(selectable);
+        } else {
+            this.html_element.classList.add(not_selected);
         }
 
         // style lines
@@ -173,27 +173,27 @@ class Talent {
             let line = this.lines[i];
             let child = this.children[i];
 
-            line.classList.remove(not_selected, partially_selected, fully_selected);
-            if (!this.is_selected && !this.can_be_selected) {
-                line.classList.add(not_selected);
-            } else if (this.rank >= this.max_rank && (child === undefined || child.can_be_selected || child.rank > 0)) {
+            line.classList.remove(not_selected, partially_selected, fully_selected, selectable);
+            if (this.rank >= this.max_rank && (child === undefined || child.is_selected)) {
                 line.classList.add(fully_selected);
+            } else if (child !== undefined && child.is_selectable) {
+                line.classList.add(selectable);
             } else {
-                line.classList.add(partially_selected);
+                line.classList.add(not_selected);
             }
         }
 
         // style icon border
         let bg = "-bg";
         this.html_icon.classList.remove(not_selected + bg, partially_selected + bg, fully_selected + bg, selectable + bg);
-        if (!this.is_selected && this.can_be_selected) {
-            this.html_icon.classList.add(selectable + bg);
-        } else if (!this.is_selected && !this.can_be_selected) {
-            this.html_icon.classList.add(not_selected + bg);
-        } else if (this.rank >= this.max_rank) {
+        if (this.is_fully_selected) {
             this.html_icon.classList.add(fully_selected + bg);
-        } else {
+        } else if (this.is_selected) {
             this.html_icon.classList.add(partially_selected + bg);
+        } else if (this.is_selectable) {
+            this.html_icon.classList.add(selectable + bg);
+        } else {
+            this.html_icon.classList.add(not_selected + bg);
         }
     }
 
@@ -217,7 +217,7 @@ class Talent {
     /**
      * Update line start and end-points.
      */
-    update_lines() {
+    update_line_start_end_points() {
         let from = this.html_element;
         let offset_from = get_relative_offset(from);
         for (let index in this.children) {
@@ -266,11 +266,15 @@ class Talent {
         return this.rank > 0;
     }
 
+    get is_fully_selected() {
+        return this.rank >= this.max_rank;
+    }
+
     get is_default() {
         return this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1;
     }
 
-    get can_be_selected() {
+    get is_selectable() {
         // if no additional points can be invested
         if (parseInt(this.html_parent.dataset.investedPoints) >= type_max_points_map[this.tree_type]) {
             // console.warn("Talent " + this.name + " can't be selected. Gate is not satisfied.", this);
@@ -299,7 +303,7 @@ class Talent {
 
     increment_rank(html_element, mouse_event) {
         // early exit
-        if (!this.can_be_selected) {
+        if (!this.is_selectable) {
             return;
         }
 
@@ -307,6 +311,10 @@ class Talent {
         this.html_parent.dataset.investedPoints = parseInt(this.html_parent.dataset.investedPoints) + 1;
         this.update_rank();
         this.update_selection_state();
+
+        for (let parent of this.parents) {
+            parent.update_selection_state();
+        }
 
         for (let child of this.children) {
             child.update_selection_state();
@@ -370,6 +378,10 @@ class Talent {
         this.html_parent.dataset.investedPoints = parseInt(this.html_parent.dataset.investedPoints) - 1;
         this.update_rank();
         this.update_selection_state();
+
+        for (let parent of this.parents) {
+            parent.update_selection_state();
+        }
 
         for (let child of this.children) {
             child.update_selection_state();
@@ -442,7 +454,7 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
 
     // update styles
     for (let talent of talents) {
-        talent.update_lines();
+        talent.update_line_start_end_points();
         talent.update_selection_state();
     }
 
