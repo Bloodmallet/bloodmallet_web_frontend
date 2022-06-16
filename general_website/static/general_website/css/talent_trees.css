@@ -10,7 +10,7 @@
 
     /* talent selection colour */
     --btt-not-selected: darkgrey;
-    --btt-selectable: lightgrey;
+    --btt-selectable: turquoise;
     --btt-partially-selected: yellow;
     --btt-fully-selected: orange;
 }
