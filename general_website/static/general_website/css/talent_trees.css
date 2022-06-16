@@ -10,6 +10,7 @@
 
     /* talent selection colour */
     --btt-not-selected: darkgrey;
+    --btt-selectable: turquoise;
     --btt-partially-selected: yellow;
     --btt-fully-selected: orange;
 }
@@ -57,6 +58,11 @@ div.btt-talent>div.btt-talent-rank {
     text-shadow: -1px 0 2px black, 0 1px 2px black, 1px 0 2px black, 0 -1px 2px black;
 }
 
+.btt-selectable {
+    color: var(--btt-selectable);
+    stroke: var(--btt-selectable);
+}
+
 .btt-not-selected {
     color: var(--btt-not-selected);
     stroke: var(--btt-not-selected);
@@ -70,6 +76,11 @@ div.btt-talent>div.btt-talent-rank {
 .btt-fully-selected {
     color: var(--btt-fully-selected);
     stroke: var(--btt-fully-selected);
+}
+
+.btt-selectable-bg {
+    background-color: var(--btt-selectable);
+    /* filter: grayscale(100%); */
 }
 
 .btt-not-selected-bg {
