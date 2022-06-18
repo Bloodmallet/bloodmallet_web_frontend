@@ -591,29 +591,35 @@ function add_bloodmallet_trees() {
         let wow_spec = tree.dataset.wowSpec;
         let tree_type = tree.dataset.treeType;
 
+        // add visible tree state
+        let invested_points = document.createElement("p");
+        invested_points.classList.add("h3");
+        tree.appendChild(invested_points);
+
+        // create talents area
+        let talents_div = document.createElement("div");
+        talents_div.classList.add("bloodmallet-talents", "mb-3");
+        tree.appendChild(talents_div);
+
+        // add save-keeping tree state
+        talents_div.dataset.investedPoints = 0;
+
         // add gates
         let gate_pre_5 = document.createElement("div");
         gate_pre_5.classList.add("btt-gate-line", "btt-gate-value", "btt-vertical-align-center", "btt-gate-pre-5", "h4");
         gate_pre_5.appendChild(document.createTextNode(8));
-        tree.appendChild(gate_pre_5);
+        talents_div.appendChild(gate_pre_5);
 
         let gate_pre_9 = document.createElement("div");
         gate_pre_9.classList.add("btt-gate-line", "btt-gate-value", "btt-vertical-align-center", "btt-gate-pre-9", "h4");
         gate_pre_9.appendChild(document.createTextNode(20));
-        tree.appendChild(gate_pre_9);
-
-        // add save-keeping tree state
-        tree.dataset.investedPoints = 0;
-        // add visible tree state
-        let invested_points = document.createElement("p");
-        invested_points.classList.add("h3");
-        tree.parentNode.prepend(invested_points);
+        talents_div.appendChild(gate_pre_9);
 
         // create svg area
         let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.classList.add("btt-svg");
         svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        tree.appendChild(svg);
+        talents_div.appendChild(svg);
 
         let soon_to_be_loaded = undefined;
         if (tree_type === "class") {
@@ -625,17 +631,18 @@ function add_bloodmallet_trees() {
             continue;
         }
         soon_to_be_loaded.then(data => {
-            let talents = build_tree(tree, svg, data, wow_class, wow_spec, tree_type);
+            let talents = build_tree(talents_div, svg, data, wow_class, wow_spec, tree_type);
 
             let observer = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
                     if (mutation.type === "attributes" && mutation.attributeName === "data-invested-points") {
-                        update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
+                        update_invested_points(invested_points, parseInt(talents_div.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
                     }
                 });
             });
-            observer.observe(tree, { attributes: true });
-            update_invested_points(invested_points, parseInt(tree.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
+            observer.observe(talents_div, { attributes: true });
+
+            update_invested_points(invested_points, parseInt(talents_div.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
 
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -644,7 +651,7 @@ function add_bloodmallet_trees() {
             // add export button
             let form_row = document.createElement("div");
             form_row.classList.add("form-row");
-            tree.parentElement.appendChild(form_row);
+            tree.appendChild(form_row);
 
             let reset_button = document.createElement("button");
             reset_button.type = "button";
