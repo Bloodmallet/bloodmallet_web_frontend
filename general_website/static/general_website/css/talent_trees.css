@@ -1,8 +1,8 @@
 /* btt - Bloodmallets Talent Trees */
 
 :root {
-    --btt-box-size: 90px;
-    --btt-icon-size: 40px;
+    --btt-box-size: 65px;
+    --btt-icon-size: 35px;
     --line-strength: 2px;
 
     --btt-talent-columns: 9;
@@ -18,6 +18,8 @@
 div.btt-container {
     width: 100%;
     text-align: center;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 div.bloodmallets-talent-tree {
@@ -30,7 +32,7 @@ div.bloodmallets-talent-tree {
     /* grid-template: ; */
     grid-template-columns: repeat(var(--btt-talent-columns), calc(var(--btt-box-size) / 3 * 2));
     grid-template-rows: repeat(var(--btt-talent-rows), var(--btt-box-size));
-    row-gap: calc(var(--btt-box-size) / 4);
+    row-gap: calc(var(--btt-box-size) / 5);
     column-gap: calc(var(--btt-box-size) / 5);
 }
 

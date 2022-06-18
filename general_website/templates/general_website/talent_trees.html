@@ -34,10 +34,11 @@
     <li><del>import path</del></li>
 </ul>
 
-<h2>Class tree: Balance Druid</h2>
-<div class="btt-container">
-    <div id="main" class="bloodmallets-talent-tree mb-5" data-wow-class="druid" data-wow-spec="balance"
-        data-tree-type="class">
+<h2>Balance Druid</h2>
+<div class="btt-container mb-5">
+    <div class="bloodmallets-talent-tree mb-5" data-wow-class="druid" data-wow-spec="balance" data-tree-type="class">
+    </div>
+    <div class="bloodmallets-talent-tree mb-5" data-wow-class="druid" data-wow-spec="balance" data-tree-type="spec">
     </div>
 </div>
 
@@ -148,6 +149,8 @@
 {% endblock %}
 
 {% block extraimport %}
+<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
+
 <link rel="stylesheet" href="{% static 'general_website/css/talent_trees.css' %}" />
 <script src="{% static 'general_website/js/talent_trees.js' %}"></script>
 

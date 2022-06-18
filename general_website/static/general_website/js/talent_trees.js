@@ -81,7 +81,7 @@ class Talent {
             this.rank = this.max_rank;
         }
 
-        if ("img_url" in object) {
+        if ("img_url" in object && object.img_url.length > 0) {
             this.img_url = object.img_url;
         }
 
