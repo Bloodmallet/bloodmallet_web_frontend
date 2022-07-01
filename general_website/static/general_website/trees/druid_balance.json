@@ -1,5 +1,6 @@
 [
-    {   "name": "Eclipse",
+    {
+        "name": "Eclipse",
         "description": "Casting 2 Starfires empowers Wrath for 15 seconds. Casting 2 Wraths empowers Starfire for 15 seconds. These Exlipses occur in alternation.\nEclipse (Solar): Wrath cast time reduced 8% and damage increased 20%.\nEclipse (Lunar): Starfire cast time reduced 8% and critical strike chance increased 20%.",
         "max_rank": 1,
         "coordinates": [
@@ -21,7 +22,8 @@
         "img_url": "https://www.wowhead.com/icon=236152/ability-druid-eclipseorange",
         "default_for_specs": []
     },
-    {   "name": "Improved Eclipse [NNF]",
+    {
+        "name": "Improved Eclipse [NNF]",
         "description": "Eclipse now reduces the cast time of affected spells by 15%.",
         "max_rank": 1,
         "coordinates": [
@@ -43,7 +45,8 @@
         "img_url": "https://www.wowhead.com/icon=236152/ability-druid-eclipseorange",
         "default_for_specs": []
     },
-    {   "name": "Improved Moonfire and Sunfire [NNF]",
+    {
+        "name": "Improved Moonfire and Sunfire [NNF]",
         "description": "Moonfire and Sunfire duration increased by [3/6] seconds. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -65,7 +68,8 @@
         "img_url": "https://www.wowhead.com/icon=136096/spell-nature-starfall",
         "default_for_specs": []
     },
-    {   "name": "Force of Nature",
+    {
+        "name": "Force of Nature",
         "description": "Summons a stand of 3 Treants for 10 sec which immediately taunt and attack enemies in the targeted area. Generates 20 Astral Power.",
         "max_rank": 1,
         "coordinates": [
@@ -83,7 +87,8 @@
         "img_url": "https://www.wowhead.com/icon=132129/ability-druid-forceofnature",
         "default_for_specs": []
     },
-    {   "name": "Nature's Balance",
+    {
+        "name": "Nature's Balance",
         "description": "While in combat you generate [1/2] Astral Power every 2 seconds. While out of combat your Astral Power rebalances to 50 instead of depleting to empty. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -109,7 +114,8 @@
         "img_url": "https://www.wowhead.com/icon=132113/ability-druid-balanceofpower",
         "default_for_specs": []
     },
-    {   "name": "Warrior of Elune",
+    {
+        "name": "Warrior of Elune",
         "description": "Your next 3 Starfires are instant cast and generate 40% increased Astral Power",
         "max_rank": 1,
         "coordinates": [
@@ -127,7 +133,8 @@
         "img_url": "https://www.wowhead.com/icon=135900/spell-holy-elunesgrace",
         "default_for_specs": []
     },
-    {   "name": "Starfall",
+    {
+        "name": "Starfall",
         "description": "Calls down waves of falling stars upon enemies within 40 yds, dealing Astral damage over 8 seconds.",
         "max_rank": 1,
         "coordinates": [
@@ -149,7 +156,8 @@
         "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
         "default_for_specs": []
     },
-    {   "name": "Improved Moonkin Form [NNF]",
+    {
+        "name": "Improved Moonkin Form [NNF]",
         "description": "While in Moonkin Form, single-target attacks against you have a 15% chance to make your next Starfire instant.",
         "max_rank": 1,
         "coordinates": [
@@ -162,7 +170,8 @@
         "img_url": "https://www.wowhead.com/icon=136036/spell-nature-forceofnature",
         "default_for_specs": []
     },
-    {   "name": "Celestial Alignment",
+    {
+        "name": "Celestial Alignment",
         "description": "Bring the celestial bodies into alignment over the target area applying Moonfire and Sunfire to all enemies. For 20 sec, both Eclipses are maintained and you gain 10% haste.",
         "max_rank": 1,
         "coordinates": [
@@ -184,7 +193,8 @@
         "img_url": "https://www.wowhead.com/icon=136060/spell-nature-natureguardian",
         "default_for_specs": []
     },
-    {   "name": "Improved Starsurge",
+    {
+        "name": "Improved Starsurge",
         "description": "Starsurge further empowers the damage bonus of any active Eclipse.",
         "max_rank": 1,
         "coordinates": [
@@ -202,7 +212,8 @@
         "img_url": "https://www.wowhead.com/icon=135730/spell-arcane-arcane03",
         "default_for_specs": []
     },
-    {   "name": "Solar Beam",
+    {
+        "name": "Solar Beam",
         "description": "Summons a beam of solar light over an enemy target's location, interrupting the target and silencing all enemies within the beam. Lasts 8 seconds.",
         "max_rank": 1,
         "coordinates": [
@@ -220,7 +231,8 @@
         "img_url": "https://www.wowhead.com/icon=252188/ability-vehicle-sonicshockwave",
         "default_for_specs": []
     },
-    {   "name": "Shooting Stars",
+    {
+        "name": "Shooting Stars",
         "description": "Moonfire and Sunfire damage over time has a chance to call down a falling star, dealing Astral damage and generating 2 Astral Power.",
         "max_rank": 1,
         "coordinates": [
@@ -238,7 +250,8 @@
         "img_url": "https://www.wowhead.com/icon=631519/spell-priest-divinestar-shadow2",
         "default_for_specs": []
     },
-    {   "name": "Improved Starfall",
+    {
+        "name": "Improved Starfall",
         "description": "Casting Starfall extends the duration of active Moonfires and Sunfires by [2/4] seconds. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -260,7 +273,8 @@
         "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
         "default_for_specs": []
     },
-    {   "name": "Power of Goldrinn",
+    {
+        "name": "Power of Goldrinn",
         "description": "Starsurge has a chance to summon the Spirit of Goldrinn, which immediately deals Arcane damage to the target. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -286,7 +300,8 @@
         "img_url": "https://www.wowhead.com/icon=464162/inv-mount-spectralwolf",
         "default_for_specs": []
     },
-    {   "name": "Starlord",
+    {
+        "name": "Starlord",
         "description": "Starsurge and Starfall grant you [2/4]% Haste for 15 seconds. Stacks up to 3 times. Gaining a stack does not refresh the duration. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -308,7 +323,8 @@
         "img_url": "https://www.wowhead.com/icon=462651/spell-shaman-measuredinsight",
         "default_for_specs": []
     },
-    {   "name": "Stellar Drift",
+    {
+        "name": "Stellar Drift",
         "description": "Starfall deals 50% additional damage and allows you to cast while moving while it is active, but now has a 12 sec cooldown.",
         "max_rank": 1,
         "coordinates": [
@@ -326,7 +342,8 @@
         "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
         "default_for_specs": []
     },
-    {   "name": "Stellar Inspiration",
+    {
+        "name": "Stellar Inspiration",
         "description": "Starsurge and Starfall have a [10/15/20]% chance to empower Eclipse or extend Moonfire and Sunfire by double the amount. Three Rank Talent.",
         "max_rank": 3,
         "coordinates": [
@@ -348,7 +365,8 @@
         "img_url": "https://www.wowhead.com/icon=1029587/ability-skyreach-lens-flare",
         "default_for_specs": []
     },
-    {   "name": "Light of the Sun",
+    {
+        "name": "Light of the Sun",
         "description": "Reduces the remaining cooldown on Solar Beam by 15 seconds when it interrupts the primary target.",
         "max_rank": 1,
         "coordinates": [
@@ -361,7 +379,8 @@
         "img_url": "https://www.wowhead.com/icon=252188/ability-vehicle-sonicshockwave",
         "default_for_specs": []
     },
-    {   "name": "Umbral Intensity",
+    {
+        "name": "Umbral Intensity",
         "description": "Eclipse's damage bonus to Wrath and Starfire starts [10/20/30] stronger. Three Rank Talent.",
         "max_rank": 3,
         "coordinates": [
@@ -383,7 +402,8 @@
         "img_url": "https://www.wowhead.com/icon=236151/ability-druid-eclipse",
         "default_for_specs": []
     },
-    {   "name": "Precise Alignment",
+    {
+        "name": "Precise Alignment",
         "description": "The duration of Celestial Alignment is increased by 5 seconds.",
         "max_rank": 1,
         "coordinates": [
@@ -401,7 +421,8 @@
         "img_url": "https://www.wowhead.com/icon=136060/spell-nature-natureguardian",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Blessing of Elune</span><br/>Lunar Eclipse is 3 seconds longer and Solar Eclipse is 3 seconds shorter.</p><p><span class=\"btt-talent-name\">Blessing of An'she</span><br/>Solar Eclipse is 3 seconds longer and Lunar Eclipse is 3 seconds shorter.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -423,7 +444,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Soul of the Forest",
+    {
+        "name": "Soul of the Forest",
         "description": "Eclipse increases Wrath's Astral power generation 50%, and increases Starfire's area effect damage by 150%.",
         "max_rank": 1,
         "coordinates": [
@@ -441,7 +463,8 @@
         "img_url": "https://www.wowhead.com/icon=236160/ability-druid-manatree",
         "default_for_specs": []
     },
-    {   "name": "Fury of the Skies",
+    {
+        "name": "Fury of the Skies",
         "description": "Moonfire increases your Arcane damage to the target, and Sunfire increases your Nature damage to the target, by [1/2]%. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -459,7 +482,8 @@
         "img_url": "https://www.wowhead.com/icon=1033477/spell-druid-equinox",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Twin Moons</span><br/>Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target.</p><p><span class=\"btt-talent-name\">Stellar Flare</span><br/>Burns the target for a small amount of Astral damage, and then additional Astral damage over 24 seconds. Generates 8 Astral Power.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -477,7 +501,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Solstice",
+    {
+        "name": "Solstice",
         "description": "During the first 6 sec of every Eclipse, Shooting Stars fall 250% more often. Two Rank talent.",
         "max_rank": 2,
         "coordinates": [
@@ -499,7 +524,8 @@
         "img_url": "https://www.wowhead.com/icon=1392544/artifactability-balancedruid-moonandstars",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Oneth's Clear Vision [NNF]</span><br/>Starsurge has a 20% chance to make Starfall free. Starfall has a 40% chance to make Starsurge free.</p><p><span class=\"btt-talent-name\">Timeworn Dreambinder [NNF]</span><br/>Starsurge and Starfall reduce the cost of Starsurge and Starfall by 10% and increase their damage by 10% for 5 sec, stacking up to 2 times.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -512,7 +538,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Umbral Infusion [NNF]",
+    {
+        "name": "Umbral Infusion [NNF]",
         "description": "While in an Eclipse, the cost of Starsurge and Starfall is reduced by [5/10]%. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -530,7 +557,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Incarnation: Chosen of Elune</span><br/>An improved Moonkin Form that grants the benefits of Celestial Alignment, and 10% critical strike chance. Lasts 30 seconds. You may shapeshift in and out of this improved Moonkin Form for its duration.</p><p><span class=\"btt-talent-name\">Convoke the Spirits</span><br/>Call upon the Druidic ancestors for an eruption of energy, channeling a rapid flurry of 16 Druid spells and abilities over 4 seconds. You will cast Starsurge, Starfall, Moonfire, Wrath, Regrowth, Rejuvenation, Rake, and Thrash on appropriate nearby targets, favoring your current shapeshift form.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -548,7 +576,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Circle of Life and Death",
+    {
+        "name": "Circle of Life and Death",
         "description": "Your damage over time effects deal their damage in 25% less time, and your healing over time effects in 15% less time. Two Rank Talent.",
         "max_rank": 2,
         "coordinates": [
@@ -566,7 +595,8 @@
         "img_url": "https://www.wowhead.com/icon=132119/ability-druid-cyclone",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Syzygy</span><br/>Celestial Alignment now blasts all targets between you and the selected area for Astral damage and applies Moonfire and Sunfire to them.</p><p><span class=\"btt-talent-name\">Primordial Arcanic Pulsar</span><br/>Every 400 Astral Power spent grants Celestial Alignment for 12 seconds.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -584,7 +614,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">New Moon</span><br/>Deals Astral damage to the target and empowers New Moon to become Half Moon. Generates 10 Astral Power.</p><p><span class=\"btt-talent-name\">Fury of Elune</span><br/>Calls down a beam of pure celestial energy that follows the enemy, dealing Astral damage over 8 sec within its area. Damage reduced on secondary targets. Generates 40 Astral Power over its duration.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -597,7 +628,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Inproved Incarnation/Convoke [NNF]",
+    {
+        "name": "Inproved Incarnation/Convoke [NNF]",
         "description": "Shifting out of Incarnation before it expires ends the effect and refunds a portion of its cooldown. Convoke the Spirits has an increased chance to use an exceptional spell or ability.",
         "max_rank": 1,
         "coordinates": [
@@ -610,7 +642,8 @@
         "img_url": "https://www.wowhead.com/icon=132137/ability-druid-naturalperfection",
         "default_for_specs": []
     },
-    {   "name": "Choice Node",
+    {
+        "name": "Choice Node",
         "description": "<p><span class=\"btt-talent-name\">Adaptive Swarm</span><br/>Command a swarm that heals or deals Shadow damage over 12 sec to a target, and increases the effectiveness of your periodic effects on them by 20%. Upon expiration, finds a new target, preferring to alternate between friend and foe up to 3 times.</p><p><span class=\"btt-talent-name\">Balance of All Things</span><br/>Entering Eclipse increases your critical strike chance with Arcane or Nature spells by 24%, decreasing by 3% every 1 seconds.</p>",
         "max_rank": 1,
         "coordinates": [
@@ -623,7 +656,8 @@
         "img_url": "",
         "default_for_specs": []
     },
-    {   "name": "Orbit Breaker",
+    {
+        "name": "Orbit Breaker",
         "description": "Every 30th Shooting Star calls down a Full Moon upon its target.",
         "max_rank": 1,
         "coordinates": [
