@@ -19,7 +19,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236152/ability-druid-eclipseorange",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_eclipseorange.jpg",
         "default_for_specs": []
     },
     {
@@ -42,7 +42,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236152/ability-druid-eclipseorange",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_eclipseorange.jpg",
         "default_for_specs": []
     },
     {
@@ -65,7 +65,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=136096/spell-nature-starfall",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_nature_starfall.jpg",
         "default_for_specs": []
     },
     {
@@ -84,7 +84,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=132129/ability-druid-forceofnature",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_forceofnature.jpg",
         "default_for_specs": []
     },
     {
@@ -111,7 +111,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=132113/ability-druid-balanceofpower",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_balanceofpower.jpg",
         "default_for_specs": []
     },
     {
@@ -130,7 +130,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=135900/spell-holy-elunesgrace",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_elunesgrace.jpg",
         "default_for_specs": []
     },
     {
@@ -153,7 +153,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_starfall.jpg",
         "default_for_specs": []
     },
     {
@@ -167,7 +167,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=136036/spell-nature-forceofnature",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_nature_forceofnature.jpg",
         "default_for_specs": []
     },
     {
@@ -190,7 +190,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=136060/spell-nature-natureguardian",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_nature_natureguardian.jpg",
         "default_for_specs": []
     },
     {
@@ -209,7 +209,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=135730/spell-arcane-arcane03",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_arcane_arcane03.jpg",
         "default_for_specs": []
     },
     {
@@ -228,7 +228,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=252188/ability-vehicle-sonicshockwave",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_vehicle_sonicshockwave.jpg",
         "default_for_specs": []
     },
     {
@@ -247,7 +247,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=631519/spell-priest-divinestar-shadow2",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_priest_divinestar_shadow2.jpg",
         "default_for_specs": []
     },
     {
@@ -270,7 +270,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_starfall.jpg",
         "default_for_specs": []
     },
     {
@@ -297,7 +297,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=464162/inv-mount-spectralwolf",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_mount_spectralwolf.jpg",
         "default_for_specs": []
     },
     {
@@ -320,7 +320,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=462651/spell-shaman-measuredinsight",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_shaman_measuredinsight.jpg",
         "default_for_specs": []
     },
     {
@@ -339,7 +339,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236168/ability-druid-starfall",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_starfall.jpg",
         "default_for_specs": []
     },
     {
@@ -362,7 +362,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=1029587/ability-skyreach-lens-flare",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_skyreach_lens_flare.jpg",
         "default_for_specs": []
     },
     {
@@ -376,7 +376,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=252188/ability-vehicle-sonicshockwave",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_vehicle_sonicshockwave.jpg",
         "default_for_specs": []
     },
     {
@@ -399,7 +399,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236151/ability-druid-eclipse",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_eclipse.jpg",
         "default_for_specs": []
     },
     {
@@ -418,7 +418,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=136060/spell-nature-natureguardian",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_nature_natureguardian.jpg",
         "default_for_specs": []
     },
     {
@@ -460,7 +460,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=236160/ability-druid-manatree",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_manatree.jpg",
         "default_for_specs": []
     },
     {
@@ -479,7 +479,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=1033477/spell-druid-equinox",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_druid_equinox.jpg",
         "default_for_specs": []
     },
     {
@@ -521,7 +521,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=1392544/artifactability-balancedruid-moonandstars",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/artifactability_balancedruid_moonandstars.jpg",
         "default_for_specs": []
     },
     {
@@ -592,7 +592,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=132119/ability-druid-cyclone",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_cyclone.jpg",
         "default_for_specs": []
     },
     {
@@ -639,7 +639,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "https://www.wowhead.com/icon=132137/ability-druid-naturalperfection",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_druid_naturalperfection.jpg",
         "default_for_specs": []
     },
     {
