@@ -23,7 +23,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_greaterheal.jpg",
         "default_for_specs": []
     },
     {
@@ -42,7 +42,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_prayerofhealing02.jpg",
         "default_for_specs": []
     },
     {
@@ -61,7 +61,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_persuitofjustice.jpg",
         "default_for_specs": []
     },
     {
@@ -80,7 +80,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_searinglight.jpg",
         "default_for_specs": []
     },
     {
@@ -99,7 +99,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_divineprovidence.jpg",
         "default_for_specs": []
     },
     {
@@ -122,7 +122,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_chastise.jpg",
         "default_for_specs": []
     },
     {
@@ -149,7 +149,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_enchant_essenceeternallarge.jpg",
         "default_for_specs": []
     },
     {
@@ -176,7 +176,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_priest_wordsofmeaning.jpg",
         "default_for_specs": []
     },
     {
@@ -190,7 +190,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_eyeforaneye.jpg",
         "default_for_specs": []
     },
     {
@@ -217,7 +217,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_guardianspirit.jpg",
         "default_for_specs": []
     },
     {
@@ -231,7 +231,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_enchant_essencemagiclarge.jpg",
         "default_for_specs": []
     },
     {
@@ -250,7 +250,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_summonlightwell.jpg",
         "default_for_specs": []
     },
     {
@@ -269,7 +269,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_circleofrenewal.jpg",
         "default_for_specs": []
     },
     {
@@ -288,7 +288,10 @@
         ],
         "type": "choice",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": [
+            "https://wow.zamimg.com/images/wow/icons/large/spell_priest_divinestar.jpg",
+            "https://wow.zamimg.com/images/wow/icons/large/ability_priest_halo.jpg"
+        ],
         "default_for_specs": []
     },
     {
@@ -302,7 +305,7 @@
         "child_coordinates": [],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_blindingheal.jpg",
         "default_for_specs": []
     },
     {
@@ -329,7 +332,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_surgeoflight.jpg",
         "default_for_specs": []
     },
     {
@@ -343,7 +346,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_priest_pathofthedevout.jpg",
         "default_for_specs": []
     },
     {
@@ -357,7 +360,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_paladin_divinecircle.jpg",
         "default_for_specs": []
     },
     {
@@ -371,7 +374,10 @@
         "child_coordinates": [],
         "type": "choice",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": [
+            "https://wow.zamimg.com/images/wow/icons/large/ability_paladin_blindinglight2.jpg",
+            "https://wow.zamimg.com/images/wow/icons/large/ability_warrior_commandingshout.jpg"
+        ],
         "default_for_specs": []
     },
     {
@@ -385,7 +391,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_paladin_lightoftheprotector.jpg",
         "default_for_specs": []
     },
     {
@@ -404,7 +410,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_divinehymn.jpg",
         "default_for_specs": []
     },
     {
@@ -418,7 +424,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_pet_naaru.jpg",
         "default_for_specs": []
     },
     {
@@ -437,7 +443,7 @@
         ],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_symbolofhope.jpg",
         "default_for_specs": []
     },
     {
@@ -464,7 +470,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_elemental_primal_mana.jpg",
         "default_for_specs": []
     },
     {
@@ -491,7 +497,10 @@
         ],
         "type": "choice",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": [
+            "https://wow.zamimg.com/images/wow/icons/large/ability_priest_archangel.jpg",
+            "https://wow.zamimg.com/images/wow/icons/large/ability_priest_ascension.jpg"
+        ],
         "default_for_specs": []
     },
     {
@@ -518,7 +527,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_nature_unleashedrage.jpg",
         "default_for_specs": []
     },
     {
@@ -537,7 +546,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_misc_volatileair.jpg",
         "default_for_specs": []
     },
     {
@@ -551,7 +560,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_bossfelmagnaron_runeempowered.jpg",
         "default_for_specs": []
     },
     {
@@ -570,7 +579,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_holybolt.jpg",
         "default_for_specs": []
     },
     {
@@ -584,7 +593,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_fomor_boss_rune_yellow.jpg",
         "default_for_specs": []
     },
     {
@@ -603,7 +612,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/ability_priest_bindingprayers.jpg",
         "default_for_specs": []
     },
     {
@@ -617,7 +626,7 @@
         "child_coordinates": [],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/70_inscription_vantus_rune_odyn.jpg",
         "default_for_specs": []
     },
     {
@@ -636,7 +645,7 @@
         ],
         "type": "passive",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/inv_summerfest_firespirit.jpg",
         "default_for_specs": []
     },
     {
@@ -650,7 +659,7 @@
         "child_coordinates": [],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_holy_summonlightwell.jpg",
         "default_for_specs": []
     },
     {
@@ -664,7 +673,7 @@
         "child_coordinates": [],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_priest_chakra.jpg",
         "default_for_specs": []
     },
     {
@@ -678,7 +687,7 @@
         "child_coordinates": [],
         "type": "active",
         "spell_id": -1,
-        "img_url": "",
+        "img_url": "https://wow.zamimg.com/images/wow/icons/large/spell_fire_ragnaros_lavabolt.jpg",
         "default_for_specs": []
     }
 ]
