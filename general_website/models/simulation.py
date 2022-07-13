@@ -60,7 +60,7 @@ class Simulation(models.Model):
         max_length=10000,
         blank=True,
         help_text=_(
-            'Define your own character here, instead of using the standard profile (your input will overwrite the standard profile). Paste your <a href="https://mods.curse.com/addons/wow/simulationcraft" target="_blank">SimulationCraft</a> /simc output into this element.'
+            'Define your own character here, instead of using the standard profile (your input will overwrite the standard profile). Paste your <a href="https://www.curseforge.com/wow/addons/simulationcraft" target="_blank">SimulationCraft</a> /simc output into this element.'
         ),
     )
     custom_fight_style = models.TextField(
