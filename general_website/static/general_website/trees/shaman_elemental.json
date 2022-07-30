@@ -1596,7 +1596,7 @@
                     "type": "passive",
                     "name": "Flux Melting",
                     "spellId": 381776,
-                    "icon": "spell_frostfire_orb"
+                    "icon": "spell_frostfire-orb"
                 }
             ]
         },
