@@ -66,7 +66,7 @@ class TreeNode {
     html_parent = undefined;
     html_rank = undefined;
     tree_type = undefined;
-    talents = [];
+    sub_talents = [];
     html_talent_icons = [];
 
     /**
@@ -119,7 +119,7 @@ class TreeNode {
 
         if ("entries" in object && object.entries.length > 0) {
             for (let talent of object.entries) {
-                this.talents.push(new Talent(talent));
+                this.sub_talents.push(new Talent(talent));
             }
         }
 
@@ -150,10 +150,10 @@ class TreeNode {
             return link;
         }
         if (this.type === "choice") {
-            let img = create_icon_div("btt-octagon-left", this.talents[1]);
+            let img = create_icon_div("btt-octagon-left", this.sub_talents[1]);
             this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
-            img = create_icon_div("btt-octagon-right", this.talents[0]);
+            img = create_icon_div("btt-octagon-right", this.sub_talents[0]);
             this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
         } else {
@@ -161,7 +161,7 @@ class TreeNode {
                 "passive": "btt-circle",
                 "active": "btt-square",
             }
-            let img = create_icon_div(type_map[this.type], this.talents[0])
+            let img = create_icon_div(type_map[this.type], this.sub_talents[0])
             this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
         }
@@ -616,47 +616,60 @@ function update_invested_points(element, invested_points, tree_type, gate_pre_5,
     }
 }
 
+/**
+ * simc export string
+ * @param {*} tree_type 
+ * @param {*} wow_class 
+ * @param {*} wow_spec 
+ * @param {*} talents 
+ * @returns 
+ */
 function get_export_string(tree_type, wow_class, wow_spec, talents) {
-    let separator = ";"
-    let talent_string = talents.filter(talent => talent.is_selected).map(talent => talent.coordinates.toString() + ":" + talent.rank).join(separator);
-    let export_string = [wow_class, wow_spec, tree_type, talent_string].join(separator);
-    return export_string;
+    let separator = "/"
+    let talent_string = talents
+        .filter(talent => talent.is_selected)
+        .map(talent => { talent.sub_talents[0].id.toString() + ":" + talent.rank })
+        .join(separator);
+    // let export_string = [wow_class, wow_spec, tree_type, talent_string].join(separator);
+    return tree_type + "_talents=" + talent_string;
 }
 
+/**
+ * use an export-string to update the tree to the same state.
+ * @param {*} input_string 
+ * @param {*} tree_type 
+ * @param {*} wow_class 
+ * @param {*} wow_spec 
+ * @param {*} talents 
+ * @returns 
+ */
 function update_tree(input_string, tree_type, wow_class, wow_spec, talents) {
     // does string match current talents
-    let split_string = input_string.split(";");
-    if (wow_class !== split_string[0]) {
-        console.warn("Pasted string does not match current wow_class.");
-        return;
-    }
-    if (wow_spec !== split_string[1]) {
-        console.warn("Pasted string does not match current wow_spec.");
-        return;
-    }
-    if (tree_type !== split_string[2]) {
+    if (tree_type !== input_string.split("_")[0]) {
         console.warn("Pasted string does not match current tree_type.");
         return;
     }
+    let split_string = input_string.split("=")[1].split("/");
 
     // reset talents
     reset_tree(talents);
 
     // set new talent states
-    let talent_blops = split_string.slice(3, split_string.length);
+    let talent_blops = split_string.slice(0, split_string.length);
     let rank_sum = 0;
     for (let talent_string of talent_blops) {
-        let coord_string = talent_string.split(":")[0];
+        let talent_id_not_spell_id = parseInt(talent_string.split(":")[0]);
         let rank = parseInt(talent_string.split(":")[1]);
-        let coords = coord_string.split(",").map(coord => parseInt(coord));
         for (let talent of talents) {
-            if (talent.x === coords[0] && talent.y === coords[1] && !talent.is_default) {
+            if (talent.sub_talents[0].id === talent_id_not_spell_id && !talent.is_default) {
                 rank_sum += rank;
                 talent.rank = rank;
-                talent.update_rank();
-                talent.update_selection_state();
             }
         }
+    }
+    for (let talent of talents) {
+        talent.update_rank();
+        talent.update_selection_state();
     }
     for (let i = 1; i <= rank_sum; i++) {
         talents[0].html_parent.dataset.investedPoints = i;
@@ -753,15 +766,15 @@ function add_bloodmallet_trees() {
 
             let reset_button = document.createElement("button");
             reset_button.type = "button";
-            reset_button.classList.add("btn", "btn-warning", "col");
+            reset_button.classList.add("btn", "btn-warning", "col", "mr-3");
             reset_button.appendChild(document.createTextNode("Reset"));
             reset_button.addEventListener("click", () => reset_tree(talents));
             form_row.appendChild(reset_button);
 
             let export_button = document.createElement("button");
             export_button.type = "button";
-            export_button.classList.add("btn", "btn-primary", "col");
-            export_button.appendChild(document.createTextNode("Copy path to clipboard"));
+            export_button.classList.add("btn", "btn-primary", "col", "mr-3");
+            export_button.appendChild(document.createTextNode("Copy simc-string to clipboard"));
             export_button.addEventListener("click", () => {
                 navigator.clipboard.writeText(get_export_string(tree_type, wow_class, wow_spec, talents)).then(function () {
                     /* clipboard successfully set */
@@ -786,9 +799,8 @@ function add_bloodmallet_trees() {
             // add import text area
             let import_text_area = document.createElement("input");
             import_text_area.classList.add("form-control", "col");
-            import_text_area.placeholder = "Paste path into this element.";
+            import_text_area.placeholder = "Paste simc-string into this element.";
             import_text_area.addEventListener("input", (element, ev) => {
-                console.log(element);
                 if (element.inputType !== "insertFromPaste") {
                     return;
                 }
