@@ -628,7 +628,7 @@ function get_export_string(tree_type, wow_class, wow_spec, talents) {
     let separator = "/"
     let talent_string = talents
         .filter(talent => talent.is_selected)
-        .map(talent => { talent.sub_talents[0].id.toString() + ":" + talent.rank })
+        .map(talent => talent.sub_talents[0].id.toString() + ":" + talent.rank)
         .join(separator);
     // let export_string = [wow_class, wow_spec, tree_type, talent_string].join(separator);
     return tree_type + "_talents=" + talent_string;
