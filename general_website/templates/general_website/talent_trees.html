@@ -11,31 +11,21 @@
     Wrong or missing icon? <a href="https://github.com/Bloodmallet/bloodmallet_web_frontend/issues">Report it!</a>
 </div>
 
-<p>
-    TODO:
-</p>
-<ul>
-    <li>choice nodes icons</li>
-    <li>choice nodes specific selection</li>
-    <li>more tree data / icons</li>
-    <li>tree import (build your own tree)</li>
-</ul>
+<div class="container-fluid mt-5">
+    <div class="row text-center" id="spec_table"></div>
+</div>
 
-<h2>Balance Druid</h2>
+<h2 id="btt-talent-tree-title" style="padding-top: 7vh;"></h2>
 <div class="btt-container mb-5">
-    <div class="bloodmallets-talent-tree mb-5" data-wow-class="druid" data-wow-spec="balance" data-tree-type="class">
+    <div id="btt-class-tree" class="bloodmallets-talent-tree mb-5" data-wow-class="" data-wow-spec=""
+        data-tree-type="class">
     </div>
-    <div class="bloodmallets-talent-tree mb-5" data-wow-class="druid" data-wow-spec="balance" data-tree-type="spec">
+    <div id="btt-spec-tree" class="bloodmallets-talent-tree mb-5" data-wow-class="" data-wow-spec=""
+        data-tree-type="spec">
     </div>
 </div>
 
-<h2>Holy Priest</h2>
-<div class="btt-container mb-5">
-    <div class="bloodmallets-talent-tree mb-5" data-wow-class="priest" data-wow-spec="holy" data-tree-type="class">
-    </div>
-    <div class="bloodmallets-talent-tree mb-5" data-wow-class="priest" data-wow-spec="holy" data-tree-type="spec">
-    </div>
-</div>
+<!-- -------------------------------------------------------------------------------------------------------------- -->
 
 <h3 class="mt-5">Data example</h3>
 <code>
@@ -143,12 +133,13 @@
 {% endblock %}
 
 {% block extraimport %}
-<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
-
-<link rel="stylesheet" href="{% static 'general_website/css/talent_trees.css' %}" />
 <script src="{% static 'general_website/js/talent_trees.js' %}"></script>
 
-<script>
-    add_bloodmallet_trees();
-</script>
+<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
+<script src="{% static 'general_website/js/talent_tree_class_spec_table.js' %}"></script>
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+
+
+<link rel="stylesheet" href="{% static 'general_website/css/talent_trees.css' %}" />
+
 {% endblock %}
