@@ -38,9 +38,9 @@ class Talent {
     wow_class = "placeholder";
     wow_spec = "placeholder";
     html_parent = undefined;
-    img_url = "https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg";
+    img_urls = ["https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg"];
     html_rank = undefined;
-    html_icon = undefined;
+    html_icons = [];
     tree_type = undefined;
 
     /**
@@ -92,9 +92,17 @@ class Talent {
             this.rank = this.max_rank;
         }
 
-        if ("entries" in object && object.entries.length > 0 && "icon" in object.entries[0]) {
-            // https://wow.zamimg.com/images/wow/icons/large/ability_druid_eclipseorange.jpg
-            this.img_url = "https://wow.zamimg.com/images/wow/icons/large/" + object.entries[0].icon + ".jpg";
+        if ("entries" in object && object.entries.length > 0) {
+            let tmp = this.img_urls[0];
+            this.img_urls = [];
+            for (let spell of object.entries) {
+                if ("icon" in spell) {
+                    this.img_urls.push("https://wow.zamimg.com/images/wow/icons/large/" + spell.icon + ".jpg")
+                }
+            }
+            if (this.img_urls.length === 0) {
+                this.img_urls.push(tmp);
+            }
         }
 
         // create element
@@ -117,22 +125,33 @@ class Talent {
         this.html_element = div;
 
         // add spell icon
-        let icon = document.createElement("div");
-        icon.classList.add("btt-icon");
-        if (this.type === "passive") {
-            icon.classList.add("btt-circle");
-        } else if (this.type === "active") {
-            icon.classList.add("btt-square");
-        } else if (this.type === "choice") {
-            icon.classList.add("btt-octagon");
+        function create_icon_div(class_name, url) {
+            let icon = document.createElement("div");
+            icon.classList.add("btt-icon");
+            icon.classList.add(class_name);
+
+            let img = document.createElement("img");
+            img.src = url;
+            icon.appendChild(img);
+
+            return icon;
         }
-
-        this.html_icon = icon;
-        this.html_element.appendChild(this.html_icon);
-
-        let img = document.createElement("img");
-        img.src = this.img_url;
-        this.html_icon.appendChild(img);
+        if (this.type === "choice") {
+            let img = create_icon_div("btt-octagon-left", this.img_urls[1]);
+            this.html_icons.push(img);
+            this.html_element.appendChild(img);
+            img = create_icon_div("btt-octagon-right", this.img_urls[0]);
+            this.html_icons.push(img);
+            this.html_element.appendChild(img);
+        } else {
+            let type_map = {
+                "passive": "btt-circle",
+                "active": "btt-square",
+            }
+            let img = create_icon_div(type_map[this.type], this.img_urls[0])
+            this.html_icons.push(img);
+            this.html_element.appendChild(img);
+        }
 
         if (this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) === -1) {
             let rank_div = document.createElement("div");
@@ -193,19 +212,6 @@ class Talent {
             } else {
                 line.classList.add(not_selected);
             }
-        }
-
-        // style icon border
-        let bg = "-bg";
-        this.html_icon.classList.remove(not_selected + bg, partially_selected + bg, fully_selected + bg, selectable + bg);
-        if (this.is_fully_selected) {
-            this.html_icon.classList.add(fully_selected + bg);
-        } else if (this.is_selected) {
-            this.html_icon.classList.add(partially_selected + bg);
-        } else if (this.is_selectable) {
-            this.html_icon.classList.add(selectable + bg);
-        } else {
-            this.html_icon.classList.add(not_selected + bg);
         }
     }
 

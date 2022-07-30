@@ -86,21 +86,21 @@ div.btt-talent>div.btt-talent-rank {
     stroke: var(--btt-fully-selected);
 }
 
-.btt-selectable-bg {
+.btt-selectable>.btt-icon {
     background-color: var(--btt-selectable);
     /* filter: grayscale(100%); */
 }
 
-.btt-not-selected-bg {
+.btt-not-selected>.btt-icon {
     background-color: var(--btt-not-selected);
     filter: grayscale(100%);
 }
 
-.btt-partially-selected-bg {
+.btt-partially-selected>.btt-icon {
     background-color: var(--btt-partially-selected);
 }
 
-.btt-fully-selected-bg {
+.btt-fully-selected>.btt-icon {
     background-color: var(--btt-fully-selected);
 }
 
@@ -158,6 +158,18 @@ div.btt-talent>div.btt-talent-rank {
 .btt-octagon img {
     -webkit-clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
     clip-path: polygon(29% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
+}
+
+.btt-octagon-left,
+.btt-octagon-left img {
+    -webkit-clip-path: polygon(29% 0%, 50% 0%, 50% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
+    clip-path: polygon(29% 0%, 50% 0%, 50% 100%, 29% 100%, 0% 71%, 0% 29%, 29% 0%);
+}
+
+.btt-octagon-right,
+.btt-octagon-right img {
+    -webkit-clip-path: polygon(50% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 50% 100%, 50% 0%);
+    clip-path: polygon(50% 0%, 71% 0%, 100% 29%, 100% 71%, 71% 100%, 50% 100%, 50% 0%);
 }
 
 .btt-talent-name {
