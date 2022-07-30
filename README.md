@@ -1,11 +1,15 @@
-# dev.bloodmallet.com
-> You're seeing the code that runs dev.bloodmallet.com.
+# bloodmallet.com
+> You're seeing the code that runs bloodmallet.com.
 
 Everyone is welcome to add issues, discuss improvements and features, or create
 pull requests.
 
-## Development setup
+## Data source
+- chart data is generated using SimulationCraft with standard profiles from SimulationCraft
+- custom charts are generated user input, SimulationCraft, and SimulatioNCraft standard profiles as fallback
+- Dragonflight talent tree data (structure, names, spell_id) is kindly provided by raidbots.com 
 
+## Development setup
 1. Get or have [Python 3.6+](https://www.python.org/downloads/) (make sure to install it into PATH on windows)
 3. Get or have [git](https://git-scm.com/downloads) installed
 4. Download this repository
