@@ -70,6 +70,9 @@ class Talent {
         }
 
         this.spell_id = object.spellId;
+        this.wow_class = wow_class;
+        this.wow_spec = wow_spec;
+        this.tree_type = tree_type;
         if ("maxRanks" in object) {
             this.max_rank = object.maxRanks;
         } else {
@@ -84,9 +87,6 @@ class Talent {
             this.default_for_specs = [];
         }
         this.html_parent = html_parent;
-        this.wow_class = wow_class;
-        this.wow_spec = wow_spec;
-        this.tree_type = tree_type;
 
         if (this.default_for_specs.indexOf([this.wow_class, this.wow_spec].join("_")) > -1) {
             this.rank = this.max_rank;
@@ -493,9 +493,6 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
     for (let talent_data of talents_data[tree_type_map[tree_type]]) {
         let talent = new Talent(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type);
         talents.push(talent);
-        if (talent.name.indexOf("Earth") > -1) {
-            console.log(talent);
-        }
     }
 
     // create coordinates helper json
