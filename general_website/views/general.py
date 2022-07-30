@@ -777,3 +777,8 @@ def r_tears(request):
 
 def logo_comparison(request):
     return render(request, "general_website/logo_comparison.html")
+
+
+def empty(request):
+    """Allows fiddling with html. Sandbox"""
+    return render(request, "general_website/empty.html")
