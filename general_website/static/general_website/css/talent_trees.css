@@ -5,7 +5,8 @@
     --btt-icon-size: 35px;
     --line-strength: 2px;
 
-    --btt-talent-columns: 9;
+    /* 9+2 to incorporate a free starting and end column */
+    --btt-talent-columns: 11;
     --btt-talent-rows: 10;
 
     /* talent selection colour */
@@ -22,14 +23,13 @@ div.btt-container {
     grid-template-columns: repeat(auto-fit, minmax(calc(var(--btt-talent-columns) * calc(var(--btt-box-size) / 3 * 2) + calc(var(--btt-talent-columns) - 1) * calc(var(--btt-box-size) / 5)), 1fr));
 }
 
-
 div.bloodmallets-talent-tree {
     width: 100%;
     text-align: center;
 }
 
 div.bloodmallet-talents {
-    width: calc(var(--btt-talent-columns) * calc(var(--btt-box-size) / 3 * 2) + calc(var(--btt-talent-columns) - 1) * calc(var(--btt-box-size) / 5));
+    width: calc(var(--btt-talent-columns) * calc(var(--btt-box-size) / 3 * 2) + calc(var(--btt-talent-columns) - 1) * calc(var(--btt-box-size) / 7));
     margin-left: auto;
     margin-right: auto;
     text-align: left;
@@ -38,8 +38,8 @@ div.bloodmallet-talents {
     /* grid-template: ; */
     grid-template-columns: repeat(var(--btt-talent-columns), calc(var(--btt-box-size) / 3 * 2));
     grid-template-rows: repeat(var(--btt-talent-rows), var(--btt-box-size));
-    row-gap: calc(var(--btt-box-size) / 5);
-    column-gap: calc(var(--btt-box-size) / 5);
+    row-gap: calc(var(--btt-box-size) / 7);
+    column-gap: calc(var(--btt-box-size) / 7);
 }
 
 div.bloodmallet-talents>div.btt-talent {
@@ -181,7 +181,7 @@ div.btt-talent>div.btt-talent-rank {
     top: 50%;
     left: 13%;
     border-top: 2px solid var(--btt-not-selected);
-    width: 87%;
+    width: 79%;
     transform: translateY(-50%);
     z-index: 10;
 }
