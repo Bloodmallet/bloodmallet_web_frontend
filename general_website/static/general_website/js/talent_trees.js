@@ -49,6 +49,9 @@ class TreeNode {
     description = "placeholder description of awesome effects";
     max_rank = 1;
     coordinates = [-1, -1];
+    // allows to normalize coordinates
+    min_coordinates = [-1, -1];
+    max_coordinates = [-1, -1];
     child_ids = [];
     /**
      * Options:
@@ -74,22 +77,22 @@ class TreeNode {
      * @param {String} wow_class 
      * @param {String} wow_spec 
      * @param {String} tree_type 
+     * @param {int[]} min_coordinates
+     * @param {int[]} max_coordinates
      */
-    constructor(object, html_parent, html_svg, wow_class, wow_spec, tree_type) {
+    constructor(object, html_parent, html_svg, wow_class, wow_spec, tree_type, min_coordinates, max_coordinates) {
         this.id = object.id;
         this.name = object.name;
         this.description = ""; // object.description;
         this.coordinates = [object.posX, object.posY];
+        this.min_coordinates = min_coordinates;
+        this.max_coordinates = max_coordinates;
 
         // get type
-        if (object.type === "single" && object.entries[0].type === "active") {
-            this.type = "active";
-        } else if (object.type === "single" && object.entries[0].type === "passive") {
-            this.type = "passive";
-        } else if (object.type === "choice") {
+        if (object.type === "choice") {
             this.type = "choice";
         } else {
-            console.log("Couldn't extract Talent type from", object);
+            this.type = object.entries[0].type;
         }
 
         this.wow_class = wow_class;
@@ -282,49 +285,58 @@ class TreeNode {
      * max: 10
      */
     get x() {
-        let spec_map = {
-            // class (left)
-            1800: 2,
-            2400: 3,
-            3000: 4,
-            3600: 5,
-            4200: 6,
-            4800: 7,
-            5400: 8,
-            6000: 9,
-            6600: 10,
-            // spec (right)
-            9600: 2,
-            10200: 3,
-            10800: 4,
-            11400: 5,
-            12000: 6,
-            12600: 7,
-            13200: 8,
-            13800: 9,
-            14400: 10,
-        };
-        return spec_map[this.coordinates[0]];
+        // let spec_map = {
+        //     // class (left)
+        //     1800: 2,
+        //     2400: 3,
+        //     3000: 4,
+        //     3600: 5,
+        //     4200: 6,
+        //     4800: 7,
+        //     5400: 8,
+        //     6000: 9,
+        //     6600: 10,
+        //     // spec (right)
+        //     9600: 2,
+        //     10200: 3,
+        //     10800: 4,
+        //     11400: 5,
+        //     12000: 6,
+        //     12600: 7,
+        //     13200: 8,
+        //     13800: 9,
+        //     14400: 10,
+        // };
+        // dynamic calc approach (some specs/classes enjoy different coordinates than others...)
+        let x = Math.round(((this.coordinates[0] - this.min_coordinates[0]) / 600) - 0.5) + 2;
+        if (this.max_coordinates[0] - this.min_coordinates[0] < 8 * 600) {
+            x += 1;
+        }
+        return x;
     }
     /**
      * min: 1
      * max: 11
      */
     get y() {
-        let map = {
-            1200: 1,
-            1800: 2,
-            2400: 3,
-            3000: 4,
-            3600: 5,
-            4200: 6,
-            4800: 7,
-            5400: 8,
-            6000: 9,
-            6600: 10,
-            7200: 11,
-        };
-        return map[this.coordinates[1]];
+        // let map = {
+        //     1200: 1,
+        //     1800: 2,
+        //     2400: 3,
+        //     3000: 4,
+        //     3600: 5,
+        //     4200: 6,
+        //     4800: 7,
+        //     5400: 8,
+        //     6000: 9,
+        //     6600: 10,
+        //     7200: 11,
+        // };
+
+        // dynamic calc approach
+        let y = Math.round(((this.coordinates[1] - this.min_coordinates[1]) / 600) - 0.5) + 1;
+
+        return y;
     }
     get row() {
         return this.y;
@@ -501,8 +513,26 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
         "class": "classNodes",
         "spec": "specNodes"
     }
+
+    let min_coordinates = [999999999, 999999999];
+    let max_coordinates = [-1, -1]
     for (let talent_data of talents_data[tree_type_map[tree_type]]) {
-        let talent = new TreeNode(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type);
+        if (talent_data.posX < min_coordinates[0]) {
+            min_coordinates[0] = talent_data.posX;
+        }
+        if (talent_data.posY < min_coordinates[1]) {
+            min_coordinates[1] = talent_data.posY;
+        }
+        if (talent_data.posX > max_coordinates[0]) {
+            max_coordinates[0] = talent_data.posX;
+        }
+        if (talent_data.posY > max_coordinates[1]) {
+            max_coordinates[1] = talent_data.posY;
+        }
+    }
+
+    for (let talent_data of talents_data[tree_type_map[tree_type]]) {
+        let talent = new TreeNode(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type, min_coordinates, max_coordinates);
         talents.push(talent);
     }
 
