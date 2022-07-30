@@ -96,4 +96,5 @@ urlpatterns = [
         talent_trees.talent_trees,
         name="talent_trees",
     ),
+    path("empty", views.empty, name="empty"),
 ]
