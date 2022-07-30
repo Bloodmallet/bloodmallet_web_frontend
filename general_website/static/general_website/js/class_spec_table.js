@@ -86,7 +86,7 @@ function build_table() {
                 a_spec_btn.href = '';
                 a_spec_btn.dataset.toggle = "tooltip";
                 a_spec_btn.dataset.placement = "top";
-                a_spec_btn.dataset.title = "Disabled until a a SimulationCraft profile is available for this tier.";
+                a_spec_btn.dataset.title = "Disabled until a SimulationCraft profile is available for this tier.";
             }
 
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
