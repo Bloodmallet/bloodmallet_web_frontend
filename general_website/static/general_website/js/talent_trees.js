@@ -1,10 +1,32 @@
-const endpoint = "/static/general_website/trees/"; // "http://127.0.0.1:8000/static/webapp/trees/"
+const endpoint = "/static/general_website/trees/";
 const type_max_points_map = {
     "class": 31,
     "spec": 30
 }
 
 class Talent {
+    id = -1;
+    name = "Placeholder";
+    spell_id = -1;
+    icon = undefined;
+
+    constructor(object) {
+        this.id = object.id;
+        this.name = object.name;
+        this.spell_id = object.spellId;
+        this.icon = object.icon;
+    }
+
+    get_spell_url() {
+        return "https://www.wowhead.com/beta/spell=" + this.spell_id;
+    }
+
+    get_icon_url() {
+        return "https://wow.zamimg.com/images/wow/icons/large/" + this.icon + ".jpg";
+    }
+}
+
+class TreeNode {
     /**
      * See trees: https://worldofwarcraft.com/en-gb/news/23797209/world-of-warcraft-dragonflight-talent-preview
      * Guardian Druid: https://bnetcmsus-a.akamaihd.net/cms/template_resource/GO03FE89WQY81653669937765.png
@@ -21,7 +43,7 @@ class Talent {
     talents = [];
 
     id = -1;
-    name = "placeholder name";
+    name = "placeholder";
     description = "placeholder description of awesome effects";
     max_rank = 1;
     coordinates = [-1, -1];
@@ -33,15 +55,14 @@ class Talent {
      * - choice
      */
     type = "passive";
-    spell_id = -1;
     default_for_specs = [];
     wow_class = "placeholder";
     wow_spec = "placeholder";
     html_parent = undefined;
-    img_urls = ["https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg"];
     html_rank = undefined;
-    html_icons = [];
     tree_type = undefined;
+    talents = [];
+    html_talent_icons = [];
 
     /**
      * 
@@ -69,7 +90,6 @@ class Talent {
             console.log("Couldn't extract Talent type from", object);
         }
 
-        this.spell_id = object.spellId;
         this.wow_class = wow_class;
         this.wow_spec = wow_spec;
         this.tree_type = tree_type;
@@ -93,15 +113,8 @@ class Talent {
         }
 
         if ("entries" in object && object.entries.length > 0) {
-            let tmp = this.img_urls[0];
-            this.img_urls = [];
-            for (let spell of object.entries) {
-                if ("icon" in spell) {
-                    this.img_urls.push("https://wow.zamimg.com/images/wow/icons/large/" + spell.icon + ".jpg")
-                }
-            }
-            if (this.img_urls.length === 0) {
-                this.img_urls.push(tmp);
+            for (let talent of object.entries) {
+                this.talents.push(new Talent(talent));
             }
         }
 
@@ -112,44 +125,39 @@ class Talent {
         div.style.gridRow = this.row;
         div.style.gridColumn = this.column;
 
-        let tooltip = "";
-        if (this.type === "choice") {
-            tooltip = "<span class=\"btt-choice-name\">" + this.name + "</span><p class=\"btt-talent-description\">" + this.description + "</p>";
-        } else {
-            tooltip = "<span class=\"btt-talent-name\">" + this.name + "</span><p class=\"btt-talent-description\">" + this.description + "</p>";
-        }
-        div.title = tooltip;
-        div.dataset.toggle = "tooltip";
-        div.dataset.html = "true";
-        div.dataset.placement = "right";
         this.html_element = div;
 
         // add spell icon
-        function create_icon_div(class_name, url) {
+        function create_icon_div(class_name, talent) {
+            let link = document.createElement("a");
+            link.href = talent.get_spell_url();
+            link.dataset.full = "1";
+
             let icon = document.createElement("div");
             icon.classList.add("btt-icon");
             icon.classList.add(class_name);
 
             let img = document.createElement("img");
-            img.src = url;
+            img.src = talent.get_icon_url();
             icon.appendChild(img);
 
-            return icon;
+            link.appendChild(icon);
+            return link;
         }
         if (this.type === "choice") {
-            let img = create_icon_div("btt-octagon-left", this.img_urls[1]);
-            this.html_icons.push(img);
+            let img = create_icon_div("btt-octagon-left", this.talents[1]);
+            this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
-            img = create_icon_div("btt-octagon-right", this.img_urls[0]);
-            this.html_icons.push(img);
+            img = create_icon_div("btt-octagon-right", this.talents[0]);
+            this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
         } else {
             let type_map = {
                 "passive": "btt-circle",
                 "active": "btt-square",
             }
-            let img = create_icon_div(type_map[this.type], this.img_urls[0])
-            this.html_icons.push(img);
+            let img = create_icon_div(type_map[this.type], this.talents[0])
+            this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
         }
 
@@ -162,7 +170,7 @@ class Talent {
 
         html_parent.appendChild(this.html_element);
 
-        div.addEventListener("click", (html_element, mouse_event) => this.increment_rank(html_element, mouse_event));
+        div.addEventListener("click", (mouse_event) => this.increment_rank(mouse_event));
         div.addEventListener("contextmenu", (mouse_event) => this.decrement_rank(mouse_event));
 
         // add blanko-lines
@@ -362,7 +370,8 @@ class Talent {
         return true;
     }
 
-    increment_rank(html_element, mouse_event) {
+    increment_rank(mouse_event) {
+        mouse_event.preventDefault();
         // early exit
         if (!this.is_selectable) {
             return;
@@ -491,7 +500,7 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
         "spec": "specNodes"
     }
     for (let talent_data of talents_data[tree_type_map[tree_type]]) {
-        let talent = new Talent(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type);
+        let talent = new TreeNode(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type);
         talents.push(talent);
     }
 
@@ -704,10 +713,6 @@ function add_bloodmallet_trees() {
             observer.observe(talents_div, { attributes: true });
 
             update_invested_points(invested_points, parseInt(talents_div.dataset.investedPoints), tree_type, gate_pre_5, gate_pre_9, talents);
-
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
 
             // add export button
             let form_row = document.createElement("div");
