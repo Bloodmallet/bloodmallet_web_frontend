@@ -766,15 +766,15 @@ function add_bloodmallet_trees() {
 
             let reset_button = document.createElement("button");
             reset_button.type = "button";
-            reset_button.classList.add("btn", "btn-warning", "col", "mr-3");
+            reset_button.classList.add("btn", "btn-warning", "col-2", "mr-3");
             reset_button.appendChild(document.createTextNode("Reset"));
             reset_button.addEventListener("click", () => reset_tree(talents));
             form_row.appendChild(reset_button);
 
             let export_button = document.createElement("button");
             export_button.type = "button";
-            export_button.classList.add("btn", "btn-primary", "col", "mr-3");
-            export_button.appendChild(document.createTextNode("Copy simc-string to clipboard"));
+            export_button.classList.add("btn", "btn-primary", "col-3");
+            export_button.appendChild(document.createTextNode("Copy simc-string"));
             export_button.addEventListener("click", () => {
                 navigator.clipboard.writeText(get_export_string(tree_type, wow_class, wow_spec, talents)).then(function () {
                     /* clipboard successfully set */
@@ -798,7 +798,7 @@ function add_bloodmallet_trees() {
 
             // add import text area
             let import_text_area = document.createElement("input");
-            import_text_area.classList.add("form-control", "col");
+            import_text_area.classList.add("form-control", "col", "mr-3");
             import_text_area.placeholder = "Paste simc-string into this element.";
             import_text_area.addEventListener("input", (element, ev) => {
                 if (element.inputType !== "insertFromPaste") {
