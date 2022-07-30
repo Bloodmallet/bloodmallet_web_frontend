@@ -20,11 +20,12 @@ class Talent {
     lines = [];
     talents = [];
 
+    id = -1;
     name = "placeholder name";
     description = "placeholder description of awesome effects";
     max_rank = 1;
     coordinates = [-1, -1];
-    child_coordinates = [];
+    child_ids = [];
     /**
      * Options:
      * - passive
@@ -52,23 +53,33 @@ class Talent {
      * @param {String} tree_type 
      */
     constructor(object, html_parent, html_svg, wow_class, wow_spec, tree_type) {
+        this.id = object.id;
         this.name = object.name;
-        this.description = object.description;
-        this.coordinates = object.coordinates;
-        this.type = object.type;
-        this.spell_id = object.spell_id;
-        if ("max_rank" in object) {
-            this.max_rank = object.max_rank;
+        this.description = ""; // object.description;
+        this.coordinates = [object.posX, object.posY];
+
+        // get type
+        if (object.type === "single" && object.entries[0].type === "active") {
+            this.type = "active";
+        } else if (object.type === "single" && object.entries[0].type === "passive") {
+            this.type = "passive";
+        } else if (object.type === "choice") {
+            this.type = "choice";
+        } else {
+            console.log("Couldn't extract Talent type from", object);
+        }
+
+        this.spell_id = object.spellId;
+        if ("maxRanks" in object) {
+            this.max_rank = object.maxRanks;
         } else {
             this.max_rank = 1;
         }
-        if ("child_coordinates" in object) {
-            this.child_coordinates = object.child_coordinates;
-        } else {
-            this.child_coordinates = [];
+        if ("next" in object) {
+            this.child_ids = object.next;
         }
-        if ("default_for_specs" in object) {
-            this.default_for_specs = object.default_for_specs;
+        if ("freeNode" in object && object.freeNode === true) {
+            this.default_for_specs = [[this.wow_class, this.wow_spec].join("_")];
         } else {
             this.default_for_specs = [];
         }
@@ -81,8 +92,9 @@ class Talent {
             this.rank = this.max_rank;
         }
 
-        if ("img_url" in object && object.img_url.length > 0) {
-            this.img_url = object.img_url;
+        if ("entries" in object && object.entries.length > 0 && "icon" in object.entries[0]) {
+            // https://wow.zamimg.com/images/wow/icons/large/ability_druid_eclipseorange.jpg
+            this.img_url = "https://wow.zamimg.com/images/wow/icons/large/" + object.entries[0].icon + ".jpg";
         }
 
         // create element
@@ -135,7 +147,7 @@ class Talent {
         div.addEventListener("contextmenu", (mouse_event) => this.decrement_rank(mouse_event));
 
         // add blanko-lines
-        for (let i in this.child_coordinates) {
+        for (let i in this.child_ids) {
             let line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
             line.classList.add("btt-talent-connector");
             this.lines.push(line);
@@ -249,11 +261,54 @@ class Talent {
         return gate;
     }
 
+    /**
+     * min: 2
+     * max: 10
+     */
     get x() {
-        return this.coordinates[0];
+        let spec_map = {
+            // class (left)
+            1800: 2,
+            2400: 3,
+            3000: 4,
+            3600: 5,
+            4200: 6,
+            4800: 7,
+            5400: 8,
+            6000: 9,
+            6600: 10,
+            // spec (right)
+            9600: 2,
+            10200: 3,
+            10800: 4,
+            11400: 5,
+            12000: 6,
+            12600: 7,
+            13200: 8,
+            13800: 9,
+            14400: 10,
+        };
+        return spec_map[this.coordinates[0]];
     }
+    /**
+     * min: 1
+     * max: 11
+     */
     get y() {
-        return this.coordinates[1];
+        let map = {
+            1200: 1,
+            1800: 2,
+            2400: 3,
+            3000: 4,
+            3600: 5,
+            4200: 6,
+            4800: 7,
+            5400: 8,
+            6000: 9,
+            6600: 10,
+            7200: 11,
+        };
+        return map[this.coordinates[1]];
     }
     get row() {
         return this.y;
@@ -425,24 +480,30 @@ async function load_tree_json(spec_name) {
 function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, tree_type) {
     // start adding rows (talent & visual connector rows)
     let talents = [];
-    for (let talent_data of talents_data) {
-        talents.push(
-            new Talent(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type)
-        );
+    let tree_type_map = {
+        "class": "classNodes",
+        "spec": "specNodes"
+    }
+    for (let talent_data of talents_data[tree_type_map[tree_type]]) {
+        let talent = new Talent(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type);
+        talents.push(talent);
+        if (talent.name.indexOf("Earth") > -1) {
+            console.log(talent);
+        }
     }
 
     // create coordinates helper json
-    let coord_talent_map = {}
+    let id_talent_map = {}
     for (let talent of talents) {
-        coord_talent_map[talent.coordinates] = talent;
+        id_talent_map[talent.id.toString()] = talent;
     }
 
     // set children and parents
     for (let talent of talents) {
-        for (let child_coords of talent.child_coordinates) {
-            talent.children.push(coord_talent_map[child_coords.toString()]);
-            if (coord_talent_map[child_coords.toString()].parents.indexOf(talent) === -1) {
-                coord_talent_map[child_coords.toString()].parents.push(talent);
+        for (let child_id of talent.child_ids) {
+            talent.children.push(id_talent_map[child_id.toString()]);
+            if (id_talent_map[child_id.toString()].parents.indexOf(talent) === -1) {
+                id_talent_map[child_id.toString()].parents.push(talent);
             }
         }
     }
@@ -622,14 +683,11 @@ function add_bloodmallet_trees() {
         talents_div.appendChild(svg);
 
         let soon_to_be_loaded = undefined;
-        if (tree_type === "class") {
-            soon_to_be_loaded = load_tree_json(wow_class);
-        } else if (tree_type === "spec") {
-            soon_to_be_loaded = load_tree_json([wow_class, wow_spec].join("_"));
-        } else {
-            console.warn("Not a valid tree type:", tree);
+        if (["class", "spec"].indexOf(tree_type) === -1) {
+            console.warn("Not a valid tree type:", tree_type);
             continue;
         }
+        soon_to_be_loaded = load_tree_json([wow_class, wow_spec].join("_"));
         soon_to_be_loaded.then(data => {
             let talents = build_tree(talents_div, svg, data, wow_class, wow_spec, tree_type);
 
