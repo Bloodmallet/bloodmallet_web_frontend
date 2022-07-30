@@ -8,13 +8,15 @@ class Talent {
     id = -1;
     name = "Placeholder";
     spell_id = -1;
-    icon = undefined;
+    icon = "inv_misc_questionmark";
 
     constructor(object) {
         this.id = object.id;
         this.name = object.name;
         this.spell_id = object.spellId;
-        this.icon = object.icon;
+        if ("icon" in object && object.icon) {
+            this.icon = object.icon;
+        }
     }
 
     get_spell_url() {
