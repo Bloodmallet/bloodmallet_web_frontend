@@ -403,6 +403,11 @@ class TreeNode {
         for (let child of this.children) {
             child.update_selection_state();
         }
+        if (parseInt(this.html_parent.dataset.investedPoints) === type_max_points_map[this.tree_type]) {
+            for (let node of this.talents) {
+                node.update_selection_state();
+            }
+        }
     }
 
     decrement_rank(mouse_event) {
@@ -469,6 +474,12 @@ class TreeNode {
 
         for (let child of this.children) {
             child.update_selection_state();
+        }
+
+        if (parseInt(this.html_parent.dataset.investedPoints) === type_max_points_map[this.tree_type] - 1) {
+            for (let node of this.talents) {
+                node.update_selection_state();
+            }
         }
     }
 
