@@ -639,7 +639,7 @@ function get_export_string(tree_type, wow_class, wow_spec, talents) {
     let separator = "/"
     let talent_string = talents
         .filter(talent => talent.is_selected)
-        .map(talent => talent.sub_talents[0].id.toString() + ":" + talent.rank)
+        .map(talent => "s" + talent.sub_talents[0].spell_id.toString() + ":" + talent.rank)
         .join(separator);
     // let export_string = [wow_class, wow_spec, tree_type, talent_string].join(separator);
     return tree_type + "_talents=" + talent_string;
@@ -669,10 +669,13 @@ function update_tree(input_string, tree_type, wow_class, wow_spec, talents) {
     let talent_blops = split_string.slice(0, split_string.length);
     let rank_sum = 0;
     for (let talent_string of talent_blops) {
+        if (talent_string.startsWith("s")) {
+            talent_string = talent_string.slice(1);
+        }
         let talent_id_not_spell_id = parseInt(talent_string.split(":")[0]);
         let rank = parseInt(talent_string.split(":")[1]);
         for (let talent of talents) {
-            if (talent.sub_talents[0].id === talent_id_not_spell_id && !talent.is_default) {
+            if (talent.sub_talents[0].spell_id === talent_id_not_spell_id && !talent.is_default) {
                 rank_sum += rank;
                 talent.rank = rank;
             }
