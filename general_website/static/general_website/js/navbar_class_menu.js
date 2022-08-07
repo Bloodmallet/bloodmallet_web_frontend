@@ -73,6 +73,23 @@ function update_navbarClassMenu(state) {
     div_dropdown.setAttribute("aria-labelledby", "navbar_wow_class_selection");
 
     for (tmp_class of Object.keys(classes_specs)) {
+        if ([
+            "death_knight",
+            "demon_hunter",
+            "druid",
+            "hunter",
+            "mage",
+            "monk",
+            "paladin",
+            "priest",
+            "rogue",
+            "shaman",
+            "warlock",
+            "warrior",
+        ].indexOf(tmp_class) === -1) {
+            continue;
+        }
+
         let a_nav_link = document.createElement("a");
         a_nav_link.className = "dropdown-item " + tmp_class + "-button";
         a_nav_link.href = "/" + ["chart", tmp_class, classes_specs[tmp_class][0], state.simulation_type, state.fight_style].join("/");
@@ -105,6 +122,40 @@ function update_navbarClassMenu(state) {
     div_dropdown_spec.setAttribute("aria-labelledby", "navbar_wow_spec_selection");
 
     for (tmp_spec of classes_specs[state.wow_class]) {
+        if ([
+            "death_knight_blood",
+            "death_knight_frost",
+            "death_knight_unholy",
+            "demon_hunter_havoc",
+            "demon_hunter_vengeance",
+            "druid_balance",
+            "druid_feral",
+            "druid_guardian",
+            "hunter_beast_mastery",
+            "hunter_marksmanship",
+            "hunter_survival",
+            "mage_arcane",
+            "mage_fire",
+            "mage_frost",
+            "monk_brewmaster",
+            "monk_windwalker",
+            "paladin_protection",
+            "paladin_retribution",
+            "priest_shadow",
+            "rogue_assassination",
+            "rogue_outlaw",
+            "rogue_subtlety",
+            "shaman_elemental",
+            "shaman_enhancement",
+            "warlock_affliction",
+            "warlock_demonology",
+            "warlock_destruction",
+            "warrior_arms",
+            "warrior_fury",
+            "warrior_protection"
+        ].indexOf(state.wow_class + "_" + tmp_spec) === -1) {
+            continue;
+        }
         let a_nav_link = document.createElement("a");
         a_nav_link.className = "dropdown-item " + state.wow_class + "-button";
         a_nav_link.href = "/" + ["chart", state.wow_class, tmp_spec, state.simulation_type, state.fight_style].join("/");
