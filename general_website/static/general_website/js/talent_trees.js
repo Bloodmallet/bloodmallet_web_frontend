@@ -132,6 +132,14 @@ class TreeNode {
 
         this.html_element = div;
 
+        // add fallback tooltip for unimplemented spells
+        if (["inv_misc_questionmark", "", undefined].indexOf(this.sub_talents[0].icon) > -1 && ["", -1, undefined].indexOf(this.sub_talents[0].spell_id) > -1) {
+            div.dataset.toggle = "tooltip";
+            div.dataset.placement = "right";
+            div.dataset.html = "true";
+            div.title = "<span class=\"druid-color\"><strong>" + this.name + "</strong></span>";
+        }
+
         // add spell icon
         function create_icon_div(class_name, talent) {
             let link = document.createElement("a");
@@ -281,36 +289,72 @@ class TreeNode {
     }
 
     /**
+     * type: string
+     * schema: "int" or "int / int"
      * min: 2
      * max: 10
      */
     get x() {
         // let spec_map = {
         //     // class (left)
-        //     1800: 2,
-        //     2400: 3,
-        //     3000: 4,
-        //     3600: 5,
-        //     4200: 6,
-        //     4800: 7,
-        //     5400: 8,
-        //     6000: 9,
-        //     6600: 10,
+        //     1500: "2",
+        //     1800: "2",
+        //     2100: "3",
+        //     2400: "3",
+        //     2700: "4",
+        //     3000: "4",
+        //     3300: "5",
+        //     3600: "5",
+        //     3900: "6",
+        //     4200: "6",
+        //     4500: "7",
+        //     4800: "7",
+        //     5100: "8",
+        //     5400: "8",
+        //     5700: "9",
+        //     6000: "9",
+        //     6300: "10",
+        //     6600: "10",
         //     // spec (right)
-        //     9600: 2,
-        //     10200: 3,
-        //     10800: 4,
-        //     11400: 5,
-        //     12000: 6,
-        //     12600: 7,
-        //     13200: 8,
-        //     13800: 9,
-        //     14400: 10,
+        //     9300: "2",
+        //     9600: "2",
+        //     9900: "3",
+        //     10200: "3",
+        //     10500: "4",
+        //     10800: "4",
+        //     11100: "5",
+        //     11400: "5",
+        //     11700: "6",
+        //     12000: "6",
+        //     12300: "7",
+        //     12600: "7",
+        //     12900: "8",
+        //     13200: "8",
+        //     13500: "9",
+        //     13800: "9",
+        //     14100: "10",
+        //     14400: "10",
         // };
+
         // dynamic calc approach (some specs/classes enjoy different coordinates than others...)
-        let x = Math.round(((this.coordinates[0] - this.min_coordinates[0]) / 600) - 0.5) + 2;
-        if (this.max_coordinates[0] - this.min_coordinates[0] < 8 * 600) {
-            x += 1;
+        let posX = this.coordinates[0];
+        if (posX < 9300) {
+            posX -= 1500;
+        } else {
+            posX -= 9300;
+        }
+        if (["protection_paladin", "retribution_paladin"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+            posX -= 900;
+        }
+        if (["shadow_priest", "holy_priest", "discipline_priest"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+            posX -= 600;
+        }
+        if (["elemental_shaman", "enhancement_shaman", "restoration_shaman"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+            posX -= 300;
+        }
+        let x = 2 + posX / 600;
+        if (x % 1 > 0) {
+            x = Math.round(x - 1) + " / " + Math.round(x + 1);
         }
         return x;
     }
@@ -528,6 +572,9 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
     let min_coordinates = [999999999, 999999999];
     let max_coordinates = [-1, -1]
     for (let talent_data of talents_data[tree_type_map[tree_type]]) {
+        if (talent_data.posX < 0 || talent_data.posY < 0) {
+            continue;
+        }
         if (talent_data.posX < min_coordinates[0]) {
             min_coordinates[0] = talent_data.posX;
         }
@@ -543,6 +590,9 @@ function build_tree(html_element, html_svg, talents_data, wow_class, wow_spec, t
     }
 
     for (let talent_data of talents_data[tree_type_map[tree_type]]) {
+        if (talent_data.posX < 0 || talent_data.posY < 0) {
+            continue;
+        }
         let talent = new TreeNode(talent_data, html_element, html_svg, wow_class, wow_spec, tree_type, min_coordinates, max_coordinates);
         talents.push(talent);
     }
@@ -822,6 +872,10 @@ function add_bloodmallet_trees() {
                 update_tree(input_string, tree_type, wow_class, wow_spec, talents);
             });
             form_row.appendChild(import_text_area);
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         });
     }
 }
