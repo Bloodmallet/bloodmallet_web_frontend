@@ -137,7 +137,7 @@ class TreeNode {
             div.dataset.toggle = "tooltip";
             div.dataset.placement = "right";
             div.dataset.html = "true";
-            div.title = "<span class=\"druid-color\"><strong>" + this.name + "</strong></span>";
+            div.title = "<span class=\"btt-talent-name\">" + this.name + "</span>";
         }
 
         // add spell icon
@@ -164,6 +164,7 @@ class TreeNode {
             img = create_icon_div("btt-octagon-right", this.sub_talents[0]);
             this.html_talent_icons.push(img);
             this.html_element.appendChild(img);
+            this.html_element.classList.add("btt-choice-visual-left", "btt-choice-visual-right");
         } else {
             let type_map = {
                 "passive": "btt-circle",
