@@ -123,13 +123,17 @@ class BmBarChart {
                 }
                 // relative calc
                 let relative_value = (this.data[key][series] - this.base_values[series]) * 100 / (this.global_max_value - this.base_values[series]);
-                steps.push(relative_value - previous_value);
-                previous_value = relative_value;
+                if (relative_value - previous_value >= 0.0) {
+                    steps.push(relative_value - previous_value);
+                    previous_value = relative_value;
+                } else {
+                    steps.push(0);
+                }
                 let bar_part = document.createElement("div");
                 bar_part.classList.add("bm-bar-element", "bm-bar-group-" + (index + 1));
                 bar.appendChild(bar_part);
                 // add more information for debugging
-                // bar_part.dataset.end = relative_value;
+                // bar_part.dataset.end = previous_value;
                 // bar_part.dataset.index = index;
                 // bar_part.dataset.key = key;
                 // bar_part.dataset.series = series;
