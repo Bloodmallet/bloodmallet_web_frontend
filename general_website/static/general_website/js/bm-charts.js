@@ -6,13 +6,14 @@ class BmBarChart {
     y_axis_title = ""; // e.g. Trinket
     legend_title = ""; // e.g. Itemlevels
     data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+    base_values = {} // e.g. {260: 11400, 270: 11400, 280: 11400}
     series_names = []; // e.g. 260, 270, 280
     sorted_data_keys = [] // e.g. ["My Trinket", "Other Trinket"]
 
     root_element = undefined;
     global_max_value = -1;
 
-    constructor(element_id, title, subtitle, x_axis_title, y_axis_title, legend_title, data, series_names = [], sorted_data_keys = []) {
+    constructor(element_id, title, subtitle, x_axis_title, y_axis_title, legend_title, data, base_values = {}, series_names = [], sorted_data_keys = []) {
         this.element_id = element_id;
         this.title = title;
         this.subtitle = subtitle;
@@ -20,6 +21,8 @@ class BmBarChart {
         this.y_axis_title = y_axis_title;
         this.legend_title = legend_title;
         this.data = data;
+
+        // optional - series_names
         if (series_names.length === 0) {
             for (let key_value_object of Object.values(this.data)) {
                 for (let series of Object.keys(key_value_object)) {
@@ -32,6 +35,7 @@ class BmBarChart {
         } else {
             this.series_names = series_names;
         }
+        // optional - sorted_data_keys
         if (sorted_data_keys.length === 0) {
             let key_value = {};
             for (let key of Object.keys(this.data)) {
@@ -40,6 +44,27 @@ class BmBarChart {
             this.sorted_data_keys = sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
         } else {
             this.sorted_data_keys = sorted_data_keys;
+        }
+        // optional - base_values
+        // create if no keys
+        // extend if number of keys === 1 and number of series_names > 1
+        if (Object.keys(base_values).length === 0) {
+            for (let series of this.series_names) {
+                // we assume 0 dps to be the baseline
+                base_values[series] = 0;
+            }
+            this.base_values = base_values;
+        } else if (Object.keys(base_values).length === 1 && this.series_names.length > 1) {
+            let tmp_value = Object.values(base_values)[0];
+            for (let series of this.series_names) {
+                // we assume 0 dps to be the baseline
+                base_values[series] = tmp_value;
+            }
+            this.base_values = base_values;
+        } else if (Object.keys(base_values).length == this.series_names.length) {
+            this.base_values = base_values
+        } else {
+            throw "base_value must be an empty object, have only one key, or the same length and keys as series_names.";
         }
 
         this.global_max_value = Math.max(...Object.values(this.data).map(element => Math.max(...Object.values(element))));
@@ -96,13 +121,19 @@ class BmBarChart {
                     // data doesn't have series element, skipping
                     continue;
                 }
-                let current_value = this.data[key][series] * 100 / this.global_max_value;
-                steps.push(current_value - previous_value);
-                previous_value = current_value;
+                // relative calc
+                let relative_value = (this.data[key][series] - this.base_values[series]) * 100 / (this.global_max_value - this.base_values[series]);
+                steps.push(relative_value - previous_value);
+                previous_value = relative_value;
                 let bar_part = document.createElement("div");
                 bar_part.classList.add("bm-bar-element", "bm-bar-group-" + (index + 1));
                 bar.appendChild(bar_part);
-                // add more for debug purposes?
+                // add more information for debugging
+                // bar_part.dataset.end = relative_value;
+                // bar_part.dataset.index = index;
+                // bar_part.dataset.key = key;
+                // bar_part.dataset.series = series;
+                // bar_part.dataset.value = this.data[key][series];
             }
             // add grid template
             bar.style.gridTemplateColumns = [...steps, "auto"].join("% ");
