@@ -21,14 +21,14 @@
 
 .bm-row {
     display: grid;
-    grid-template-columns: 20% auto;
+    grid-template-columns: minmax(200px, 20%) auto;
     grid-template-areas: "name bar";
     column-gap: 15px;
 }
 
 .bm-legend {
     display: grid;
-    grid-template-columns: 20% auto;
+    grid-template-columns: minmax(200px, 20%) auto;
     grid-template-areas: "title items";
     column-gap: 15px;
     margin-top: 15px;
@@ -127,9 +127,9 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 80%;
+    height: 70%;
     position: relative;
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
 }
 
