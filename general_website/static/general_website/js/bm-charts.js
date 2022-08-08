@@ -20,10 +20,25 @@ class BmBarChart {
         this.y_axis_title = y_axis_title;
         this.legend_title = legend_title;
         this.data = data;
-        if (series_names.length === 0) { } else {
+        if (series_names.length === 0) {
+            for (let key_value_object of Object.values(this.data)) {
+                for (let series of Object.keys(key_value_object)) {
+                    if (series_names.indexOf(series) === -1) {
+                        series_names.push(series);
+                    }
+                }
+            }
+            this.series_names = series_names = series_names.sort();
+        } else {
             this.series_names = series_names;
         }
-        if (sorted_data_keys.length === 0) { } else {
+        if (sorted_data_keys.length === 0) {
+            let key_value = {};
+            for (let key of Object.keys(this.data)) {
+                key_value[key] = Math.max(...Object.values(this.data[key]));
+            }
+            this.sorted_data_keys = sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
+        } else {
             this.sorted_data_keys = sorted_data_keys;
         }
 
@@ -106,7 +121,6 @@ class BmBarChart {
         legend.appendChild(legend_title);
         let legend_items = document.createElement("div");
         legend_items.classList.add("bm-legend-items");
-        console.log(this.series_names);
         for (let [index, series] of this.series_names.entries()) {
             let legend_series = document.createElement("div");
             legend_series.classList.add("bm-legend-item", "bm-bar-group-" + (index + 1));
