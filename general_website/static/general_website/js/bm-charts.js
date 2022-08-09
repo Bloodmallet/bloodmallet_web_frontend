@@ -1,3 +1,17 @@
+class BmBarChartData {
+    element_id = undefined;
+    title = "";
+    subtitle = "";
+    x_axis_title = ""; // e.g. % damage per second
+    y_axis_title = ""; // e.g. Trinket
+    legend_title = ""; // e.g. Itemlevels
+    data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+    base_values = {} // e.g. {260: 11400, 270: 11400, 280: 11400}
+    series_names = []; // e.g. 260, 270, 280
+    sorted_data_keys = [] // e.g. ["My Trinket", "Other Trinket"]
+    value_calculation = "total"; // either total, relative, or absolute
+}
+
 class BmBarChart {
     element_id = undefined;
     title = "";
@@ -9,60 +23,75 @@ class BmBarChart {
     base_values = {} // e.g. {260: 11400, 270: 11400, 280: 11400}
     series_names = []; // e.g. 260, 270, 280
     sorted_data_keys = [] // e.g. ["My Trinket", "Other Trinket"]
+    value_calculation = "total"; // either total, relative, or absolute
 
     root_element = undefined;
     global_max_value = -1;
+    unit = { "total": "", "relative": "%", "absolute": "Δ" }; // e.g. % or Δ
 
-    constructor(element_id, title, subtitle, x_axis_title, y_axis_title, legend_title, data, base_values = {}, series_names = [], sorted_data_keys = []) {
-        this.element_id = element_id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.x_axis_title = x_axis_title;
-        this.y_axis_title = y_axis_title;
-        this.legend_title = legend_title;
-        this.data = data;
+    constructor(chart_data = new BmBarChart()) {
+        this.element_id = chart_data.element_id;
+        this.title = chart_data.title;
+        this.subtitle = chart_data.subtitle;
+        this.x_axis_title = chart_data.x_axis_title;
+        this.y_axis_title = chart_data.y_axis_title;
+        this.legend_title = chart_data.legend_title;
+        this.data = chart_data.data;
+
+        if (chart_data.hasOwnProperty("value_calculation")) {
+            this.value_calculation = chart_data.value_calculation;
+        }
 
         // optional - series_names
-        if (series_names.length === 0) {
+        if (!chart_data.hasOwnProperty("series_names")) {
+            chart_data.series_names = [];
+        }
+        if (chart_data.series_names.length === 0) {
             for (let key_value_object of Object.values(this.data)) {
                 for (let series of Object.keys(key_value_object)) {
-                    if (series_names.indexOf(series) === -1) {
-                        series_names.push(series);
+                    if (chart_data.series_names.indexOf(series) === -1) {
+                        chart_data.series_names.push(series);
                     }
                 }
             }
-            this.series_names = series_names = series_names.sort();
+            this.series_names = chart_data.series_names = chart_data.series_names.sort();
         } else {
-            this.series_names = series_names;
+            this.series_names = chart_data.series_names;
         }
         // optional - sorted_data_keys
-        if (sorted_data_keys.length === 0) {
+        if (!chart_data.hasOwnProperty("sorted_data_keys")) {
+            chart_data.sorted_data_keys = [];
+        }
+        if (chart_data.sorted_data_keys.length === 0) {
             let key_value = {};
             for (let key of Object.keys(this.data)) {
                 key_value[key] = Math.max(...Object.values(this.data[key]));
             }
-            this.sorted_data_keys = sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
+            this.sorted_data_keys = chart_data.sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
         } else {
-            this.sorted_data_keys = sorted_data_keys;
+            this.sorted_data_keys = chart_data.sorted_data_keys;
         }
         // optional - base_values
         // create if no keys
         // extend if number of keys === 1 and number of series_names > 1
-        if (Object.keys(base_values).length === 0) {
+        if (!chart_data.hasOwnProperty("base_values")) {
+            chart_data.base_values = {};
+        }
+        if (Object.keys(chart_data.base_values).length === 0) {
             for (let series of this.series_names) {
                 // we assume 0 dps to be the baseline
-                base_values[series] = 0;
+                chart_data.base_values[series] = 0;
             }
-            this.base_values = base_values;
-        } else if (Object.keys(base_values).length === 1 && this.series_names.length > 1) {
-            let tmp_value = Object.values(base_values)[0];
+            this.base_values = chart_data.base_values;
+        } else if (Object.keys(chart_data.base_values).length === 1 && this.series_names.length > 1) {
+            let tmp_value = Object.values(chart_data.base_values)[0];
             for (let series of this.series_names) {
                 // we assume 0 dps to be the baseline
-                base_values[series] = tmp_value;
+                chart_data.base_values[series] = tmp_value;
             }
-            this.base_values = base_values;
-        } else if (Object.keys(base_values).length == this.series_names.length) {
-            this.base_values = base_values
+            this.base_values = chart_data.base_values;
+        } else if (Object.keys(chart_data.base_values).length == this.series_names.length) {
+            this.base_values = chart_data.base_values
         } else {
             throw "base_value must be an empty object, have only one key, or the same length and keys as series_names.";
         }
@@ -70,6 +99,10 @@ class BmBarChart {
         this.global_max_value = Math.max(...Object.values(this.data).map(element => Math.max(...Object.values(element))));
 
         this.create_chart();
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     }
 
     create_chart() {
@@ -142,6 +175,10 @@ class BmBarChart {
             // add grid template
             bar.style.gridTemplateColumns = [...steps, "auto"].join("% ");
             // add tooltip
+            bar.dataset.toggle = "tooltip";
+            bar.dataset.placement = "left";
+            bar.dataset.html = "true";
+            bar.title = this.create_tooltip(key);
 
             row.appendChild(bar);
             this.root_element.appendChild(row);
@@ -166,5 +203,75 @@ class BmBarChart {
         }
         legend.appendChild(legend_items);
         this.root_element.appendChild(legend)
+    }
+
+    create_tooltip(key) {
+        let container = document.createElement("div");
+        container.classList.add("bm-tooltip-container");
+
+        let title = document.createElement("div");
+        title.classList.add("bm-tooltip-title");
+        title.appendChild(document.createTextNode(key));
+        container.appendChild(title);
+
+        for (let [index, series] of this.series_names.entries()) {
+            if (!this.data[key].hasOwnProperty(series)) {
+                // data doesn't have series element, skipping
+                continue;
+            }
+            let row = document.createElement("div");
+            row.classList.add("bm-tooltip-row");
+
+            let key_div = document.createElement("div");
+            key_div.classList.add("bm-tooltip-key", "bm-bar-group-" + (index + 1));
+            key_div.appendChild(document.createTextNode(series));
+            row.appendChild(key_div);
+
+            let value_div = document.createElement("div");
+            value_div.classList.add("bm-tooltip-value");
+            // TODO: value calc here
+            let value = this.get_value(key, series, this.value_calculation);
+            value_div.appendChild(document.createTextNode(value));
+            if (this.unit[this.value_calculation].length > 0) {
+                let unit = document.createElement("span");
+                unit.classList.add("bm-tooltip-unit");
+                unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
+                value_div.appendChild(unit);
+            }
+            row.appendChild(value_div);
+
+            container.appendChild(row);
+        }
+
+        let legend = document.createElement("div");
+        legend.classList.add("bm-tooltip-row");
+
+        let key_title = document.createElement("div");
+        key_title.classList.add("bm-tooltip-key-title", "bm-tooltip-width-marker-top");
+        key_title.appendChild(document.createTextNode(this.y_axis_title));
+        legend.appendChild(key_title);
+
+        let value_title = document.createElement("div");
+        value_title.classList.add("bm-tooltip-value-title", "bm-tooltip-width-marker-top");
+        value_title.appendChild(document.createTextNode(this.x_axis_title));
+        legend.appendChild(value_title);
+
+        container.appendChild(legend);
+
+        return container.outerHTML;
+    }
+
+    get_value(key, series, value_calculation) {
+        if (value_calculation === "total") {
+            return this.data[key][series];
+        } else if (value_calculation === "absolute") {
+            // prevent negative
+            let value = this.data[key][series] - this.base_values[series];
+            return value > 0 ? value : 0;
+        } else if (value_calculation === "relative") {
+            // prevent negative
+            let value = this.data[key][series] - this.base_values[series];
+            return (Math.round(((value > 0 ? value : 0) * 100 / this.base_values[series] + Number.EPSILON) * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
     }
 }
