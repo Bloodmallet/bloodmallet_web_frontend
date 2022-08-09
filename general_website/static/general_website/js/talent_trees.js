@@ -29,11 +29,6 @@ class Talent {
 }
 
 class TreeNode {
-    /**
-     * See trees: https://worldofwarcraft.com/en-gb/news/23797209/world-of-warcraft-dragonflight-talent-preview
-     * Guardian Druid: https://bnetcmsus-a.akamaihd.net/cms/template_resource/GO03FE89WQY81653669937765.png
-     * Feral Druid: https://bnetcmsus-a.akamaihd.net/cms/template_resource/ZTDZ57EQUSTG1653669937329.png
-     */
     rank = 0;
     children = [];
     parents = [];
