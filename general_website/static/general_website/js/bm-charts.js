@@ -2,10 +2,11 @@ class BmBarChartData {
     element_id = undefined;
     title = "";
     subtitle = "";
-    x_axis_title = ""; // e.g. % damage per second
-    y_axis_title = ""; // e.g. Trinket
     legend_title = ""; // e.g. Itemlevels
     data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+
+    x_axis_title = ""; // e.g. "% damage per second"
+    y_axis_title = ""; // e.g. Trinket - not visible anywhere
     base_values = {} // e.g. {260: 11400, 270: 11400, 280: 11400}
     series_names = []; // e.g. 260, 270, 280
     sorted_data_keys = [] // e.g. ["My Trinket", "Other Trinket"]
@@ -16,10 +17,11 @@ class BmBarChart {
     element_id = undefined;
     title = "";
     subtitle = "";
-    x_axis_title = ""; // e.g. % damage per second
-    y_axis_title = ""; // e.g. Trinket
     legend_title = ""; // e.g. Itemlevels
     data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+
+    x_axis_title = ""; // e.g. % damage per second
+    y_axis_title = ""; // e.g. Trinket - not visible anywhere
     base_values = {} // e.g. {260: 11400, 270: 11400, 280: 11400}
     series_names = []; // e.g. 260, 270, 280
     sorted_data_keys = [] // e.g. ["My Trinket", "Other Trinket"]
@@ -27,19 +29,27 @@ class BmBarChart {
 
     root_element = undefined;
     global_max_value = -1;
-    unit = { "total": "", "relative": "%", "absolute": "Δ" }; // e.g. % or Δ
+    unit = { "total": "", "relative": "%", "absolute": "" };
+    x_axis_texts = { "total": "damage per second", "relative": "% damage per second", "absolute": " damage per second" };
 
     constructor(chart_data = new BmBarChart()) {
         this.element_id = chart_data.element_id;
         this.title = chart_data.title;
         this.subtitle = chart_data.subtitle;
-        this.x_axis_title = chart_data.x_axis_title;
-        this.y_axis_title = chart_data.y_axis_title;
         this.legend_title = chart_data.legend_title;
         this.data = chart_data.data;
 
         if (chart_data.hasOwnProperty("value_calculation")) {
             this.value_calculation = chart_data.value_calculation;
+        }
+
+        if (chart_data.hasOwnProperty("x_axis_title")) {
+            this.x_axis_title = chart_data.x_axis_title;
+        } else {
+            this.x_axis_title = this.x_axis_texts[this.value_calculation];
+        }
+        if (chart_data.hasOwnProperty("y_axis_title")) {
+            this.y_axis_title = chart_data.y_axis_title;
         }
 
         // optional - series_names
@@ -127,12 +137,49 @@ class BmBarChart {
         let axis_titles = document.createElement("div");
         axis_titles.classList.add("bm-row");
         let key_title = document.createElement("div");
-        key_title.classList.add("bm-key-title", "bm-width-marker-top");
-        key_title.appendChild(document.createTextNode(this.y_axis_title));
+        key_title.classList.add("bm-key-title");
+        // key_title.appendChild(document.createTextNode(this.y_axis_title));
         axis_titles.appendChild(key_title);
         let bar_title = document.createElement("div");
-        bar_title.classList.add("bm-bar-title", "bm-width-marker-top");
+        bar_title.classList.add("bm-bar-title");
+        if (["absolute", "relative"].indexOf(this.value_calculation) > -1) {
+            let min = document.createElement("span");
+            min.classList.add("bm-bar-min")
+
+            let unit = document.createElement("span");
+            unit.classList.add("bm-unit");
+            unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
+
+            if (this.value_calculation === "absolute") {
+                min.appendChild(unit);
+                min.appendChild(document.createTextNode(0));
+            } else if (this.value_calculation === "relative") {
+                min.appendChild(document.createTextNode(0));
+                min.appendChild(unit);
+            }
+
+            bar_title.appendChild(min);
+        }
         bar_title.appendChild(document.createTextNode(this.x_axis_title));
+        if (["absolute", "relative"].indexOf(this.value_calculation) > -1) {
+            let max = document.createElement("span");
+            max.classList.add("bm-bar-max")
+
+            let unit = document.createElement("span");
+            unit.classList.add("bm-unit");
+            unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
+
+            let base_value = this.base_values[this.series_names[this.series_names.length - 1]];
+            if (this.value_calculation === "absolute") {
+                max.appendChild(unit);
+                max.appendChild(document.createTextNode(this._get_absolute_gain(this.global_max_value, base_value)));
+            } else if (this.value_calculation === "relative") {
+                max.appendChild(document.createTextNode(this._get_relative_gain(this.global_max_value, base_value)));
+                max.appendChild(unit);
+            }
+
+            bar_title.appendChild(max);
+        }
         axis_titles.appendChild(bar_title);
         this.root_element.appendChild(axis_titles);
 
@@ -229,12 +276,11 @@ class BmBarChart {
 
             let value_div = document.createElement("div");
             value_div.classList.add("bm-tooltip-value");
-            // TODO: value calc here
             let value = this.get_value(key, series, this.value_calculation);
             value_div.appendChild(document.createTextNode(value));
             if (this.unit[this.value_calculation].length > 0) {
                 let unit = document.createElement("span");
-                unit.classList.add("bm-tooltip-unit");
+                unit.classList.add("bm-unit");
                 unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
                 value_div.appendChild(unit);
             }
@@ -248,7 +294,7 @@ class BmBarChart {
 
         let key_title = document.createElement("div");
         key_title.classList.add("bm-tooltip-key-title", "bm-tooltip-width-marker-top");
-        key_title.appendChild(document.createTextNode(this.y_axis_title));
+        key_title.appendChild(document.createTextNode(this.legend_title));
         legend.appendChild(key_title);
 
         let value_title = document.createElement("div");
@@ -261,17 +307,22 @@ class BmBarChart {
         return container.outerHTML;
     }
 
+    _get_relative_gain(changed_value, base_value) {
+        let value = this._get_absolute_gain(changed_value, base_value)
+        return (Math.round((value * 100 / base_value + Number.EPSILON) * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    _get_absolute_gain(changed_value, base_value) {
+        let value = changed_value - base_value;
+        return value > 0 ? value : 0;
+    }
+
     get_value(key, series, value_calculation) {
         if (value_calculation === "total") {
             return this.data[key][series];
         } else if (value_calculation === "absolute") {
-            // prevent negative
-            let value = this.data[key][series] - this.base_values[series];
-            return value > 0 ? value : 0;
+            return this._get_absolute_gain(this.data[key][series], this.base_values[series]);
         } else if (value_calculation === "relative") {
-            // prevent negative
-            let value = this.data[key][series] - this.base_values[series];
-            return (Math.round(((value > 0 ? value : 0) * 100 / this.base_values[series] + Number.EPSILON) * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            return this._get_relative_gain(this.data[key][series], this.base_values[series]);
         }
     }
 }
