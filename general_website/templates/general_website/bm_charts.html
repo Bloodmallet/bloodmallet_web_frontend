@@ -1,0 +1,43 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Missing information</h1>
+<ul>
+    <li>Spec/Class: Elemental Shaman</li>
+    <li>Fight style: Patchwerk</li>
+    <li>Simulation Type: Trinkets</li>
+    <li>Creation timestamp: UTC 2022-08-07 10:34</li>
+    <li>SimulationCraft Hash: SimulationCraft: <a
+            href="https://github.com/simulationcraft/simc/commit/90b6d261febde9625b619c3b4e91d71dd0c6d207">#90b6d26</a>
+    </li>
+</ul>
+
+<div id="chart_target"></div>
+
+{% endblock %}
+
+{% block extraimport %}
+<link rel="stylesheet" href="{% static 'general_website/css/bm-charts.css' %}" />
+
+<script src="{% static 'general_website/js/bm-charts.js' %}"></script>
+
+<script>
+    new BmBarChart({
+        element_id: "chart_target",
+        title: "Trinkets",
+        subtitle: "Fire Mage | Castingpatchwerk | UTC 2022-08-08 13:28",
+        legend_title: "Itemlevels",
+        data: {
+            "My trinket": { 260: 100, 280: 112, 290: 120 },
+            "Other trinket": { 260: 95, 280: 108, 290: 116 },
+            "Almost trinket": { 260: 82, 290: 100 }
+        },
+        base_values: { 260: 80 },
+        value_calculation: "relative",
+    });
+</script>
+{% endblock %}

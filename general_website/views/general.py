@@ -782,3 +782,8 @@ def logo_comparison(request):
 def empty(request):
     """Allows fiddling with html. Sandbox"""
     return render(request, "general_website/empty.html")
+
+
+def bm_charts(request):
+    """Minimal example chart of self-written bar chart class."""
+    return render(request, "general_website/bm_charts.html")
