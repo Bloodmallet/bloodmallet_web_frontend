@@ -7,11 +7,7 @@
 
 <h1>Missing information</h1>
 <ul>
-    <li>Spec/Class: Elemental Shaman</li>
-    <li>Fight style: Patchwerk</li>
-    <li>Simulation Type: Trinkets</li>
-    <li>Creation timestamp: UTC 2022-08-07 10:34</li>
-    <li>SimulationCraft Hash: SimulationCraft: <a
+    <li>SimulationCraft Hash: e.g. SimulationCraft: <a
             href="https://github.com/simulationcraft/simc/commit/90b6d261febde9625b619c3b4e91d71dd0c6d207">#90b6d26</a>
     </li>
 </ul>
@@ -21,23 +17,51 @@
 {% endblock %}
 
 {% block extraimport %}
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+
 <link rel="stylesheet" href="{% static 'general_website/css/bm-charts.css' %}" />
 
 <script src="{% static 'general_website/js/bm-charts.js' %}"></script>
 
 <script>
-    new BmBarChart({
-        element_id: "chart_target",
-        title: "Trinkets",
-        subtitle: "Fire Mage | Castingpatchwerk | UTC 2022-08-08 13:28",
-        legend_title: "Itemlevels",
-        data: {
-            "My trinket": { 260: 100, 280: 112, 290: 120 },
-            "Other trinket": { 260: 95, 280: 108, 290: 116 },
-            "Almost trinket": { 260: 82, 290: 100 }
-        },
-        base_values: { 260: 80 },
-        value_calculation: "relative",
-    });
+    let url = "https://bloodmallet.com/chart/get/trinkets/castingpatchwerk/shaman/elemental";
+    let request = new XMLHttpRequest();
+    request.open("GET", url, true); // async request
+
+    request.onload = function (e) {
+        if (request.readyState === 4) {
+            if (request.status === 200) {
+                let data = JSON.parse(request.responseText);
+
+                // Trinkets
+                let title = data["data_type"];
+                // "Fire Mage | Castingpatchwerk | UTC 2022-08-08 13:28"
+                let subtitle = data["profile"]["character"]["spec"] + " " + data["profile"]["character"]["class"];
+                subtitle += " | " + data["simc_settings"]["fight_style"];
+                subtitle += " | UTC " + data["metadata"]["timestamp"];
+                let { baseline: _, ...sim_data } = data["data"];
+                let base_data = data["data"]["baseline"];
+                let item_id_dict = data["item_ids"];
+
+                new BmBarChart({
+                    element_id: "chart_target",
+                    title: title,
+                    subtitle: subtitle,
+                    legend_title: "Itemlevels",
+                    data: sim_data,
+                    base_values: base_data,
+                    value_calculation: "relative",
+                    item_id_dict: item_id_dict
+                });
+            } else {
+                console.error(request.statusText);
+            }
+        }
+    };
+    request.onerror = function (e) {
+        console.error('Fetching data from bloodmallet.com encountered an error, ', e);
+    };
+    request.send(null);
+
 </script>
 {% endblock %}

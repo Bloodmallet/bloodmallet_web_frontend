@@ -19,18 +19,16 @@
     font-size: 90%;
 }
 
-.bm-row {
+.bm-row,
+.bm-legend {
     display: grid;
-    grid-template-columns: minmax(200px, 20%) auto;
+    grid-template-columns: minmax(200px, 30%) auto;
     grid-template-areas: "name bar";
     column-gap: 15px;
 }
 
 .bm-legend {
-    display: grid;
-    grid-template-columns: minmax(200px, 20%) auto;
     grid-template-areas: "title items";
-    column-gap: 15px;
     margin-top: 15px;
 }
 
@@ -85,6 +83,13 @@
     transform: translate(25%, 50%);
     background-color: #343a40;
     padding-left: 5px;
+}
+
+.bm-bar-final-value {
+    position: absolute;
+    right: 0px;
+    bottom: 50%;
+    transform: translate(120%, 50%);
 }
 
 .bm-width-marker-top {
@@ -146,12 +151,13 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 70%;
+    max-height: 20px;
     position: relative;
     top: 55%;
     transform: translateY(-50%);
 }
 
-.bm-bar-element:hover,
+.bm-bar:hover>.bm-bar-element,
 .bm-legend-item:hover {
     box-shadow: 0 0 5px 1px white;
 }
@@ -321,4 +327,28 @@
     border-left-color: #232227;
     border-left-color: #999999;
     border-left-color: #fff;
+}
+
+/* --------------- */
+/* Styling tooltip */
+/* --------------- */
+
+.wowhead-tooltip .wowhead-tooltip-requirements {
+    display: none;
+}
+
+/* remove icon left to the tooltip */
+.whtt-tooltip-icon {
+    display: none;
+}
+
+.wowhead-tooltip td,
+.wowhead-tooltip th {
+    background: none;
+}
+
+.wowhead-tooltip {
+    background: #232227;
+    border: 1px solid white !important;
+    border-radius: 5px;
 }

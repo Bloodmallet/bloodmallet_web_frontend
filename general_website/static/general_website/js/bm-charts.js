@@ -4,6 +4,10 @@ class BmBarChartData {
     subtitle = "";
     legend_title = ""; // e.g. Itemlevels
     data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+    language_dict = {} // e.g. "My Trinket": {"cn_CN": "心能力场发生器",}
+    spell_id_dict = {} // e.g. "My Talent": 123456
+    item_id_dict = {} // e.g. "My trinket": 123456
+    language = "en_US" // options: "cn_CN", "de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "ko_KR", "pt_BR", "ru_RU"
 
     x_axis_title = ""; // e.g. "% damage per second"
     y_axis_title = ""; // e.g. Trinket - not visible anywhere
@@ -19,6 +23,10 @@ class BmBarChart {
     subtitle = "";
     legend_title = ""; // e.g. Itemlevels
     data = {} // e.g. "My Trinket": {260: 12000, 270: 12500, 280: 13200}
+    language_dict = {} // e.g. "My Trinket": {"cn_CN": "心能力场发生器",}
+    spell_id_dict = {} // e.g. "My Talent": 123456
+    item_id_dict = {} // e.g. "My trinket": 123456
+    language = "en_US" // options: "cn_CN", "de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "ko_KR", "pt_BR", "ru_RU"
 
     x_axis_title = ""; // e.g. % damage per second
     y_axis_title = ""; // e.g. Trinket - not visible anywhere
@@ -86,6 +94,7 @@ class BmBarChart {
         // extend if number of keys === 1 and number of series_names > 1
         if (!chart_data.hasOwnProperty("base_values")) {
             chart_data.base_values = {};
+            console.log("created object base_values");
         }
         if (Object.keys(chart_data.base_values).length === 0) {
             for (let series of this.series_names) {
@@ -105,6 +114,22 @@ class BmBarChart {
         } else {
             throw "base_value must be an empty object, have only one key, or the same length and keys as series_names.";
         }
+        // optional: language_dict
+        if (chart_data.hasOwnProperty("language_dict")) {
+            this.language_dict = chart_data.language_dict;
+        }
+        // optional: item_id_dict
+        if (chart_data.hasOwnProperty("item_id_dict")) {
+            this.item_id_dict = chart_data.item_id_dict;
+        }
+        // optional: spell_id_dict
+        if (chart_data.hasOwnProperty("spell_id_dict")) {
+            this.spell_id_dict = chart_data.spell_id_dict;
+        }
+        // optional: language
+        if (chart_data.hasOwnProperty("language")) {
+            this.language = chart_data.language;
+        }
 
         this.global_max_value = Math.max(...Object.values(this.data).map(element => Math.max(...Object.values(element))));
 
@@ -113,6 +138,9 @@ class BmBarChart {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+        try {
+            $WowheadPower.refreshLinks();
+        } catch (error) { }
     }
 
     create_chart() {
@@ -189,7 +217,7 @@ class BmBarChart {
             row.classList.add("bm-row");
             let key_div = document.createElement("div");
             key_div.classList.add("bm-key");
-            key_div.appendChild(document.createTextNode(key));
+            key_div.appendChild(this._get_wowhead_link(key));
             row.appendChild(key_div);
             let bar = document.createElement("div");
             bar.classList.add("bm-bar");
@@ -211,6 +239,13 @@ class BmBarChart {
                 }
                 let bar_part = document.createElement("div");
                 bar_part.classList.add("bm-bar-element", "bm-bar-group-" + (index + 1));
+                // add final stack value as readable text
+                if (index === this.series_names.length - 1) {
+                    let final_stack_value = document.createElement("span");
+                    final_stack_value.classList.add("bm-bar-final-value");
+                    final_stack_value.appendChild(document.createTextNode(this.get_value(key, series, this.value_calculation)));
+                    bar_part.appendChild(final_stack_value);
+                }
                 bar.appendChild(bar_part);
                 // add more information for debugging
                 // bar_part.dataset.end = previous_value;
@@ -258,7 +293,8 @@ class BmBarChart {
 
         let title = document.createElement("div");
         title.classList.add("bm-tooltip-title");
-        title.appendChild(document.createTextNode(key));
+        let translated_name = this._get_translated_name(key);
+        title.appendChild(document.createTextNode(translated_name));
         container.appendChild(title);
 
         for (let [index, series] of this.series_names.entries()) {
@@ -314,6 +350,37 @@ class BmBarChart {
     _get_absolute_gain(changed_value, base_value) {
         let value = changed_value - base_value;
         return value > 0 ? value : 0;
+    }
+    _get_translated_name(key) {
+        if (key in this.language_dict && this.language in this.language_dict[key]) {
+            return this.language_dict[key][this.language];
+        } else {
+            return key;
+        }
+    }
+    _get_wowhead_url(key) {
+        let base = "https://www.wowhead.com/";
+        if (key in this.spell_id_dict) {
+            base += "spell=";
+            base += this.spell_id_dict[key];
+        } else if (key in this.item_id_dict) {
+            base += "item=";
+            base += this.item_id_dict[key];
+        } else {
+            return undefined;
+        }
+        return base;
+    }
+    _get_wowhead_link(key) {
+        let translated_name = document.createTextNode(this._get_translated_name(key));
+        let url = this._get_wowhead_url(key);
+        if (url === undefined) {
+            return translated_name;
+        }
+        let link = document.createElement("a");
+        link.href = url;
+        link.appendChild(translated_name);
+        return link;
     }
 
     get_value(key, series, value_calculation) {
