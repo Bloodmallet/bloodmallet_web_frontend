@@ -339,13 +339,34 @@ class TreeNode {
         } else {
             posX -= 9300;
         }
-        if (["protection_paladin", "retribution_paladin"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+        if ([
+            "protection_paladin",
+            "retribution_paladin",
+            "holy_paladin"
+        ].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
             posX -= 900;
         }
-        if (["shadow_priest", "holy_priest", "discipline_priest"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+        if ([
+            "shadow_priest",
+            "holy_priest",
+            "discipline_priest"
+        ].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
             posX -= 600;
         }
-        if (["elemental_shaman", "enhancement_shaman", "restoration_shaman"].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
+        if ([
+            "elemental_shaman",
+            "enhancement_shaman",
+            "restoration_shaman",
+            "blood_death_knight",
+            "frost_death_knight",
+            "unholy_death_knight",
+            "beast_mastery_hunter",
+            "marksmanship_hunter",
+            "survival_hunter",
+            "affliction_warlock",
+            "destruction_warlock",
+            "demonology_warlock"
+        ].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
             posX -= 300;
         }
         let x = 2 + posX / 600;
