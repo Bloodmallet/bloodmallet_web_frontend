@@ -340,9 +340,6 @@ class TreeNode {
             posX -= 9300;
         }
         if ([
-            "protection_paladin",
-            "retribution_paladin",
-            "holy_paladin"
         ].indexOf(this.wow_spec + "_" + this.wow_class) > -1) {
             posX -= 900;
         }
@@ -363,6 +360,12 @@ class TreeNode {
             "beast_mastery_hunter",
             "marksmanship_hunter",
             "survival_hunter",
+            "brewmaster_monk",
+            "mistweaver_monk",
+            "windwalker_monk",
+            "protection_paladin",
+            "retribution_paladin",
+            "holy_paladin",
             "affliction_warlock",
             "destruction_warlock",
             "demonology_warlock"
