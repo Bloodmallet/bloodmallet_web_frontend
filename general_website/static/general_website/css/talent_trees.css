@@ -1,7 +1,6 @@
 /* btt - Bloodmallets Talent Trees */
 
 :root {
-    --btt-box-size: 65px;
     --btt-icon-size: 35px;
     --line-strength: 2px;
 
@@ -14,13 +13,17 @@
     --btt-selectable: turquoise;
     --btt-partially-selected: yellow;
     --btt-fully-selected: orange;
+
+    --icon-gap: calc(var(--btt-icon-size) / 3);
+    --icon-effective-size: calc(var(--btt-icon-size) * 1.2);
+    --tree-width: calc(var(--btt-talent-columns) * var(--icon-effective-size) + calc(var(--btt-talent-columns) - 1) * var(--icon-gap))
 }
 
 div.btt-container {
     width: 100%;
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(var(--btt-talent-columns) * calc(var(--btt-box-size) / 3 * 2) + calc(var(--btt-talent-columns) - 1) * calc(var(--btt-box-size) / 5)), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--tree-width), 1fr));
 }
 
 div.bloodmallets-talent-tree {
@@ -29,17 +32,28 @@ div.bloodmallets-talent-tree {
 }
 
 div.bloodmallet-talents {
-    width: calc(var(--btt-talent-columns) * calc(var(--btt-box-size) / 3 * 2) + calc(var(--btt-talent-columns) - 1) * calc(var(--btt-box-size) / 7));
+    width: var(--tree-width);
     margin-left: auto;
     margin-right: auto;
     text-align: left;
 
     display: grid;
     /* grid-template: ; */
-    grid-template-columns: repeat(var(--btt-talent-columns), calc(var(--btt-box-size) / 3 * 2));
-    grid-template-rows: repeat(var(--btt-talent-rows), var(--btt-box-size));
-    row-gap: calc(var(--btt-box-size) / 7);
-    column-gap: calc(var(--btt-box-size) / 7);
+    grid-template-columns: repeat(var(--btt-talent-columns), var(--icon-effective-size));
+    grid-template-rows: repeat(var(--btt-talent-rows), var(--icon-effective-size));
+    row-gap: var(--icon-gap);
+    column-gap: var(--icon-gap);
+}
+
+div.bloodmallet-import-export-row {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: var(--tree-width);
+}
+
+input.bloodmallet-paste::placeholder {
+    text-align: center;
 }
 
 div.bloodmallet-talents>div.btt-talent {
@@ -55,7 +69,7 @@ div.bloodmallet-talents>div.btt-talent {
 div.btt-talent>div.btt-talent-rank {
     position: absolute;
     width: 100%;
-    bottom: -4px;
+    bottom: -7px;
     left: 0px;
     /* right: 0px; */
     text-align: center;
@@ -181,22 +195,23 @@ div.btt-talent>div.btt-talent-rank {
     width: 0;
     height: 0;
     top: 50%;
-    border-top: calc(var(--btt-icon-size) / 5) solid transparent;
-    border-bottom: calc(var(--btt-icon-size) / 5) solid transparent;
+    left: 50%;
+    border-top: calc(var(--btt-icon-size) / 6) solid transparent;
+    border-bottom: calc(var(--btt-icon-size) / 6) solid transparent;
     z-index: inherit;
 
 }
 
 .btt-choice-visual-left::before {
-    left: 0px;
-    transform: translate(-33%, -50%);
-    border-right: calc(var(--btt-icon-size) / 3) solid var(--btt-partially-selected);
+    /* left: 0px; */
+    transform: translate(calc(-100% - var(--icon-effective-size) / 2), -50%);
+    border-right: calc(var(--btt-icon-size) / 5) solid var(--btt-partially-selected);
 }
 
 .btt-choice-visual-right::after {
-    right: 0px;
-    transform: translate(33%, -50%);
-    border-left: calc(var(--btt-icon-size) / 3) solid var(--btt-partially-selected);
+    /* right: 0px; */
+    transform: translate(calc(0% + var(--icon-effective-size) / 2 + 1px), -50%);
+    border-left: calc(var(--btt-icon-size) / 5) solid var(--btt-partially-selected);
 }
 
 .btt-not-selected.btt-choice-visual-left::before,
@@ -239,14 +254,14 @@ div.btt-talent>div.btt-talent-rank {
     position: absolute;
     top: 50%;
     left: 13%;
-    border-top: 2px solid var(--btt-not-selected);
+    border-top: 2px solid white;
     width: 79%;
     transform: translateY(-50%);
     z-index: 10;
 }
 
 .btt-gate-line-satisfied:before {
-    border-top: 2px dashed var(--btt-not-selected);
+    border-top: 0px dashed var(--btt-not-selected);
 }
 
 .btt-gate-value {
