@@ -217,6 +217,8 @@ function bloodmallet_chart_import() {
           tooltip_engine: default_tooltip_engine,
           language: default_language,
           value_style: default_value_style,
+          talent_target_scaling_min_target_count: -1,
+          talent_target_scaling_max_target_count: -1,
           // reminder of the html element
           html_element: html_element
         };
@@ -286,6 +288,12 @@ function bloodmallet_chart_import() {
         }
         if (html_element.getAttribute("data-value-style")) {
           state.value_style = html_element.getAttribute("data-value-style");
+        }
+        if (html_element.getAttribute("data-talent-target-scaling-min-target-count")) {
+          state.talent_target_scaling_min_target_count = parseInt(html_element.getAttribute("data-talent-target-scaling-min-target-count"));
+        }
+        if (html_element.getAttribute("data-talent-target-scaling-max-target-count")) {
+          state.talent_target_scaling_max_target_count = parseInt(html_element.getAttribute("data-talent-target-scaling-max-target-count"));
         }
 
         // preparing necessary input to load data
@@ -435,6 +443,12 @@ function bloodmallet_chart_import() {
     }
     state.data = spec_data;
 
+    chart.update({
+      accessibility: {
+        enable: false
+      }
+    }, false);
+
     if (spec_data["error"] === true || spec_data["status"] === "error") {
       return simulation_error(html_element, spec_data);
     } else {
@@ -456,6 +470,8 @@ function bloodmallet_chart_import() {
     // do secondary distribution charts in a different function
     if (data_type === "secondary_distributions") {
       return update_secondary_distribution_chart(state, html_element, chart);
+    } else if (data_type === "talent_target_scaling") {
+      return update_talent_target_scaling_chart(state, html_element, chart);
     }
 
     data_type = spec_data['data_type'];
@@ -946,6 +962,110 @@ function bloodmallet_chart_import() {
     }
   }
 
+  /**
+   * Function updates a chart to show a 
+   * @param {object} state 
+   * @param {object} html_element 
+   * @param {object} chart 
+   * @returns nothing
+   */
+  function update_talent_target_scaling_chart(state, html_element, chart) {
+    if (debug) {
+      console.log("update_talent_target_scaling_chart");
+    }
+
+    let html_id = html_element.id;
+
+    let chart_id = state.chart_id;
+    let fight_style = state.fight_style;
+    let wow_class = state.wow_class;
+    let wow_spec = state.wow_spec;
+    let chart_engine = state.chart_engine;
+
+    let spec_data = get_data_from_state(state);
+
+    let post_chart = document.getElementById("post_chart");
+    post_chart.hidden = false;
+
+    wow_class = spec_data['profile']['character']['class'];
+    wow_spec = spec_data['profile']['character']['spec'];
+    fight_style = spec_data['simc_settings']['fight_style'];
+
+
+    let styled_chart = update_chart_style(state);
+
+    // create new chart without data
+    let new_chart = false;
+    if (state.chart_engine == "highcharts") {
+      try {
+        new_chart = Highcharts.chart(html_id, styled_chart);
+      } catch (error) {
+        console.log("When trying to create a highcharts chart the following error occurred. Did you include the necessary Highcharts scripts?");
+        console.log(error);
+        return;
+      }
+    } else if (state.chart_engine == "highcharts_old") {
+      try {
+        let tmp_styled_chart = styled_chart;
+        tmp_styled_chart["chart"]["renderTo"] = html_id;
+        new_chart = new Highcharts.Chart(tmp_styled_chart);
+      } catch (error) {
+        console.log("When trying to create a highcharts_old chart the following error occurred. Did you include the necessary Highcharts scripts?");
+        console.log(error);
+        return;
+      }
+    }
+
+    chart = undefined;
+    chart = new_chart;
+
+    // delete all old series data
+    while (chart.series[0]) {
+      chart.series[0].remove(false);
+    }
+
+    for (const talent_combination_name of spec_data["sorted_data_keys"]) {
+      const talent_data = spec_data["data"][talent_combination_name];
+      const target_counts = Object.keys(talent_data);
+
+      let min_target_count = -1;
+      if (state.talent_target_scaling_min_target_count > -1) {
+        min_target_count = state.talent_target_scaling_min_target_count;
+      } else {
+        min_target_count = Math.min(...target_counts.map(element => parseInt(element)));
+      }
+      // const min_target_count = 10;
+      let max_target_count = -1;
+      if (state.talent_target_scaling_max_target_count > -1) {
+        max_target_count = state.talent_target_scaling_max_target_count;
+      } else {
+        max_target_count = Math.max(...target_counts.map(element => parseInt(element)));
+      }
+      // const max_target_count = 1;
+
+      let series_data = [];
+      for (let target_count = min_target_count; target_count <= max_target_count; target_count++) {
+        if (target_counts.indexOf(target_count.toString()) >= -1) {
+          series_data.push([target_count, talent_data[target_count]]);
+        } else {
+          series_data.push([target_count, null]);
+        }
+      }
+
+      let series = {
+        name: talent_combination_name,
+        data: series_data
+      };
+
+      chart.addSeries(series, false);
+      chart.update({ xAxis: { min: min_target_count - 0.5, max: max_target_count + 0.5 } });
+    }
+
+    // chart.update()
+
+    chart.redraw();
+  }
+
   function update_secondary_distribution_chart(state, html_element, chart) {
     if (debug) {
       console.log("update_secondary_distribution_chart");
@@ -1398,8 +1518,17 @@ function bloodmallet_chart_import() {
     }
     if (state.chart_engine == "highcharts" || state.chart_engine == "highcharts_old") {
 
+      let link = "https://bloodmallet.com/";
+      if (state.chart_id !== undefined) {
+        link += "chart/" + state.chart_id;
+      } else if (state.wow_class !== undefined && state.wow_spec !== undefined && state.data_type !== undefined) {
+        link += "chart/" + state.wow_class + "/" + state.wow_spec + "/" + state.data_type;
+      }
+
       if (state.data_type === "secondary_distributions") {
         return {
+          accessibility: { enabled: false },
+          credits: { enabled: false },
           chart: {
             renderTo: 'scatter_plot_chart',
             type: "scatter3d",
@@ -1544,20 +1673,122 @@ function bloodmallet_chart_import() {
             gridLineColor: state.axis_color,
           },
         }
+      } else if (state.data_type === "talent_target_scaling") {
+        return {
+          accessibility: { enabled: false },
+          credits: {
+            href: link,
+            text: "bloodmallet",
+            style: {
+              fontSize: font_size
+            }
+          },
+          chart: {
+            // renderTo: 'scatter_plot_chart',
+            // type: "scatter3d",
+            backgroundColor: null,
+            animation: false,
+            // height: 800,
+            // width: 800,
+            // options3d: {
+            //   enabled: true,
+            //   alpha: 10,
+            //   beta: 30,
+            //   depth: 800,
+            //   fitToPlot: false,
+            // }
+          },
+          colors: bar_colors,
+          legend: {
+            enabled: true,
+            backgroundColor: state.background_color,
+            borderColor: state.font_color,
+            borderWidth: 1,
+            align: "center",
+            verticalAlign: "top",
+            layout: "horizontal",
+            itemStyle: { "color": state.font_color },
+            itemHoverStyle: { "color": state.font_color }
+          },
+          plotOptions: {
+            series: {
+              connectNulls: true,
+              dataLabels: {
+                allowOverlap: true,
+                style: {
+                  color: state.font_color,
+                  fontSize: state.font_size,
+                  fontWeight: "400",
+                  textOutline: ""
+                }
+              },
+              events: {
+                legendItemClick: function () {
+                  return false;
+                }
+              },
+            },
+          },
+          series: [],
+          title: {
+            text: "", //"Title placeholder",
+            useHTML: true,
+            style: {
+              color: state.font_color
+            }
+          },
+          subtitle: {
+            text: "",
+            useHTML: true,
+            style: {
+              color: state.font_color,
+              fontSize: state.font_size
+            }
+          },
+          xAxis: {
+            tickInterval: 1,
+            title: {
+              text: "Target count",
+              style: {
+                color: default_font_color,
+              }
+            },
+            labels: {
+              enabled: true,
+              style: {
+                color: default_font_color,
+              }
+            },
+            gridLineWidth: 1,
+            gridLineColor: state.axis_color,
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: "DPS",
+              style: {
+                color: default_font_color,
+              }
+            },
+            labels: {
+              enabled: true,
+              style: {
+                color: default_font_color,
+              }
+            },
+            gridLineWidth: 1,
+            gridLineColor: state.axis_color,
+          }
+        }
       }
 
       let background_color = state.background_color;
       let axis_color = state.axis_color;
       let font_color = state.font_color;
 
-      let link = "https://bloodmallet.com/";
-      if (state.chart_id !== undefined) {
-        link += "chart/" + state.chart_id;
-      } else if (state.wow_class !== undefined && state.wow_spec !== undefined) {
-        link += "#" + state.wow_class + "_" + state.wow_spec;
-      }
 
       let styled_chart = {
+        accessibility: { enabled: false },
         chart: {
           type: "bar",
           backgroundColor: default_background_color,
