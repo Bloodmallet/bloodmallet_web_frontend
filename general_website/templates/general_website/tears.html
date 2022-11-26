@@ -8,19 +8,25 @@
 <h1 class=" display-4 mb-3 text-center">{% translate 'T-List' %}</h1>
 
 <p>
-    {% translate "Everyone's doing a list right now? Here I present my own Tear-List. And I assure you it's highly subjective and different for everyone." %}
+    {% blocktranslate %}
+    Everyone's doing a list right now? Here I present my own Tear-List. And I assure you it's highly
+    subjective and different for everyone.
+    {% endblocktranslate %}
 </p>
 
-<span class="death_knight-color float-right" style="position: absolute; top: 180px; right: 50px; font-size: 5rem; transform: rotate(45deg); display: inline-block;">wow!</span>
+<span class="death_knight-color float-right"
+    style="position: absolute; top: 180px; right: 50px; font-size: 5rem; transform: rotate(45deg); display: inline-block;">wow!</span>
 <p>
     {% translate "All values are absolutely random and have no meaning." %}
 </p>
 
 <h3>{% translate 'Specs' %} <span onclick="resetTears();">🍪</span></h3>
 <div id="specs"></div>
-<span class="float-right" style="position: absolute; top: 800px; right: 30%; font-size: 5rem; transform: rotate(180deg); display: inline-block;">🤔</span>
+<span class="float-right"
+    style="position: absolute; top: 800px; right: 30%; font-size: 5rem; transform: rotate(180deg); display: inline-block;">🤔</span>
 
-<span class="death_knight-color float-right" style="position: absolute; top: 1300px; right: 50%; font-size: 5rem; transform: rotate(-45deg); display: inline-block;">oof!</span>
+<span class="death_knight-color float-right"
+    style="position: absolute; top: 1300px; right: 50%; font-size: 5rem; transform: rotate(-45deg); display: inline-block;">oof!</span>
 
 
 {% endblock %}
@@ -30,27 +36,32 @@
 {% include 'general_website/layout/chart_import.html' %}
 
 <script>
-    let specs = [{ 'id': 250, 'name': 'Blood', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 251, 'name': 'Frost', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 252, 'name': 'Unholy', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 577, 'name': 'Havoc', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 581, 'name': 'Vengeance', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 102, 'name': 'Balance', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 103, 'name': 'Feral', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 104, 'name': 'Guardian', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 105, 'name': 'Restoration', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 253, 'name': 'Beast_Mastery', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 254, 'name': 'Marksmanship', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 255, 'name': 'Survival', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 62, 'name': 'Arcane', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 63, 'name': 'Fire', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 64, 'name': 'Frost', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 268, 'name': 'Brewmaster', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 269, 'name': 'Windwalker', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 66, 'name': 'Protection', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 70, 'name': 'Retribution', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 256, 'name': 'Discipline', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 257, 'name': 'Holy', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 258, 'name': 'Shadow', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 259, 'name': 'Assassination', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 260, 'name': 'Outlaw', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 261, 'name': 'Subtlety', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 262, 'name': 'Elemental', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 263, 'name': 'Enhancement', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 264, 'name': 'Restoration', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 265, 'name': 'Affliction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 266, 'name': 'Demonology', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 267, 'name': 'Destruction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 71, 'name': 'Arms', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 72, 'name': 'Fury', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 73, 'name': 'Protection', 'wow_class': { 'id': 1, 'name': 'Warrior' } }];
+    let max_value = 90000;
+    let expansion = "dragonflight";
+    let season = "1";
+    let specs = [{ 'id': 250, 'name': 'Blood', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 251, 'name': 'Frost', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 252, 'name': 'Unholy', 'wow_class': { 'id': 6, 'name': 'Death Knight' } }, { 'id': 577, 'name': 'Havoc', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 581, 'name': 'Vengeance', 'wow_class': { 'id': 12, 'name': 'Demon Hunter' } }, { 'id': 102, 'name': 'Balance', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 103, 'name': 'Feral', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 104, 'name': 'Guardian', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 105, 'name': 'Restoration', 'wow_class': { 'id': 11, 'name': 'Druid' } }, { 'id': 253, 'name': 'Beast_Mastery', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 254, 'name': 'Marksmanship', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 255, 'name': 'Survival', 'wow_class': { 'id': 3, 'name': 'Hunter' } }, { 'id': 62, 'name': 'Arcane', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 63, 'name': 'Fire', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 64, 'name': 'Frost', 'wow_class': { 'id': 8, 'name': 'Mage' } }, { 'id': 268, 'name': 'Brewmaster', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 269, 'name': 'Windwalker', 'wow_class': { 'id': 10, 'name': 'Monk' } }, { 'id': 66, 'name': 'Protection', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 70, 'name': 'Retribution', 'wow_class': { 'id': 2, 'name': 'Paladin' } }, { 'id': 256, 'name': 'Discipline', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 257, 'name': 'Holy', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 258, 'name': 'Shadow', 'wow_class': { 'id': 5, 'name': 'Priest' } }, { 'id': 259, 'name': 'Assassination', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 260, 'name': 'Outlaw', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 261, 'name': 'Subtlety', 'wow_class': { 'id': 4, 'name': 'Rogue' } }, { 'id': 262, 'name': 'Elemental', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 263, 'name': 'Enhancement', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 264, 'name': 'Restoration', 'wow_class': { 'id': 7, 'name': 'Shaman' } }, { 'id': 265, 'name': 'Affliction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 266, 'name': 'Demonology', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 267, 'name': 'Destruction', 'wow_class': { 'id': 9, 'name': 'Warlock' } }, { 'id': 71, 'name': 'Arms', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 72, 'name': 'Fury', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 73, 'name': 'Protection', 'wow_class': { 'id': 1, 'name': 'Warrior' } }, { 'id': 1467, 'name': 'Devastation', 'wow_class': { 'id': 13, 'name': 'Evoker' } }];
     let keys = [];
     let values = [];
     let list = [];
-    let cookie_name = "tearList";
+    let cookie_name = ["tearList", expansion, season].join("_");
     if (!document.cookie.split("; ").find(c => c.startsWith(cookie_name))) {
+        // create values and cookie
         for (let spec of specs) {
             let key = spec["name"] + " " + spec["wow_class"]["name"];
-            let value = parseInt(Math.random() * 10000);
+            let value = parseInt(Math.random() * max_value);
             list.push([key, value]);
         }
-        list.sort((x,y)=>{return  y[1] - x[1];});
+        list.sort((x, y) => { return y[1] - x[1]; });
         document.cookie = cookie_name + "=" + list.toString();
     } else {
+        // load values from cookie
         let s = document.cookie.split("; ").find(r => r.startsWith(cookie_name)).split("=")[1];
         let s_l = s.split(",");
         for (let i = 0; i < s_l.length; i++) {
             if (i % 2 === 0) {
                 list.push([s_l[i]]);
             } else {
-                list[parseInt(i/2)].push(parseInt(s_l[i]));
+                list[parseInt(i / 2)].push(parseInt(s_l[i]));
             }
         }
     }
@@ -104,7 +115,7 @@
             title: {
                 text: " ",
                 style: {
-                color: default_font_color
+                    color: default_font_color
                 }
             },
             symbolRadius: 0
@@ -114,11 +125,11 @@
                 stacking: "normal",
                 borderColor: default_background_color,
                 events: {
-                legendItemClick: function () { return false; }
+                    legendItemClick: function () { return false; }
                 },
                 style: {
-                textOutline: false,
-                fontSize: font_size,
+                    textOutline: false,
+                    fontSize: font_size,
                 }
             }
         },
@@ -145,8 +156,8 @@
             // adding this as a potential tooltip positioning fix. changes tooltip position to be inside the bar rather than at the end
             positioner: function (boxWidth, boxHeight, point) {
                 return {
-                x: point.plotX,
-                y: point.plotY
+                    x: point.plotX,
+                    y: point.plotY
                 };
             }
         },
@@ -155,8 +166,8 @@
             labels: {
                 useHTML: true,
                 style: {
-                color: default_font_color,
-                fontSize: font_size,
+                    color: default_font_color,
+                    fontSize: font_size,
                 }
             },
             gridLineWidth: 0,
@@ -169,26 +180,26 @@
             labels: {
                 //enabled: true,
                 style: {
-                color: default_axis_color
+                    color: default_axis_color
                 },
             },
             min: 0,
             stackLabels: {
                 enabled: true,
                 formatter: function () {
-                return Intl.NumberFormat().format(this.total);
+                    return Intl.NumberFormat().format(this.total);
                 },
                 style: {
-                color: default_font_color,
-                textOutline: false,
-                fontSize: font_size,
-                fontWeight: "normal"
+                    color: default_font_color,
+                    textOutline: false,
+                    fontSize: font_size,
+                    fontWeight: "normal"
                 }
             },
             title: {
                 text: "\u0394 tear impact per attention",
                 style: {
-                color: default_axis_color
+                    color: default_axis_color
                 }
             },
             gridLineWidth: 1,
@@ -199,26 +210,26 @@
             labels: {
                 //enabled: true,
                 style: {
-                color: default_axis_color
+                    color: default_axis_color
                 },
             },
             min: 0,
             stackLabels: {
                 enabled: true,
                 formatter: function () {
-                return Intl.NumberFormat().format(this.total);
+                    return Intl.NumberFormat().format(this.total);
                 },
                 style: {
-                color: default_font_color,
-                textOutline: false,
-                fontSize: font_size,
-                fontWeight: "normal"
+                    color: default_font_color,
+                    textOutline: false,
+                    fontSize: font_size,
+                    fontWeight: "normal"
                 }
             },
             title: {
                 text: "\u0394 tear impact per attention",
                 style: {
-                color: default_axis_color
+                    color: default_axis_color
                 }
             },
             gridLineWidth: 1,
@@ -235,7 +246,7 @@
         xAxis: {
             categories: keys
         }
-      }, false);
+    }, false);
 
     chart.addSeries({
         data: values,
