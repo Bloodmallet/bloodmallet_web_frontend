@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 21:28+0100\n"
+"POT-Creation-Date: 2022-11-26 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,36 +57,20 @@ msgstr ""
 msgid "Chinese"
 msgstr ""
 
-#: .\compute_api\forms.py:40
+#: .\compute_api\forms.py:36
 msgid "Create Charts"
 msgstr ""
 
-#: .\compute_api\models.py:18
-msgid "booting up"
-msgstr ""
-
-#: .\compute_api\models.py:19
-msgid "idle"
-msgstr ""
-
-#: .\compute_api\models.py:20
-msgid "calculating"
-msgstr ""
-
-#: .\compute_api\models.py:21 .\general_website\models\simulation.py:110
-msgid "done"
-msgstr ""
-
-#: .\compute_api\templates\compute_api\index.html:80
-#: .\compute_api\templates\compute_api\index.html:97
+#: .\compute_api\templates\compute_api\index.html:82
+#: .\compute_api\templates\compute_api\index.html:99
 msgid "Generation in progress"
 msgstr ""
 
-#: .\compute_api\templates\compute_api\index.html:117
+#: .\compute_api\templates\compute_api\index.html:119
 msgid "Deleting ALL instances"
 msgstr ""
 
-#: .\compute_api\views.py:863
+#: .\compute_api\views.py:876
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -170,9 +154,30 @@ msgstr ""
 msgid "APL"
 msgstr ""
 
-#: .\general_website\forms.py:214 .\general_website\forms.py:230
-#: .\general_website\forms.py:246
+#: .\general_website\forms.py:214 .\general_website\forms.py:240
+#: .\general_website\forms.py:266
 msgid "An illegal input was detected."
+msgstr ""
+
+#: .\general_website\forms.py:220
+#, python-format
+msgid ""
+"Custom profile input was too long. Input can have a max-length of "
+"%(MAX_LENGTH)s characters."
+msgstr ""
+
+#: .\general_website\forms.py:246
+#, python-format
+msgid ""
+"Fight style input was too long. Input can have a max-length of "
+"%(MAX_LENGTH)s characters."
+msgstr ""
+
+#: .\general_website\forms.py:272
+#, python-format
+msgid ""
+"APL input was too long. Input can have a max-length of %(MAX_LENGTH)s "
+"characters."
 msgstr ""
 
 #: .\general_website\models\account.py:59
@@ -207,8 +212,8 @@ msgstr ""
 #: .\general_website\models\simulation.py:63
 msgid ""
 "Define your own character here, instead of using the standard profile (your "
-"input will overwrite the standard profile). Paste your <a href=\"https://"
-"mods.curse.com/addons/wow/simulationcraft\" target=\"_blank"
+"input will overwrite the standard profile). Paste your <a href=\"https://www."
+"curseforge.com/wow/addons/simulationcraft\" target=\"_blank"
 "\">SimulationCraft</a> /simc output into this element."
 msgstr ""
 
@@ -226,6 +231,10 @@ msgstr ""
 
 #: .\general_website\models\simulation.py:109
 msgid "in progress"
+msgstr ""
+
+#: .\general_website\models\simulation.py:110
+msgid "done"
 msgstr ""
 
 #: .\general_website\models\simulation.py:111
@@ -824,8 +833,11 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:271
-msgid "All values in this table are gains."
+#: .\general_website\templates\general_website\chart_information\simulation_type\conduits.html:2
+#: .\general_website\templates\general_website\chart_information\simulation_type\covenants.html:2
+#: .\general_website\templates\general_website\chart_information\simulation_type\domination_shards.html:2
+#: .\general_website\templates\general_website\chart_information\simulation_type\soul_bind_nodes.html:2
+msgid "This simulation type is no longer supported."
 msgstr ""
 
 #: .\general_website\templates\general_website\create_chart.html:7
@@ -954,7 +966,7 @@ msgid "Terms and Conditions"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_settings.html:14
-#: .\general_website\templates\general_website\layout\nav_top.html:53
+#: .\general_website\templates\general_website\layout\nav_top.html:56
 #: .\general_website\templates\general_website\settings.html:15
 msgid "Settings"
 msgstr ""
@@ -981,27 +993,31 @@ msgstr ""
 msgid "Meme"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:38
+#: .\general_website\templates\general_website\layout\nav_top.html:32
+msgid "Dragonflight: Talent trees"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_top.html:41
 #: .\general_website\templates\general_website\login.html:7
 #: .\general_website\templates\general_website\login.html:13
 #: .\general_website\templates\general_website\password_reset_complete.html:10
 msgid "Login"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:41
+#: .\general_website\templates\general_website\layout\nav_top.html:44
 #: .\general_website\templates\general_website\signup.html:7
 msgid "Register"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:46
+#: .\general_website\templates\general_website\layout\nav_top.html:49
 msgid "Superuser"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:49
+#: .\general_website\templates\general_website\layout\nav_top.html:52
 msgid "Admin"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:57
+#: .\general_website\templates\general_website\layout\nav_top.html:60
 msgid "Logout"
 msgstr ""
 
@@ -1233,21 +1249,28 @@ msgid ""
 "        "
 msgstr ""
 
+#: .\general_website\templates\general_website\talent_trees.html:8
+msgid "Talent trees"
+msgstr ""
+
 #: .\general_website\templates\general_website\tears.html:8
 msgid "T-List"
 msgstr ""
 
 #: .\general_website\templates\general_website\tears.html:11
 msgid ""
-"Everyone's doing a list right now? Here I present my own Tear-List. And I "
-"assure you it's highly subjective and different for everyone."
+"\n"
+"    Everyone's doing a list right now? Here I present my own Tear-List. And "
+"I assure you it's highly\n"
+"    subjective and different for everyone.\n"
+"    "
 msgstr ""
 
-#: .\general_website\templates\general_website\tears.html:16
+#: .\general_website\templates\general_website\tears.html:20
 msgid "All values are absolutely random and have no meaning."
 msgstr ""
 
-#: .\general_website\templates\general_website\tears.html:19
+#: .\general_website\templates\general_website\tears.html:23
 msgid "Specs"
 msgstr ""
 
@@ -1298,49 +1321,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:524
+#: .\general_website\views\general.py:528
 msgid "Simulation not found."
 msgstr ""
 
-#: .\general_website\views\general.py:591
+#: .\general_website\views\general.py:595
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: .\general_website\views\general.py:629
+#: .\general_website\views\general.py:633
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: .\general_website\views\general.py:644
+#: .\general_website\views\general.py:648
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: .\general_website\views\general.py:665
+#: .\general_website\views\general.py:669
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: .\general_website\views\general.py:673
+#: .\general_website\views\general.py:677
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:680
+#: .\general_website\views\general.py:684
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:682
+#: .\general_website\views\general.py:686
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: .\general_website\views\general.py:717
+#: .\general_website\views\general.py:721
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: .\general_website\views\general.py:738
+#: .\general_website\views\general.py:742
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: .\general_website\views\general.py:743
+#: .\general_website\views\general.py:747
 msgid "You don't have permission to create a chart."
 msgstr ""
 
@@ -1390,6 +1413,14 @@ msgstr ""
 
 #: .\general_website.FightStyle/name:10
 msgid "Ultraxion"
+msgstr ""
+
+#: .\general_website.FightStyle/name:11
+msgid "Casting Patchwerk 3"
+msgstr ""
+
+#: .\general_website.FightStyle/name:12
+msgid "Casting Patchwerk 5"
 msgstr ""
 
 #: .\general_website.Race/name:1
@@ -1476,6 +1507,10 @@ msgstr ""
 msgid "Zandalari Troll"
 msgstr ""
 
+#: .\general_website.Race/name:23
+msgid "Dracthyr"
+msgstr ""
+
 #: .\general_website.SimulationType/name:1
 msgid "Trinkets"
 msgstr ""
@@ -1484,20 +1519,8 @@ msgstr ""
 msgid "Races"
 msgstr ""
 
-#: .\general_website.SimulationType/name:3
-msgid "Azerite Traits"
-msgstr ""
-
 #: .\general_website.SimulationType/name:4
 msgid "Secondary Distributions"
-msgstr ""
-
-#: .\general_website.SimulationType/name:5
-msgid "Corruptions"
-msgstr ""
-
-#: .\general_website.SimulationType/name:6
-msgid "Azerite Essences"
 msgstr ""
 
 #: .\general_website.SimulationType/name:7
@@ -1530,6 +1553,18 @@ msgstr ""
 
 #: .\general_website.SimulationType/name:14
 msgid "Tier Set"
+msgstr ""
+
+#: .\general_website.SimulationType/name:15
+msgid "Talent Target Scaling"
+msgstr ""
+
+#: .\general_website.SimulationType/name:16
+msgid "Phials"
+msgstr ""
+
+#: .\general_website.SimulationType/name:17
+msgid "Potions"
 msgstr ""
 
 #: .\general_website.WowClass/name:1
@@ -1578,6 +1613,10 @@ msgstr ""
 
 #: .\general_website.WowClass/name:12
 msgid "Warrior"
+msgstr ""
+
+#: .\general_website.WowClass/name:13
+msgid "Evoker"
 msgstr ""
 
 #: .\general_website.WowSpec/name:1
@@ -1690,4 +1729,12 @@ msgstr ""
 
 #: .\general_website.WowSpec/name:29
 msgid "Fury"
+msgstr ""
+
+#: .\general_website.WowSpec/name:31
+msgid "Devastation"
+msgstr ""
+
+#: .\general_website.WowSpec/name:32
+msgid "Preservation"
 msgstr ""
