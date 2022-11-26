@@ -285,12 +285,27 @@
 
 {% include 'general_website/chart_information/class_and_spec_information_importer.html' %}
 
+<!-- <div align="center"> -->
 <div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}" {% else %}
     data-chart-id="{{ chart_id }}" {% endif %} data-language="{{ LANGUAGE_CODE }}" data-entries="10000"
     data-background-color="transparent" data-value-style="relative"></div>
 
-<div id="post_chart" class="mt-5" hidden></div>
+<div id="post_chart" class="mt-5" hidden>
+    {% if chart.simulation_type.command == "talent_target_scaling" %}
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <label for="customRange1">Min target count:&nbsp;<span id="range-min-target-count-output">1</span></label>
+            <input type="range" class="custom-range" id="range-min-target-count" min="1" max="15" value="1">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="customRange1">Max target count:&nbsp;<span id="range-max-target-count-output">15</span></label>
+            <input type="range" class="custom-range" id="range-max-target-count" min="1" max="15" value="15">
+        </div>
+    </form>
+    <div id="talent-information-div"></div>
+    {% endif %}
+</div>
 
 {% include 'general_website/chart_information/simulation_type_information_importer.html' %}
 
@@ -336,8 +351,33 @@
         }
     }
     {% endif %}
+
+    {% if chart.simulation_type.command == "talent_target_scaling" %}
+    function update_target_count_range(value, output_span_id, chart_attribute_name) {
+        document.getElementById(output_span_id).innerHTML = value;
+        document.getElementById("chart").dataset[chart_attribute_name] = value;
+    }
+    {% endif %}
+
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("absolute_values").addEventListener("change", update_value_style);
+
+        {% if chart.simulation_type.command == "talent_target_scaling" %}
+        document.getElementById("range-min-target-count").addEventListener("input", event => {
+            update_target_count_range(event.target.value, "range-min-target-count-output", "talentTargetScalingMinTargetCount");
+        });
+        document.getElementById("range-min-target-count").addEventListener("change", event => {
+            bloodmallet_chart_import();
+        });
+
+        document.getElementById("range-max-target-count").addEventListener("input", event => {
+            update_target_count_range(event.target.value, "range-max-target-count-output", "talentTargetScalingMaxTargetCount");
+        });
+        document.getElementById("range-max-target-count").addEventListener("input", event => {
+            bloodmallet_chart_import();
+        });
+        {% endif %}
+
 
         {% if chart.simulation_type.command == "trinkets" %}
         document.getElementsByName("filter-active-passive").forEach(element => {
