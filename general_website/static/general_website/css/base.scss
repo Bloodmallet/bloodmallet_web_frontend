@@ -15,21 +15,23 @@ $class-color-shaman: #0070de;
 $class-color-warlock: #9482c9;
 $class-color-warrior: #c79c6e;
 
-$class-colors: () !default;
+$class-colors: (
+    ) !default;
 $class-colors: map-merge(("death_knight": $class-color-death-knight,
-        "demon_hunter": $class-color-demon-hunter,
-        "druid": $class-color-druid,
-        "evoker": $class-color-evoker,
-        "hunter": $class-color-hunter,
-        "mage": $class-color-mage,
-        "monk": $class-color-monk,
-        "paladin": $class-color-paladin,
-        "priest": $class-color-priest,
-        "rogue": $class-color-rogue,
-        "shaman": $class-color-shaman,
-        "warlock": $class-color-warlock,
-        "warrior": $class-color-warrior),
-    $class-colors, );
+            "demon_hunter": $class-color-demon-hunter,
+            "druid": $class-color-druid,
+            "evoker": $class-color-evoker,
+            "hunter": $class-color-hunter,
+            "mage": $class-color-mage,
+            "monk": $class-color-monk,
+            "paladin": $class-color-paladin,
+            "priest": $class-color-priest,
+            "rogue": $class-color-rogue,
+            "shaman": $class-color-shaman,
+            "warlock": $class-color-warlock,
+            "warrior": $class-color-warrior),
+        $class-colors,
+);
 
 $darkest-color: #232227;
 $dark-color: #343a40;
@@ -83,6 +85,11 @@ $alert-border-width: 5px;
 
 $pre-color: $class-color-paladin !default;
 $code-color: $class-color-paladin !default;
+
+$custom-range-thumb-bg: $lightest-color;
+$custom-range-track-bg: $light-color;
+$custom-range-thumb-focus-box-shadow: $darkest-color;
+$custom-range-thumb-active-bg: $primary;
 
 @import "general_website/bootstrap/scss/bootstrap";
 
