@@ -19,8 +19,9 @@
 <form method="post" {% if user.can_create_chart %}action="{% url 'create_chart' %}" {% endif %}>
     {% crispy form form.helper %}
 
-    <small id="dataDisclaimer"
-        class="form-text text-muted">{% translate "Chart creation will take a while (stuff needs to be simulated)." %}</small>
+    <small id="dataDisclaimer" class="form-text text-muted">
+        {% translate "Chart creation will take a while (stuff needs to be simulated)." %}
+    </small>
 </form>
 
 
@@ -129,14 +130,18 @@
             7: "HeavyMovement",
             8: "HelterSkelter",
             9: "LightMovement",
-            10: "Ultraxion"
+            10: "Ultraxion",
+            11: "# backend will handle this fight style",
+            12: "# backend will handle this fight style"
         }
         let fight_length = document.getElementById("id_fight_length").value;
         let targets = document.getElementById("id_targets").value;
 
         let custom = [];
-        if (fight_style !== undefined && fight_style !== "") {
+        if (fight_style !== undefined && fight_style !== "" && fight_style < 11) {
             custom.push("fight_style=" + fight_style_names[fight_style]);
+        } else if (fight_style !== undefined && fight_style !== "" && fight_style > 10) {
+            custom.push(fight_style_names[fight_style]);
         }
         if (fight_length !== undefined && fight_length !== "") {
             custom.push("duration=" + fight_length);
