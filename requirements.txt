@@ -5,7 +5,7 @@
 # Attention!
 # Make sure to use 'python -m pip install --upgrade pip setuptools wheel' before trying to use 'pip install -U -r requirements.txt'
 
-Django~=4.1.3
+Django~=4.0.0
 django-allauth
 requests
 
