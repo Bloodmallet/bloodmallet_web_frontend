@@ -128,6 +128,14 @@ class TreeNode {
         this.html_element = div;
 
         // add fallback tooltip for unimplemented spells
+        // ok yeah that does include the definition ID. you should be able to use that in combination with the rank number to get talent tooltips for a given rank.
+
+        // example: elemental warding, a 2-rank shaman class talent, highlighted here: https://www.wowhead.com/beta/talent-calc/shaman/restoration/DBBhZJAAAAA
+        // that's spell 381650, definition 106978
+        // rank 1: https://www.wowhead.com/beta/spell=381650&def=106978&rank=1
+        // rank 2: https://www.wowhead.com/beta/spell=381650&def=106978&rank=2
+
+        // This isn't live yet, but we'll support alternate spell IDs by an "alt" param. For example, a link to https://www.wowhead.com/beta/spell=192077?alt=51485 will show this tooltip
         if (["inv_misc_questionmark", "", undefined].indexOf(this.sub_talents[0].icon) > -1 && ["", -1, undefined].indexOf(this.sub_talents[0].spell_id) > -1) {
             div.dataset.toggle = "tooltip";
             div.dataset.placement = "right";
