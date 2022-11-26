@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-26 11:57+0100\n"
+"POT-Creation-Date: 2022-11-27 00:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Deleting ALL instances"
 msgstr ""
 
-#: .\compute_api\views.py:876
+#: .\compute_api\views.py:886
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -865,12 +865,12 @@ msgstr ""
 msgid "Become a Patron"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:112
+#: .\general_website\templates\general_website\faq.html:121
 #: .\general_website\templates\general_website\privacy_policy.html:26
 msgid "Google Analytics"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:114
+#: .\general_website\templates\general_website\faq.html:123
 msgid ""
 "\n"
 "            bloodmallet.com would like to use <a\n"
@@ -879,18 +879,21 @@ msgid ""
 "                href=\"https://marketingplatform.google.com/about/analytics/"
 "\">Google Analytics (GA)</a>, to know how many\n"
 "            people are using the website. You can either accept or reject "
-"this. Your choice will be saved on your device\n"
-"            in a cookie.\n"
+"this. Accepting will enable google analytics\n"
+"            for your visit and as long as your choice persists. Your choice "
+"will be saved on your device\n"
+"            in a cookie. You can always return here to enable or disable "
+"google analytics.\n"
 "            "
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:124
+#: .\general_website\templates\general_website\faq.html:134
 #: .\general_website\templates\general_website\layout\base.html:78
 #: .\general_website\templates\general_website\privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:127
+#: .\general_website\templates\general_website\faq.html:137
 #: .\general_website\templates\general_website\layout\base.html:81
 #: .\general_website\templates\general_website\privacy_policy.html:34
 msgid "Reject GA tracking"
