@@ -12,7 +12,7 @@ $languages = @('zh-hans', 'de', 'es', 'fr', 'it', 'ko', 'pt', 'ru', 'pl')
 foreach($language in $languages) {
     Write-Host $language
     Write-Host "  makemessages"
-    python manage.py makemessages --locale=$language -i "env" >$null
+    python manage.py makemessages --locale=$language --ignore="env/*" >$null
     Write-Host "  compilemessages"
     python manage.py compilemessages --locale=$language >$null
 }
