@@ -31,18 +31,19 @@ function update_navbarClassMenu(state) {
         console.log("update_navbarClassMenu");
     }
     const simulation_type_dict = {
-        "soul_binds": "Soulbinds",
-        "trinkets": "Trinkets",
+        "phials": "Phials",
+        "potions": "Potions",
         "races": "Races",
-        "legendaries": "Legendaries",
-        "talents": "Talents",
         "secondary_distributions": "Secondary Distributions",
+        "talent_target_scaling": "Talent Target Scaling",
         "tier_set": "Tier Sets",
+        "trinkets": "Trinkets",
     };
     const simulation_types = Object.keys(simulation_type_dict).sort();
     const fight_style_dict = {
         "castingpatchwerk": "Casting Patchwerk",
-        "hecticaddcleave": "Hectic Add Cleave",
+        "castingpatchwerk3": "Casting Patchwerk 3",
+        "castingpatchwerk5": "Casting Patchwerk 5",
     };
     const fight_styles = Object.keys(fight_style_dict).sort();
 
@@ -77,6 +78,7 @@ function update_navbarClassMenu(state) {
             "death_knight",
             "demon_hunter",
             "druid",
+            "evoker",
             "hunter",
             "mage",
             "monk",
@@ -131,6 +133,8 @@ function update_navbarClassMenu(state) {
             "druid_balance",
             "druid_feral",
             "druid_guardian",
+            "evoker_devastation",
+            "evoker_preservation",
             "hunter_beast_mastery",
             "hunter_marksmanship",
             "hunter_survival",

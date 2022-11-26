@@ -48,45 +48,47 @@ function build_table() {
             let a_spec_btn = document.createElement('a');
             // It's a simulated spec
             if ([
-                "death_knight_blood",
+                // "death_knight_blood",
                 "death_knight_frost",
                 "death_knight_unholy",
-                "demon_hunter_havoc",
-                "demon_hunter_vengeance",
-                "druid_balance",
-                "druid_feral",
-                "druid_guardian",
-                "hunter_beast_mastery",
-                "hunter_marksmanship",
-                "hunter_survival",
-                "mage_arcane",
-                "mage_fire",
-                "mage_frost",
-                "monk_brewmaster",
-                "monk_windwalker",
-                "paladin_protection",
-                "paladin_retribution",
+                // "demon_hunter_havoc",
+                // "demon_hunter_vengeance",
+                // "druid_balance",
+                // "druid_feral",
+                // "druid_guardian",
+                // "evoker_devastation",
+                // "evoker_preservation",
+                // "hunter_beast_mastery",
+                // "hunter_marksmanship",
+                // "hunter_survival",
+                // "mage_arcane",
+                // "mage_fire",
+                // "mage_frost",
+                // "monk_brewmaster",
+                // "monk_windwalker",
+                // "paladin_protection",
+                // "paladin_retribution",
                 "priest_shadow",
-                "rogue_assassination",
-                "rogue_outlaw",
-                "rogue_subtlety",
+                // "rogue_assassination",
+                // "rogue_outlaw",
+                // "rogue_subtlety",
                 "shaman_elemental",
-                "shaman_enhancement",
-                "warlock_affliction",
-                "warlock_demonology",
-                "warlock_destruction",
-                "warrior_arms",
-                "warrior_fury",
-                "warrior_protection"
+                // "shaman_enhancement",
+                // "warlock_affliction",
+                // "warlock_demonology",
+                // "warlock_destruction",
+                // "warrior_arms",
+                // "warrior_fury",
+                // "warrior_protection"
             ].indexOf(wow_class + "_" + wow_spec) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
-                a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/soul_binds/castingpatchwerk';
+                a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/trinkets/castingpatchwerk';
             } else {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
                 a_spec_btn.href = '';
                 a_spec_btn.dataset.toggle = "tooltip";
                 a_spec_btn.dataset.placement = "top";
-                a_spec_btn.dataset.title = "Not supported right now.";
+                a_spec_btn.dataset.title = "Missing T29 profile.";
             }
 
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
