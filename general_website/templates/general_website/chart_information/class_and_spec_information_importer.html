@@ -10,6 +10,9 @@
 </div>
 {% endwith %}
 
+{% comment %}
+example import of simulation type and spec specific disclaimer
 {% if general_result and simulation_type == "tier_set" and wow_class == "death_knight" and wow_spec == "frost" %}
 {% include 'general_website/chart_information/disclaimers/tier_set_death_knight_frost.html' %}
 {% endif %}
+{% endcomment %}
