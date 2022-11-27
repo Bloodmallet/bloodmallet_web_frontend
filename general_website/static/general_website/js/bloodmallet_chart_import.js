@@ -598,6 +598,11 @@ function bloodmallet_chart_import() {
           }
           return links.join("");
         });
+    } else if (["tier_set", "talent_target-scaling"].indexOf(data_type) > -1) {
+      category_list = dps_ordered_keys
+        .map(element => {
+          return get_category_name(state, element, data);
+        });
     } else {
       category_list = dps_ordered_keys
         .map(element => {
@@ -1385,8 +1390,17 @@ function bloodmallet_chart_import() {
     }
 
     // races don't have links/tooltips
-    if (["races", "tier_set", "phials", "potions"].includes(state.data_type)) {
+    if (["races", "phials", "potions"].includes(state.data_type)) {
       return get_translated_name(key, data, state);
+    }
+
+    if (["tier_set", "talent_target_scaling"].includes(state.data_type)) {
+      const profile_index = data["sorted_data_keys"].indexOf(key);
+      let id = "override-profile-" + profile_index;
+      let link = '<a href="#' + id + '">';
+      link += get_translated_name(key, data, state);
+      link += '</a>';
+      return link;
     }
 
     if (["soulbinds"].includes(state.data_type)) {
@@ -2165,21 +2179,7 @@ function bloodmallet_chart_import() {
     const talents = data["profile"]["character"]["talents"] !== undefined ? data["profile"]["character"]["talents"] : "0000000";
     let talents_element = document.getElementById("c_talents");
     talents_element.innerHTML = "";
-    for (let i = 0; i < talents.length; i++) {
-      const talent = talents[i];
-      let icon = document.createElement("a");
-      icon.href = "";
-      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
-      try {
-        icon.href += "spell=" + data["talent_data"][parseInt(i) + 1][parseInt(talent)]["spell_id"];
-        //icon.dataset.whRenameLink = true;
-      } catch (error) {
-        // unset talent (value 0)
-        continue
-      }
-      icon.dataset.whIconSize = "medium";
-      talents_element.appendChild(icon);
-    }
+    talents_element.appendChild(create_talent_iframe(talents, "base"));
 
     // character profile - items
     for (let item_key in data["profile"]["items"]) {
@@ -2207,9 +2207,32 @@ function bloodmallet_chart_import() {
       item.appendChild(icon);
     }
 
-    if (state.data_type === "talents") {
-      document.getElementById("talent-warning").hidden = false;
-      build_talent_table(state, data);
+    // show all used talent trees for talent related simulations
+    if (["tier_set", "talent_target_scaling"].indexOf(state.data_type) > -1) {
+      let post_chart = document.getElementById("post_chart");
+      post_chart.hidden = false;
+
+      let base_element = document.getElementById("talent-information-div");
+      for (const override_profile_name of Object.keys(data["data_profile_overrides"])) {
+        const override_profile_data = data["data_profile_overrides"][override_profile_name];
+
+        const profile_index = data["sorted_data_keys"].indexOf(override_profile_name);
+
+        let headline = document.createElement("h3");
+        headline.appendChild(document.createTextNode(override_profile_name));
+        headline.id = "override-profile-" + profile_index;
+        base_element.appendChild(headline);
+
+        let talent_string = "";
+        for (const element of override_profile_data) {
+          if (element.startsWith("talents=")) {
+            talent_string = element.split("=")[1];
+          }
+        }
+
+        let iframe = create_talent_iframe(talent_string, override_profile_name);
+        base_element.appendChild(iframe);
+      }
     }
 
     // soulbind covenant listing of used nodes
@@ -2463,6 +2486,18 @@ function bloodmallet_chart_import() {
    */
   function title(string) {
     return string.split(" ").map(e => { return e[0].toUpperCase() + e.substring(1) }).join(" ");
+  }
+
+  function create_talent_iframe(talent_string, title) {
+    let width = 750;
+    let height = 475;
+    let iframe = document.createElement("iframe");
+    iframe.title = title;
+    iframe.width = width + 10;
+    iframe.height = height;
+    iframe.src = "https://www.raidbots.com/simbot/render/talents/" + talent_string + "?width=" + width;
+
+    return iframe;
   }
 
   /**

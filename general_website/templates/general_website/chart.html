@@ -74,61 +74,51 @@
                         <tbody>
                             <tr>
                                 <td colspan="2" class="text-left align-middle">
-                                    <span id="c_level">50</span>
+                                    <span id="c_level">70</span>
                                     <span id="c_race">Race</span>
                                     <span id="c_spec">Spec &</span>
                                     <span id="c_class">Class</span>
                                 </td>
-                                <td colspan="2" id="c_talents" class="text-right align-middle">1231231</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_head">Head</td>
-                                <td class="align-middle">{% translate "Covenant" %}</td>
-                                <td class="align-middle" id="c_covenant">-</td>
                                 <td class="align-middle" id="c_hands">Hands</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_neck">Neck</td>
-                                <td class="align-middle">{% translate "Soulbind" %}</td>
-                                <td class="align-middle" id="c_soulbind">-</td>
                                 <td class="align-middle" id="c_waist">Waist</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_shoulders">Shoulders</td>
-                                <td colspan="2"></td>
                                 <td class="align-middle" id="c_legs">Legs</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_back">Back</td>
-                                <td colspan="2"></td>
                                 <td class="align-middle" id="c_feet">Feet</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_chest">Chest</td>
-                                <td colspan="2"></td>
                                 <td class="align-middle" id="c_finger1">Ring</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="1"></td>
                                 <td class="align-middle" id="c_finger2">Ring</td>
                             </tr>
                             <tr>
-                                <td colspan="3"></td>
+                                <td colspan="1"></td>
                                 <td class="align-middle" id="c_trinket1">Trinket</td>
                             </tr>
                             <tr>
                                 <td class="align-middle" id="c_wrists">Wrists</td>
-                                <td colspan="2"></td>
                                 <td class="align-middle" id="c_trinket2">Trinket</td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td class="align-middle" id="c_main_hand">Weapon</td>
                                 <td class="align-middle" id="c_off_hand">Off-Hand</td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div id="c_talents" class="d-flex align-items-center justify-content-center"></div>
                 </div>
             </div>
         </div>
@@ -232,55 +222,6 @@
         <input type="checkbox" class="form-check-input" id="absolute_values">
         <label class="form-check-label text-muted" for="absolute_values">{% translate "Use absolute values" %}</label>
     </div>
-    {% if chart.simulation_type.command == "talents" %}
-    <div id="talent-warning" class="mt-3" hidden>
-        <h3>{% translate "Disclaimer" %}</h3>
-        <p>{% translate "Talent simulations are quite fragile for the following reasons:" %}</p>
-        <ul>
-            <li>{% translate "Not all talent combinations might be equally supported by the APL." %}</li>
-            <li>{% translate "Not all Fight styles might be supported equally." %}</li>
-            <li>{% blocktranslate %}
-                Secondary stats aren't changed during simulation, but some talents might favor a different
-                distribution.
-                {% endblocktranslate %}
-            </li>
-            <li>{% blocktranslate %}
-                Different Covenants might synergize with talents differently, but aren't changed during
-                simulation.
-                {% endblocktranslate %}
-            </li>
-            <li>{% blocktranslate %}
-                Soulbinds might affect talents, but aren't changed during simulation.
-                {% endblocktranslate %}
-            </li>
-            <li>{% blocktranslate %}
-                Legendaries might support specific talents. So consider your result legendary specific.
-                {% endblocktranslate %}
-            </li>
-            <li>{% blocktranslate %}
-                Conduits might affect the worth of talents. But yet again Conduits aren't changed during
-                this simulation.
-                {% endblocktranslate %}
-            </li>
-        </ul>
-    </div>
-    <div id="talent-table" hidden>
-        <div class="table-responsive">
-            <table class="table">
-                <tbody>
-                    {% for row in '1234567'|make_list %}
-                    <tr>
-                        <th scope="row">{% if row == '1' %}15{% else %}{{ row|multiply:"5"|add:"15" }}{% endif %}</th>
-                        {% for column in '123'|make_list %}
-                        <td id="{{ row }}{{ column }}">-</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endif %} {# talents #}
 </div>
 
 {% include 'general_website/chart_information/class_and_spec_information_importer.html' %}
@@ -292,7 +233,7 @@
     data-background-color="transparent" data-value-style="relative"></div>
 
 <div id="post_chart" class="mt-5" hidden>
-    {% if chart.simulation_type.command == "talent_target_scaling" %}
+    {% if chart.simulation_type.command == "talent_target_scaling" or chart.simulation_type.command == "tier_set" %}
     <form class="form-inline">
         <div class="form-group mb-2">
             <label for="customRange1">Min target count:&nbsp;<span id="range-min-target-count-output">1</span></label>
