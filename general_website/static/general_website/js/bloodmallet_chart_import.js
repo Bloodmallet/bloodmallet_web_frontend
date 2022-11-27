@@ -1392,7 +1392,7 @@ function bloodmallet_chart_import() {
     }
 
     // races don't have links/tooltips
-    if (["races", "phials", "potions"].includes(state.data_type)) {
+    if (["races"].includes(state.data_type)) {
       return get_translated_name(key, data, state);
     }
 
