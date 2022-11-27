@@ -564,11 +564,13 @@ function bloodmallet_chart_import() {
         for (let step of simulated_steps) {
           if (dps === undefined && data["data"][trinket][step] !== undefined) {
             dps = data["data"][trinket][step];
+          } else if (data["data"][trinket][step] !== undefined && data["data"][trinket][step] > dps) {
+            dps = data["data"][trinket][step];
           }
         }
         tmp_list.push([trinket, dps]);
       }
-      tmp_list.sort((trinket1, trinket2) => trinket1[1] <= trinket2[1]);
+      tmp_list.sort((trinket1, trinket2) => trinket2[1] - trinket1[1]);
       dps_ordered_keys = tmp_list.map(element => element[0]);
     }
 
