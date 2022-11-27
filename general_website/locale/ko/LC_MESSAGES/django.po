@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-27 00:06+0100\n"
+"POT-Creation-Date: 2022-11-27 18:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgid "Create Chart"
 msgstr ""
 
 #: .\general_website\forms.py:176
-#: .\general_website\templates\general_website\chart.html:152
+#: .\general_website\templates\general_website\chart.html:142
 msgid "Fight style"
 msgstr ""
 
@@ -704,131 +704,64 @@ msgstr ""
 msgid "Character profile"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:88
-msgid "Covenant"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:94
-msgid "Soulbind"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:143
+#: .\general_website\templates\general_website\chart.html:133
 msgid "SimulationCraft settings"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:156
+#: .\general_website\templates\general_website\chart.html:146
 msgid "Iterations"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:160
+#: .\general_website\templates\general_website\chart.html:150
 msgid "PTR"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:164
+#: .\general_website\templates\general_website\chart.html:154
 msgid "SimulationCraft Hash"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:168
+#: .\general_website\templates\general_website\chart.html:158
 msgid "Target Error"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:172
+#: .\general_website\templates\general_website\chart.html:162
 msgid "Base profile"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:179
+#: .\general_website\templates\general_website\chart.html:169
 msgid "Custom fight style"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:184
+#: .\general_website\templates\general_website\chart.html:174
 msgid "Custom APL"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:197
+#: .\general_website\templates\general_website\chart.html:187
 msgid "Advanced Options"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:207
+#: .\general_website\templates\general_website\chart.html:197
 msgid "Itemlevels"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:211
+#: .\general_website\templates\general_website\chart.html:201
 msgid "Sources"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:215
+#: .\general_website\templates\general_website\chart.html:205
 msgid "Show"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:219
+#: .\general_website\templates\general_website\chart.html:209
 msgid "On Use"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:224
+#: .\general_website\templates\general_website\chart.html:214
 msgid "Passive"
 msgstr ""
 
-#: .\general_website\templates\general_website\chart.html:235
+#: .\general_website\templates\general_website\chart.html:225
 msgid "Use absolute values"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:239
-msgid "Disclaimer"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:240
-msgid "Talent simulations are quite fragile for the following reasons:"
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:242
-msgid "Not all talent combinations might be equally supported by the APL."
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:243
-msgid "Not all Fight styles might be supported equally."
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:244
-msgid ""
-"\n"
-"                Secondary stats aren't changed during simulation, but some "
-"talents might favor a different\n"
-"                distribution.\n"
-"                "
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:249
-msgid ""
-"\n"
-"                Different Covenants might synergize with talents "
-"differently, but aren't changed during\n"
-"                simulation.\n"
-"                "
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:254
-msgid ""
-"\n"
-"                Soulbinds might affect talents, but aren't changed during "
-"simulation.\n"
-"                "
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:258
-msgid ""
-"\n"
-"                Legendaries might support specific talents. So consider your "
-"result legendary specific.\n"
-"                "
-msgstr ""
-
-#: .\general_website\templates\general_website\chart.html:262
-msgid ""
-"\n"
-"                Conduits might affect the worth of talents. But yet again "
-"Conduits aren't changed during\n"
-"                this simulation.\n"
-"                "
 msgstr ""
 
 #: .\general_website\templates\general_website\chart_information\simulation_type\conduits.html:2
