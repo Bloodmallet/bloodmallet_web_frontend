@@ -5,7 +5,7 @@ cron:
 - description: "daily rebuild of worker image"
   url: /compute_api/image/create
   # schedule: every monday,wednesday,friday 01:23
-  schedule: every day 01:23
+  schedule: every day 01:23,07:23,13:23,19:23
 - description: "resimulation of standard charts"
   url: /compute_api/generate_standard_charts
   schedule: every monday,wednesday,friday 02:23
