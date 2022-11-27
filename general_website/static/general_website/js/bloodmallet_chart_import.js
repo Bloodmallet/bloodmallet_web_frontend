@@ -1779,7 +1779,7 @@ function bloodmallet_chart_import() {
             gridLineColor: state.axis_color,
           },
           yAxis: {
-            min: 0,
+            // min: 0,
             title: {
               text: "DPS",
               style: {
