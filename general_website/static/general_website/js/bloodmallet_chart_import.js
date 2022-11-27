@@ -2215,25 +2215,28 @@ function bloodmallet_chart_import() {
       post_chart.hidden = false;
 
       let base_element = document.getElementById("talent-information-div");
-      for (const override_profile_name of Object.keys(data["data_profile_overrides"])) {
-        const override_profile_data = data["data_profile_overrides"][override_profile_name];
+      // generate talent tree iframes only once
+      if (base_element.textContent === "") {
+        for (const override_profile_name of Object.keys(data["data_profile_overrides"])) {
+          const override_profile_data = data["data_profile_overrides"][override_profile_name];
 
-        const profile_index = data["sorted_data_keys"].indexOf(override_profile_name);
+          const profile_index = data["sorted_data_keys"].indexOf(override_profile_name);
 
-        let headline = document.createElement("h3");
-        headline.appendChild(document.createTextNode(override_profile_name));
-        headline.id = "override-profile-" + profile_index;
-        base_element.appendChild(headline);
+          let headline = document.createElement("h3");
+          headline.appendChild(document.createTextNode(override_profile_name));
+          headline.id = "override-profile-" + profile_index;
+          base_element.appendChild(headline);
 
-        let talent_string = "";
-        for (const element of override_profile_data) {
-          if (element.startsWith("talents=")) {
-            talent_string = element.split("=")[1];
+          let talent_string = "";
+          for (const element of override_profile_data) {
+            if (element.startsWith("talents=")) {
+              talent_string = element.split("=")[1];
+            }
           }
-        }
 
-        let iframe = create_talent_iframe(talent_string, override_profile_name);
-        base_element.appendChild(iframe);
+          let iframe = create_talent_iframe(talent_string, override_profile_name);
+          base_element.appendChild(iframe);
+        }
       }
     }
 
