@@ -41,9 +41,9 @@ function update_navbarClassMenu(state) {
     };
     const simulation_types = Object.keys(simulation_type_dict).sort();
     const fight_style_dict = {
-        "castingpatchwerk": "Casting Patchwerk",
-        "castingpatchwerk3": "Casting Patchwerk 3",
-        "castingpatchwerk5": "Casting Patchwerk 5",
+        "castingpatchwerk": "Casting Patchwerk 1 target",
+        "castingpatchwerk3": "Casting Patchwerk 3 targets",
+        "castingpatchwerk5": "Casting Patchwerk 5 targets",
     };
     const fight_styles = Object.keys(fight_style_dict).sort();
 
