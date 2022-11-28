@@ -233,7 +233,7 @@
     data-background-color="transparent" data-value-style="relative"></div>
 
 <div id="post_chart" class="mt-5" hidden>
-    {% if chart.simulation_type.command == "talent_target_scaling" or chart.simulation_type.command == "tier_set" %}
+    {% if chart.simulation_type.command == "talent_target_scaling" %}
     <form class="form-inline">
         <div class="form-group mb-2">
             <label for="customRange1">Min target count:&nbsp;<span id="range-min-target-count-output">1</span></label>
@@ -244,6 +244,8 @@
             <input type="range" class="custom-range" id="range-max-target-count" min="1" max="15" value="15">
         </div>
     </form>
+    {% endif %}
+    {% if chart.simulation_type.command == "talent_target_scaling" or chart.simulation_type.command == "tier_set" %}
     <div id="talent-information-div"></div>
     {% endif %}
 </div>
