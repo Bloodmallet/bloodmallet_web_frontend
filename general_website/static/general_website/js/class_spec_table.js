@@ -66,7 +66,7 @@ function build_table() {
                 // "mage_frost",
                 // "monk_brewmaster",
                 "monk_windwalker",
-                // "paladin_protection",
+                "paladin_protection",
                 // "paladin_retribution",
                 "priest_shadow",
                 // "rogue_assassination",
