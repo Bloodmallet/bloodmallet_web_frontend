@@ -17,6 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarTopMenu">
 
             <ul class="navbar-nav mr-auto">
+                <a class="nav-link" href="{% url 'chart_windfury_totem' %}">{% translate "🌪️Windfury Totem🌪️" %}</a>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tears' %}">{% translate "Meme" %}</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'talent_trees' %}">{% translate "Dragonflight: Talent trees" %}</a>
+                </li> -->
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'my_charts' %}" id="my_charts_link">
@@ -24,15 +31,7 @@
                     </a>
                 </li>
                 {% endif %}
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tears' %}">{% translate "Meme" %}</a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="{% url 'talent_trees' %}">{% translate "Dragonflight: Talent trees" %}</a>
-                </li> -->
-                <a class="nav-link" href="{% url 'chart_windfury_totem' %}">{% translate "🌪️Windfury Totem🌪️" %}</a>
             </ul>
-
 
             <!-- Settings -->
             <ul class="navbar-nav ml-auto">
