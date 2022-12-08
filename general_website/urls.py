@@ -29,6 +29,9 @@ urlpatterns = [
     # charts
     path("my_charts", views.my_charts, name="my_charts"),
     path("chart/", views.chart, name="chart_ph"),
+    path(
+        "chart/windfury_totem", views.chart_windfury_totem, name="chart_windfury_totem"
+    ),
     path("chart/<uuid:chart_id>", views.chart, name="chart"),
     path(
         "chart/<str:wow_class>/<str:wow_spec>/<str:simulation_type>/<str:fight_style>",

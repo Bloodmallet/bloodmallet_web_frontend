@@ -227,10 +227,19 @@
 {% include 'general_website/chart_information/class_and_spec_information_importer.html' %}
 
 <!-- <div align="center"> -->
-<div id="chart" class="bloodmallet_chart mt-3" {% if general_result %} data-wow-class="{{ wow_class }}"
+<div id="chart" class="bloodmallet_chart mt-3" {% if general_result or windfury %} data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}" {% else %}
     data-chart-id="{{ chart_id }}" {% endif %} data-language="{{ LANGUAGE_CODE }}" data-entries="10000"
     data-background-color="transparent" data-value-style="relative"></div>
+
+{% if additional_fight_styles %}
+{% for fight_style in additional_fight_styles %}
+<div id="chart{{ forloop.counter }}" class="bloodmallet_chart mt-3" data-wow-class="{{ wow_class }}"
+    data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}"
+    data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent"
+    data-value-style="relative"></div>
+{% endfor %}
+{% endif %}
 
 <div id="post_chart" class="mt-5" hidden>
     {% if chart.simulation_type.command == "talent_target_scaling" %}
@@ -264,16 +273,18 @@
 {% include 'general_website/layout/chart_import.html' %}
 
 <script>
-    function get_chart() {
-        return document.getElementById("chart");
+    function get_charts() {
+        return document.getElementsByClassName("bloodmallet_chart");
     }
     function update_value_style() {
         const element = document.getElementById("absolute_values");
-        let chart = get_chart();
-        if (element.checked) {
-            chart.dataset.valueStyle = "absolute";
-        } else {
-            chart.dataset.valueStyle = "relative";
+        let charts = get_charts();
+        for (let chart of charts) {
+            if (element.checked) {
+                chart.dataset.valueStyle = "absolute";
+            } else {
+                chart.dataset.valueStyle = "relative";
+            }
         }
 
         bloodmallet_chart_import();

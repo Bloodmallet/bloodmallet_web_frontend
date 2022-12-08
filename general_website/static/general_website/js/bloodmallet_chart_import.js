@@ -481,12 +481,14 @@ function bloodmallet_chart_import() {
     let dps_ordered_keys;
     let baseline_dps;
     let other_baselines = {};
-    if (Object.keys(data).indexOf("sorted_data_keys") > -1) {
+    if (Object.keys(data).indexOf("sorted_data_keys") > -1 && data_type === "windfury_totem" && state.value_style === "absolute") {
+      dps_ordered_keys = data["sorted_data_keys_2"].slice(0, limit);
+    } else if (Object.keys(data).indexOf("sorted_data_keys") > -1) {
       dps_ordered_keys = data["sorted_data_keys"].slice(0, limit);
     } else {
       dps_ordered_keys = Object.keys(data["data"]);
     }
-    if (["races", "talents", "soulbinds", "tier_set"].includes(data_type)) {
+    if (["races", "talents", "soulbinds", "tier_set", "windfury_totem"].includes(data_type)) {
       baseline_dps = 0;
     } else if (["legendaries", "soulbind_nodes", "covenants", "domination_shards"].includes(data_type)) {
       baseline_dps = data["data"]["baseline"];
@@ -504,7 +506,8 @@ function bloodmallet_chart_import() {
     if (debug) {
       console.log(dps_ordered_keys);
       console.log("Baseline dps: " + baseline_dps);
-      console.log("other baseline dps: " + other_baselines);
+      console.log("other baseline dps:");
+      console.log(other_baselines);
     }
 
     let simulated_steps = [];
@@ -756,6 +759,42 @@ function bloodmallet_chart_import() {
           color: covenants[mapper[special_case.slice(1, special_case.length - 1)]]["color"]
         }, false);
       }
+    } else if (["windfury_totem"].includes(data_type)) {
+      let dps_array = [];
+
+      let melee_spec_color_map = {
+        "Blood Death Knight": "#c41f3b",
+        "Frost Death Knight": "#c41f3b",
+        "Unholy Death Knight": "#c41f3b",
+        "Havoc Demon Hunter": "#a330c9",
+        "Vengeance Demon Hunter": "#a330c9",
+        "Feral Druid": "#ff7d0a",
+        "Guardian Druid": "#ff7d0a",
+        "Survival Hunter": "#abd473",
+        "Brewmaster Monk": "#00ff96",
+        "Windwalker Monk": "#00ff96",
+        "Protection Paladin": "#f58cba",
+        "Retribution Paladin": "#f58cba",
+        "Assassination Rogue": "#fff569",
+        "Outlaw Rogue": "#fff569",
+        "Subtlety Rogue": "#fff569",
+        "Enhancement Shaman": "#0070de",
+        "Arms Warrior": "#c79c6e",
+        "Fury Warrior": "#c79c6e",
+        "Protection Warrior": "#c79c6e",
+      }
+
+      for (let dps_key of dps_ordered_keys) {
+        let tmp_baseline_dps = data["data"]["{" + dps_key + "}"];
+        let dps_key_values = data["data"][dps_key] - tmp_baseline_dps;
+        dps_array.push({ "y": get_styled_value(state, dps_key_values, tmp_baseline_dps), "color": melee_spec_color_map[dps_key] });
+      }
+
+      chart.addSeries({
+        data: dps_array,
+        name: "Windfury Totem",
+        showInLegend: false,
+      }, false);
     } else if (["domination_shards"].includes(data_type)) {
       for (let shard_type of Object.keys(domination_shard_colours)) {
 
@@ -1392,7 +1431,7 @@ function bloodmallet_chart_import() {
     }
 
     // races don't have links/tooltips
-    if (["races"].includes(state.data_type)) {
+    if (["races", "windfury_totem"].includes(state.data_type)) {
       return get_translated_name(key, data, state);
     }
 
@@ -2136,7 +2175,7 @@ function bloodmallet_chart_import() {
     }
 
     // value switch
-    if (["trinkets", "covenants", "conduits", "soulbind_nodes"].includes(state.data_type)) {
+    if (["trinkets", "covenants", "conduits", "soulbind_nodes", "windfury_totem"].includes(state.data_type)) {
       document.getElementById("value_style_switch").hidden = false;
     }
 
@@ -2162,51 +2201,55 @@ function bloodmallet_chart_import() {
     simc_hash.appendChild(simc_link);
 
     // character profile - character
-    for (let character_key in data["profile"]["character"]) {
-      try {
-        let c_entry = document.getElementById("c_" + character_key);
-        c_entry.innerHTML = "";
-        let text = undefined;
-        if (character_key === "soulbind") {
-          text = document.createTextNode(data["profile"]["character"][character_key].replaceAll(",", " ").replaceAll("/", " "));
-        } else {
-          text = document.createTextNode(title(data["profile"]["character"][character_key]));
+    if (Object.keys(data).indexOf("profile") > -1) {
+      for (let character_key in data["profile"]["character"]) {
+        try {
+          let c_entry = document.getElementById("c_" + character_key);
+          c_entry.innerHTML = "";
+          let text = undefined;
+          if (character_key === "soulbind") {
+            text = document.createTextNode(data["profile"]["character"][character_key].replaceAll(",", " ").replaceAll("/", " "));
+          } else {
+            text = document.createTextNode(title(data["profile"]["character"][character_key]));
+          }
+          c_entry.appendChild(text);
+        } catch (error) {
         }
-        c_entry.appendChild(text);
-      } catch (error) {
-      }
-    }
-
-    // redo talents properly
-    const talents = data["profile"]["character"]["talents"] !== undefined ? data["profile"]["character"]["talents"] : "0000000";
-    let talents_element = document.getElementById("c_talents");
-    talents_element.innerHTML = "";
-    talents_element.appendChild(create_talent_iframe(talents, "base"));
-
-    // character profile - items
-    for (let item_key in data["profile"]["items"]) {
-      let icon = document.createElement("a");
-      icon.href = "";
-      icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
-      icon.href += "item=" + data["profile"]["items"][item_key]["id"];
-      let boni = [];
-      try {
-        boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
-      } catch (error) { }
-      try {
-        if (data["profile"]["items"][item_key].hasOwnProperty("ilevel")) {
-          boni.push("ilvl=" + data["profile"]["items"][item_key]["ilevel"]);
-        }
-      } catch (error) { }
-      if (boni.length > 0) {
-        icon.href += "?" + boni.join("&");
       }
 
-      icon.dataset.whIconSize = "medium";
-      //icon.dataset.whRenameLink = true;
-      let item = document.getElementById("c_" + item_key);
-      item.innerHTML = "";
-      item.appendChild(icon);
+      // redo talents properly
+      const talents = data["profile"]["character"]["talents"] !== undefined ? data["profile"]["character"]["talents"] : "0000000";
+      let talents_element = document.getElementById("c_talents");
+      talents_element.innerHTML = "";
+      talents_element.appendChild(create_talent_iframe(talents, "base"));
+
+      // character profile - items
+      for (let item_key in data["profile"]["items"]) {
+        let icon = document.createElement("a");
+        icon.href = "";
+        icon.href = "https://" + (state.language === "en" ? "www" : state.language) + ".wowhead.com/";
+        icon.href += "item=" + data["profile"]["items"][item_key]["id"];
+        let boni = [];
+        try {
+          boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
+        } catch (error) { }
+        try {
+          if (data["profile"]["items"][item_key].hasOwnProperty("ilevel")) {
+            boni.push("ilvl=" + data["profile"]["items"][item_key]["ilevel"]);
+          }
+        } catch (error) { }
+        if (boni.length > 0) {
+          icon.href += "?" + boni.join("&");
+        }
+
+        icon.dataset.whIconSize = "medium";
+        //icon.dataset.whRenameLink = true;
+        let item = document.getElementById("c_" + item_key);
+        item.innerHTML = "";
+        item.appendChild(icon);
+      }
+    } else {
+      document.getElementById("character-profile-label").hidden = true;
     }
 
     // show all used talent trees for talent related simulations
@@ -2506,177 +2549,6 @@ function bloodmallet_chart_import() {
   }
 
   /**
-   * Add the talent information area to meta-data information area
-   * @param {*} state
-   * @param {*} data
-   */
-  function build_talent_table(state, data) {
-    if (debug) {
-      console.log("build_talent_table");
-    }
-
-    let wrapper = document.getElementById("talent-table");
-    wrapper.hidden = false;
-
-    // manage data
-    let key_list = [];
-
-    for (let row = 1; row < 8; row++) {
-      for (let column = 1; column < 4; column++) {
-        key_list.push(row.toString() + column.toString());
-      }
-    }
-
-    for (let row_column of key_list) {
-      let html_element = document.getElementById(row_column);
-
-      try {
-        // add talent name
-        let talent_name = document.createElement("h5");
-        let talent_data = data["talent_data"][row_column.slice(0, 1)][row_column.slice(1, 2)];
-        talent_name.innerHTML = get_talent_name_link(state, talent_data["name"], row_column, data);
-        html_element.innerHTML = "";
-        html_element.appendChild(talent_name);
-
-        // add mean gain
-        html_element.appendChild(
-          create_talent_information_line(
-            "Mean",
-            get_average_gain(row_column, data)
-          )
-        );
-
-        // add lowest gain
-        html_element.appendChild(
-          create_talent_information_line(
-            "Min",
-            get_lowest_gain(row_column, data)[1],
-            get_lowest_gain(row_column, data)[0]
-          )
-        );
-
-        // add highest gain
-        html_element.appendChild(
-          create_talent_information_line(
-            "Max",
-            get_highest_gain(row_column, data)[1],
-            get_highest_gain(row_column, data)[0]
-          )
-        );
-
-        // add gain in best talent combination
-        let talent_combination = get_best_talent_combination(row_column, data);
-        let blank_talent_combination = talent_combination.slice(0, row_column.slice(0, 1) - 1) + "0" + talent_combination.slice(row_column.slice(0, 1), 8);
-        let talent_dps = data["data"][talent_combination];
-        let blank_dps = data["data"][blank_talent_combination];
-        html_element.appendChild(
-          create_talent_information_line(
-            "Max dps",
-            get_percentage_gain(blank_dps, talent_dps),
-            talent_combination
-          )
-        );
-
-        // add "Is this talent within x% of the best talent combination?"
-        talent_combination = get_best_talent_combination(row_column, data);
-        let actual_range = get_percentage_gain(data["data"][data["sorted_data_keys"][0]], data["data"][talent_combination]);
-
-        html_element.appendChild(
-          create_talent_information_line(
-            "Max dps minus global best",
-            actual_range,
-            talent_combination
-          )
-        );
-
-      } catch (error) {
-        // utility row...probably
-        html_element.innerHTML = "-";
-        if (debug) {
-          console.warn(error);
-        }
-      }
-    }
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  }
-
-  function create_talent_information_line(text, value, talent_combination = undefined) {
-    let element = document.createElement("div");
-    element.innerHTML = text + ": ";
-    let value_element = document.createElement("span");
-    value_element.innerHTML = value + "%";
-    if (value >= 0) {
-      value_element.classList += get_value_color(value);
-    } else {
-      value_element.classList += get_value_color(-value + 3);
-    }
-
-    if (talent_combination !== undefined) {
-      value_element.title = "Talent combination: " + talent_combination;
-      value_element.setAttribute("data-toggle", "tooltip");
-      value_element.setAttribute("data-placement", "bottom");
-      let questionmark = document.createElement("span");
-      questionmark.classList += "priest-color";
-      questionmark.innerHTML = " (?)";
-      value_element.appendChild(questionmark);
-    }
-
-    element.appendChild(value_element);
-    return element;
-  }
-
-  function get_value_color(dps_increase) {
-    if (debug) {
-      console.log("get_value_color");
-    }
-
-    if (dps_increase < 5.0) {
-      return "mage-color";
-    } else if (dps_increase > 10.0 && dps_increase <= 12.0) {
-      return "druid-color";
-    } else if (dps_increase > 12.0) {
-      return "death_knight-color";
-    } else {
-      return "monk-color";
-    }
-  }
-
-
-  /**
-   * Return first matching talent combination. False otherwise
-   */
-  function get_best_talent_combination(row_column, data) {
-    for (let talent_combination of data["sorted_data_keys"]) {
-      if (talent_combination[row_column.slice(0, 1) - 1] === row_column.slice(1, 2)) {
-        return talent_combination
-          ;
-      }
-    }
-    return false;
-  }
-
-  function get_talent_name_link(state, name, row_column, data) {
-
-    let s = "<a href=\"https://";
-
-    if (state.language === "en" || state.language === "EN") {
-      s += "www";
-    } else {
-      s += state.language.toLowerCase();
-    }
-    s += ".wowhead.com/spell=";
-    s += data["talent_data"][row_column.slice(0, 1)][row_column.slice(1, 2)]["spell_id"];
-    s += "\"";
-    s += ">";
-    s += get_translated_name(name, data, state);
-    s += "</a>";
-
-    return s;
-  }
-
-  /**
    * Get the translation of a name (item, trait, race) from the data file
    * @param {string} name
    */
@@ -2729,73 +2601,6 @@ function bloodmallet_chart_import() {
     }
     return name;
   }
-
-
-  function get_lowest_gain(row_column, data) {
-    let row = row_column.slice(0, 1);
-    let column = row_column.slice(1, 2);
-    let gain = 100.0;
-    let talent_combination = "";
-    for (let name of data["sorted_data_keys"]) {
-      if (name[row - 1] === column) {
-        let c_dps = data["data"][name];
-        let b_dps = data["data"][name.slice(0, row - 1) + "0" + name.slice(row, 8)];
-        if (gain > get_percentage_gain(b_dps, c_dps)) {
-          gain = get_percentage_gain(b_dps, c_dps);
-          talent_combination = name;
-        }
-      }
-    }
-    return [talent_combination, gain];
-  }
-
-  function get_highest_gain(row_column, data) {
-    let row = row_column.slice(0, 1);
-    let column = row_column.slice(1, 2);
-    let gain = -100.0;
-    let talent_combination = "";
-    for (let name of data["sorted_data_keys"]) {
-      if (name[row - 1] === column) {
-        let c_dps = data["data"][name];
-        let b_dps = data["data"][name.slice(0, row - 1) + "0" + name.slice(row, 8)];
-        if (gain < get_percentage_gain(b_dps, c_dps)) {
-          gain = get_percentage_gain(b_dps, c_dps);
-          talent_combination = name;
-        }
-      }
-    }
-    return [talent_combination, gain];
-  }
-
-  function get_average_gain(row_column, data) {
-    if (debug) {
-      console.log("get_average_gain");
-    }
-
-    let talent_combinations = [];
-    for (let talent_combination of data["sorted_data_keys"]) {
-      if (talent_combination[row_column.slice(0, 1) - 1] === row_column.slice(1, 2)) {
-        talent_combinations.push(talent_combination);
-      }
-    }
-
-    let sum = 0;
-    for (let talent_combination of talent_combinations) {
-      let t_dps = data["data"][talent_combination];
-      let b_dps = data["data"][talent_combination.slice(0, row_column.slice(0, 1) - 1) + "0" + talent_combination.slice(row_column.slice(0, 1), 8)];
-      sum += get_percentage_gain(b_dps, t_dps);
-    }
-
-    return Math.round((sum / talent_combinations.length) * 100) / 100;
-  }
-
-  function get_percentage_gain(no_talent_value, talent_value) {
-    if (debug) {
-      console.log("get_percentage_gain");
-    }
-    return Math.round((talent_value * 100 / no_talent_value - 100) * 100) / 100;
-  }
-
 }
 
 // Load data on document load

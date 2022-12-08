@@ -477,6 +477,47 @@ def chart(request, chart_id=None):
     return render(request, "general_website/chart.html", context=context)
 
 
+def chart_windfury_totem(request):
+    """Shows the windfury chart"""
+    logger.debug("called")
+
+    context = {
+        # "general_result": True,
+        "windfury": True,
+        "simulation_type": "windfury_totem",
+        "fight_style": "castingpatchwerk",
+        "wow_class": "shaman",
+        "wow_spec": "enhancement",
+        "additional_fight_styles": ["castingpatchwerk3", "castingpatchwerk5"],
+    }
+
+    try:
+        simulation: Simulation = Simulation.objects.select_related(
+            "result",
+            "wow_class",
+            "wow_spec",
+            "simulation_type",
+            "fight_style",
+        ).get(
+            wow_class__tokenized_name="shaman",
+            wow_spec__tokenized_name="enhancement",
+            fight_style__tokenized_name="castingpatchwerk",
+            simulation_type__command="windfury_totem",
+            result__general_result__isnull=False,
+        )
+    except Simulation.DoesNotExist:
+        simulation = None
+
+    logger.info(simulation)
+
+    context["chart"] = {}
+    if simulation:
+        context["chart_id"] = simulation.id
+        context["chart"] = simulation
+
+    return render(request, "general_website/chart.html", context=context)
+
+
 def standard_chart(
     request, simulation_type: str, fight_style: str, wow_class: str, wow_spec: str
 ):
