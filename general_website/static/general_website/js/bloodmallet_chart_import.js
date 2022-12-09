@@ -2176,20 +2176,27 @@ function bloodmallet_chart_import() {
 
     // value switch
     if (["trinkets", "covenants", "conduits", "soulbind_nodes", "windfury_totem"].includes(state.data_type)) {
-      document.getElementById("value_style_switch").hidden = false;
+      let element = document.getElementById("value_style_switch")
+      if (element !== undefined && element !== null) {
+        element.hidden = false;
+      }
     }
 
     // chart options
 
     let element = document.getElementById("meta-info");
-    element.hidden = false;
+    if (element !== undefined && element !== null) {
+      element.hidden = false;
+    }
 
     // SimulationCraft settings
     for (let setting in data["simc_settings"]) {
       let text = document.createTextNode(data["simc_settings"][setting]);
       let parent = document.getElementById("c_" + setting);
-      parent.innerText = "";
-      parent.appendChild(text);
+      if (parent !== undefined && parent !== null) {
+        parent.innerText = "";
+        parent.appendChild(text);
+      }
     }
 
     // redo simc hash properly
@@ -2197,22 +2204,27 @@ function bloodmallet_chart_import() {
     simc_link.href = "https://github.com/simulationcraft/simc/commit/" + data["simc_settings"]["simc_hash"];
     simc_link.innerText = data["simc_settings"]["simc_hash"].substring(0, 7);
     let simc_hash = document.getElementById("c_simc_hash")
-    simc_hash.innerText = "";
-    simc_hash.appendChild(simc_link);
+    if (simc_hash !== undefined && simc_hash !== null) {
+      simc_hash.innerText = "";
+      simc_hash.appendChild(simc_link);
+    }
 
     // character profile - character
     if (Object.keys(data).indexOf("profile") > -1) {
       for (let character_key in data["profile"]["character"]) {
         try {
           let c_entry = document.getElementById("c_" + character_key);
-          c_entry.innerHTML = "";
-          let text = undefined;
-          if (character_key === "soulbind") {
-            text = document.createTextNode(data["profile"]["character"][character_key].replaceAll(",", " ").replaceAll("/", " "));
-          } else {
-            text = document.createTextNode(title(data["profile"]["character"][character_key]));
+          if (c_entry !== undefined && c_entry !== null) {
+
+            c_entry.innerHTML = "";
+            let text = undefined;
+            if (character_key === "soulbind") {
+              text = document.createTextNode(data["profile"]["character"][character_key].replaceAll(",", " ").replaceAll("/", " "));
+            } else {
+              text = document.createTextNode(title(data["profile"]["character"][character_key]));
+            }
+            c_entry.appendChild(text);
           }
-          c_entry.appendChild(text);
         } catch (error) {
         }
       }
@@ -2220,8 +2232,10 @@ function bloodmallet_chart_import() {
       // redo talents properly
       const talents = data["profile"]["character"]["talents"] !== undefined ? data["profile"]["character"]["talents"] : "0000000";
       let talents_element = document.getElementById("c_talents");
-      talents_element.innerHTML = "";
-      talents_element.appendChild(create_talent_iframe(talents, "base"));
+      if (talents_element !== undefined && talents_element !== null) {
+        talents_element.innerHTML = "";
+        talents_element.appendChild(create_talent_iframe(talents, "base"));
+      }
 
       // character profile - items
       for (let item_key in data["profile"]["items"]) {
@@ -2245,21 +2259,28 @@ function bloodmallet_chart_import() {
         icon.dataset.whIconSize = "medium";
         //icon.dataset.whRenameLink = true;
         let item = document.getElementById("c_" + item_key);
-        item.innerHTML = "";
-        item.appendChild(icon);
+        if (item !== undefined && item !== null) {
+          item.innerHTML = "";
+          item.appendChild(icon);
+        }
       }
     } else {
-      document.getElementById("character-profile-label").hidden = true;
+      let element = document.getElementById("character-profile-label");
+      if (element !== undefined && element !== null) {
+        element.hidden = true;
+      }
     }
 
     // show all used talent trees for talent related simulations
     if (["tier_set", "talent_target_scaling"].indexOf(state.data_type) > -1) {
       let post_chart = document.getElementById("post_chart");
-      post_chart.hidden = false;
+      if (post_chart !== undefined && post_chart !== null) {
+        post_chart.hidden = false;
+      }
 
       let base_element = document.getElementById("talent-information-div");
       // generate talent tree iframes only once
-      if (base_element.textContent === "") {
+      if (base_element !== undefined && base_element !== null && base_element.textContent === "") {
         for (const override_profile_name of Object.keys(data["data_profile_overrides"])) {
           const override_profile_data = data["data_profile_overrides"][override_profile_name];
 
@@ -2417,79 +2438,83 @@ function bloodmallet_chart_import() {
     if (state.data_type === "trinkets") {
       // itemlevels
       let parent_itemlevels = document.getElementById("filter-itemlevels-options");
-      parent_itemlevels.innerHTML = "";
-      let chart = document.getElementById("chart");
-      for (let itemlevel of data["simulated_steps"]) {
-        let step = "step_" + itemlevel;
-        let form_check = document.createElement("div");
-        form_check.className += " form-check";
+      if (parent_itemlevels !== undefined && parent_itemlevels !== null) {
+        parent_itemlevels.innerHTML = "";
+        let chart = document.getElementById("chart");
+        for (let itemlevel of data["simulated_steps"]) {
+          let step = "step_" + itemlevel;
+          let form_check = document.createElement("div");
+          form_check.className += " form-check";
 
-        let input = document.createElement("input");
-        input.className += " form-check-input";
-        input.className += " filter-itemlevels";
-        input.type = "checkbox";
-        input.id = step;
-        input.value = itemlevel;
-        if (chart.dataset.filterItemlevels === undefined) {
-          input.checked = true;
-        } else {
-          input.checked = chart.dataset.filterItemlevels.split(";").indexOf(itemlevel.toString()) === -1;
+          let input = document.createElement("input");
+          input.className += " form-check-input";
+          input.className += " filter-itemlevels";
+          input.type = "checkbox";
+          input.id = step;
+          input.value = itemlevel;
+          if (chart.dataset.filterItemlevels === undefined) {
+            input.checked = true;
+          } else {
+            input.checked = chart.dataset.filterItemlevels.split(";").indexOf(itemlevel.toString()) === -1;
+          }
+
+          form_check.appendChild(input);
+
+          let label = document.createElement("label");
+          label.className = " form-check-label"
+          label.htmlFor = step;
+          label.appendChild(document.createTextNode(itemlevel));
+
+          form_check.appendChild(label);
+
+          parent_itemlevels.appendChild(form_check);
+
+          input.addEventListener("change", (element, event) => {
+            set_itemlevel_filter(element.target.value, element.target.checked);
+            bloodmallet_chart_import();
+          });
         }
-
-        form_check.appendChild(input);
-
-        let label = document.createElement("label");
-        label.className = " form-check-label"
-        label.htmlFor = step;
-        label.appendChild(document.createTextNode(itemlevel));
-
-        form_check.appendChild(label);
-
-        parent_itemlevels.appendChild(form_check);
-
-        input.addEventListener("change", (element, event) => {
-          set_itemlevel_filter(element.target.value, element.target.checked);
-          bloodmallet_chart_import();
-        });
       }
 
       // sources
       let parent_sources = document.getElementById("filter-sources-options");
-      parent_sources.innerHTML = "";
-      // unique sources
-      let sources = Object.values(data["data_sources"]).filter((item, i, ar) => ar.indexOf(item) === i).sort();
-      for (let source of sources) {
-        let step = "step_" + source.replaceAll(" ", "_");
-        let form_check = document.createElement("div");
-        form_check.className += " form-check";
+      if (parent_sources !== undefined && parent_sources !== null) {
+        parent_sources.innerHTML = "";
+        // unique sources
+        let sources = Object.values(data["data_sources"]).filter((item, i, ar) => ar.indexOf(item) === i).sort();
+        for (let source of sources) {
+          let step = "step_" + source.replaceAll(" ", "_");
+          let form_check = document.createElement("div");
+          form_check.className += " form-check";
 
-        let input = document.createElement("input");
-        input.className += " form-check-input";
-        input.className += " filter-sources";
-        input.type = "checkbox";
-        input.id = step;
-        input.value = source;
-        if (chart.dataset.filterSources === undefined) {
-          input.checked = true;
-        } else {
-          input.checked = chart.dataset.filterSources.split(";").indexOf(source.toString()) === -1;
+          let input = document.createElement("input");
+          input.className += " form-check-input";
+          input.className += " filter-sources";
+          input.type = "checkbox";
+          input.id = step;
+          input.value = source;
+          if (chart.dataset.filterSources === undefined) {
+            input.checked = true;
+          } else {
+            input.checked = chart.dataset.filterSources.split(";").indexOf(source.toString()) === -1;
+          }
+
+          form_check.appendChild(input);
+
+          let label = document.createElement("label");
+          label.className = " form-check-label"
+          label.htmlFor = step;
+          label.appendChild(document.createTextNode(source));
+
+          form_check.appendChild(label);
+
+          parent_sources.appendChild(form_check);
+
+          input.addEventListener("change", (element, event) => {
+            set_source_filter(element.target.value, element.target.checked);
+            bloodmallet_chart_import();
+          });
         }
-
-        form_check.appendChild(input);
-
-        let label = document.createElement("label");
-        label.className = " form-check-label"
-        label.htmlFor = step;
-        label.appendChild(document.createTextNode(source));
-
-        form_check.appendChild(label);
-
-        parent_sources.appendChild(form_check);
-
-        input.addEventListener("change", (element, event) => {
-          set_source_filter(element.target.value, element.target.checked);
-          bloodmallet_chart_import();
-        });
       }
     }
 
