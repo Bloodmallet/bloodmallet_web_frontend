@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 10:47+0100\n"
+"POT-Creation-Date: 2022-12-09 18:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Deleting ALL instances"
 msgstr ""
 
-#: .\compute_api\views.py:886
+#: .\compute_api\views.py:935
 #, python-format
 msgid "%(count)s standard chart simulations were added to the queue. Chill!"
 msgstr ""
@@ -670,7 +670,7 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\about.html:10
-#: .\general_website\templates\general_website\layout\nav_bottom.html:59
+#: .\general_website\templates\general_website\layout\nav_bottom.html:64
 msgid "About"
 msgstr ""
 
@@ -837,6 +837,11 @@ msgstr ""
 msgid "Reject GA tracking"
 msgstr ""
 
+#: .\general_website\templates\general_website\handbook.html:8
+#: .\general_website\templates\general_website\layout\nav_bottom.html:54
+msgid "Handbook"
+msgstr ""
+
 #: .\general_website\templates\general_website\index.html:12
 msgid ""
 "\n"
@@ -894,11 +899,11 @@ msgstr ""
 msgid "Bugreport"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:54
+#: .\general_website\templates\general_website\layout\nav_bottom.html:59
 msgid "FAQ"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:63
+#: .\general_website\templates\general_website\layout\nav_bottom.html:68
 #: .\general_website\templates\general_website\terms_and_conditions.html:5
 #: .\general_website\templates\general_website\terms_and_conditions.html:10
 msgid "Terms and Conditions"
@@ -923,17 +928,22 @@ msgstr ""
 msgid "Connections"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:24
-#: .\general_website\templates\general_website\my_charts.html:9
-msgid "My Charts"
+#: .\general_website\templates\general_website\layout\nav_top.html:21
+#: .\general_website.SimulationType/name:18
+msgid "Windfury Totem"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:29
+#: .\general_website\templates\general_website\layout\nav_top.html:23
 msgid "Meme"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_top.html:32
+#: .\general_website\templates\general_website\layout\nav_top.html:26
 msgid "Dragonflight: Talent trees"
+msgstr ""
+
+#: .\general_website\templates\general_website\layout\nav_top.html:31
+#: .\general_website\templates\general_website\my_charts.html:9
+msgid "My Charts"
 msgstr ""
 
 #: .\general_website\templates\general_website\layout\nav_top.html:41
@@ -1260,49 +1270,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:528
+#: .\general_website\views\general.py:569
 msgid "Simulation not found."
 msgstr ""
 
-#: .\general_website\views\general.py:595
+#: .\general_website\views\general.py:636
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: .\general_website\views\general.py:633
+#: .\general_website\views\general.py:674
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: .\general_website\views\general.py:648
+#: .\general_website\views\general.py:689
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: .\general_website\views\general.py:669
+#: .\general_website\views\general.py:710
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: .\general_website\views\general.py:677
+#: .\general_website\views\general.py:718
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:684
+#: .\general_website\views\general.py:725
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:686
+#: .\general_website\views\general.py:727
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: .\general_website\views\general.py:721
+#: .\general_website\views\general.py:762
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: .\general_website\views\general.py:742
+#: .\general_website\views\general.py:783
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: .\general_website\views\general.py:747
+#: .\general_website\views\general.py:788
 msgid "You don't have permission to create a chart."
 msgstr ""
 
