@@ -23,6 +23,7 @@ urlpatterns = [
         name="terms_and_conditions",
     ),
     path("faq", views.faq, name="faq"),
+    path("handbook", views.handbook, name="handbook"),
     path("tears", views.r_tears, name="r_tears"),
     path("tlist", views.tears, name="tears"),
     path("error", views.error, name="error"),

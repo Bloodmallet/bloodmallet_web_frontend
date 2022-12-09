@@ -828,3 +828,8 @@ def empty(request):
 def bm_charts(request):
     """Minimal example chart of self-written bar chart class."""
     return render(request, "general_website/bm_charts.html")
+
+
+def handbook(request):
+    """Return plain handbook page"""
+    return render(request, "general_website/handbook.html")

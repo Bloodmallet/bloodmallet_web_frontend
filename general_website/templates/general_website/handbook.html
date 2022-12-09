@@ -1,0 +1,214 @@
+{% extends 'general_website/layout/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1 class=" display-4 mb-5 text-center">{% translate 'Handbook' %}</h1>
+
+<ul>
+    <li><a href="#notes-above-charts">Notes above charts</a></li>
+    <li><a href="#embeds">Embeds</a></li>
+    <li><a href="#profiles">Profiles</a></li>
+    <li><a href="#talent-paths">Talent Paths</a></li>
+</ul>
+
+<div class="pt-5">
+    <h3 id="notes-above-charts">Notes above charts</h3>
+    <p>
+        Above each chart is an area reserved for notes. E.g. disclaimers or special information. You can update what's
+        shown in these areas.
+    </p>
+    <h5>Example</h5>
+    <img src="{% static 'general_website/assets/note-above-chart-example.png' %}" />
+    <p>
+        Three note categories exist:
+    </p>
+    <ul>
+        <li>
+            <a
+                href="https://github.com/Bloodmallet/bloodmallet_web_frontend/tree/develop/general_website/templates/general_website/chart_information/wow_class">Class
+                wide notes [web_frontend]</a>, are shown above all charts of this class. Files for these notes for all
+            classes are prepared. You can change their content. Files follow the naming schema:
+            <code>&lt;CLASS_NAME&gt;.html</code>
+        </li>
+        <li>
+            <a
+                href="https://github.com/Bloodmallet/bloodmallet_web_frontend/tree/develop/general_website/templates/general_website/chart_information/wow_spec">Spec
+                wide notes [web_frontend]</a>, are shown above all charts of this spec. Files for these notes for all
+            specs are prepared. You can change their content. Files follow the naming schema:
+            <code>&lt;CLASS_NAME&gt;_&lt;SPEC_NAME&gt;.html</code>
+        </li>
+        <li>
+            <a
+                href="https://github.com/Bloodmallet/bloodmallet_web_frontend/tree/develop/general_website/templates/general_website/chart_information/disclaimers">
+                Chart type & spec notes [web_frontend]</a>, are shown above the chart of this chart type and spec
+            combination. Files aren't prepared for all chart type and spec combinations. Please create your
+            required file on demand. They should be created at the location of the previous link and follow the naming
+            schema:
+            <code>&lt;CHART_TYPE&gt;_&lt;CLASS_NAME&gt;_&lt;SPEC_NAME&gt;.html</code>
+            If you created a new file, it needs to be added to
+            <a
+                href="https://github.com/Bloodmallet/bloodmallet_web_frontend/blob/develop/general_website/templates/general_website/chart_information/class_and_spec_information_importer.html">
+                class_and_spec_information_importer.html [web_frontend]</a>. I'm happy to help.
+        </li>
+    </ul>
+    <p><code>&lt;CHART_TYPE&gt;</code> options are:</p>
+    <ul>
+        <li>phials</li>
+        <li>potions</li>
+        <li>races</li>
+        <li>secondary_distributions</li>
+        <li>talent_target_scaling</li>
+        <li>tier_sets</li>
+        <li>trinkets</li>
+    </ul>
+    <p><code>&lt;CLASS_NAME&gt;</code> options are the SimulationCraft spelling (snake case) of class names. E.g.:</p>
+    <ul>
+        <li>death_knight</li>
+        <li>demon_hunter</li>
+        <li>druid</li>
+        <li>...</li>
+    </ul>
+    <p><code>&lt;SPEC_NAME&gt;</code> options are the SimulationCraft spelling (snake case) of spec names. E.g.:</p>
+    <ul>
+        <li>blood</li>
+        <li>frost</li>
+        <li>beast_mastery</li>
+        <li>...</li>
+    </ul>
+    <p>
+        You can add any valid html to these files. bloodmallet.com is using <a
+            href="https://getbootstrap.com/docs/4.6/content/reboot/">bootstrap4</a>. Therefore you can enhance your
+        notes using their styles.
+    </p>
+    <h5>How to update</h5>
+    <p>
+        You can update the files linked above using the following methods.
+    </p>
+    <ol>
+        <li><a href="https://github.com/Bloodmallet/bloodmallet_web_frontend/pulls">Pull request [web_frontend]</a></li>
+        <li><a href="https://github.com/Bloodmallet/bloodmallet_web_frontend/issues/new">Ticket [web_frontend]</a>
+            describing your wanted change</li>
+        <li>Contact me (<code>Bloodmallet(EU)#8246</code>) via Discord (<a href="https://discord.gg/PKT2PWGB6w">Invite
+                link</a>)</li>
+    </ol>
+    <p>I'm more than happy to help.</p>
+</div>
+
+<div class="pt-5">
+    <h3 id="embeds">Embeds</h3>
+    <p>
+        Embedding charts on your own website is possible using the provided importer. Read more about how to get and use
+        the importer in the <a
+            href="https://github.com/Bloodmallet/bloodmallet_web_frontend/wiki/How-to-import-charts">wiki</a>.
+    </p>
+
+    <h5>Example</h5>
+    <div id="unique-id-1" class="bloodmallet_chart" data-wow-class="shaman" data-wow-spec="elemental">Loading...</div>
+    <script src="https://wow.zamimg.com/widgets/power.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="https://bloodmallet.com/js/bloodmallet_chart_import.js"></script> -->
+    <script src="{% static 'general_website/js/bloodmallet_chart_import.js' %}"></script>
+</div>
+
+<div class="pt-5">
+    <h3 id="profiles">Profiles</h3>
+    <p>
+        In general the most recent Tier profiles from the open source project <a
+            href="https://github.com/simulationcraft/simc/tree/dragonflight/profiles">SimulationCraft [simc]</a> are
+        being used to generate data. Therefore keeping those profiles up to date is your fastes way to update data.
+        As with all open source projects, you can contribute to it. Contact your spec maintainer (usually in your spec
+        discord) to get in contact with the project.
+    </p>
+    <p>
+        In addition to the SimulationCraft profiles <a
+            href="https://github.com/Bloodmallet/bloodytools/tree/dev/fallback_profiles">fallback
+            profiles [bloodytools]</a> are checked. If a fallback profile exists for a fight style and spec and
+        SimulationCraft does not have a profile for this specific fight style, then this fallback profile is used to
+        generate data. This enables a higher data quality for fight styles, that the SimulationCraft profile is not well
+        optimized for.
+    </p>
+    <p>
+        You can submit and update <a
+            href="https://github.com/Bloodmallet/bloodytools/tree/dev/fallback_profiles">fallback profiles
+            [bloodytools]</a>.
+    </p>
+    <h5>Examples of profile priority</h5>
+    <p>
+        No fallback profile and no SimulationCraft profile: No data.
+    </p>
+    <p>
+        No fallback profile but a SimulationCraft profile: Data based on the SimulationCraft profile for all fight
+        styles.
+    </p>
+    <p>
+        Fallback profile for <code>castingpatchwerk3</code> and a SimulationCraft profile: Data based on SimulationCraft
+        profile for <code>castingpatchwerk</code> and <code>castingpatchwerk5</code>. Data based on fallback profile for
+        <code>castingpatchwerk3</code>.
+    </p>
+    <p>
+        Fallback profile for <code>patchwerk</code> but no SimulationCraft profile: Data based on fallback profile for
+        all fight styles.
+    </p>
+    <h5>How to update</h5>
+    <p>
+        <a href="https://github.com/simulationcraft/simc">SimulationCraft</a> is an open source project. You can fork
+        it, work on your fork, and once you're content with your result create a Pull Request to get your changes back
+        into the main repository. This will make your changes available to everyone and will affect the data shown on
+        bloodmallet.com.
+    </p>
+    <p>
+        You can update the non-SimulationCraft files linked above using the following methods.
+    </p>
+    <ol>
+        <li><a href="https://github.com/Bloodmallet/bloodytools/pulls">Pull request [bloodytools]</a></li>
+        <li><a href="https://github.com/Bloodmallet/bloodytools/issues/new">Ticket [bloodytools]</a>
+            describing your wanted change</li>
+        <li>Contact me (<code>Bloodmallet(EU)#8246</code>) via Discord (<a href="https://discord.gg/PKT2PWGB6w">Invite
+                link</a>)</li>
+    </ol>
+    <p>I'm more than happy to help.</p>
+</div>
+
+<div class="pt-5">
+    <h3 id="talent-paths">Talent Paths</h3>
+    <p>Certain charts can show data for multiple different talent paths.</p>
+    <ul>
+        <li>
+            <a href="/chart/shaman/elemental/talent_target_scaling/castingpatchwerk">Talent
+                Target Scaling</a> shows how different talent paths perform against different target counts.
+        </li>
+        <li>
+            <a href="/chart/shaman/elemental/tier_set/castingpatchwerk">Tier Sets</a> show the impact of the tier set on
+            different talent paths.
+        </li>
+    </ul>
+    <p>
+        You can submit and update the talent paths, that are shown in addition to the SimulationCraft profile and
+        fallback profile.
+    </p>
+    <p>
+        Talent paths are stored in <a
+            href="https://github.com/Bloodmallet/bloodytools/tree/dev/bloodytools/simulations/talent_tree_paths">yaml
+            files [bloodytools]</a>. Each file provides a usage example. You can use any combination of
+        <code>talents=</code>, <code>class_talents=</code>, and <code>spec_talents=</code>. Additinally you can override
+        items of the base profile but only the talent tree is shown on the web-frontend. So use item overrides
+        sparringly.
+    </p>
+    <h5>How to update</h5>
+    <p>
+        You can update the files linked above using the following methods.
+    </p>
+    <ol>
+        <li><a href="https://github.com/Bloodmallet/bloodytools/pulls">Pull request [bloodytools]</a></li>
+        <li><a href="https://github.com/Bloodmallet/bloodytools/issues/new">Ticket [bloodytools]</a>
+            describing your wanted change</li>
+        <li>Contact me (<code>Bloodmallet(EU)#8246</code>) via Discord (<a href="https://discord.gg/PKT2PWGB6w">Invite
+                link</a>)</li>
+    </ol>
+    <p>I'm more than happy to help.</p>
+</div>
+
+{% endblock %}
