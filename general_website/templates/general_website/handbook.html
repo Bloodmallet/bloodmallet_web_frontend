@@ -121,6 +121,7 @@
 
 <div class="pt-5">
     <h3 id="profiles">Profiles</h3>
+    <p>Profiles affect all chart types.</p>
     <p>
         In general the most recent Tier profiles from the open source project <a
             href="https://github.com/simulationcraft/simc/tree/dragonflight/profiles">SimulationCraft [simc]</a> are
@@ -131,10 +132,10 @@
     <p>
         In addition to the SimulationCraft profiles <a
             href="https://github.com/Bloodmallet/bloodytools/tree/dev/fallback_profiles">fallback
-            profiles [bloodytools]</a> are checked. If a fallback profile exists for a fight style and spec and
-        SimulationCraft does not have a profile for this specific fight style, then this fallback profile is used to
-        generate data. This enables a higher data quality for fight styles, that the SimulationCraft profile is not well
-        optimized for.
+            profiles [bloodytools]</a> are checked. Fallback profiles are fight style specific. If a fallback profile
+        exists for a fight style and spec and SimulationCraft does not have a profile for this specific fight style,
+        then this fallback profile is used to generate data. This enables a higher data quality for different fight
+        styles like AoE, that the SimulationCraft profile is not well optimized for.
     </p>
     <p>
         You can submit and update <a
@@ -180,27 +181,27 @@
 
 <div class="pt-5">
     <h3 id="talent-paths">Talent Paths</h3>
-    <p>Certain charts can show data for multiple different talent paths.</p>
+    <p>Talent Paths affect the following chart types.</p>
     <ul>
         <li>
             <a href="/chart/shaman/elemental/talent_target_scaling/castingpatchwerk">Talent
-                Target Scaling</a> shows how different talent paths perform against different target counts.
+                Target Scaling</a> shows how different Talent Paths perform against different target counts.
         </li>
         <li>
             <a href="/chart/shaman/elemental/tier_set/castingpatchwerk">Tier Sets</a> show the impact of the tier set on
-            different talent paths.
+            different Talent Paths.
         </li>
     </ul>
     <p>
-        You can submit and update the talent paths, that are shown in addition to the SimulationCraft profile and
-        fallback profile.
+        You can submit and update Talent Paths. Talent Paths are used as overrides for the profile determined by the
+        <a href="#profiles">Profiles</a> section.
     </p>
     <p>
-        Talent paths are stored in <a
+        Talent Paths are stored in <a
             href="https://github.com/Bloodmallet/bloodytools/tree/dev/bloodytools/simulations/talent_tree_paths">yaml
             files [bloodytools]</a>. Each file provides a usage example. You can use any combination of
         <code>talents=</code>, <code>class_talents=</code>, and <code>spec_talents=</code>. Additinally you can override
-        items of the base profile but only the talent tree is shown on the web-frontend. So use item overrides
+        items of the base profile but only the Talent Path is shown on the web-frontend. So use item overrides
         sparingly.
     </p>
     <h5>How to update</h5>
