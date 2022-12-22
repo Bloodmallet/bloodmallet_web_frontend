@@ -67,7 +67,7 @@ function build_table() {
                 "monk_brewmaster",
                 "monk_windwalker",
                 "paladin_protection",
-                // "paladin_retribution",
+                "paladin_retribution",
                 "priest_shadow",
                 "rogue_assassination",
                 "rogue_outlaw",
