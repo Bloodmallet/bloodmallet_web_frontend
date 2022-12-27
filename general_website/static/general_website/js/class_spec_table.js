@@ -55,7 +55,7 @@ function build_table() {
                 "demon_hunter_vengeance",
                 "druid_balance",
                 "druid_feral",
-                // "druid_guardian",
+                "druid_guardian",
                 "evoker_devastation",
                 // "evoker_preservation",
                 "hunter_beast_mastery",
