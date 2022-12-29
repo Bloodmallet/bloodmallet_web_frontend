@@ -1160,8 +1160,37 @@ function bloodmallet_chart_import() {
     chart = undefined;
     chart = new_chart;
 
-    let talent_combination = undefined;
-    talent_combination = Object.keys(spec_data["data"])[0];
+    // build talent selection area if not already done earlier
+    if (is_bloodmallet_dot_com() && document.getElementById(spec_data["data_type"] + "-selector-area").children.length === 0) {
+      let select_root = document.getElementById(spec_data["data_type"] + "-selector-area");
+      let select = document.createElement("select");
+      select.id = spec_data["data_type"] + "-selector";
+      select.classList.add("custom-select");
+
+      for (const profile_name of Object.keys(spec_data["sorted_data_keys"])) {
+        let option = document.createElement("option");
+        option.value = profile_name;
+        option.text = "Build: " + profile_name;
+
+        if (profile_name === "baseline") {
+          option.selected = true;
+        }
+
+        select.appendChild(option);
+      }
+
+      select_root.appendChild(select);
+
+      select_root.addEventListener("change", () => { bloodmallet_chart_import(); });
+      if (Object.keys(spec_data["sorted_data_keys"]).length > 1) {
+        select_root.hidden = false;
+      }
+    }
+
+    let talent_combination = "baseline";
+    if (is_bloodmallet_dot_com() && document.getElementById(spec_data["data_type"] + "-selector") !== undefined) {
+      talent_combination = document.getElementById(spec_data["data_type"] + "-selector").value;
+    }
 
     // get max dps of the whole data set
     let max_dps = spec_data["data"][talent_combination][spec_data["sorted_data_keys"][talent_combination][0]];
@@ -1588,6 +1617,7 @@ function bloodmallet_chart_import() {
             renderTo: 'scatter_plot_chart',
             type: "scatter3d",
             backgroundColor: null,
+            className: "mx-auto",
             animation: false,
             height: 800,
             width: 800,
@@ -2162,12 +2192,20 @@ function bloodmallet_chart_import() {
   }
 
   /**
+   * Is the current website bloodmallet.com?
+   * @returns true if current website is bloodmallet.com or a dev environment.
+   */
+  function is_bloodmallet_dot_com() {
+    return ["bloodmallet.com", "127.0.0.1:8000"].includes(window.location.host);
+  }
+
+  /**
    * Create an all-meta-data information area
    * @param {*} state
    * @param {*} data
    */
   function provide_meta_data(state, data) {
-    if (!["bloodmallet.com", "127.0.0.1:8000"].includes(window.location.host)) {
+    if (!is_bloodmallet_dot_com()) {
       return
     }
     if (debug) {
