@@ -1,0 +1,29 @@
+{% load i18n %}
+<h5>Power Infusion</h5>
+<p>
+    This chart shows how much power each spec gains from getting access to one Power Infusion cast by a Priest in their
+    group.
+</p>
+<p>
+    ATTENTION: APL support for Power Infusion is not wide spread. Please submit improvements to the Action Priority
+    List (APL) in SimulationCraft.
+</p>
+<p>
+    It uses the "tier appropriate"
+    <a href="https://github.com/simulationcraft/simc/tree/dragonflight/profiles">SimulationCraft profile</a>.
+</p>
+
+<pre>
+# SimulatonCraft example override
+## External Power Infusion
+external_buffs.pool=power_infusion:120:1
+
+## No external Power Infusion
+external_buffs.pool=power_infusion:120:0
+
+## Example APL line
+actions+=/invoke_external_buff,name=power_infusion,if=buff.dancing_rune_weapon.up|!talent.dancing_rune_weapon
+</pre>
+
+<p>See the <a href="https://github.com/simulationcraft/simc/wiki/ActionLists#external-buffs">SimulationCraft Wiki</a>
+    for more information on how to set up your spec support.</p>
