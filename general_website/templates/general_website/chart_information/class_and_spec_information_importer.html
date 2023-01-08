@@ -24,3 +24,7 @@ example import of simulation type and spec specific disclaimer
 {% if power_infusion %}
 {% include 'general_website/chart_information/disclaimers/power_infusion.html' %}
 {% endif %}
+
+{% if simulation_type == "weapon_enchantments" and wow_class == "death_knight" %}
+{% include 'general_website/chart_information/disclaimers/weapon_enchantments_death_knight.html' %}
+{% endif %}

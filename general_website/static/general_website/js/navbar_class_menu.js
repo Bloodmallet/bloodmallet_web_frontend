@@ -38,6 +38,7 @@ function update_navbarClassMenu(state) {
         "talent_target_scaling": "Talent Target Scaling",
         "tier_set": "Tier Sets",
         "trinkets": "Trinkets",
+        "weapon_enchantments": "Weapon Enchantments",
     };
     const simulation_types = Object.keys(simulation_type_dict).sort();
     const fight_style_dict = {
