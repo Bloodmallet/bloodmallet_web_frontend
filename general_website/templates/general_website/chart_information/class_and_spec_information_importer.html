@@ -25,6 +25,10 @@ example import of simulation type and spec specific disclaimer
 {% include 'general_website/chart_information/disclaimers/power_infusion.html' %}
 {% endif %}
 
-{% if simulation_type == "weapon_enchantments" and wow_class == "death_knight" %}
-{% include 'general_website/chart_information/disclaimers/weapon_enchantments_death_knight.html' %}
+{% if simulation_type == "weapon_enchantments" and wow_class == "death_knight" and wow_spec == "blood" %}
+{% include 'general_website/chart_information/disclaimers/weapon_enchantments_death_knight_blood.html' %}
+{% endif %}
+
+{% if general_result and simulation_type == "tier_set" and wow_class == "death_knight" and wow_spec == "blood" %}
+{% include 'general_website/chart_information/disclaimers/tier_set_death_knight_blood.html' %}
 {% endif %}
