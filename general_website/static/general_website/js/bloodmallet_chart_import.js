@@ -577,13 +577,18 @@ function bloodmallet_chart_import() {
       dps_ordered_keys = tmp_list.map(element => element[0]);
     }
 
+    let subtitle = data["subtitle"];
+    if (data_type === "power_infusion") {
+      subtitle += "<br/>* Spec APL doesn't support external PI. Fallback for set PI timings was used to generate data.";
+    }
+
     // set title and subtitle
     chart.setTitle(
       {
         text: data["title"]
       },
       {
-        text: data["subtitle"]
+        text: subtitle
       },
       false
     );
@@ -616,6 +621,17 @@ function bloodmallet_chart_import() {
           shortened_name = shortened_name.indexOf(" +") > -1 ? shortened_name.slice(0, shortened_name.indexOf(" +")) : shortened_name;
           return get_category_name(state, shortened_name, data);
         });
+    }
+
+    if (data_type === "power_infusion") {
+      // mark specs without PI support
+      category_list = category_list.map(element => {
+        if (Object.keys(spec_data).indexOf("profile_without_pi_support") > -1 && spec_data["profile_without_pi_support"].indexOf(element) > -1) {
+          return element + "*";
+        } else {
+          return element;
+        }
+      });
     }
 
     if (debug) {
