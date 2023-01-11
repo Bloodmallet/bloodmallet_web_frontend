@@ -12,7 +12,7 @@
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 {% if chart %}
 <meta property="og:title"
-    content="{{ chart.wow_spec.name }} {{ chart.wow_class.name }} {{ chart.simulation_type.name }} {{ chart.fight_style.name }}">
+    content="{% if not windfury and not power_infusion %}{{ chart.wow_spec.name }} {{ chart.wow_class.name }}, {% endif %}{{ chart.simulation_type.name }}, {{ chart.fight_style.name }}">
 {% else %}
 <meta property="og:title" content="404 chart not found">
 {% endif %}
