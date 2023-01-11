@@ -1,11 +1,3 @@
-"""
-+ message in bloodmallet discord about warrior
-? arrowhead trinket for rogue? (probably a missing simc_support mark)
-niphyr shadowpriest wording question
-change default for power infusion to absolute values, probably the same for windfury
-tier set chart summary
-"""
-
 import dataclasses
 import datetime
 import os
