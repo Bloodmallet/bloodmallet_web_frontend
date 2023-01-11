@@ -220,7 +220,8 @@
     </div>
     <div id="secondary_distributions-selector-area" hidden></div>
     <div id="value_style_switch" class="form-group form-check text-right" hidden>
-        <input type="checkbox" class="form-check-input" id="absolute_values">
+        <input type="checkbox" class="form-check-input" id="absolute_values" {% if windfury or power_infusion %} checked
+            {% endif %}>
         <label class="form-check-label" for="absolute_values">{% translate "Use absolute values" %}</label>
     </div>
 </div>
@@ -232,14 +233,14 @@
     data-wow-class="{{ wow_class }}" data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}"
     data-type="{{ simulation_type }}" {% else %} data-chart-id="{{ chart_id }}" {% endif %}
     data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent"
-    data-value-style="relative"></div>
+    data-value-style="{% if windfury or power_infusion %}absolute{% else %}relative{% endif %}"></div>
 
 {% if additional_fight_styles %}
 {% for fight_style in additional_fight_styles %}
 <div id="chart{{ forloop.counter }}" class="bloodmallet_chart mt-3" data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}"
     data-language="{{ LANGUAGE_CODE }}" data-entries="10000" data-background-color="transparent"
-    data-value-style="relative"></div>
+    data-value-style="{% if windfury or power_infusion %}absolute{% else %}relative{% endif %}"></div>
 {% endfor %}
 {% endif %}
 
