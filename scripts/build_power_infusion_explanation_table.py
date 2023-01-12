@@ -36,7 +36,7 @@ class PISpecInformation:
     lines: typing.List[typing.Tuple[int, str]]
     """List of line number and line tuples.
     """
-    comments: typing.List[typing.Tuple[int, str]]
+    comments: typing.List[typing.Tuple[int, typing.Optional[str]]]
     """List of line number and comment tuples.
     """
 
@@ -46,7 +46,13 @@ class PISpecInformation:
 
     @property
     def has_explanation(self) -> bool:
-        return bool(self.comments)
+        return any(c for _, c in self.comments)
+
+    @property
+    def get_comment_code(
+        self,
+    ) -> typing.Iterable[typing.Tuple[typing.Optional[str], str]]:
+        return zip([c for _, c in self.comments], [c for _, c in self.lines])
 
     @staticmethod
     def create_from(wow_spec: WowSpec) -> "PISpecInformation":
@@ -59,7 +65,7 @@ class PISpecInformation:
         )
 
         lines: typing.List[typing.Tuple[int, str]] = []
-        comments: typing.List[typing.Tuple[int, str]] = []
+        comments: typing.List[typing.Tuple[int, typing.Optional[str]]] = []
         with open(profile_path, "r") as f:
             previous_comment = ""
             previous_comment_line_number = -1
@@ -73,6 +79,8 @@ class PISpecInformation:
                         comments.append(
                             (previous_comment_line_number, previous_comment)
                         )
+                    else:
+                        comments.append((-1, None))
                 if line.startswith("#"):
                     previous_comment = line.strip().strip("# ")
                     previous_comment_line_number = i
@@ -98,7 +106,15 @@ def generate_table(
     table.append(spacing + "<tbody>")
     for spec in spec_infos:
         if spec.has_explanation:
-            explanation = "".join(text for _, text in spec.comments)
+            explanation = ""
+            for comment, code in spec.get_comment_code:
+                prefix = ""
+                # if code.startswith("actions."):
+                #     prefix = code.split("actions.")[1].split("+=")[0].strip("+")
+                #     prefix += ": "
+                if comment:
+                    explanation += " " + prefix + comment
+                    explanation.strip()
         elif spec.has_power_infusion:
             explanation = "APL support exists but an explanation text is missing."
         else:
