@@ -58,6 +58,7 @@ urlpatterns = [
     path("settings/general", views.settings, name="settings"),
     path("settings/profile", views.profile, name="profile"),
     path("settings/change_password", views.change_password, name="change_password"),
+    path("settings/delete_profile", views.delete_profile, name="delete_profile"),
     # allauth account actions
     path("accounts/", include("allauth.urls")),
     path("settings/connections", ConnectionsView.as_view(), name="account_connections"),

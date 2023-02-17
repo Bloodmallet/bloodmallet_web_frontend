@@ -43,16 +43,14 @@ class UserLoginForm(AuthenticationForm):
     pass
 
 
-class UserUpdateForm(PasswordChangeForm):
+class UserPasswordUpdateForm(PasswordChangeForm):
     """Settings form for the user to update his own profile."""
 
     pass
 
 
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ()
+class ProfileDeleteForm(forms.Form):
+    user_id = forms.CharField(max_length=36, widget=forms.HiddenInput())
 
 
 class SimulationCreationForm(forms.ModelForm):

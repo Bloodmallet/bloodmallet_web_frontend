@@ -6,7 +6,7 @@
 
 {% block precontent %}
 {% with page='profile' %}
-    {% include 'general_website/layout/nav_settings.html' %}
+{% include 'general_website/layout/nav_settings.html' %}
 {% endwith %}
 {% endblock %}
 
@@ -14,25 +14,57 @@
 {% block content %}
 
 <h1>{% translate "Profile" %}</h1>
-{% comment %}
-<p>{% translate "Manage your profile information." %}</p>
 
-<form class="container-fluid" method="post">
-    {% csrf_token %}
-    {{ profile_form|crispy }}
-
-    <button type="submit" class="btn btn-primary">{% translate "Save changes" %}</button>
-</form> {% endcomment %}
-
-<br/>
+<br />
 
 <h3>{% translate "Change Password" %}</h3>
 <form class="container-fluid" method="post" action="{% url 'change_password' %}">
     {% csrf_token %}
-    {{ user_form|crispy }}
+    {{ user_password_form|crispy }}
 
     <button type="submit" class="btn btn-primary">{% translate "Change password" %}</button>
 </form>
 
+<br />
+<br />
+<br />
+<br />
+<h3>{% translate "Delete Account" %}</h3>
+<div class="container-fluid">
+    <button type="button" class="btn btn-danger" aria-describedby="deletionHelp" data-toggle="modal"
+        data-target="#deleteProfileModal">
+        {% translate "Delete" %}
+    </button>
+    <small id="deletionHelp" class="form-text text-muted">Deleting the account removes all data associated with the
+        account. Personal charts will be removed within 30 days.</small>
+</div>
+
+
+<div id="deleteProfileModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>You're about to delete your account.</p>
+                <p>Deleting the account removes all data associated with the
+                    account. Personal charts will be removed within 30 days.</p>
+                <p>Click "Delete" to delete
+                    the account. Click "Close" or outside this window to keep the account active.</p>
+            </div>
+            <form class="container-fluid modal-footer" method="post" action="{% url 'delete_profile' %}">
+                {% csrf_token %}
+                {{ profile_delete_form|crispy }}
+
+                <button type="submit" class="btn btn-danger">{% translate "Delete" %}</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
