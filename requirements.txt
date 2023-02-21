@@ -16,7 +16,9 @@ django-compressor
 django-sass-processor
 
 # autogenerate forms
-django-crispy-forms
+# 2.0 introduces a bug regarding login forms
+# django.template.exceptions.TemplateDoesNotExist: bootstrap4/uni_form.html"
+django-crispy-forms~=1.14.0
 
 # google api for the secret app
 google-api-python-client
