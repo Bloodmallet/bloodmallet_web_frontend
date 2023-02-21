@@ -1,4 +1,4 @@
-runtime: python39
+runtime: python311
 
 # https://cloud.google.com/appengine/docs/standard#second-gen-runtimes
 instance_class: F2 #default value
