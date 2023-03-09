@@ -1,8 +1,10 @@
+import aiohttp
+import asyncio
 import dataclasses
 import itertools
-import requests
+from rich.console import Console
 from rich.progress import track
-
+from rich.table import Table
 
 CHART_TYPES = [
     "phials",
@@ -10,8 +12,9 @@ CHART_TYPES = [
     "races",
     "secondary_distributions",
     "talent_target_scaling",
-    "trinkets",
     "tier_set",
+    "trinkets",
+    "weapon_enchantments",
 ]
 FIGHT_STYLES = [
     "castingpatchwerk",
@@ -68,7 +71,26 @@ class ChartData:
         return f"https://bloodmallet.com/chart/get/{self.simulation_type}/{self.fight_style}/{self.wow_class}/{self.wow_spec}"
 
 
-def main():
+async def does_data_exist_for(chart: ChartData) -> None | ChartData:
+    # print(f"start {chart}")
+    async with aiohttp.ClientSession() as session:
+        async with session.get(chart.bloodmallet_endpoint) as response:
+
+            # print("Status:", response.status)
+            # print("Content-type:", response.headers["content-type"])
+
+            try:
+                json_data = await response.json()
+            except aiohttp.ContentTypeError:
+                json_data = await response.json(content_type="text/html")
+
+    # print(f"end {json_data}")
+    if response.status == 200 and json_data.get("status", "fine") == "fine":
+        return None
+    return chart
+
+
+async def main():
     combinations = itertools.product(CHART_TYPES, FIGHT_STYLES, SPECS)
 
     charts = [
@@ -77,20 +99,50 @@ def main():
         )
         for c in combinations
     ]
+    tasks = [does_data_exist_for(chart) for chart in charts]
 
-    broken_charts = []
-    for chart in track(charts, description="Checking data endpoints for data..."):
+    # loop = asyncio.get_event_loop()
 
-        response = requests.get(chart.bloodmallet_endpoint)
-        if response.status_code != 200:
-            broken_charts.append(chart)
-        elif response.json().get("status", "fine") == "error":
-            broken_charts.append(chart)
+    broken_charts: list[ChartData] = []
+    for task in track(
+        asyncio.as_completed(tasks),
+        description="Checking data endpoints for data...",
+        total=len(tasks),
+    ):
+        if missing_chart := await task:
+            broken_charts.append(missing_chart)
 
-    print(f"Broken carts: {len(broken_charts)}")
-    for broken in broken_charts:
-        print(f"  {broken}")
+    broken_charts = sorted(
+        broken_charts,
+        key=lambda chart: f"{chart.wow_class}{chart.wow_spec}{chart.simulation_type}{chart.fight_style}",
+    )
+
+    # for broken in broken_charts:
+    #     print(f"  {broken}")
+    if len(broken_charts) < 1:
+        return
+
+    table = Table(title=f"Broken charts: {len(broken_charts)}")
+
+    table.add_column("Class")
+    table.add_column("Spec")
+    table.add_column("Simulation Type")
+    table.add_column("Fight style")
+    # table.add_column("Url")
+
+    for broken_chart in broken_charts:
+        table.add_row(
+            broken_chart.wow_class,
+            broken_chart.wow_spec,
+            broken_chart.simulation_type,
+            broken_chart.fight_style,
+        )
+
+    c = Console()
+    c.print(table)
 
 
 if __name__ == "__main__":
-    main()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(main())

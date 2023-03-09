@@ -1,5 +1,6 @@
 pylint>=2.1.1
 black
 django-debug-toolbar
+aiohttp
 
 -r requirements.txt
