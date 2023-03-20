@@ -443,11 +443,13 @@ function bloodmallet_chart_import() {
     }
     state.data = spec_data;
 
-    chart.update({
-      accessibility: {
-        enable: false
-      }
-    }, false);
+    if (chart_engine != "highcharts_old") {
+      chart.update({
+        accessibility: {
+          enable: false
+        }
+      }, false);
+    }
 
     if (spec_data["error"] === true || spec_data["status"] === "error") {
       return simulation_error(html_element, spec_data);
@@ -2223,6 +2225,7 @@ function bloodmallet_chart_import() {
    * @returns true if current website is bloodmallet.com or a dev environment.
    */
   function is_bloodmallet_dot_com() {
+    return false;
     return ["bloodmallet.com", "127.0.0.1:8000"].includes(window.location.host);
   }
 

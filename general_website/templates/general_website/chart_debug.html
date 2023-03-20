@@ -1,0 +1,34 @@
+{% extends 'general_website/layout/base.html' %}
+
+{% load static %}
+{% load i18n %}
+{% load multiply %}
+{% load replace_underscore_with_space %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<!-- <div align="center"> -->
+
+<div id="bloodmallet_windfury_totem_castingpatchwerk3" class="bloodmallet_chart" data-wow-class="Shaman"
+    data-wow-spec="Enhancement" data-tooltip-engine="wowdb" data-chart-engine="highcharts_old"
+    data-type="windfury_totem" data-entries="14" data-fight-style="castingpatchwerk3" data-background-color="#343a40"
+    data-font-color="#f8f9fa"></div>
+{% endblock %}
+{% block extraimport %}
+
+{% include 'general_website/layout/wowhead_tooltips.html' %}
+{% if general_result %}
+<script src="{% static 'general_website/js/classes_specs.js' %}"></script>
+<script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
+{% endif %}
+{% include 'general_website/layout/chart_import.html' %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        bloodmallet_chart_import();
+    });
+</script>
+<link rel="stylesheet" href="{% static 'general_website/css/restyle-tooltips.css' %}" />
+{% endblock %}

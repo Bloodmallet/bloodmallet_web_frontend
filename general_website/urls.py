@@ -30,6 +30,7 @@ urlpatterns = [
     # charts
     path("my_charts", views.my_charts, name="my_charts"),
     path("chart/", views.chart, name="chart_ph"),
+    path("chart_debug", views.chart_debug, name="chart_debug"),
     path(
         "chart/windfury_totem", views.chart_windfury_totem, name="chart_windfury_totem"
     ),

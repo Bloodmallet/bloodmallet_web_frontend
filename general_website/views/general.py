@@ -477,6 +477,15 @@ def chart(request, chart_id=None):
     return render(request, "general_website/chart.html", context=context)
 
 
+def chart_debug(request):
+    """Shows one chart"""
+    logger.debug("called")
+
+    context = {}
+
+    return render(request, "general_website/chart_debug.html", context=context)
+
+
 def chart_windfury_totem(request):
     """Shows the windfury chart"""
     logger.debug("called")
