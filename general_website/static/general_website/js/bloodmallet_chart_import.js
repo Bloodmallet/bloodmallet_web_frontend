@@ -2225,7 +2225,6 @@ function bloodmallet_chart_import() {
    * @returns true if current website is bloodmallet.com or a dev environment.
    */
   function is_bloodmallet_dot_com() {
-    return false;
     return ["bloodmallet.com", "127.0.0.1:8000"].includes(window.location.host);
   }
 
