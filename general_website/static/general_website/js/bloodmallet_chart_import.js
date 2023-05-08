@@ -496,6 +496,11 @@ function bloodmallet_chart_import() {
       baseline_dps = data["data"]["baseline"];
     } else {
       baseline_dps = data["data"]["baseline"][data["simulated_steps"][data["simulated_steps"].length - 1]];
+      if (debug) {
+        console.log("minimal itemlevel", data["simulated_steps"][data["simulated_steps"].length - 1]);
+        console.log("baseline dps dict", data["data"]["baseline"]);
+        console.log("Baseline dps: " + baseline_dps);
+      }
     }
     // add other baseline profiles, e.g. covenant profiles for legendaries
     for (let key of Object.keys(data["data"])) {
@@ -506,10 +511,9 @@ function bloodmallet_chart_import() {
 
 
     if (debug) {
-      console.log(dps_ordered_keys);
+      console.log("dps_ordered_keys", dps_ordered_keys);
       console.log("Baseline dps: " + baseline_dps);
-      console.log("other baseline dps:");
-      console.log(other_baselines);
+      console.log("other baseline dps:", other_baselines);
     }
 
     let simulated_steps = [];
@@ -1137,6 +1141,20 @@ function bloodmallet_chart_import() {
       chart.update({ xAxis: { min: min_target_count - 0.5, max: max_target_count + 0.5 } });
     }
 
+    try {
+      chart.setTitle(
+        {
+          text: spec_data["title"]
+        },
+        {
+          text: spec_data["subtitle"]
+        },
+        false
+      );
+    } catch (error) {
+      console.log(error)
+    }
+
     // chart.update()
 
     chart.redraw();
@@ -1340,33 +1358,19 @@ function bloodmallet_chart_import() {
     // make sure this color matches the value of color_min in create_color(...)
     chart.addSeries({ name: Intl.NumberFormat().format(min_dps) + " DPS", color: "rgb(" + min_color[0] + "," + min_color[1] + "," + min_color[2] + ")" }, false);
 
-
-    let timestamp = spec_data["timestamp"];
-    let year = timestamp.split("-")[0];
-    let month = timestamp.split("-")[1];
-    let day = timestamp.split("-")[2].split(" ")[0];
-    let hour = timestamp.split(" ")[1].split(":")[0];
-    let minute = timestamp.split(":")[1];
-
-    let subtitle = "Last updated ";
-    // month is a number 0-11
-    let age = new Date() - new Date(Date.UTC(year, month - 1, day, hour, minute));
-    let age_days = Math.floor(age / 24 / 3600 / 1000);
-    if (age_days > 0) {
-      subtitle += `${age_days}d `;
+    try {
+      chart.setTitle(
+        {
+          text: spec_data["title"]
+        },
+        {
+          text: spec_data["subtitle"]
+        },
+        false
+      );
+    } catch (error) {
+      console.log(error)
     }
-    let age_hours = Math.floor(age / 3600 / 1000) - age_days * 24;
-    subtitle += `${age_hours}h ago`;
-
-    // try {
-    //   document.getElementById("chart_title").innerHTML = "";
-    //   document.getElementById("chart_title").hidden = true;
-    //   add_profile_information();
-    //   document.getElementById("chart_subtitle").innerHTML = subtitle;
-    //   document.getElementById("chart_simc_hash").innerHTML = `SimulationCraft build: <a href=\"https://github.com/simulationcraft/simc/commit/${spec_data["simc_settings"]["simc_hash"]}\" target=\"blank\">#${spec_data["simc_settings"]["simc_hash"].substring(0, 5)}</a>`;
-    // } catch (error) {
-
-    // }
 
     chart.redraw();
 
@@ -1689,18 +1693,19 @@ function bloodmallet_chart_import() {
           },
           series: [],
           title: {
-            text: "", //"Title placeholder",
-            useHTML: true,
-            style: {
-              color: state.font_color
-            }
-          },
-          subtitle: {
-            text: "",
+            text: "Loading data...", //"Title placeholder",
             useHTML: true,
             style: {
               color: state.font_color,
-              fontSize: state.font_size
+              fontSize: font_size
+            }
+          },
+          subtitle: {
+            text: "...from <a href=\"https://bloodmallet.com\">bloodmallet</a>",
+            useHTML: true,
+            style: {
+              color: state.font_color,
+              fontSize: font_size
             }
           },
           tooltip: {
@@ -1802,7 +1807,7 @@ function bloodmallet_chart_import() {
             // type: "scatter3d",
             backgroundColor: null,
             animation: false,
-            // height: 800,
+            height: 650,
             // width: 800,
             // options3d: {
             //   enabled: true,
@@ -1845,18 +1850,19 @@ function bloodmallet_chart_import() {
           },
           series: [],
           title: {
-            text: "", //"Title placeholder",
-            useHTML: true,
-            style: {
-              color: state.font_color
-            }
-          },
-          subtitle: {
-            text: "",
+            text: "Loading data...", //"Title placeholder",
             useHTML: true,
             style: {
               color: state.font_color,
-              fontSize: state.font_size
+              fontSize: font_size
+            }
+          },
+          subtitle: {
+            text: "...from <a href=\"https://bloodmallet.com\">bloodmallet</a>",
+            useHTML: true,
+            style: {
+              color: state.font_color,
+              fontSize: font_size
             }
           },
           xAxis: {
@@ -1905,7 +1911,7 @@ function bloodmallet_chart_import() {
         accessibility: { enabled: false },
         chart: {
           type: "bar",
-          backgroundColor: default_background_color,
+          backgroundColor: background_color,
           style: {
             fontFamily: "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\""
           }
@@ -1920,8 +1926,8 @@ function bloodmallet_chart_import() {
         },
         legend: {
           align: "right",
-          backgroundColor: default_background_color,
-          borderColor: default_axis_color,
+          backgroundColor: background_color,
+          borderColor: axis_color,
           borderWidth: 1,
           floating: false,
           itemMarginBottom: 3,
@@ -1933,10 +1939,10 @@ function bloodmallet_chart_import() {
           x: 0,
           y: 0,
           itemStyle: {
-            color: default_font_color,
+            color: font_color,
           },
           itemHoverStyle: {
-            color: default_font_color,
+            color: font_color,
           },
           title: {
             text: " ",
@@ -1990,7 +1996,7 @@ function bloodmallet_chart_import() {
           text: "Loading data...", //"Title placeholder",
           useHTML: true,
           style: {
-            color: default_font_color,
+            color: font_color,
             fontSize: font_size
           }
         },
@@ -1998,7 +2004,7 @@ function bloodmallet_chart_import() {
           text: "...from <a href=\"https://bloodmallet.com\">bloodmallet</a>",
           useHTML: true,
           style: {
-            color: default_font_color,
+            color: font_color,
             fontSize: font_size
           }
         },
@@ -2100,16 +2106,6 @@ function bloodmallet_chart_import() {
       // TODO: https://scotch.io/bar-talk/copying-objects-in-javascript
       // step 1: JSON.parse(JSON.stringify(obj))
       // step 2: get functions with Object.assign({}, obj)
-
-      styled_chart.chart.backgroundColor = background_color;
-
-      styled_chart.legend.backgroundColor = background_color;
-      styled_chart.legend.borderColor = axis_color;
-      styled_chart.legend.itemStyle.color = font_color;
-      styled_chart.legend.itemHoverStyle.color = font_color;
-
-      styled_chart.title.style.color = font_color;
-      styled_chart.subtitle.style.color = font_color;
 
       styled_chart.tooltip.formatter = function () {
         let container = document.createElement('div');
