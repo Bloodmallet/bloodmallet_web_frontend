@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-17 17:23+0100\n"
+"POT-Creation-Date: 2023-05-08 07:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1284,49 +1284,49 @@ msgstr ""
 msgid "Something went wrong. Try again later"
 msgstr ""
 
-#: .\general_website\views\general.py:610
+#: .\general_website\views\general.py:619
 msgid "Simulation not found."
 msgstr ""
 
-#: .\general_website\views\general.py:677
+#: .\general_website\views\general.py:686
 msgid "Simulation data could not be found."
 msgstr ""
 
-#: .\general_website\views\general.py:715
+#: .\general_website\views\general.py:724
 msgid "No standard chart with these values found."
 msgstr ""
 
-#: .\general_website\views\general.py:730
+#: .\general_website\views\general.py:739
 msgid "Incomplete data, either provide id or look for a standard chart."
 msgstr ""
 
-#: .\general_website\views\general.py:751
+#: .\general_website\views\general.py:760
 msgid "Chart deletion works only with POST and if chart_id is provided."
 msgstr ""
 
-#: .\general_website\views\general.py:759
+#: .\general_website\views\general.py:768
 msgid "An error occured while trying to delete a chart."
 msgstr ""
 
-#: .\general_website\views\general.py:766
+#: .\general_website\views\general.py:775
 msgid "Chart was deleted."
 msgstr ""
 
-#: .\general_website\views\general.py:768
+#: .\general_website\views\general.py:777
 msgid "You don't have the permission for that action."
 msgstr ""
 
-#: .\general_website\views\general.py:803
+#: .\general_website\views\general.py:812
 msgid ""
 "You don't have any more free slots. You can delete unwanted charts to be "
 "able to free up slots."
 msgstr ""
 
-#: .\general_website\views\general.py:824
+#: .\general_website\views\general.py:833
 msgid "A chart was added to the queue. Simulations will start soon."
 msgstr ""
 
-#: .\general_website\views\general.py:829
+#: .\general_website\views\general.py:838
 msgid "You don't have permission to create a chart."
 msgstr ""
 
