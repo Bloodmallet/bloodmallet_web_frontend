@@ -945,8 +945,9 @@ function bloodmallet_chart_import() {
     } else if (state.tooltip_engine == "wowhead") {
       setTimeout(() => {
         window.$WowheadPower.refreshLinks();
-        // chart.reflow();
-        chart.redraw();
+        setTimeout(() => {
+          chart.redraw();
+        }, 300);
       }, 1);
     } else {
       setTimeout(() => {
@@ -1675,6 +1676,7 @@ function bloodmallet_chart_import() {
           },
           plotOptions: {
             series: {
+              animation: false,
               dataLabels: {
                 allowOverlap: true,
                 style: {
@@ -1831,6 +1833,7 @@ function bloodmallet_chart_import() {
           },
           plotOptions: {
             series: {
+              animation: false,
               connectNulls: true,
               dataLabels: {
                 allowOverlap: true,
@@ -1954,6 +1957,7 @@ function bloodmallet_chart_import() {
         },
         plotOptions: {
           series: {
+            animation: false,
             stacking: "normal",
             borderColor: default_background_color,
             events: {
@@ -2671,6 +2675,20 @@ function bloodmallet_chart_import() {
     if (return_name === undefined) {
       return_name = name;
     }
+
+    // shorten name
+    // Darkmoon Deck Box: Dance [Emberscale] => DDB:D [Emberscale]
+    // if (return_name.length > 30) {
+    //   let actual_name = return_name;
+    //   if (return_name.split("[").length == 2) {
+    //     actual_name = return_name.split("[")[0];
+    //   }
+    //   let new_name = actual_name.split(": ").map(name_part => name_part.split(" ").map(e => e[0]).join("")).join(":");
+    //   if (return_name.split("[").length == 2) {
+    //     new_name += " [" + return_name.split("[")[1];
+    //   }
+    //   return_name = new_name;
+    // }
 
     return return_name;
   }
