@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-08 07:22+0200\n"
+"POT-Creation-Date: 2023-07-11 21:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -670,7 +670,7 @@ msgid ""
 msgstr ""
 
 #: .\general_website\templates\general_website\about.html:10
-#: .\general_website\templates\general_website\layout\nav_bottom.html:64
+#: .\general_website\templates\general_website\layout\nav_bottom.html:54
 msgid "About"
 msgstr ""
 
@@ -803,12 +803,12 @@ msgstr ""
 msgid "Become a Patron"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:121
+#: .\general_website\templates\general_website\faq.html:127
 #: .\general_website\templates\general_website\privacy_policy.html:26
 msgid "Google Analytics"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:123
+#: .\general_website\templates\general_website\faq.html:129
 msgid ""
 "\n"
 "            bloodmallet.com would like to use <a\n"
@@ -825,20 +825,20 @@ msgid ""
 "            "
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:134
+#: .\general_website\templates\general_website\faq.html:140
 #: .\general_website\templates\general_website\layout\base.html:78
 #: .\general_website\templates\general_website\privacy_policy.html:33
 msgid "Accept GA tracking"
 msgstr ""
 
-#: .\general_website\templates\general_website\faq.html:137
+#: .\general_website\templates\general_website\faq.html:143
 #: .\general_website\templates\general_website\layout\base.html:81
 #: .\general_website\templates\general_website\privacy_policy.html:34
 msgid "Reject GA tracking"
 msgstr ""
 
 #: .\general_website\templates\general_website\handbook.html:8
-#: .\general_website\templates\general_website\layout\nav_bottom.html:54
+#: .\general_website\templates\general_website\layout\nav_bottom.html:44
 msgid "Handbook"
 msgstr ""
 
@@ -899,11 +899,11 @@ msgstr ""
 msgid "Bugreport"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:59
+#: .\general_website\templates\general_website\layout\nav_bottom.html:49
 msgid "FAQ"
 msgstr ""
 
-#: .\general_website\templates\general_website\layout\nav_bottom.html:68
+#: .\general_website\templates\general_website\layout\nav_bottom.html:58
 #: .\general_website\templates\general_website\terms_and_conditions.html:5
 #: .\general_website\templates\general_website\terms_and_conditions.html:10
 msgid "Terms and Conditions"
