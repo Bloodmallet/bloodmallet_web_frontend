@@ -9,7 +9,7 @@ let classes_specs = {
         "feral", "guardian", "balance", "restoration"
     ],
     "evoker": [
-        "devastation", "preservation"
+        "devastation", "preservation", "augmentation"
     ],
     "hunter": [
         "beast_mastery", "marksmanship", "survival"

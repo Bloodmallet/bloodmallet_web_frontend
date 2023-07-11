@@ -125,6 +125,7 @@ function update_navbarClassMenu(state) {
     div_dropdown_spec.setAttribute("aria-labelledby", "navbar_wow_spec_selection");
 
     for (tmp_spec of classes_specs[state.wow_class]) {
+        // build navv for these specs
         if ([
             "death_knight_blood",
             "death_knight_frost",
@@ -134,8 +135,10 @@ function update_navbarClassMenu(state) {
             "druid_balance",
             "druid_feral",
             "druid_guardian",
+            // "druid_restoration",
             "evoker_devastation",
-            "evoker_preservation",
+            // "evoker_preservation",
+            // "evoker_augmentation",
             "hunter_beast_mastery",
             "hunter_marksmanship",
             "hunter_survival",
@@ -144,14 +147,19 @@ function update_navbarClassMenu(state) {
             "mage_frost",
             "monk_brewmaster",
             "monk_windwalker",
+            // "monk_mistweaver",
             "paladin_protection",
             "paladin_retribution",
+            // "paladin_holy",
             "priest_shadow",
+            // "priest_holy",
+            // "priest_discipline",
             "rogue_assassination",
             "rogue_outlaw",
             "rogue_subtlety",
             "shaman_elemental",
             "shaman_enhancement",
+            // "shaman_restoration",
             "warlock_affliction",
             "warlock_demonology",
             "warlock_destruction",

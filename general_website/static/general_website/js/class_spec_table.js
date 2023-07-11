@@ -46,6 +46,7 @@ function build_table() {
             div_spec_row.className = 'row';
             div_class_cell.appendChild(div_spec_row);
             let a_spec_btn = document.createElement('a');
+            let snake_case = wow_class + "_" + wow_spec;
             // It's a simulated spec
             if ([
                 "death_knight_blood",
@@ -80,7 +81,7 @@ function build_table() {
                 "warrior_arms",
                 "warrior_fury",
                 "warrior_protection"
-            ].indexOf(wow_class + "_" + wow_spec) > -1) {
+            ].indexOf(snake_case) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
                 a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/trinkets/castingpatchwerk';
             } else {
@@ -88,7 +89,11 @@ function build_table() {
                 a_spec_btn.href = '';
                 a_spec_btn.dataset.toggle = "tooltip";
                 a_spec_btn.dataset.placement = "top";
-                a_spec_btn.dataset.title = "Missing T29 profile.";
+                if (snake_case === "evoker_augmentation") {
+                    a_spec_btn.dataset.title = "This spec is not supported for now.";
+                } else {
+                    a_spec_btn.dataset.title = "Missing SimulationCraft profile or lack of dps support for the spec.";
+                }
             }
 
             a_spec_btn.innerHTML = capitalize_first_letters(wow_spec).replace("_", " ");
