@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "sass_processor",
     "corsheaders",
     "crispy_forms",
+    "crispy_bootstrap4",
     "vinaigrette",
     "anymail",
     "general_website",
