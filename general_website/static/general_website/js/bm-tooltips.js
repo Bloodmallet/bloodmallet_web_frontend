@@ -242,7 +242,7 @@ function bm_register_tooltip(element) {
         remove_tooltip_div(element);
     });
     // element.addEventListener("mouseout", (event) => {
-    //     bm_remove_tooltip_div(element);
+    //     remove_tooltip_div(element);
     // });
 }
 
