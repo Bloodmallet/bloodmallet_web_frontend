@@ -27,30 +27,22 @@ function add_css(id, url) {
  * Add bloodmallet tooltip js to page and execute `bm_register_tooltips`.
 */
 function add_tooltips() {
-    /**
-     * Inject js into head
-     * @param {String} id id of the styles element in the website
-     * @param {String} url url to the styles
-     * @returns Nothing
-     */
-    function add_js(id, url) {
-        if (document.getElementById(id)) {
-            return;
-        }
-
+    if (!document.getElementById(BmTooltipJsId)) {
         let js = document.createElement("script");
-        js.id = id;
+        js.id = BmTooltipJsId;
         js.type = "text/javascript";
-        js.src = url;
+        js.src = BmTooltipJsUrl;
         document.getElementsByTagName('head')[0].appendChild(js);
     }
-    add_js(BmTooltipJsId, BmTooltipJsUrl);
+
     try {
         bm_register_tooltips();
+        add_css(BmChartStyleId, BmChartStyleUrl);
     } catch (error) {
         let script = document.getElementById(BmTooltipJsId);
         script.addEventListener("load", () => {
             bm_register_tooltips();
+            add_css(BmChartStyleId, BmChartStyleUrl);
         });
         script.addEventListener("error", (error) => {
             console.error(error);
@@ -83,8 +75,6 @@ class BmBarChart {
     x_axis_texts = { "total": "damage per second", "relative": "% damage per second", "absolute": " damage per second" };
 
     constructor(chart_data = new BmBarChart()) {
-        add_css(BmChartStyleId, BmChartStyleUrl);
-
         this.element_id = chart_data.element_id;
         this.title = chart_data.title;
         this.subtitle = chart_data.subtitle;
@@ -471,8 +461,6 @@ class BmRadarChart {
     x_axis_texts = { "total": "damage per second", "relative": "% damage per second", "absolute": " damage per second" };
 
     constructor(chart_data = new BmRadarChart()) {
-        add_css(BmChartStyleId, BmChartStyleUrl);
-
         this.element_id = chart_data.element_id;
         this.title = chart_data.title;
         this.subtitle = chart_data.subtitle;

@@ -24,6 +24,11 @@ const BmTooltipStyleUrl = "/static/general_website/css/bm-tooltips.css";
  */
 function bm_register_tooltip(element) {
 
+    if (element.hasAttribute(BmTooltipAttribute.ID)) {
+        // console.log(BmTooltipAttribute.ID + " found. Tooltip was already registered. Skipping registration of tooltip.");
+        return;
+    }
+
     /**
      * Inject css into head
      * @param {String} id id of the styles element in the website
@@ -54,14 +59,26 @@ function bm_register_tooltip(element) {
         return Math.floor(Math.random() * max);
     }
 
+    function get_unique_random_int() {
+        let max = 999999;
+        let random_id = get_random_int(max);
+        while (document.querySelectorAll(`[${BmTooltipAttribute.ID}='bm-tooltip-${random_id}']`).length !== 0) {
+            console.debug(`We won! Somehow ID ${random_id} was already in use. Regenerating a new ID.`);
+            random_id = get_random_int(max);
+        }
+        return random_id;
+    }
+
     /**
      * Remove tooltip-div
      * @param {Element} element 
      */
     function remove_tooltip_div(element) {
         let id = element.getAttribute(BmTooltipAttribute.ID);
-        document.querySelector(`div[id='${id}']`).remove();
-        element.removeAttribute(BmTooltipAttribute.ID);
+        if (!document.getElementById(id)) {
+            return;
+        }
+        document.getElementById(id).remove();
     }
 
     /**
@@ -70,14 +87,10 @@ function bm_register_tooltip(element) {
      * @param {Element} element 
      * @param {number} random_id 
      */
-    function create_tooltip(event, element, random_id) {
+    function create_tooltip(event, element) {
         // console.log(event);
         if (!element.hasAttribute(BmTooltipAttribute.TEXT)) {
             console.warn(BmTooltipAttribute.TEXT + " not found. Skipping creation of tooltip.");
-            return;
-        }
-        if (element.hasAttribute(BmTooltipAttribute.ID)) {
-            // console.log(BmTooltipAttribute.ID + " found. Tooltip was already created. Skipping creation of tooltip.");
             return;
         }
 
@@ -173,8 +186,10 @@ function bm_register_tooltip(element) {
             return new Coordinate(x, y);
         }
 
-        let id = "bm-tooltip-" + random_id.toString();
-        element.setAttribute(BmTooltipAttribute.ID, id);
+        // workaround, otherwise occasionally tooltips would stay
+        remove_tooltip_div(element);
+
+        let id = element.getAttribute(BmTooltipAttribute.ID);
 
         // tooltip root
         let root = document.createElement("div");
@@ -205,15 +220,21 @@ function bm_register_tooltip(element) {
         root.style = `transform: translate(${coordinates.x}px, ${coordinates.y}px);`;
     }
 
+    /**
+     * 
+     * @param {Element} element 
+     */
+    function set_tooltip_id(element) {
+        let random_id = get_unique_random_int();
+        let id = "bm-tooltip-" + random_id.toString();
+        element.setAttribute(BmTooltipAttribute.ID, id);
+    }
+
     add_css(BmTooltipStyleId, BmTooltipStyleUrl);
 
-    let random_id = get_random_int(999999);
-    while (document.querySelectorAll(`[data-bm-tooltip-id='bm-tooltip-${random_id}']`).length !== 0) {
-        console.debug(`We won! Somehow ID ${random_id} was already in use. Regenerating a new ID.`);
-        random_id = get_random_int(999999);
-    }
+    set_tooltip_id(element);
     element.addEventListener("mouseover", (event) => {
-        create_tooltip(event, element, random_id);
+        create_tooltip(event, element);
     });
 
     // remove tooltip again
@@ -226,6 +247,8 @@ function bm_register_tooltip(element) {
 }
 
 function bm_register_tooltips() {
+    add_css(BmTooltipStyleId, BmTooltipStyleUrl);
+
     let tooltip_elements = document.querySelectorAll("[data-type='bm-tooltip']");
     for (const e of tooltip_elements) {
         bm_register_tooltip(e);
