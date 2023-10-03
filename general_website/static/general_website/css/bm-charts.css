@@ -364,66 +364,20 @@
     text-align: right;
 }
 
-/* ----------------- */
-/* Styling bootstrap */
-/* ----------------- */
-
-.tooltip.show {
-    opacity: 1.0;
-}
-
-.tooltip-inner {
-    background-color: #232227;
-    border: 1px solid #999999;
-    border: 1px solid #fff;
-    border-radius: 5px;
-}
-
-.bs-tooltip-left .arrow::before,
-.bs-tooltip-auto[x-placement^="left"] .arrow::before {
-    border-left-color: #232227;
-    border-left-color: #999999;
-    border-left-color: #fff;
-}
+/* ------------------- */
+/* Styling bm-tooltips */
+/* ------------------- */
 
 .bm-tooltip {
-    max-width: 200px;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: white;
+    --border-radius: 5px;
 
-    .bm-tooltip-inner {
-        background-color: #232227;
-        border: 1px solid white;
-        border-radius: 5px;
-    }
+    --arrow-color: white;
 
-    &.bm-tooltip-left {
-        .bm-tooltip-arrow {
-            &::before {
-                border-left-color: white;
-            }
-        }
-    }
-}
+    --color: white;
+    --background-color: #232227;
 
-/* --------------- */
-/* Styling tooltip */
-/* --------------- */
-
-.wowhead-tooltip .wowhead-tooltip-requirements {
-    display: none;
-}
-
-/* remove icon left to the tooltip */
-.whtt-tooltip-icon {
-    display: none;
-}
-
-.wowhead-tooltip td,
-.wowhead-tooltip th {
-    background: none;
-}
-
-.wowhead-tooltip {
-    background: #232227;
-    border: 1px solid white !important;
-    border-radius: 5px;
+    max-width: 225px;
 }

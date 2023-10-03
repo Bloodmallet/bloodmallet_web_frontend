@@ -1,0 +1,26 @@
+/* ----------------------- */
+/* Styling wowhead-tooltip */
+/* ----------------------- */
+
+.wowhead-tooltip .wowhead-tooltip-requirements {
+    display: none;
+}
+
+/* remove icon left to the tooltip */
+.whtt-tooltip-icon {
+    /* display: none; */
+    background: #232227;
+    border: 1px solid white !important;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.wowhead-tooltip td,
+.wowhead-tooltip th {
+    background: none;
+}
+
+.wowhead-tooltip {
+    background: #232227;
+    border: 1px solid white !important;
+    border-radius: 0px 5px 5px 5px;
+}
