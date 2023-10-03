@@ -558,8 +558,10 @@ class BmRadarChart {
     }
 
     create_mini_radar_row(crit, haste, mastery, vers, dps, size, zoom) {
+        let cap = 70;
         let secondary_string = [crit, haste, mastery, vers].join("_");
-        let fraction = this.data[this.sorted_data_keys[0]][secondary_string] * 100 / dps;
+        let abs_dps = this.data[this.sorted_data_keys[0]][secondary_string];
+        let rel_dps_string = this._get_relative_value(abs_dps, dps, 1);
 
         let row = document.createElement("div");
         row.style.display = "table-row";
@@ -569,10 +571,46 @@ class BmRadarChart {
         svg_container.appendChild(this.create_radar_chart(crit, haste, mastery, vers, dps, false, false, size, zoom));
         row.appendChild(svg_container);
 
+        // add svg name as tooltip to capped value-rows
+        if (secondary_string.indexOf(cap) !== -1) {
+            let description = document.createElement("div");
+            let text = "Critical Strike";
+            if (haste === cap) {
+                text = "Haste";
+            } else if (mastery === cap) {
+                text = "Mastery";
+            } else if (vers === cap) {
+                text = "Versatility";
+            }
+
+            description.appendChild(document.createTextNode(text));
+            svg_container.setAttribute("data-bm-tooltip-text", description.outerHTML);
+            svg_container.setAttribute("data-bm-tooltip-placement", "left");
+            svg_container.setAttribute("data-type", "bm-tooltip");
+        }
+
+
         let value = document.createElement("div");
-        value.textContent = `${(Math.round((fraction + Number.EPSILON) * 10) / 10).toLocaleString()}%`;
+        value.textContent = rel_dps_string;
         value.classList.add("bm-radar-mini-table-value");
         row.appendChild(value);
+
+        let unit = document.createElement("span");
+        unit.classList.add("bm-unit");
+        unit.appendChild(document.createTextNode(this.unit["relative"]));
+        value.appendChild(unit);
+
+        // add dps as tooltip
+        let container = document.createElement("div");
+        let tt_unit = document.createElement("span");
+        container.appendChild(document.createTextNode(this._to_local(abs_dps)));
+        tt_unit.classList.add("bm-unit");
+        tt_unit.appendChild(document.createTextNode("dps"));
+        container.appendChild(tt_unit);
+
+        value.setAttribute("data-bm-tooltip-text", container.outerHTML);
+        value.setAttribute("data-bm-tooltip-placement", "right");
+        value.setAttribute("data-type", "bm-tooltip");
 
         return row;
     }
@@ -688,65 +726,19 @@ class BmRadarChart {
         return svg;
     }
 
-    create_tooltip(key) {
-        let container = document.createElement("div");
-        container.classList.add("bm-tooltip-container");
-
-        let title = document.createElement("div");
-        title.classList.add("bm-tooltip-title");
-        let translated_name = this._get_translated_name(key);
-        title.appendChild(document.createTextNode(translated_name));
-        container.appendChild(title);
-
-        for (let [index, series] of this.series_names.entries()) {
-            if (!this.data[key].hasOwnProperty(series)) {
-                // data doesn't have series element, skipping
-                continue;
-            }
-            let row = document.createElement("div");
-            row.classList.add("bm-tooltip-row");
-
-            let key_div = document.createElement("div");
-            key_div.classList.add("bm-tooltip-key", "bm-bar-group-" + (index + 1));
-            key_div.appendChild(document.createTextNode(series));
-            row.appendChild(key_div);
-
-            let value_div = document.createElement("div");
-            value_div.classList.add("bm-tooltip-value");
-            let value = this.get_value(key, series, this.value_calculation);
-            value_div.appendChild(document.createTextNode(value));
-            if (this.unit[this.value_calculation].length > 0) {
-                let unit = document.createElement("span");
-                unit.classList.add("bm-unit");
-                unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
-                value_div.appendChild(unit);
-            }
-            row.appendChild(value_div);
-
-            container.appendChild(row);
-        }
-
-        let legend = document.createElement("div");
-        legend.classList.add("bm-tooltip-row");
-
-        let key_title = document.createElement("div");
-        key_title.classList.add("bm-tooltip-key-title", "bm-tooltip-width-marker-top");
-        key_title.appendChild(document.createTextNode(this.legend_title));
-        legend.appendChild(key_title);
-
-        let value_title = document.createElement("div");
-        value_title.classList.add("bm-tooltip-value-title", "bm-tooltip-width-marker-top");
-        value_title.appendChild(document.createTextNode(this.x_axis_title));
-        legend.appendChild(value_title);
-
-        container.appendChild(legend);
-
-        return container.outerHTML;
+    _to_local(value, mantissa) {
+        return value.toLocaleString(undefined, { minimumFractionDigits: mantissa, maximumFractionDigits: mantissa });
     }
 
-    _get_relative_gain(changed_value, base_value) {
+    _get_relative_value(changed_value, base_value, mantissa) {
+        return this._to_local(
+            Math.round((changed_value * 100 / base_value + Number.EPSILON) * (10 ** mantissa)) / (10 ** mantissa)
+        );
+    }
+
+    _get_relative_gain(changed_value, base_value, mantissa) {
         let value = this._get_absolute_gain(changed_value, base_value)
-        return (Math.round((value * 100 / base_value + Number.EPSILON) * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return this._get_relative_value(value, base_value, mantissa);
     }
     _get_absolute_gain(changed_value, base_value) {
         let value = changed_value - base_value;
@@ -758,30 +750,6 @@ class BmRadarChart {
         } else {
             return key;
         }
-    }
-    _get_wowhead_url(key) {
-        let base = "https://www.wowhead.com/";
-        if (key in this.spell_id_dict) {
-            base += "spell=";
-            base += this.spell_id_dict[key];
-        } else if (key in this.item_id_dict) {
-            base += "item=";
-            base += this.item_id_dict[key];
-        } else {
-            return undefined;
-        }
-        return base;
-    }
-    _get_wowhead_link(key) {
-        let translated_name = document.createTextNode(this._get_translated_name(key));
-        let url = this._get_wowhead_url(key);
-        if (url === undefined) {
-            return translated_name;
-        }
-        let link = document.createElement("a");
-        link.href = url;
-        link.appendChild(translated_name);
-        return link;
     }
 
     get_value(key, series, value_calculation) {
