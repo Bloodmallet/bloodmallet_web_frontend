@@ -611,7 +611,10 @@ def standard_chart(
 
 def get_chart_state(request, chart_id=None) -> JsonResponse:
     try:
-        simulation = Simulation.objects.select_related("result", "queue",).get(
+        simulation = Simulation.objects.select_related(
+            "result",
+            "queue",
+        ).get(
             id=chart_id,
         )
     except Simulation.DoesNotExist:
@@ -622,7 +625,6 @@ def get_chart_state(request, chart_id=None) -> JsonResponse:
     queue_position = None
     if hasattr(simulation, "queue"):
         if simulation.queue.state == QueueState.PENDING.name:
-
             simulations = Simulation.objects.filter(
                 queue__state=QueueState.PENDING.name,
                 failed=False,
@@ -793,11 +795,9 @@ def create_chart(request):
     context = {}
 
     if request.method == "POST":
-
         form = SimulationCreationForm(request.POST)
 
         if form.is_valid() and request.user.can_create_chart:
-
             # check if user has empty slots
 
             simulations = Simulation.objects.filter(user=request.user).order_by(
@@ -838,7 +838,6 @@ def create_chart(request):
             messages.info(request, _("You don't have permission to create a chart."))
 
     else:
-
         form = SimulationCreationForm()
 
     context["form"] = form
@@ -878,6 +877,11 @@ def empty(request):
 def bm_charts(request):
     """Minimal example chart of self-written bar chart class."""
     return render(request, "general_website/bm_charts.html")
+
+
+def bm_tooltips(request):
+    """Minimal example tooltips of self-written tooltips functions."""
+    return render(request, "general_website/bm_tooltips.html")
 
 
 def handbook(request):

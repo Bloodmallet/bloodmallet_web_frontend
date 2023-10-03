@@ -17,6 +17,26 @@ const BmTooltipAttribute = {
 const BmTooltipStyleId = "bm-tooltip-styles";
 const BmTooltipStyleUrl = "/static/general_website/css/bm-tooltips.css";
 
+/**
+ * Inject css into head
+ * @param {String} id id of the styles element in the website
+ * @param {String} url url to the styles
+ * @returns Nothing
+ */
+function bm_add_css(id, url) {
+    if (document.getElementById(id)) {
+        return;
+    }
+
+    let styles = document.createElement("link");
+    styles.id = id;
+    styles.rel = "stylesheet";
+    styles.type = "text/css";
+    styles.href = url;
+    styles.media = "all";
+    document.getElementsByTagName('head')[0].appendChild(styles);
+}
+
 
 /**
  * Register all tooltip-events.
@@ -29,25 +49,6 @@ function bm_register_tooltip(element) {
         return;
     }
 
-    /**
-     * Inject css into head
-     * @param {String} id id of the styles element in the website
-     * @param {String} url url to the styles
-     * @returns Nothing
-     */
-    function add_css(id, url) {
-        if (document.getElementById(id)) {
-            return;
-        }
-
-        let styles = document.createElement("link");
-        styles.id = id;
-        styles.rel = "stylesheet";
-        styles.type = "text/css";
-        styles.href = url;
-        styles.media = "all";
-        document.getElementsByTagName('head')[0].appendChild(styles);
-    }
 
     /**
      * Generate a random int.
@@ -230,7 +231,7 @@ function bm_register_tooltip(element) {
         element.setAttribute(BmTooltipAttribute.ID, id);
     }
 
-    add_css(BmTooltipStyleId, BmTooltipStyleUrl);
+    bm_add_css(BmTooltipStyleId, BmTooltipStyleUrl);
 
     set_tooltip_id(element);
     element.addEventListener("mouseover", (event) => {
@@ -247,7 +248,7 @@ function bm_register_tooltip(element) {
 }
 
 function bm_register_tooltips() {
-    add_css(BmTooltipStyleId, BmTooltipStyleUrl);
+    bm_add_css(BmTooltipStyleId, BmTooltipStyleUrl);
 
     let tooltip_elements = document.querySelectorAll("[data-type='bm-tooltip']");
     for (const e of tooltip_elements) {

@@ -106,5 +106,6 @@ urlpatterns = [
         name="talent_trees",
     ),
     path("empty", views.empty, name="empty"),
+    path("bm_tooltips", views.bm_tooltips, name="bm_tooltips"),
     path("bm_charts", views.bm_charts, name="bm_charts"),
 ]
