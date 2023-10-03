@@ -318,6 +318,30 @@
     color: #999999;
 }
 
+
+/* ---------- */
+/* Stat table */
+/* ---------- */
+.bm-stat-table {
+    display: table;
+    text-align: center;
+}
+
+.bm-stat-header {
+    display: table-header-group;
+}
+
+.bm-stat-row {
+    display: table-row;
+}
+
+.bm-stat-cell {
+    display: table-cell;
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
 /* ------------------- */
 /* Styling radar chart */
 /* ------------------- */

@@ -89,6 +89,9 @@
                 let base_data = data["data"]["baseline"];
                 let item_id_dict = data["item_ids"];
                 let sorted_data_data_keys = data["sorted_data_keys"];
+                let secondary_sum = data["secondary_sum"];
+                let wow_class = data["profile"]["character"]["class"];
+                let wow_spec = data["profile"]["character"]["spec"];
 
                 new BmRadarChart({
                     element_id: "radar_chart",
@@ -99,7 +102,10 @@
                     base_values: base_data,
                     value_calculation: "relative",
                     item_id_dict: item_id_dict,
-                    sorted_data_data_keys: sorted_data_data_keys
+                    sorted_data_data_keys: sorted_data_data_keys,
+                    secondary_sum: secondary_sum,
+                    wow_class: wow_class,
+                    wow_spec: wow_spec
                 });
             } else {
                 console.error(request2.statusText);

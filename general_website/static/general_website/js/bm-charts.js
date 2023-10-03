@@ -460,12 +460,19 @@ class BmRadarChart {
     unit = { "total": "", "relative": "%", "absolute": "" };
     x_axis_texts = { "total": "damage per second", "relative": "% damage per second", "absolute": " damage per second" };
 
+    secondary_sum = -1;   // e.g. 10000
+    wow_spec = undefined; // e.g. "elemental"
+    wow_class = undefined // e.g. "shaman"
+
     constructor(chart_data = new BmRadarChart()) {
         this.element_id = chart_data.element_id;
         this.title = chart_data.title;
         this.subtitle = chart_data.subtitle;
         this.legend_title = chart_data.legend_title;
         this.data = chart_data.data;
+        this.secondary_sum = chart_data.secondary_sum;
+        this.wow_class = chart_data.wow_class;
+        this.wow_spec = chart_data.wow_spec;
 
         if (chart_data.hasOwnProperty("value_calculation")) {
             this.value_calculation = chart_data.value_calculation;
@@ -544,17 +551,86 @@ class BmRadarChart {
 
         let root = document.getElementById(this.element_id);
         root.classList.add("bm-radar-root");
+
+        root.appendChild(this.create_distribution_table(v_crit, v_haste, v_mastery, v_vers));
+
         root.appendChild(this.create_radar_chart(v_crit, v_haste, v_mastery, v_vers, dps, true, true, size));
 
-        let table = document.createElement("div");
-        table.style.display = "table";
-        root.appendChild(table);
+        let stacked_overview_table = document.createElement("div");
+        stacked_overview_table.style.display = "table";
+        stacked_overview_table.appendChild(this.create_mini_radar_row(v_crit, v_haste, v_mastery, v_vers, dps, size, zoom));
+        stacked_overview_table.appendChild(this.create_mini_radar_row(70, 10, 10, 10, dps, size, zoom));
+        stacked_overview_table.appendChild(this.create_mini_radar_row(10, 70, 10, 10, dps, size, zoom));
+        stacked_overview_table.appendChild(this.create_mini_radar_row(10, 10, 70, 10, dps, size, zoom));
+        stacked_overview_table.appendChild(this.create_mini_radar_row(10, 10, 10, 70, dps, size, zoom));
+        root.appendChild(stacked_overview_table);
+    }
 
-        table.appendChild(this.create_mini_radar_row(v_crit, v_haste, v_mastery, v_vers, dps, size, zoom));
-        table.appendChild(this.create_mini_radar_row(70, 10, 10, 10, dps, size, zoom));
-        table.appendChild(this.create_mini_radar_row(10, 70, 10, 10, dps, size, zoom));
-        table.appendChild(this.create_mini_radar_row(10, 10, 70, 10, dps, size, zoom));
-        table.appendChild(this.create_mini_radar_row(10, 10, 10, 70, dps, size, zoom));
+    create_distribution_table(crit, haste, mastery, vers) {
+        let table = document.createElement("div");
+        table.classList.add("bm-stat-table");
+
+        // header
+        let header = document.createElement("div");
+        header.classList.add("bm-stat-header");
+        table.appendChild(header);
+
+        let stat = document.createElement("div");
+        stat.classList.add("bm-stat-cell");
+        stat.appendChild(document.createTextNode("Stat"));
+        let distribution = document.createElement("div");
+        distribution.classList.add("bm-stat-cell");
+        distribution.appendChild(document.createTextNode("Ratio"));
+        let rating = document.createElement("div");
+        rating.classList.add("bm-stat-cell");
+        rating.appendChild(document.createTextNode("Rating"));
+        let ingame_value = document.createElement("div");
+        ingame_value.classList.add("bm-stat-cell");
+        ingame_value.appendChild(document.createTextNode("Ingame"));
+
+        header.appendChild(stat);
+        header.appendChild(distribution);
+        header.appendChild(rating);
+        header.appendChild(ingame_value);
+
+        function add_row(description, ratio, rating, ingame) {
+            function add_cell(text, suffix = undefined) {
+                let element = document.createElement("div");
+                element.appendChild(document.createTextNode(text));
+                element.classList.add("bm-stat-cell");
+                if (suffix !== undefined) {
+                    let span = document.createElement("span");
+                    span.classList.add("bm-unit");
+                    span.appendChild(document.createTextNode(suffix));
+                    element.appendChild(span);
+                }
+                return element;
+            }
+
+            let row = document.createElement("div");
+            row.classList.add("bm-stat-row");
+
+            row.appendChild(add_cell(description));
+            row.appendChild(add_cell(ratio, "%"));
+            row.appendChild(add_cell(rating));
+            row.appendChild(add_cell(ingame, "%"));
+
+            return row;
+        }
+        function get_rating(fraction, sum) {
+            return Math.round(sum * fraction / 100);
+        }
+
+        function get_ingame(fraction, sum, type) {
+            return "no clue"
+        }
+
+        table.appendChild(add_row("Critical Strike", crit, get_rating(crit, this.secondary_sum), get_ingame(crit, this.secondary_sum, "Critical Strike")));
+        table.appendChild(add_row("Haste", haste, get_rating(haste, this.secondary_sum), get_ingame(haste, this.secondary_sum, "Haste")));
+        table.appendChild(add_row("Mastery", mastery, get_rating(mastery, this.secondary_sum), get_ingame(mastery, this.secondary_sum, "Mastery")));
+        table.appendChild(add_row("Versatility", vers, get_rating(vers, this.secondary_sum), get_ingame(vers, this.secondary_sum, "Versatility")));
+
+        return table;
     }
 
     create_mini_radar_row(crit, haste, mastery, vers, dps, size, zoom) {
