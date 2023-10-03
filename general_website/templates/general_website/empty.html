@@ -4,10 +4,54 @@
 
 
 {% block content %}
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" data-html="true"
+    title="Tooltip on top">
+    Tooltip on top
+</button>
 
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="top"
+    data-bm-tooltip-text="Tooltip on top" title="Tooltip on top">
+    Plain Tooltip on top
+</button>
 
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="top"
+    data-bm-tooltip-text="<span style='color: aqua'>Tooltip on top</span>" title="Tooltip on top">
+    Tooltip on top
+</button>
+
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="bottom"
+    data-bm-tooltip-text="<span style='color: aqua'>Tooltip on bottom</span>" title="Tooltip on bottom">
+    Tooltip on bottom
+</button>
+
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="left"
+    data-bm-tooltip-text="<span style='color: aqua'>Tooltip on left</span>" title="Tooltip on left">
+    Tooltip on left
+</button>
+
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="right"
+    data-bm-tooltip-text="<span style='color: aqua'>Tooltip on right</span>" title="Tooltip on right">
+    Tooltip on right
+</button>
+
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip"
+    data-bm-tooltip-text="<span style='color: aqua'>Tooltip on Default</span>" title="Tooltip on Default">
+    Tooltip on Default
+</button>
+
+<button type="button" class="btn btn-secondary" data-type="bm-tooltip" data-bm-tooltip-placement="top"
+    title="Tooltip on top">
+    No tooltip
+</button>
 {% endblock %}
 
 {% block extraimport %}
-
+<!-- <link rel="stylesheet" href="{% static 'general_website/css/bm-tooltips.css' %}" /> -->
+<script src="{% static 'general_website/js/bm-tooltips.js' %}"></script>
+<script>
+    $('[data-toggle="tooltip"]').tooltip()
+    bm_register_tooltips();
+    // $(function () {
+    // })
+</script>
 {% endblock %}

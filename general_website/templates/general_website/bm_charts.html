@@ -12,14 +12,18 @@
     </li>
 </ul>
 
+<div id="radar_chart"></div>
+<br />
 <div id="chart_target"></div>
 
 {% endblock %}
 
 {% block extraimport %}
 {% include 'general_website/layout/wowhead_tooltips.html' %}
+<!-- <link rel="stylesheet" href="{% static 'general_website/css/bm-tooltips.css' %}" />
+<script src="{% static 'general_website/js/bm-tooltips.js' %}"></script> -->
 
-<link rel="stylesheet" href="{% static 'general_website/css/bm-charts.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'general_website/css/bm-charts.css' %}" /> -->
 
 <script src="{% static 'general_website/js/bm-charts.js' %}"></script>
 
@@ -63,5 +67,49 @@
     };
     request.send(null);
 
+
+    url = "https://bloodmallet.com/chart/get/secondary_distributions/castingpatchwerk/shaman/elemental";
+    let request2 = new XMLHttpRequest();
+    request2.open("GET", url, true); // async request
+
+    request2.onload = function (e) {
+        if (request2.readyState === 4) {
+            if (request2.status === 200) {
+                let data = JSON.parse(request2.responseText);
+
+                console.log(data);
+
+                // Trinkets
+                let title = data["data_type"];
+                // "Fire Mage | Castingpatchwerk | UTC 2022-08-08 13:28"
+                let subtitle = data["profile"]["character"]["spec"] + " " + data["profile"]["character"]["class"];
+                subtitle += " | " + data["simc_settings"]["fight_style"];
+                subtitle += " | UTC " + data["metadata"]["timestamp"];
+                let { baseline: _, ...sim_data } = data["data"];
+                let base_data = data["data"]["baseline"];
+                let item_id_dict = data["item_ids"];
+                let sorted_data_data_keys = data["sorted_data_keys"];
+
+                new BmRadarChart({
+                    element_id: "radar_chart",
+                    title: title,
+                    subtitle: subtitle,
+                    legend_title: "Itemlevels",
+                    data: sim_data,
+                    base_values: base_data,
+                    value_calculation: "relative",
+                    item_id_dict: item_id_dict,
+                    sorted_data_data_keys: sorted_data_data_keys
+                });
+            } else {
+                console.error(request2.statusText);
+            }
+        }
+    };
+    request2.onerror = function (e) {
+        console.error('Fetching data from bloodmallet.com encountered an error, ', e);
+    };
+    request2.send(null);
 </script>
+
 {% endblock %}

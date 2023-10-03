@@ -1,3 +1,7 @@
+/* ------------------ */
+/* Styling bar charts */
+/* ------------------ */
+
 .bm-bar-chart {
     display: grid;
     grid-template-columns: auto;
@@ -137,6 +141,10 @@
 .bm-key {
     grid-area: name;
     text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
 }
 
 .bm-bar {
@@ -153,7 +161,7 @@
     height: 70%;
     max-height: 20px;
     position: relative;
-    top: 55%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
@@ -310,7 +318,56 @@
     color: #999999;
 }
 
-/* Overrides bootstrap */
+/* ------------------- */
+/* Styling radar chart */
+/* ------------------- */
+
+.bm-radar-root {
+    display: flex;
+    flex-direction: row;
+}
+
+.bm-radar-background {
+    fill: none;
+    stroke: white;
+    stroke-width: 1;
+    stroke-opacity: 0.7;
+    text-anchor: middle;
+}
+
+.bm-radar-legend {
+    fill: white;
+    fill-opacity: 0.7;
+    text-anchor: middle;
+}
+
+.bm-radar-object {
+    fill: aqua;
+    stroke: aqua;
+    stroke-width: 3;
+    fill-opacity: 0.2;
+    stroke-opacity: 0.9;
+}
+
+.bm-radar-object-value {
+    paint-order: stroke;
+    stroke: black;
+    stroke-width: 2px;
+    text-anchor: middle;
+    fill: white;
+}
+
+.bm-radar-mini-table-value {
+    display: table-cell;
+    padding-left: 5px;
+    vertical-align: middle;
+    text-align: right;
+}
+
+/* ----------------- */
+/* Styling bootstrap */
+/* ----------------- */
+
 .tooltip.show {
     opacity: 1.0;
 }
@@ -327,6 +384,24 @@
     border-left-color: #232227;
     border-left-color: #999999;
     border-left-color: #fff;
+}
+
+.bm-tooltip {
+    max-width: 200px;
+
+    .bm-tooltip-inner {
+        background-color: #232227;
+        border: 1px solid white;
+        border-radius: 5px;
+    }
+
+    &.bm-tooltip-left {
+        .bm-tooltip-arrow {
+            &::before {
+                border-left-color: white;
+            }
+        }
+    }
 }
 
 /* --------------- */
