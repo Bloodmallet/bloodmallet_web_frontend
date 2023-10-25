@@ -18,7 +18,7 @@ function add_css(id, url) {
     styles.id = id;
     styles.rel = "stylesheet";
     styles.type = "text/css";
-    styles.href = url;
+    styles.href = url + "?now=" + Date.now();
     styles.media = "all";
     document.getElementsByTagName('head')[0].appendChild(styles);
 }
@@ -31,7 +31,7 @@ function add_tooltips() {
         let js = document.createElement("script");
         js.id = BmTooltipJsId;
         js.type = "text/javascript";
-        js.src = BmTooltipJsUrl;
+        js.src = BmTooltipJsUrl + "?now=" + Date.now();
         document.getElementsByTagName('head')[0].appendChild(js);
     }
 
@@ -577,21 +577,21 @@ class BmRadarChart {
 
         let stat = document.createElement("div");
         stat.classList.add("bm-stat-cell");
-        stat.appendChild(document.createTextNode("Stat"));
+        stat.appendChild(document.createTextNode("Best Distribution"));
         let distribution = document.createElement("div");
         distribution.classList.add("bm-stat-cell");
         distribution.appendChild(document.createTextNode("Ratio"));
         let rating = document.createElement("div");
         rating.classList.add("bm-stat-cell");
-        rating.appendChild(document.createTextNode("Rating"));
+        rating.appendChild(document.createTextNode("Best Ratio"));
         let ingame_value = document.createElement("div");
         ingame_value.classList.add("bm-stat-cell");
         ingame_value.appendChild(document.createTextNode("Ingame"));
 
-        header.appendChild(stat);
-        header.appendChild(distribution);
+        // header.appendChild(stat);
+        // header.appendChild(distribution);
         header.appendChild(rating);
-        header.appendChild(ingame_value);
+        // header.appendChild(ingame_value);
 
         function add_row(description, ratio, rating, ingame) {
             function add_cell(text, suffix = undefined) {
@@ -610,10 +610,12 @@ class BmRadarChart {
             let row = document.createElement("div");
             row.classList.add("bm-stat-row");
 
-            row.appendChild(add_cell(description));
-            row.appendChild(add_cell(ratio, "%"));
-            row.appendChild(add_cell(rating));
-            row.appendChild(add_cell(ingame, "%"));
+            let description_div = add_cell(description);
+            description_div.classList.add("bm-stat-cell-stat");
+            // row.appendChild(description_div);
+            row.appendChild(add_cell(ratio, " " + description));
+            // row.appendChild(add_cell(rating, " " + description));
+            // row.appendChild(add_cell(ingame, "%"));
 
             return row;
         }
@@ -622,7 +624,31 @@ class BmRadarChart {
         }
 
         function get_ingame(fraction, sum, type) {
-            return "no clue"
+            // TODOS:
+            // * stat start values
+            // * stat start value changes based on talents...
+            // * stat value conversion changes based on talents...
+            // * diminishing return or stats...
+            let value = -1
+            if (type !== "Mastery") {
+                // simple static conversion (maybe not due to special class multipliers?)
+                const multipliers = {
+                    "Critical Strike": 1 / 180,
+                    "Haste": 1 / 170,
+                    "Versatility": 1 / 205
+                };
+                let base_value = -1;
+                // get base value for each spec and stat
+                base_value = 0;
+
+                value = base_value + get_rating(fraction, sum) * multipliers[type];
+
+            } else {
+                value = "TBD soon";
+            }
+
+            // TODO: apply diminishing returns
+            return value
         }
 
         table.appendChild(add_row("Critical Strike", crit, get_rating(crit, this.secondary_sum), get_ingame(crit, this.secondary_sum, "Critical Strike")));
