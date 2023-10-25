@@ -324,7 +324,7 @@
 /* ---------- */
 .bm-stat-table {
     display: table;
-    text-align: center;
+    text-align: left;
 }
 
 .bm-stat-header {
@@ -342,6 +342,10 @@
     vertical-align: middle;
 }
 
+.bm-stat-cell-stat {
+    text-align: right;
+}
+
 /* ------------------- */
 /* Styling radar chart */
 /* ------------------- */
@@ -349,6 +353,7 @@
 .bm-radar-root {
     display: flex;
     flex-direction: row;
+    column-gap: 1.1rem;
 }
 
 .bm-radar-background {
