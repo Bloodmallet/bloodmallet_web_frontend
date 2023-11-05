@@ -36,7 +36,7 @@ function update_navbarClassMenu(state) {
         "races": "Races",
         "secondary_distributions": "Secondary Distributions",
         "talent_target_scaling": "Talent Target Scaling",
-        "tier_set": "Tier Sets",
+        // "tier_set": "Tier Sets",
         "trinkets": "Trinkets",
         "weapon_enchantments": "Weapon Enchantments",
     };
