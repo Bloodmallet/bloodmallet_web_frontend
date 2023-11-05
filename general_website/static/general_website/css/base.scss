@@ -95,7 +95,7 @@ $custom-range-thumb-active-bg: $primary;
 
 // container for primary page content
 main {
-    min-height: 76vh;
+    min-height: 82vh;
     margin-top: 7vh;
 }
 
@@ -119,16 +119,19 @@ footer {
     position: relative;
     bottom: 0px;
     right: 0px;
-    margin-top: 3vh;
+    margin-top: 1vh;
 }
 
 blockquote>footer {
     margin-top: unset;
 }
 
-.top-nav,
-.bottom-nav {
+.top-nav {
     min-height: 7vh;
+}
+
+.bottom-nav {
+    min-height: 5vh;
 }
 
 #navBarDataMenu~main {
