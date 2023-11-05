@@ -50,6 +50,13 @@ function add_tooltips() {
     }
 }
 
+function create_unit_textnode(unit) {
+    let span = document.createElement("span");
+    span.classList.add("bm-unit");
+    span.appendChild(document.createTextNode(unit));
+
+    return span;
+}
 
 class BmBarChart {
     element_id = undefined;
@@ -212,9 +219,7 @@ class BmBarChart {
             let min = document.createElement("span");
             min.classList.add("bm-bar-min")
 
-            let unit = document.createElement("span");
-            unit.classList.add("bm-unit");
-            unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
+            let unit = create_unit_textnode(this.unit[this.value_calculation]);
 
             if (this.value_calculation === "absolute") {
                 min.appendChild(unit);
@@ -231,9 +236,7 @@ class BmBarChart {
             let max = document.createElement("span");
             max.classList.add("bm-bar-max")
 
-            let unit = document.createElement("span");
-            unit.classList.add("bm-unit");
-            unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
+            let unit = create_unit_textnode(this.unit[this.value_calculation]);
 
             let base_value = this.base_values[this.series_names[this.series_names.length - 1]];
             if (this.value_calculation === "absolute") {
@@ -359,10 +362,7 @@ class BmBarChart {
             let value = this.get_value(key, series, this.value_calculation);
             value_div.appendChild(document.createTextNode(value));
             if (this.unit[this.value_calculation].length > 0) {
-                let unit = document.createElement("span");
-                unit.classList.add("bm-unit");
-                unit.appendChild(document.createTextNode(this.unit[this.value_calculation]));
-                value_div.appendChild(unit);
+                value_div.appendChild(create_unit_textnode(this.unit[this.value_calculation]));
             }
             row.appendChild(value_div);
 
@@ -552,9 +552,16 @@ class BmRadarChart {
         let root = document.getElementById(this.element_id);
         root.classList.add("bm-radar-root");
 
-        root.appendChild(this.create_distribution_table(v_crit, v_haste, v_mastery, v_vers));
+        let title = document.createElement("div");
+        root.appendChild(title);
 
-        root.appendChild(this.create_radar_chart(v_crit, v_haste, v_mastery, v_vers, dps, true, true, size));
+        let table = document.createElement("div");
+        table.classList.add("bm-radar-center");
+        root.appendChild(table);
+
+        table.appendChild(this.create_distribution_table(v_crit, v_haste, v_mastery, v_vers, dps));
+
+        table.appendChild(this.create_radar_chart(v_crit, v_haste, v_mastery, v_vers, dps, true, false, size));
 
         let stacked_overview_table = document.createElement("div");
         stacked_overview_table.style.display = "table";
@@ -563,10 +570,10 @@ class BmRadarChart {
         stacked_overview_table.appendChild(this.create_mini_radar_row(10, 70, 10, 10, dps, size, zoom));
         stacked_overview_table.appendChild(this.create_mini_radar_row(10, 10, 70, 10, dps, size, zoom));
         stacked_overview_table.appendChild(this.create_mini_radar_row(10, 10, 10, 70, dps, size, zoom));
-        root.appendChild(stacked_overview_table);
+        table.appendChild(stacked_overview_table);
     }
 
-    create_distribution_table(crit, haste, mastery, vers) {
+    create_distribution_table(crit, haste, mastery, vers, dps) {
         let table = document.createElement("div");
         table.classList.add("bm-stat-table");
 
@@ -583,7 +590,8 @@ class BmRadarChart {
         distribution.appendChild(document.createTextNode("Ratio"));
         let rating = document.createElement("div");
         rating.classList.add("bm-stat-cell");
-        rating.appendChild(document.createTextNode("Best Ratio"));
+        rating.appendChild(document.createTextNode("Best Ratio: " + dps));
+        rating.appendChild(create_unit_textnode("dps"));
         let ingame_value = document.createElement("div");
         ingame_value.classList.add("bm-stat-cell");
         ingame_value.appendChild(document.createTextNode("Ingame"));
@@ -599,10 +607,7 @@ class BmRadarChart {
                 element.appendChild(document.createTextNode(text));
                 element.classList.add("bm-stat-cell");
                 if (suffix !== undefined) {
-                    let span = document.createElement("span");
-                    span.classList.add("bm-unit");
-                    span.appendChild(document.createTextNode(suffix));
-                    element.appendChild(span);
+                    element.appendChild(create_unit_textnode(suffix));
                 }
                 return element;
             }
@@ -616,6 +621,7 @@ class BmRadarChart {
             row.appendChild(add_cell(ratio, " " + description));
             // row.appendChild(add_cell(rating, " " + description));
             // row.appendChild(add_cell(ingame, "%"));
+            // TODO: add rating as tooltip rounded to hundreds
 
             return row;
         }
@@ -697,18 +703,12 @@ class BmRadarChart {
         value.classList.add("bm-radar-mini-table-value");
         row.appendChild(value);
 
-        let unit = document.createElement("span");
-        unit.classList.add("bm-unit");
-        unit.appendChild(document.createTextNode(this.unit["relative"]));
-        value.appendChild(unit);
+        value.appendChild(create_unit_textnode(this.unit["relative"]));
 
         // add dps as tooltip
         let container = document.createElement("div");
-        let tt_unit = document.createElement("span");
         container.appendChild(document.createTextNode(this._to_local(abs_dps)));
-        tt_unit.classList.add("bm-unit");
-        tt_unit.appendChild(document.createTextNode("dps"));
-        container.appendChild(tt_unit);
+        container.appendChild(create_unit_textnode("dps"));
 
         value.setAttribute("data-bm-tooltip-text", container.outerHTML);
         value.setAttribute("data-bm-tooltip-placement", "right");
