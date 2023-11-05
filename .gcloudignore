@@ -10,6 +10,8 @@ local_dev_commands.txt
 
 cloud_sql_proxy*
 cloud_sql_proxy*.*
+cloud-sql-proxy*
+cloud-sql-proxy*.*
 
 *.pyc
 *.zip

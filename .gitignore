@@ -14,5 +14,6 @@ secrets/
 *.pyc
 db.sqlite3
 cloud_sql_proxy*
+cloud-sql-proxy*
 debug.log
 local_dev_commands.*
