@@ -3,7 +3,6 @@ const BmChartStyleUrl = "/static/general_website/css/bm-charts.css";
 const BmTooltipJsId = "bm-tooltip-javascript";
 const BmTooltipJsUrl = "/static/general_website/js/bm-tooltips.js";
 
-console.debug("bm-charts.js loaded");
 let trinketDataCache = {};
 const TRINKET_DATA_CACHE_KEY = 'trinketData';
 const TRINKET_DATA_CACHE_EXPIRY = 30 * 60 * 1000;  // 30 minutes in milliseconds
@@ -1942,5 +1941,5 @@ window.updateTrinketChartAsync = updateTrinketChartAsync;
 
 // Load data on document load
 document.addEventListener("DOMContentLoaded", function () {
-    bm_import_charts();//.catch(error => console.error("Error in bm_import_charts:", error));
+    bm_import_charts();
 });
