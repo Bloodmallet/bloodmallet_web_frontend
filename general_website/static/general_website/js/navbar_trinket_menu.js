@@ -1,11 +1,9 @@
-if (typeof debug === 'undefined') {
-    var debug = false;
-}
-
+/**
+ * Navbar trinket menu functionality for bloodmallet.com
+ * Requires bm-utils.js to be loaded first
+ */
 document.addEventListener("DOMContentLoaded", async function () {
-    if (debug) {
-        console.log("DOMContentLoaded");
-    }
+    console.debug("DOMContentLoaded - Trinket Menu");
     await initializeNavbarTrinketMenu();
 });
 
@@ -27,33 +25,35 @@ async function updateTrinketChartViaMenu(state) {
     };
 
     try {
+        // First, check if we need to adjust the item level based on trinket availability
         const data = await getTrinketDataAsync(state.item_name, state.item_level, state.fight_style);
         const availableItemLevels = data.item_levels || [];
 
         // If currently selected item level isn't available for this trinket, use the first available one
         if (!availableItemLevels.includes(currentSelection.item_level)) {
+            console.debug(`Item level ${currentSelection.item_level} not available for ${state.item_name}, using ${availableItemLevels[0]} instead`);
             currentSelection.item_level = availableItemLevels[0];
         }
 
-        // Update the chart
+        // Update the chart with adjusted values if needed
         await window.updateTrinketChartAsync(currentSelection);
 
         // Get the updated data from the chart
-        const loadedData = chart.getAttribute("data-loaded-data");
-        if (!loadedData) {
+        const jsonString = chart.getAttribute("data-loaded-data");
+        if (!jsonString) {
             console.error("No chart data found after update");
             return;
         }
 
-        const json = JSON.parse(loadedData);
+        const dataObj = JSON.parse(jsonString);
 
         // Update state with the new data
         state = {
             ...state,
-            item_id: json.item_id,
+            item_id: dataObj.item_id,
             item_name: currentSelection.item_name,
             item_level: currentSelection.item_level,
-            item_levels: json.item_levels,
+            item_levels: dataObj.item_levels,
             fight_style: currentSelection.fight_style,
             available_trinkets: state.available_trinkets
         };
@@ -67,19 +67,31 @@ async function updateTrinketChartViaMenu(state) {
 }
 
 async function fetchAvailableTrinkets(fightStyle) {
-    const data = await fetchAndProcessDataAsync(fightStyle);
-    return localizeTrinketNames(data);
+    try {
+        let data;
+        if (typeof window.fetchAndProcessDataAsync === 'function') {
+            data = await window.fetchAndProcessDataAsync(fightStyle);
+        }
+        else if (typeof fetchAndProcessDataAsync === 'function') {
+            data = await fetchAndProcessDataAsync(fightStyle);
+        }
+        return processTrinketsFromData(data);
+    } catch (error) {
+        console.error("Error fetching available trinkets:", error);
+        return [];
+    }
 }
 
-// Helper function to localize trinket data
-function localizeTrinketNames(data) {
+// Helper function to process trinket data
+function processTrinketsFromData(data) {
     const availableTrinkets = [];
     if (data && data.items) {
-
-        const userLanguage = this.language || "en_US";
+        // Detect user language
+        const userLanguage = window.bmUtils.detectUserLanguage();
 
         for (const trinketKey in data.items) {
             if (trinketKey !== "baseline") {
+                // Try to get the localized name based on user's language
                 let trinketName = null;
 
                 // If translations are available for this trinket
@@ -93,12 +105,12 @@ function localizeTrinketNames(data) {
                         trinketName = data.items[trinketKey].translations.en_US;
                     }
                 }
-                
+
                 // If no translation was found, use the key as a fallback
                 if (!trinketName) {
                     trinketName = trinketKey.replace(/_/g, ' ');
                 }
-                
+
                 availableTrinkets.push({
                     key: trinketKey,
                     name: trinketName
@@ -106,7 +118,6 @@ function localizeTrinketNames(data) {
             }
         }
     }
-
     return availableTrinkets.sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -125,10 +136,10 @@ async function initializeNavbarTrinketMenu() {
         item_levels: [],
         available_trinkets: []
     };
-    
+
     // Show loading state immediately
     await update_navbarTrinketMenu(initialState);
-    
+
     // Wait for initial chart data to load
     const maxAttempts = 10;
     let attempts = 0;
@@ -143,13 +154,14 @@ async function initializeNavbarTrinketMenu() {
     }
 
     const initialData = JSON.parse(chart.dataset.loadedData);
+    console.debug("Initial chart data:", initialData);
 
     // Get the current fight style from the chart
     const currentFightStyle = initialData.simc_settings?.fight_style || 'castingpatchwerk';
-    
+
     // Fetch the list of available trinkets
     const availableTrinkets = await fetchAvailableTrinkets(currentFightStyle);
-    
+
     // Update state with real data
     let state = {
         data_type: 'trinket_compare',
@@ -163,6 +175,8 @@ async function initializeNavbarTrinketMenu() {
 
     await update_navbarTrinketMenu(state);
 
+    console.debug(`Loaded ${availableTrinkets.length} available trinkets`);
+
     // Set up observer to watch for future changes
     const observer = new MutationObserver(async (mutations) => {
         for (const mutation of mutations) {
@@ -172,12 +186,11 @@ async function initializeNavbarTrinketMenu() {
                     // If fight style changed, fetch new trinket list
                     const newFightStyle = data.simc_settings?.fight_style || state.fight_style;
                     let availableTrinkets = state.available_trinkets;
-                    
+
                     if (newFightStyle !== state.fight_style) {
                         availableTrinkets = await fetchAvailableTrinkets(newFightStyle);
                     }
-                    
-                    // Get trinket key
+
                     state = {
                         ...state,
                         item_name: data.item_name,
@@ -199,19 +212,17 @@ async function initializeNavbarTrinketMenu() {
 }
 
 async function update_navbarTrinketMenu(state = {}) {
-    if (debug) {
-        console.log("update_navbarTrinketMenu");
-    }
+    console.debug("update_navbarTrinketMenu");
 
     // Get initial chart data if no state provided
     if (Object.keys(state).length === 0) {
         const chart = document.getElementById("chart");
         if (chart && chart.dataset.loadedData) {
             const data = JSON.parse(chart.dataset.loadedData);
-            
+
             // Fetch the list of available trinkets
             const availableTrinkets = await fetchAvailableTrinkets(data.simc_settings?.fight_style || 'castingpatchwerk');
-            
+
             state = {
                 data_type: 'trinket_compare',
                 item_id: data.item_id,
@@ -256,23 +267,23 @@ async function update_navbarTrinketMenu(state = {}) {
         a.setAttribute("role", "button");
         a.setAttribute("data-bs-toggle", "dropdown");
         a.setAttribute("aria-expanded", "false");
-        a.id = `navbar_${formatText(id, "slug")}_selection`;
+        a.id = `navbar_${window.bmUtils.formatText(id, "slug")}_selection`;
         a.innerText = label;
         li.appendChild(a);
 
         const divDropdown = createDropdownMenuEntries(items, id, state);
         li.appendChild(divDropdown);
     }
-    
+
     // Find the localized name for the currently selected trinket
     let selectedTrinketLocalizedName = state.item_name; // Default to the key if we can't find a localized name
-    
+
     // Try to find the localized name in the available trinkets
     const selectedTrinket = state.available_trinkets.find(trinket => trinket.key === state.item_name);
     if (selectedTrinket) {
         selectedTrinketLocalizedName = selectedTrinket.name;
     }
-    
+
     // Add trinket selection (dropdown)
     createDropdownMenu(selectedTrinketLocalizedName, "item_name", state.available_trinkets);
 
@@ -280,27 +291,9 @@ async function update_navbarTrinketMenu(state = {}) {
     createDropdownMenu(state.item_level, "item_level", state.item_levels);
 
     // Add fight style selection (dropdown)
-    createDropdownMenu(formatText(state.fight_style, "fight_style"), "fight_style", fight_styles);
+    createDropdownMenu(window.bmUtils.formatText(state.fight_style, "fight_style", fight_style_dict), "fight_style", fight_styles);
 
     navbarTrinketMenu.appendChild(ul_nav);
-}
-
-const formatText = (item, id) => {
-    if (!item) return "Loading...";
-    
-    switch (id) {
-        case "slug":
-            return item.replaceAll(" ", "_").toLowerCase();
-        case "item_level":
-            // For item levels, we want to keep the original text
-            return item;
-        case "fight_style":
-            // For fight styles, use the predefined dictionary
-            return fight_style_dict[item] || item;
-        default:
-            // For other cases like item names, we want to use the original text
-            return item;
-    }
 }
 
 const createDropdownMenuEntries = (items, id, state) => {
@@ -316,11 +309,11 @@ const createDropdownMenuEntries = (items, id, state) => {
     const dropdownItems = items.map((item) => {
         // Handle both simple strings (for item levels, fight styles) and trinket objects
         const itemValue = typeof item === 'object' ? item.key : item;
-        const itemDisplay = typeof item === 'object' ? item.name : formatText(item, id);
-        
+        const itemDisplay = typeof item === 'object' ? item.name : window.bmUtils.formatText(item, id, fight_style_dict);
+
         const a = document.createElement("a");
         a.className = `dropdown-item ${state.wow_class}-button`;
-        a.id = `navbar_${formatText(itemValue, "slug")}_selector`;
+        a.id = `navbar_${window.bmUtils.formatText(itemValue, "slug")}_selector`;
         a.innerText = itemDisplay;
         a.href = "#";
 
@@ -342,6 +335,6 @@ const createDropdownMenuEntries = (items, id, state) => {
         return a;
     });
 
-    dropdownMenu.append(...dropdownItems);
+    dropdownItems.forEach(item => dropdownMenu.appendChild(item));
     return dropdownMenu;
-}
+};

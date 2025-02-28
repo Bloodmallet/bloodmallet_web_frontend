@@ -3,6 +3,7 @@ const BmChartStyleUrl = "/static/general_website/css/bm-charts.css";
 const BmTooltipJsId = "bm-tooltip-javascript";
 const BmTooltipJsUrl = "/static/general_website/js/bm-tooltips.js";
 
+console.debug("bm-charts.js loaded");
 let trinketDataCache = {};
 const TRINKET_DATA_CACHE_KEY = 'trinketData';
 const TRINKET_DATA_CACHE_EXPIRY = 30 * 60 * 1000;  // 30 minutes in milliseconds
@@ -19,10 +20,30 @@ const loadTrinketDataCache = () => {
 }
 
 const getTrinketDataAsync = async (itemName, itemLevel, fightStyle) => {
-    const data = await fetchAndProcessDataAsync(fightStyle);
+    console.debug(`getTrinketDataAsync called with: ${itemName}, ${itemLevel}, ${fightStyle}`);
+    let data;
+    let firstItemKey;
+    let itemData;
 
-    const firstItemKey = Object.keys(data.items)[0];
-    const itemData = data.items[itemName] || data.items[firstItemKey];
+    try {
+        data = await fetchAndProcessDataAsync(fightStyle);
+        console.debug("fetchAndProcessDataAsync result:",
+            data ? "Data received" : "No data received");
+
+        // Log item keys to see what's available
+        console.debug("Available item keys:", Object.keys(data.items));
+
+        firstItemKey = Object.keys(data.items)[0];
+        itemData = data.items[itemName] || data.items[firstItemKey];
+
+        console.debug(`Using item: ${itemName in data.items ? itemName : firstItemKey}`);
+        console.debug("Item translations:", itemData.translations);
+
+        // Rest of the function...
+    } catch (error) {
+        console.error("Error in getTrinketDataAsync:", error);
+        throw error;
+    }
 
     const firstItemLevelKey = Object.keys(itemData.itemLevels)[0];
     const { sorted_data_keys, ...itemLevelData } = itemData.itemLevels[itemLevel] || itemData.itemLevels[firstItemLevelKey];
@@ -493,13 +514,16 @@ class BmChartData {
      * @param {HTMLElement} element root element
      */
     add_title(element) {
+        console.debug("add_title called with title:", this.title);
         if (!this.enable_title) {
+            console.debug("Title disabled, not adding");
             return;
         }
         let title = document.createElement("div");
         title.classList.add("bm-title");
         title.appendChild(document.createTextNode(this.title));
         element.appendChild(title);
+        console.debug("Title added to element");
     }
 
     /**
@@ -540,177 +564,217 @@ class BmChartData {
 
 
     constructor(root_element = new HTMLElement()) {
+        console.debug("BmChartData constructor called");
         /**
          * Contains the root html element. Data was extracted from it.
          */
         this.root_element = root_element;
 
         if (!this.root_element.dataset.hasOwnProperty("loadedData") || (this.root_element.dataset.hasOwnProperty("loadedData") && this.root_element.dataset.loadedData === "")) {
+            console.error("No loadedData found in element");
             throw new Error("Data must be loaded in Element before attempting to create the associated chart.");
         }
 
-        this.loaded_data = JSON.parse(this.root_element.dataset.loadedData);
+        try {
+            this.loaded_data = JSON.parse(this.root_element.dataset.loadedData);
+            console.debug("Parsed loadedData successfully");
 
-        if (this.loaded_data.status === "error" && this.loaded_data.message !== undefined) {
-            console.error("bm-charts encountered an error while loading data. Error:", this.loaded_data.message);
-            return;
-        }
-
-        this._extract_data_from_loaded_data("data_type", ["data_type"]);
-        this._extract_data_from_loaded_data("element_id", ["element_id"]);
-        if (this.data_type !== "trinket_compare") {
-            this._extract_data_from_loaded_data("title", ["data_type"]);
-        }
-        this._set_subtitle();
-        this._extract_data_from_loaded_data("simc_hash", ["metadata", "SimulationCraft"]);
-
-        if (this.data_type === "trinket_compare") {
-            // Get user language
-            const userLanguage = this.language || "en_US";
-            
-            // Extract the item name as usual
-            this._extract_data_from_loaded_data("item_name", ["item_name"]);
-            
-            // Extract title - prefer localized name if available
-            if (this.loaded_data.translations && this.loaded_data.translations[userLanguage]) {
-                this.title = this.loaded_data.translations[userLanguage];
-            } else {
-                // Fallback to formatted item_name
-                this.title = formatText(this.loaded_data.item_name, "item_name");
+            if (this.loaded_data.status === "error" && this.loaded_data.message !== undefined) {
+                console.error("bm-charts encountered an error while loading data. Error:", this.loaded_data.message);
+                return;
             }
-            
-            // Continue with other extractions
-            this._extract_data_from_loaded_data("item_level", ["item_level"]);
-            this._extract_data_from_loaded_data("item_levels", ["item_levels"]);
-        }
 
-        if (this.data_type === "races") {
-            this.legend_title = "Race";
-        } else if (["trinkets"].includes(this.data_type)) {
-            this.legend_title = "Itemlevels";
-        } else if (["phials", "potions", "weapon_enchantments"].includes(this.data_type)) {
-            this.legend_title = "Ranks";
-        } else if (this.data_type === "talent_target_scaling") {
-            this.legend_title = "Targets";
-        } else if (["windfury_totem", "power_infusion", "trinket_compare"].includes(this.data_type)) {
-            this.legend_title = "Effect";
-        } else {
-            this.legend_title = "legend_title not set";
-        }
-        this._extract_data_from_loaded_data("legend_title", ["legend_title"]);
-        this._extract_data_from_loaded_data("data", ["data"]);
-        this._set_default_from_data_type("value_calculation");
-        this._extract_setting_from_root_element("value_calculation", "valueCalculation");
-        this._extract_setting_from_root_element("selected_data_key", "selectedDataKey");
-        // set sole data point as selected data for secondary distributions
-        if (Object.keys(this.data).indexOf(this.selected_data_key) === -1) {
-            this.selected_data_key = Object.keys(this.data)[0];
-        }
+            this._extract_data_from_loaded_data("data_type", ["data_type"]);
+            console.debug("Chart data_type:", this.data_type);
 
-        this.x_axis_title = this.x_axis_texts[this.value_calculation];
-        this._extract_data_from_loaded_data("x_axis_title", ["x_axis_title"]);
-        this._extract_data_from_loaded_data("y_axis_title", ["y_axis_title"]);
-        this._extract_data_from_loaded_data("wow_spec", ["profile", "character", "spec"]);
-        this._extract_data_from_loaded_data("wow_class", ["profile", "character", "class"]);
-        this._extract_data_from_loaded_data("secondary_sum", ["secondary_sum"]);
 
-        // optional
-        this._extract_data_from_loaded_data("series_names", ["simulated_steps"]);
-        if (this.series_names.length === 0) {
-            for (let key_value_object of Object.values(this.data)) {
-                for (let series of Object.keys(key_value_object)) {
-                    let parsed_int = Number.parseInt(series);
-                    if (this.series_names.indexOf(parsed_int) === -1 && parsed_int.toString() === series) {
-                        // series are numbers, e.g. itemlevels or ranks
-                        this.series_names.push(parsed_int);
-                    } else if (this.series_names.indexOf(series) === -1 && parsed_int.toString() !== series) {
-                        // series are words, e.g. like 10_10_10_70 from secondary distribution charts
-                        this.series_names.push(series);
+            this._extract_data_from_loaded_data("element_id", ["element_id"]);
+            this._extract_setting_from_root_element("language", "language");
+
+            this.language = window.bmUtils.detectUserLanguage(this.root_element);
+            console.debug("Final language selection:", this.language);
+
+            if (this.data_type === "trinket_compare") {
+                // Get the item name
+                this._extract_data_from_loaded_data("item_name", ["item_name"]);
+
+                // Set title based on translations if available
+                if (this.loaded_data.hasOwnProperty("translations")) {
+                    console.debug("Available translations:", Object.keys(this.loaded_data.translations));
+                    console.debug("Using language for title:", this.language);
+
+                    // Check if translations has the item name as a key
+                    if (this.loaded_data.translations.hasOwnProperty(this.item_name)) {
+                        const itemTranslations = this.loaded_data.translations[this.item_name];
+                        console.debug("Item translations:", itemTranslations);
+
+                        // Try user's language, then fall back to English
+                        if (itemTranslations.hasOwnProperty(this.language)) {
+                            this.title = itemTranslations[this.language];
+                            console.debug("Using localized title:", this.title);
+                        } else if (itemTranslations.hasOwnProperty("en_US")) {
+                            this.title = itemTranslations["en_US"];
+                            console.debug("Falling back to English title:", this.title);
+                        } else {
+                            // Format the item name as a fallback
+                            this.title = this.item_name.replace(/_/g, ' ')
+                                .replace(/\b\w/g, l => l.toUpperCase());
+                            console.debug("Using formatted item name as title:", this.title);
+                        }
+                    }
+                    // Some data formats might have translations at the top level
+                    else if (this.loaded_data.translations.hasOwnProperty(this.language)) {
+                        this.title = this.loaded_data.translations[this.language];
+                        console.debug("Using top-level translation:", this.title);
+                    } else if (this.loaded_data.translations.hasOwnProperty("en_US")) {
+                        this.title = this.loaded_data.translations["en_US"];
+                        console.debug("Using top-level English translation:", this.title);
+                    } else {
+                        // Format as fallback
+                        this.title = this.item_name.replace(/_/g, ' ')
+                            .replace(/\b\w/g, l => l.toUpperCase());
+                        console.debug("No suitable translation found, using formatted name:", this.title);
+                    }
+                } else {
+                    // No translations, format item name
+                    this.title = this.item_name.replace(/_/g, ' ')
+                        .replace(/\b\w/g, l => l.toUpperCase());
+                    console.debug("No translations available, using formatted name:", this.title);
+                }
+            } else {
+                // For all other chart types, use the standard method
+                this._extract_data_from_loaded_data("title", ["data_type"]);
+            }
+
+            this._set_subtitle();
+            this._extract_data_from_loaded_data("simc_hash", ["metadata", "SimulationCraft"]);
+
+            if (this.data_type === "races") {
+                this.legend_title = "Race";
+            } else if (["trinkets"].includes(this.data_type)) {
+                this.legend_title = "Itemlevels";
+            } else if (["phials", "potions", "weapon_enchantments"].includes(this.data_type)) {
+                this.legend_title = "Ranks";
+            } else if (this.data_type === "talent_target_scaling") {
+                this.legend_title = "Targets";
+            } else if (["windfury_totem", "power_infusion", "trinket_compare"].includes(this.data_type)) {
+                this.legend_title = "Effect";
+            } else {
+                this.legend_title = "legend_title not set";
+            }
+            this._extract_data_from_loaded_data("legend_title", ["legend_title"]);
+            this._extract_data_from_loaded_data("data", ["data"]);
+            this._set_default_from_data_type("value_calculation");
+            this._extract_setting_from_root_element("value_calculation", "valueCalculation");
+            this._extract_setting_from_root_element("selected_data_key", "selectedDataKey");
+            // set sole data point as selected data for secondary distributions
+            if (Object.keys(this.data).indexOf(this.selected_data_key) === -1) {
+                this.selected_data_key = Object.keys(this.data)[0];
+            }
+
+            this.x_axis_title = this.x_axis_texts[this.value_calculation];
+            this._extract_data_from_loaded_data("x_axis_title", ["x_axis_title"]);
+            this._extract_data_from_loaded_data("y_axis_title", ["y_axis_title"]);
+            this._extract_data_from_loaded_data("wow_spec", ["profile", "character", "spec"]);
+            this._extract_data_from_loaded_data("wow_class", ["profile", "character", "class"]);
+            this._extract_data_from_loaded_data("secondary_sum", ["secondary_sum"]);
+
+            // optional
+            this._extract_data_from_loaded_data("series_names", ["simulated_steps"]);
+            if (this.series_names.length === 0) {
+                for (let key_value_object of Object.values(this.data)) {
+                    for (let series of Object.keys(key_value_object)) {
+                        let parsed_int = Number.parseInt(series);
+                        if (this.series_names.indexOf(parsed_int) === -1 && parsed_int.toString() === series) {
+                            // series are numbers, e.g. itemlevels or ranks
+                            this.series_names.push(parsed_int);
+                        } else if (this.series_names.indexOf(series) === -1 && parsed_int.toString() !== series) {
+                            // series are words, e.g. like 10_10_10_70 from secondary distribution charts
+                            this.series_names.push(series);
+                        }
                     }
                 }
             }
-        }
-        this.series_names.sort((a, b) => a - b);
+            this.series_names.sort((a, b) => a - b);
 
-        // optional
-        this._extract_data_from_loaded_data("sorted_data_keys", ["sorted_data_keys"])
-        if (this.sorted_data_keys.length === 0) {
-            let key_value = {};
-            for (let key of Object.keys(this.data)) {
-                key_value[key] = Math.max(...Object.values(this.data[key]));
+            // optional
+            this._extract_data_from_loaded_data("sorted_data_keys", ["sorted_data_keys"])
+            if (this.sorted_data_keys.length === 0) {
+                let key_value = {};
+                for (let key of Object.keys(this.data)) {
+                    key_value[key] = Math.max(...Object.values(this.data[key]));
+                }
+                this.sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
             }
-            this.sorted_data_keys = Object.keys(key_value).sort((a, b) => key_value[b] - key_value[a]);
-        }
-        this._extract_data_from_loaded_data("sorted_data_data_keys", ["sorted_data_keys"]);
+            this._extract_data_from_loaded_data("sorted_data_data_keys", ["sorted_data_keys"]);
 
-        // optional - base_values
-        // create if no keys
-        // extend if number of keys === 1 and number of series_names > 1
-        this._extract_data_from_loaded_data("base_values", ["data", "baseline"]);
-        if (Object.keys(this.base_values).length === 0) {
-            // console.log("No base_values found");
-            for (let series of this.series_names) {
-                // we assume 0 dps to be the baseline
-                this.base_values[series] = 0;
+            // optional - base_values
+            // create if no keys
+            // extend if number of keys === 1 and number of series_names > 1
+            this._extract_data_from_loaded_data("base_values", ["data", "baseline"]);
+            if (Object.keys(this.base_values).length === 0) {
+                // console.debug("No base_values found");
+                for (let series of this.series_names) {
+                    // we assume 0 dps to be the baseline
+                    this.base_values[series] = 0;
+                }
+            } else if (Object.keys(this.base_values).length === 1 && this.series_names.length > 1) {
+                // console.debug("1 base_values found but multiple series_names");
+                let tmp_value = Object.values(this.base_values)[0];
+                for (let series of this.series_names) {
+                    // we assume 0 dps to be the baseline
+                    this.base_values[series] = tmp_value;
+                }
+            } else if (Object.keys(this.base_values).length == this.series_names.length) {
+                // console.debug("as many base_values found as series_names");
+                // do nothing
+            } else {
+                throw "base_value must be an empty object, have only one key, or the same length and keys as series_names." + this.data_type;
             }
-        } else if (Object.keys(this.base_values).length === 1 && this.series_names.length > 1) {
-            // console.log("1 base_values found but multiple series_names");
-            let tmp_value = Object.values(this.base_values)[0];
-            for (let series of this.series_names) {
-                // we assume 0 dps to be the baseline
-                this.base_values[series] = tmp_value;
-            }
-        } else if (Object.keys(this.base_values).length == this.series_names.length) {
-            // console.log("as many base_values found as series_names");
-            // do nothing
-        } else {
-            throw "base_value must be an empty object, have only one key, or the same length and keys as series_names." + this.data_type;
-        }
 
-        // optional
-        this._extract_data_from_loaded_data("language_dict", ["translations"]);
-        this._extract_data_from_loaded_data("item_id_dict", ["item_ids"]);
-        this._extract_data_from_loaded_data("spell_id_dict", ["spell_ids"]);
-        this._extract_setting_from_root_element("language", "language");
-        if (Object.keys(this.language_short_to_long_form).indexOf(this.language) > -1) {
-            this.language = this.language_short_to_long_form[this.language];
-        }
-        this._extract_setting_from_root_element("show_top", "showTop", this._convert_to_number);
-        this._extract_setting_from_root_element("filter_trinket_itemlevels", "filterTrinketItemlevels", this._convert_to_number_list);
-        this._extract_setting_from_root_element("filter_trinket_sources", "filterTrinketSources", this._convert_to_string_list);
-        this._extract_setting_from_root_element("filter_trinket_active_passive", "filterTrinketActivePassive", this._convert_to_string_list);
-        this._extract_setting_from_root_element("enable_title", "enableTitle", this._convert_to_bool);
-        this._extract_setting_from_root_element("enable_subtitle", "enableSubtitle", this._convert_to_bool);
-        this._extract_setting_from_root_element("enable_simc_subtitle", "enableSimcSubtitle", this._convert_to_bool);
-        this._extract_setting_from_root_element("enable_tooltips", "enableTooltips", this._convert_to_bool);
-        this._extract_setting_from_root_element("enable_legend", "enableLegend", this._convert_to_bool);
+            // optional
+            this._extract_data_from_loaded_data("language_dict", ["translations"]);
+            this._extract_data_from_loaded_data("item_id_dict", ["item_ids"]);
+            this._extract_data_from_loaded_data("spell_id_dict", ["spell_ids"]);
+            this._extract_setting_from_root_element("show_top", "showTop", this._convert_to_number);
+            this._extract_setting_from_root_element("filter_trinket_itemlevels", "filterTrinketItemlevels", this._convert_to_number_list);
+            this._extract_setting_from_root_element("filter_trinket_sources", "filterTrinketSources", this._convert_to_string_list);
+            this._extract_setting_from_root_element("filter_trinket_active_passive", "filterTrinketActivePassive", this._convert_to_string_list);
+            this._extract_setting_from_root_element("enable_title", "enableTitle", this._convert_to_bool);
+            this._extract_setting_from_root_element("enable_subtitle", "enableSubtitle", this._convert_to_bool);
+            this._extract_setting_from_root_element("enable_simc_subtitle", "enableSimcSubtitle", this._convert_to_bool);
+            this._extract_setting_from_root_element("enable_tooltips", "enableTooltips", this._convert_to_bool);
+            this._extract_setting_from_root_element("enable_legend", "enableLegend", this._convert_to_bool);
 
-        if (this.data_type === "races") {
-            this.global_max_value = Math.max(...Object.values(this.data));
-        } else if (["power_infusion", "windfury_totem", "trinket_compare"].indexOf(this.data_type) > -1) {
-            let biggest_diff = 0;
-            let base_value = 0;
-            let local_diff = 0;
+            if (this.data_type === "races") {
+                this.global_max_value = Math.max(...Object.values(this.data));
+            } else if (["power_infusion", "windfury_totem", "trinket_compare"].indexOf(this.data_type) > -1) {
+                let biggest_diff = 0;
+                let base_value = 0;
+                let local_diff = 0;
 
-            for (const spec of this.sorted_data_keys) {
-                base_value = this.base_values[spec] || this.data["{" + spec + "}"];
+                for (const spec of this.sorted_data_keys) {
+                    base_value = this.base_values[spec] || this.data["{" + spec + "}"];
 
-                if (this.value_calculation === "relative") {
-                    local_diff = this.get_relative_gain(this.data[spec], base_value);
-                } else {
-                    local_diff = this.data[spec] - base_value;
+                    if (this.value_calculation === "relative") {
+                        local_diff = this.get_relative_gain(this.data[spec], base_value);
+                    } else {
+                        local_diff = this.data[spec] - base_value;
+                    }
+
+                    if (biggest_diff < local_diff) {
+                        biggest_diff = local_diff;
+                    }
                 }
 
-                if (biggest_diff < local_diff) {
-                    biggest_diff = local_diff;
-                }
+                this.global_max_value = biggest_diff;
+            } else {
+                this.global_max_value = Math.max(...Object.values(this.data).map(element => Math.max(...Object.values(element))));
             }
-
-            this.global_max_value = biggest_diff;
-        } else {
-            this.global_max_value = Math.max(...Object.values(this.data).map(element => Math.max(...Object.values(element))));
+        } catch (error) {
+            console.error("Error in BmChartData constructor:", error);
+            throw error;
         }
-        // delete this.data.baseline;
     }
 
     _convert_to_bool(input) {
@@ -792,18 +856,11 @@ class BmChartData {
         }
     }
 
+    /**
+     * Build wowhead URL for an item or spell
+     */
     _get_wowhead_url(key) {
-        const subdomain = {
-            "en_US": "www",
-            "cn_CN": "cn",
-            "de_DE": "de",
-            "es_ES": "es",
-            "fr_FR": "fr",
-            "it_IT": "it",
-            "ko_KR": "ko",
-            "pt_BR": "pt",
-            "ru_RU": "ru"
-        };
+        const subdomain = window.bmUtils.wowheadSubdomains;
         let base = "https://" + subdomain[this.language] + ".wowhead.com/";
         if (key in this.spell_id_dict) {
             base += "spell=";
@@ -1799,12 +1856,13 @@ class BmRadarChart {
 }
 
 async function bm_import_charts() {
+    console.debug("bm_import_charts called");
     // find bloodmallet_chart class elements
     let chart_anchors = document.querySelectorAll("div.bloodmallet_chart");
     // console.log(chart_anchors);
     const domain = "bloodmallet.com";
     const local = "127.0.0.1:8000";
-    const endpoint = `https://${domain}/chart/get`;
+    const endpoint = `http://${local}/chart/get`;
 
     for (const chart_anchor of chart_anchors) {
 
@@ -1818,18 +1876,31 @@ async function bm_import_charts() {
         }
 
         if (chart_anchor.dataset.loadedData) {
+            console.debug("Chart has loadedData already");
             // create BmChartData from element
-            let bm_data = new BmChartData(chart_anchor);
-            // console.log(bm_data.data_type);
-            // get chart type from loaded data
-            let chart = BmBarChart;
-            if (bm_data.data_type === "secondary_distributions") {
-                // create Chart based on chart type 
-                chart = BmRadarChart;
-            }
+            try {
+                let bm_data = new BmChartData(chart_anchor);
+                console.debug("BmChartData created for chart", i + 1);
+                console.debug("Chart data_type:", bm_data.data_type);
+                console.debug("Chart title:", bm_data.title);
 
-            new chart(bm_data);
-            continue;
+                // Add this debug line
+                if (bm_data.data_type === "trinket_compare") {
+                    console.debug("Trinket chart title:", bm_data.title);
+                    console.debug("Source translations:", bm_data.loaded_data.translations);
+                }
+                // get chart type from loaded data
+                let chart = BmBarChart;
+                if (bm_data.data_type === "secondary_distributions") {
+                    // create Chart based on chart type 
+                    chart = BmRadarChart;
+                }
+
+                new chart(bm_data);
+                continue;
+            } catch (error) {
+                console.error(`Error creating chart:`, error);
+            }
         }
 
         let request_endpoint = undefined;
@@ -1839,12 +1910,14 @@ async function bm_import_charts() {
         let item_level;
 
         if (chart_anchor.dataset.hasOwnProperty("chartId")) {
+            console.debug(`Chart has chartId:`, chart_anchor.dataset.chartId);
             // if chart_id -> load id
             let chart_id = chart_anchor.dataset?.chartId;
             // console.log("Identified chart id:", chart_id);
             request_endpoint = endpoint + "/" + chart_id;
-        } else if ("wowClass" in chart_anchor.dataset && "wowSpec" in chart_anchor.dataset && 
-                chart_anchor.dataset.wowClass && chart_anchor.dataset.wowSpec) {
+        } else if ("wowClass" in chart_anchor.dataset && "wowSpec" in chart_anchor.dataset &&
+            chart_anchor.dataset.wowClass && chart_anchor.dataset.wowSpec) {
+            console.debug(`Chart has wowClass:`, chart_anchor.dataset.wowClass);
             let wow_class = chart_anchor.dataset?.wowClass;
             let wow_spec = chart_anchor.dataset?.wowSpec;
             chart_type = "trinkets";
@@ -1855,22 +1928,20 @@ async function bm_import_charts() {
             if (chart_anchor.dataset.hasOwnProperty("fightStyle")) {
                 fight_style = chart_anchor.dataset?.fightStyle;
             }
-            // console.log("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", wow_spec, wow_class);
+            console.debug("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", wow_spec, wow_class);
             request_endpoint = [endpoint, chart_type, fight_style, wow_class, wow_spec].join("/");
         } else if ("type" in chart_anchor.dataset && chart_anchor.dataset.type === "trinket_compare") {
-        // } else if ("itemName" in chart_anchor.dataset && "itemLevel" in chart_anchor.dataset &&
-        //         chart_anchor.dataset.itemName && chart_anchor.dataset.itemLevel) {
+            console.debug(`Chart is a trinket_compare chart`);
             // Handle trinket_compare
             item_name = chart_anchor.dataset?.itemName;
             item_level = chart_anchor.dataset?.itemLevel;
             chart_type = chart_anchor.dataset?.type;
             fight_style = chart_anchor.dataset?.fightStyle || "castingpatchwerk";
             request_endpoint = [endpoint, chart_type, fight_style, item_name, item_level].join("/");
-            console.log("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", item_name, item_level);
-            console.log("bloodmallet.com: loading chart from", request_endpoint);
+            console.debug("bloodmallet.com: loading chart from", request_endpoint);
         }
-            try {
-                let data;
+        try {
+            let data;
             if (chart_type === "trinket_compare") {
                 data = await getTrinketDataAsync(item_name, item_level, fight_style);
             } else {
@@ -1889,58 +1960,14 @@ async function bm_import_charts() {
         } catch (error) {
             console.error("Error fetching or processing data:", error);
         }
-
-        // let request = new XMLHttpRequest();
-        // request.open("GET", request_endpoint, true); // async request
-        // request.onload = function (e) {
-        //     // console.log(e);
-        //     if (request.readyState === 4) {
-        //         if (request.status === 200) {
-        //             // store loaded data in html element
-        //             chart_anchor.dataset.loadedData = request.responseText;
-        //             // console.log("Added data to ", chart_anchor, "from request", request_endpoint);
-
-        //             // create BmChartData from element
-        //             let bm_data = new BmChartData(chart_anchor);
-        //             // console.log(bm_data.data_type);
-        //             // get chart type from loaded data
-        //             let chart = BmBarChart;
-        //             if (bm_data.data_type === "secondary_distributions") {
-        //                 // create Chart based on chart type 
-        //                 chart = BmRadarChart;
-        //             }
-
-        //             new chart(bm_data);
-
-        //             // let json = JSON.parse(request.responseText);
-        //             // console.log(json);
-        //             // console.log("Load and save finished.");
-        //         } else {
-        //             console.error("Fetching data from", request_endpoint, "received status code", request.status, "and status text:", request.statusText);
-        //         }
-        //     }
-        // };
-        // request.onerror = function (e) {
-        //     console.error("Fetching data from '" + request_endpoint + "' encountered an error:", e);
-        // };
-        // request.send(null);
     }
 }
 
 async function updateTrinketChartAsync(state) {
     const charts = document.querySelectorAll("div.bloodmallet_chart");
     const chart_anchor = charts[0];
-    // const host = window.location.host;
-    // const endpoint = `${host}/chart/get/trinkets`;
-    // const request_endpoint = [endpoint, state.fight_style, state.item_name, state.item_level].join("/");
-
 
     try {
-        // const response = await fetch(request_endpoint);
-        // if (!response.ok) {
-        //     throw new Error(`HTTP error! status: ${response.status}`);
-        // }
-        // const data = await response.json();
         const data = await getTrinketDataAsync(state.item_name, state.item_level, state.fight_style);
 
         chart_anchor.dataset.loadedData = JSON.stringify(data);
@@ -1954,6 +1981,7 @@ async function updateTrinketChartAsync(state) {
 
 window.updateTrinketChartAsync = updateTrinketChartAsync;
 
+console.debug("window.bmUtils exists:", typeof window.bmUtils !== 'undefined');
 // Load data on document load
 document.addEventListener("DOMContentLoaded", function () {
     bm_import_charts();//.catch(error => console.error("Error in bm_import_charts:", error));
