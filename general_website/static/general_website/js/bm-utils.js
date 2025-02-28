@@ -34,6 +34,15 @@ const wowheadSubdomains = {
 };
 
 /**
+ * Maps fight styles to human-readable names
+ */
+const fightStyles = {
+    "castingpatchwerk": "Casting Patchwerk 1 target",
+    "castingpatchwerk3": "Casting Patchwerk 3 targets",
+    "castingpatchwerk5": "Casting Patchwerk 5 targets",
+};
+
+/**
  * Get language from Django cookie 
  * @returns {string|null} Language code or null if not found
  */
@@ -91,7 +100,7 @@ const detectUserLanguage = (element = null) => {
  * @param {Object} formatDictionary Optional dictionary for special formatting like fight styles
  * @returns {string} The formatted text
  */
-const formatText = (text, type, formatDictionary = {}) => {
+const formatText = (text, type) => {
     if (!text) return "Loading...";
 
     switch (type) {
@@ -100,7 +109,7 @@ const formatText = (text, type, formatDictionary = {}) => {
         case "item_level":
             return text;
         case "fight_style":
-            return formatDictionary[text] || text;
+            return fightStyles[text] || text;
         case "item_name":
             return text.split('_')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -149,6 +158,7 @@ window.bmUtils = {
     createUnitTextNode,
     languageMap,
     wowheadSubdomains,
+    fightStyles,
     getLanguageFromCookie,
     getLanguageFromDataset,
     getLanguageFromBrowser,

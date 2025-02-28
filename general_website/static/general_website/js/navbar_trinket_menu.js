@@ -7,13 +7,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await initializeNavbarTrinketMenu();
 });
 
-const fight_style_dict = {
-    "castingpatchwerk": "Casting Patchwerk 1 target",
-    "castingpatchwerk3": "Casting Patchwerk 3 targets",
-    "castingpatchwerk5": "Casting Patchwerk 5 targets",
-};
-const fight_styles = Object.keys(fight_style_dict).sort();
-
 const updateTrinketChartViaMenu = async (state) => {
     const chart = document.getElementById("chart");
 
@@ -238,7 +231,7 @@ const update_navbarTrinketMenu = async (state = {}) => {
     state.item_name ??= '';
     state.item_level ??= default_item_level;
     state.item_levels ??= [];
-    state.fight_style ??= fight_styles[0];
+    state.fight_style ??= window.bmUtils.fightStyles[0];
     state.wow_class = 'priest';
     state.available_trinkets ??= [];
 
@@ -287,50 +280,89 @@ const update_navbarTrinketMenu = async (state = {}) => {
     createDropdownMenu(state.item_level, "item_level", state.item_levels);
 
     // Add fight style selection (dropdown)
-    createDropdownMenu(window.bmUtils.formatText(state.fight_style, "fight_style", fight_style_dict), "fight_style", fight_styles);
+    createDropdownMenu(window.bmUtils.formatText(state.fight_style, "fight_style"), "fight_style", window.bmUtils.fightStyles);
 
     navbarTrinketMenu.appendChild(ul_nav);
 };
 
 const createDropdownMenuEntries = (items, id, state) => {
+    console.log("createDropdownMenuEntries", items, id, state);
     const dropdownMenu = document.createElement("div");
     dropdownMenu.className = `dropdown-menu ${state.wow_class}-border-top`;
     dropdownMenu.setAttribute("aria-labelledby", `navbar_${id}_selection`);
 
-    if (items.length > 10) {
+    // Handle different types of items
+    if (!items) {
+        // Add a placeholder when items is undefined or null
+        const placeholder = document.createElement("a");
+        placeholder.className = `dropdown-item ${state.wow_class}-button disabled`;
+        placeholder.innerText = "Loading...";
+        dropdownMenu.appendChild(placeholder);
+        return dropdownMenu;
+    }
+
+    // Set maximum height for long lists
+    if (Array.isArray(items) && items.length > 10) {
         dropdownMenu.style.maxHeight = "400px";
         dropdownMenu.style.overflowY = "scroll";
     }
 
-    const dropdownItems = items.map((item) => {
-        // Handle both simple strings (for item levels, fight styles) and trinket objects
-        const itemValue = typeof item === 'object' ? item.key : item;
-        const itemDisplay = typeof item === 'object' ? item.name : window.bmUtils.formatText(item, id, fight_style_dict);
+    // Object containing fight style mappings
+    if (id === "fight_style" && !Array.isArray(items)) {
+        // Handle the fight_style dictionary case
+        Object.keys(items).forEach(key => {
+            const a = document.createElement("a");
+            a.className = `dropdown-item ${state.wow_class}-button`;
+            a.id = `navbar_${window.bmUtils.formatText(key, "slug")}_selector`;
+            a.innerText = items[key]; // Use the display name from the dictionary
+            a.href = "#";
 
-        const a = document.createElement("a");
-        a.className = `dropdown-item ${state.wow_class}-button`;
-        a.id = `navbar_${window.bmUtils.formatText(itemValue, "slug")}_selector`;
-        a.innerText = itemDisplay;
-        a.href = "#";
+            a.addEventListener("click", async (event) => {
+                event.preventDefault();
+                const newState = { ...state };
+                newState.fight_style = key;
+                await updateTrinketChartViaMenu(newState);
+            });
 
-        // Add event listener to handle the selection
-        const handleSelection = async (event) => {
-            event.preventDefault();
-            const newState = { ...state };
-            if (id === "item_name") {
-                // For trinkets, use the snake_case key
-                newState.item_name = itemValue;
-            } else {
-                newState[id] = item;
-            }
-            await updateTrinketChartViaMenu(newState);
-        };
+            dropdownMenu.appendChild(a);
+        });
+        return dropdownMenu;
+    }
 
-        a.addEventListener("click", handleSelection);
+    // Array of items (trinkets or item levels)
+    if (Array.isArray(items)) {
+        items.forEach(item => {
+            const itemValue = typeof item === 'object' ? item.key : item;
+            const itemDisplay = typeof item === 'object' ? item.name : item;
 
-        return a;
-    });
+            const a = document.createElement("a");
+            a.className = `dropdown-item ${state.wow_class}-button`;
+            a.id = `navbar_${window.bmUtils.formatText(itemValue, "slug")}_selector`;
+            a.innerText = itemDisplay;
+            a.href = "#";
+            a.addEventListener("click", async (event) => {
+                event.preventDefault();
+                const newState = { ...state };
+                if (id === "item_name") {
+                    newState.item_name = itemValue;
+                } else {
+                    newState[id] = itemValue;
+                }
+                await updateTrinketChartViaMenu(newState);
+            });
 
-    dropdownItems.forEach(item => dropdownMenu.appendChild(item));
+            dropdownMenu.appendChild(a);
+        });
+        return dropdownMenu;
+    }
+
+    // Default case - single item
+    const a = document.createElement("a");
+    a.className = `dropdown-item ${state.wow_class}-button`;
+    a.id = `navbar_${window.bmUtils.formatText(items, "slug")}_selector`;
+    a.innerText = items;
+    a.href = "#";
+    dropdownMenu.appendChild(a);
+
     return dropdownMenu;
 };
