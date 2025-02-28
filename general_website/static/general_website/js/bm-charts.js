@@ -27,43 +27,32 @@ const getTrinketDataAsync = async (itemName, itemLevel, fightStyle) => {
 
     try {
         data = await fetchAndProcessDataAsync(fightStyle);
-        console.debug("fetchAndProcessDataAsync result:",
-            data ? "Data received" : "No data received");
-
-        // Log item keys to see what's available
-        console.debug("Available item keys:", Object.keys(data.items));
-
         firstItemKey = Object.keys(data.items)[0];
         itemData = data.items[itemName] || data.items[firstItemKey];
 
-        console.debug(`Using item: ${itemName in data.items ? itemName : firstItemKey}`);
-        console.debug("Item translations:", itemData.translations);
+        const firstItemLevelKey = Object.keys(itemData.itemLevels)[0];
+        const { sorted_data_keys, ...itemLevelData } = itemData.itemLevels[itemLevel] || itemData.itemLevels[firstItemLevelKey];
 
-        // Rest of the function...
+        return {
+            data: {
+                ...itemLevelData,
+                baseline: itemData.baseline,
+            },
+            data_type: "trinket_compare",
+            item_name: itemName in data.items ? itemName : firstItemKey,
+            item_level: itemLevel in itemData.itemLevels ? itemLevel : firstItemLevelKey,
+            item_levels: Object.keys(itemData.itemLevels),
+            metadata: data.metadata,
+            simc_settings: data.simcSettings,
+            sorted_data_keys: sorted_data_keys,
+            subtitle: data.subtitle,
+            timestamp: data.timestamp,
+            translations: itemData.translations,
+        };
     } catch (error) {
         console.error("Error in getTrinketDataAsync:", error);
         throw error;
     }
-
-    const firstItemLevelKey = Object.keys(itemData.itemLevels)[0];
-    const { sorted_data_keys, ...itemLevelData } = itemData.itemLevels[itemLevel] || itemData.itemLevels[firstItemLevelKey];
-
-    return {
-        data: {
-            ...itemLevelData,
-            baseline: itemData.baseline,
-        },
-        data_type: "trinket_compare",
-        item_name: itemName in data.items ? itemName : firstItemKey,
-        item_level: itemLevel in itemData.itemLevels ? itemLevel : firstItemLevelKey,
-        item_levels: Object.keys(itemData.itemLevels),
-        metadata: data.metadata,
-        simc_settings: data.simcSettings,
-        sorted_data_keys: sorted_data_keys,
-        subtitle: data.subtitle,
-        timestamp: data.timestamp,
-        translations: itemData.translations,
-    };
 }
 
 const fetchAndProcessDataAsync = async (fightStyle) => {
@@ -514,16 +503,13 @@ class BmChartData {
      * @param {HTMLElement} element root element
      */
     add_title(element) {
-        console.debug("add_title called with title:", this.title);
         if (!this.enable_title) {
-            console.debug("Title disabled, not adding");
             return;
         }
         let title = document.createElement("div");
         title.classList.add("bm-title");
         title.appendChild(document.createTextNode(this.title));
         element.appendChild(title);
-        console.debug("Title added to element");
     }
 
     /**
@@ -564,20 +550,17 @@ class BmChartData {
 
 
     constructor(root_element = new HTMLElement()) {
-        console.debug("BmChartData constructor called");
         /**
          * Contains the root html element. Data was extracted from it.
          */
         this.root_element = root_element;
 
         if (!this.root_element.dataset.hasOwnProperty("loadedData") || (this.root_element.dataset.hasOwnProperty("loadedData") && this.root_element.dataset.loadedData === "")) {
-            console.error("No loadedData found in element");
             throw new Error("Data must be loaded in Element before attempting to create the associated chart.");
         }
 
         try {
             this.loaded_data = JSON.parse(this.root_element.dataset.loadedData);
-            console.debug("Parsed loadedData successfully");
 
             if (this.loaded_data.status === "error" && this.loaded_data.message !== undefined) {
                 console.error("bm-charts encountered an error while loading data. Error:", this.loaded_data.message);
@@ -585,14 +568,9 @@ class BmChartData {
             }
 
             this._extract_data_from_loaded_data("data_type", ["data_type"]);
-            console.debug("Chart data_type:", this.data_type);
-
-
             this._extract_data_from_loaded_data("element_id", ["element_id"]);
             this._extract_setting_from_root_element("language", "language");
-
             this.language = window.bmUtils.detectUserLanguage(this.root_element);
-            console.debug("Final language selection:", this.language);
 
             if (this.data_type === "trinket_compare") {
                 // Get the item name
@@ -600,46 +578,36 @@ class BmChartData {
 
                 // Set title based on translations if available
                 if (this.loaded_data.hasOwnProperty("translations")) {
-                    console.debug("Available translations:", Object.keys(this.loaded_data.translations));
-                    console.debug("Using language for title:", this.language);
 
                     // Check if translations has the item name as a key
                     if (this.loaded_data.translations.hasOwnProperty(this.item_name)) {
                         const itemTranslations = this.loaded_data.translations[this.item_name];
-                        console.debug("Item translations:", itemTranslations);
 
                         // Try user's language, then fall back to English
                         if (itemTranslations.hasOwnProperty(this.language)) {
                             this.title = itemTranslations[this.language];
-                            console.debug("Using localized title:", this.title);
                         } else if (itemTranslations.hasOwnProperty("en_US")) {
                             this.title = itemTranslations["en_US"];
-                            console.debug("Falling back to English title:", this.title);
                         } else {
                             // Format the item name as a fallback
                             this.title = this.item_name.replace(/_/g, ' ')
                                 .replace(/\b\w/g, l => l.toUpperCase());
-                            console.debug("Using formatted item name as title:", this.title);
                         }
                     }
                     // Some data formats might have translations at the top level
                     else if (this.loaded_data.translations.hasOwnProperty(this.language)) {
                         this.title = this.loaded_data.translations[this.language];
-                        console.debug("Using top-level translation:", this.title);
                     } else if (this.loaded_data.translations.hasOwnProperty("en_US")) {
                         this.title = this.loaded_data.translations["en_US"];
-                        console.debug("Using top-level English translation:", this.title);
                     } else {
                         // Format as fallback
                         this.title = this.item_name.replace(/_/g, ' ')
                             .replace(/\b\w/g, l => l.toUpperCase());
-                        console.debug("No suitable translation found, using formatted name:", this.title);
                     }
                 } else {
                     // No translations, format item name
                     this.title = this.item_name.replace(/_/g, ' ')
                         .replace(/\b\w/g, l => l.toUpperCase());
-                    console.debug("No translations available, using formatted name:", this.title);
                 }
             } else {
                 // For all other chart types, use the standard method
@@ -1862,7 +1830,7 @@ async function bm_import_charts() {
     // console.log(chart_anchors);
     const domain = "bloodmallet.com";
     const local = "127.0.0.1:8000";
-    const endpoint = `http://${local}/chart/get`;
+    const endpoint = `https://${domain}/chart/get`;
 
     for (const chart_anchor of chart_anchors) {
 
@@ -1876,19 +1844,9 @@ async function bm_import_charts() {
         }
 
         if (chart_anchor.dataset.loadedData) {
-            console.debug("Chart has loadedData already");
             // create BmChartData from element
             try {
                 let bm_data = new BmChartData(chart_anchor);
-                console.debug("BmChartData created for chart", i + 1);
-                console.debug("Chart data_type:", bm_data.data_type);
-                console.debug("Chart title:", bm_data.title);
-
-                // Add this debug line
-                if (bm_data.data_type === "trinket_compare") {
-                    console.debug("Trinket chart title:", bm_data.title);
-                    console.debug("Source translations:", bm_data.loaded_data.translations);
-                }
                 // get chart type from loaded data
                 let chart = BmBarChart;
                 if (bm_data.data_type === "secondary_distributions") {
@@ -1917,29 +1875,30 @@ async function bm_import_charts() {
             request_endpoint = endpoint + "/" + chart_id;
         } else if ("wowClass" in chart_anchor.dataset && "wowSpec" in chart_anchor.dataset &&
             chart_anchor.dataset.wowClass && chart_anchor.dataset.wowSpec) {
-            console.debug(`Chart has wowClass:`, chart_anchor.dataset.wowClass);
             let wow_class = chart_anchor.dataset?.wowClass;
             let wow_spec = chart_anchor.dataset?.wowSpec;
             chart_type = "trinkets";
+            fight_style = "castingpatchwerk";
+
             if (chart_anchor.dataset.hasOwnProperty("type")) {
                 chart_type = chart_anchor.dataset?.type;
             }
-            fight_style = "castingpatchwerk";
+
             if (chart_anchor.dataset.hasOwnProperty("fightStyle")) {
                 fight_style = chart_anchor.dataset?.fightStyle;
             }
-            console.debug("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", wow_spec, wow_class);
+
+            // console.log("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", wow_spec, wow_class);
             request_endpoint = [endpoint, chart_type, fight_style, wow_class, wow_spec].join("/");
         } else if ("type" in chart_anchor.dataset && chart_anchor.dataset.type === "trinket_compare") {
-            console.debug(`Chart is a trinket_compare chart`);
             // Handle trinket_compare
             item_name = chart_anchor.dataset?.itemName;
             item_level = chart_anchor.dataset?.itemLevel;
             chart_type = chart_anchor.dataset?.type;
             fight_style = chart_anchor.dataset?.fightStyle || "castingpatchwerk";
             request_endpoint = [endpoint, chart_type, fight_style, item_name, item_level].join("/");
-            console.debug("bloodmallet.com: loading chart from", request_endpoint);
         }
+        // console.log("bloodmallet.com: loading chart from", request_endpoint);
         try {
             let data;
             if (chart_type === "trinket_compare") {
@@ -1981,7 +1940,6 @@ async function updateTrinketChartAsync(state) {
 
 window.updateTrinketChartAsync = updateTrinketChartAsync;
 
-console.debug("window.bmUtils exists:", typeof window.bmUtils !== 'undefined');
 // Load data on document load
 document.addEventListener("DOMContentLoaded", function () {
     bm_import_charts();//.catch(error => console.error("Error in bm_import_charts:", error));
