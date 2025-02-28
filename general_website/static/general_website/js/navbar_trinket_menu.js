@@ -2,19 +2,19 @@
  * Navbar trinket menu functionality for bloodmallet.com
  * Requires bm-utils.js to be loaded first
  */
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
     console.debug("DOMContentLoaded - Trinket Menu");
     await initializeNavbarTrinketMenu();
 });
 
-let fight_style_dict = {
+const fight_style_dict = {
     "castingpatchwerk": "Casting Patchwerk 1 target",
     "castingpatchwerk3": "Casting Patchwerk 3 targets",
     "castingpatchwerk5": "Casting Patchwerk 5 targets",
 };
 const fight_styles = Object.keys(fight_style_dict).sort();
 
-async function updateTrinketChartViaMenu(state) {
+const updateTrinketChartViaMenu = async (state) => {
     const chart = document.getElementById("chart");
 
     // Store current selected values
@@ -64,15 +64,14 @@ async function updateTrinketChartViaMenu(state) {
     } catch (error) {
         console.error("Error updating trinket chart:", error);
     }
-}
+};
 
-async function fetchAvailableTrinkets(fightStyle) {
+const fetchAvailableTrinkets = async (fightStyle) => {
     try {
         let data;
         if (typeof window.fetchAndProcessDataAsync === 'function') {
             data = await window.fetchAndProcessDataAsync(fightStyle);
-        }
-        else if (typeof fetchAndProcessDataAsync === 'function') {
+        } else if (typeof fetchAndProcessDataAsync === 'function') {
             data = await fetchAndProcessDataAsync(fightStyle);
         }
         return processTrinketsFromData(data);
@@ -80,10 +79,9 @@ async function fetchAvailableTrinkets(fightStyle) {
         console.error("Error fetching available trinkets:", error);
         return [];
     }
-}
+};
 
-// Helper function to process trinket data
-function processTrinketsFromData(data) {
+const processTrinketsFromData = (data) => {
     const availableTrinkets = [];
     if (data && data.items) {
         // Detect user language
@@ -119,14 +117,12 @@ function processTrinketsFromData(data) {
         }
     }
     return availableTrinkets.sort((a, b) => a.name.localeCompare(b.name));
-}
+};
 
-async function initializeNavbarTrinketMenu() {
-    // Get initial state from the chart
+const initializeNavbarTrinketMenu = async () => {
     const chart = document.querySelector('.bloodmallet_chart');
     if (!chart) return;
 
-    // Create initial navbar with loading state
     let initialState = {
         data_type: 'trinket_compare',
         fight_style: 'castingpatchwerk',
@@ -209,9 +205,9 @@ async function initializeNavbarTrinketMenu() {
         attributes: true,
         attributeFilter: ['data-loaded-data']
     });
-}
+};
 
-async function update_navbarTrinketMenu(state = {}) {
+const update_navbarTrinketMenu = async (state = {}) => {
     console.debug("update_navbarTrinketMenu");
 
     // Get initial chart data if no state provided
@@ -273,7 +269,7 @@ async function update_navbarTrinketMenu(state = {}) {
 
         const divDropdown = createDropdownMenuEntries(items, id, state);
         li.appendChild(divDropdown);
-    }
+    };
 
     // Find the localized name for the currently selected trinket
     let selectedTrinketLocalizedName = state.item_name; // Default to the key if we can't find a localized name
@@ -294,7 +290,7 @@ async function update_navbarTrinketMenu(state = {}) {
     createDropdownMenu(window.bmUtils.formatText(state.fight_style, "fight_style", fight_style_dict), "fight_style", fight_styles);
 
     navbarTrinketMenu.appendChild(ul_nav);
-}
+};
 
 const createDropdownMenuEntries = (items, id, state) => {
     const dropdownMenu = document.createElement("div");
