@@ -2,9 +2,52 @@
  * Navbar trinket menu functionality for bloodmallet.com
  * Requires bm-utils.js to be loaded first
  */
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
     console.debug("DOMContentLoaded - Trinket Menu");
-    await initializeNavbarTrinketMenu();
+    // Don't initialize immediately - wait for chart load to complete
+
+    // Set up a MutationObserver to watch for the chart data to be populated
+    const chart = document.querySelector('.bloodmallet_chart');
+    if (!chart) return;
+
+    // Show loading state immediately
+    let initialState = {
+        data_type: 'trinket_compare',
+        fight_style: 'castingpatchwerk',
+        wow_class: 'priest',
+        item_name: 'Loading...',
+        item_level: 'Loading...',
+        item_levels: [],
+        available_trinkets: []
+    };
+
+    update_navbarTrinketMenu(initialState);
+
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.type === 'attributes' &&
+                mutation.attributeName === 'data-loaded-data' &&
+                chart.dataset.loadedData) {
+
+                // Data is now loaded, safe to initialize
+                console.debug("Chart data loaded, initializing trinket menu");
+                observer.disconnect();
+                initializeNavbarTrinketMenu();
+                return;
+            }
+        }
+    });
+
+    observer.observe(chart, {
+        attributes: true,
+        attributeFilter: ['data-loaded-data']
+    });
+
+    // Fallback - if chart already has data
+    if (chart.dataset.loadedData) {
+        console.debug("Chart data already loaded, initializing immediately");
+        initializeNavbarTrinketMenu();
+    }
 });
 
 const updateTrinketChartViaMenu = async (state) => {
@@ -76,128 +119,110 @@ const fetchAvailableTrinkets = async (fightStyle) => {
 
 const processTrinketsFromData = (data) => {
     const availableTrinkets = [];
-    if (data && data.items) {
+    if (!data || !data.items) {
+        console.warn("No trinket data available to process");
+        return availableTrinkets;
+    }
+
+    try {
         // Detect user language
-        const userLanguage = window.bmUtils.detectUserLanguage();
+        const userLanguage = window.bmUtils?.detectUserLanguage() || 'en_US';
 
         for (const trinketKey in data.items) {
-            if (trinketKey !== "baseline") {
-                // Try to get the localized name based on user's language
-                let trinketName = null;
+            if (trinketKey === "baseline") continue;
 
-                // If translations are available for this trinket
-                if (data.items[trinketKey].translations) {
-                    // Try user's language first
-                    if (data.items[trinketKey].translations[userLanguage]) {
-                        trinketName = data.items[trinketKey].translations[userLanguage];
-                    }
-                    // Fall back to English if user's language isn't available
-                    else if (data.items[trinketKey].translations.en_US) {
-                        trinketName = data.items[trinketKey].translations.en_US;
-                    }
+            let trinketName = trinketKey.replace(/_/g, ' ')
+                .replace(/\b\w/g, c => c.toUpperCase()); // Default formatting
+
+            // Try to get localized name if available
+            if (data.items[trinketKey].translations) {
+                if (data.items[trinketKey].translations[userLanguage]) {
+                    trinketName = data.items[trinketKey].translations[userLanguage];
+                } else if (data.items[trinketKey].translations.en_US) {
+                    trinketName = data.items[trinketKey].translations.en_US;
                 }
-
-                // If no translation was found, use the key as a fallback
-                if (!trinketName) {
-                    trinketName = trinketKey.replace(/_/g, ' ');
-                }
-
-                availableTrinkets.push({
-                    key: trinketKey,
-                    name: trinketName
-                });
             }
+
+            availableTrinkets.push({
+                key: trinketKey,
+                name: trinketName
+            });
         }
+
+        return availableTrinkets.sort((a, b) => a.name.localeCompare(b.name));
+    } catch (error) {
+        console.error("Error processing trinket data:", error);
+        return [];
     }
-    return availableTrinkets.sort((a, b) => a.name.localeCompare(b.name));
 };
 
 const initializeNavbarTrinketMenu = async () => {
     const chart = document.querySelector('.bloodmallet_chart');
-    if (!chart) return;
-
-    let initialState = {
-        data_type: 'trinket_compare',
-        fight_style: 'castingpatchwerk',
-        wow_class: 'priest',
-        item_name: 'Loading...',
-        item_level: 'Loading...',
-        item_levels: [],
-        available_trinkets: []
-    };
-
-    // Show loading state immediately
-    await update_navbarTrinketMenu(initialState);
-
-    // Wait for initial chart data to load
-    const maxAttempts = 10;
-    let attempts = 0;
-    while (!chart.dataset.loadedData && attempts < maxAttempts) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-        attempts++;
-    }
-
-    if (!chart.dataset.loadedData) {
-        console.error("Chart data failed to load");
+    if (!chart || !chart.dataset.loadedData) {
+        console.error("Chart data not available for menu initialization");
         return;
     }
 
-    const initialData = JSON.parse(chart.dataset.loadedData);
-    console.debug("Initial chart data:", initialData);
+    try {
+        const chartData = JSON.parse(chart.dataset.loadedData);
+        console.debug("Initializing trinket menu with data:", chartData);
 
-    // Get the current fight style from the chart
-    const currentFightStyle = initialData.simc_settings?.fight_style || 'castingpatchwerk';
+        // Get the current fight style from the chart
+        const currentFightStyle = chartData.simc_settings?.fight_style || 'castingpatchwerk';
 
-    // Fetch the list of available trinkets
-    const availableTrinkets = await fetchAvailableTrinkets(currentFightStyle);
+        // Fetch the list of available trinkets
+        const availableTrinkets = await fetchAvailableTrinkets(currentFightStyle);
 
-    // Update state with real data
-    let state = {
-        data_type: 'trinket_compare',
-        fight_style: currentFightStyle,
-        wow_class: 'priest',
-        item_name: initialData.item_name,
-        item_level: initialData.item_level,
-        item_levels: initialData.item_levels,
-        available_trinkets: availableTrinkets
-    };
+        // Update state with real data
+        let state = {
+            data_type: 'trinket_compare',
+            fight_style: currentFightStyle,
+            wow_class: 'priest',
+            item_name: chartData.item_name,
+            item_level: chartData.item_level,
+            item_levels: chartData.item_levels || [],
+            available_trinkets: availableTrinkets
+        };
 
-    await update_navbarTrinketMenu(state);
+        await update_navbarTrinketMenu(state);
 
-    console.debug(`Loaded ${availableTrinkets.length} available trinkets`);
+        console.debug(`Loaded ${availableTrinkets.length} available trinkets`);
 
-    // Set up observer to watch for future changes
-    const observer = new MutationObserver(async (mutations) => {
-        for (const mutation of mutations) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'data-loaded-data') {
-                const data = JSON.parse(chart.dataset.loadedData || '{}');
-                if (data.item_name && data.item_level) {
-                    // If fight style changed, fetch new trinket list
-                    const newFightStyle = data.simc_settings?.fight_style || state.fight_style;
-                    let availableTrinkets = state.available_trinkets;
+        // Set up observer to watch for future changes
+        const observer = new MutationObserver(async (mutations) => {
+            for (const mutation of mutations) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-loaded-data') {
+                    const data = JSON.parse(chart.dataset.loadedData || '{}');
+                    if (data.item_name && data.item_level) {
+                        // If fight style changed, fetch new trinket list
+                        const newFightStyle = data.simc_settings?.fight_style || state.fight_style;
+                        let availableTrinkets = state.available_trinkets;
 
-                    if (newFightStyle !== state.fight_style) {
-                        availableTrinkets = await fetchAvailableTrinkets(newFightStyle);
+                        if (newFightStyle !== state.fight_style) {
+                            availableTrinkets = await fetchAvailableTrinkets(newFightStyle);
+                        }
+
+                        state = {
+                            ...state,
+                            item_name: data.item_name,
+                            item_level: data.item_level,
+                            item_levels: data.item_levels,
+                            fight_style: newFightStyle,
+                            available_trinkets: availableTrinkets
+                        };
+                        await update_navbarTrinketMenu(state);
                     }
-
-                    state = {
-                        ...state,
-                        item_name: data.item_name,
-                        item_level: data.item_level,
-                        item_levels: data.item_levels,
-                        fight_style: newFightStyle,
-                        available_trinkets: availableTrinkets
-                    };
-                    await update_navbarTrinketMenu(state);
                 }
             }
-        }
-    });
+        });
 
-    observer.observe(chart, {
-        attributes: true,
-        attributeFilter: ['data-loaded-data']
-    });
+        observer.observe(chart, {
+            attributes: true,
+            attributeFilter: ['data-loaded-data']
+        });
+    } catch (error) {
+        console.error("Error initializing trinket menu:", error);
+    }
 };
 
 const update_navbarTrinketMenu = async (state = {}) => {

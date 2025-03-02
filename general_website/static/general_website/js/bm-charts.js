@@ -1891,8 +1891,8 @@ async function bm_import_charts() {
             request_endpoint = [endpoint, chart_type, fight_style, wow_class, wow_spec].join("/");
         } else if ("type" in chart_anchor.dataset && chart_anchor.dataset.type === "trinket_compare") {
             // Handle trinket_compare
-            item_name = chart_anchor.dataset?.itemName;
-            item_level = chart_anchor.dataset?.itemLevel;
+            item_name = chart_anchor.dataset?.itemName || "aberrant_spellforge";
+            item_level = chart_anchor.dataset?.itemLevel || "636";
             chart_type = chart_anchor.dataset?.type;
             fight_style = chart_anchor.dataset?.fightStyle || "castingpatchwerk";
             request_endpoint = [endpoint, chart_type, fight_style, item_name, item_level].join("/");
