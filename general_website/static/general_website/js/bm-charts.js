@@ -497,6 +497,36 @@ class BmChartData {
         this.subtitle = subtitle_parts.join(" | ");
     }
 
+    _setTrinketCompareTitle() {
+        // Extract the item name
+        this._extract_data_from_loaded_data("item_name", ["item_name"]);
+        
+        // Default formatting as fallback
+        const formatItemName = (name) => name.replace(/_/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+            
+        // If no translations are available, use formatted name
+        if (!this.loaded_data.translations) {
+            this.title = formatItemName(this.item_name);
+            return;
+        }
+        
+        // Try to get item-specific translations
+        const itemTranslations = this.loaded_data.translations[this.item_name];
+        if (itemTranslations) {
+            // Try current language first, then fall back to English
+            this.title = itemTranslations[this.language] || 
+                         itemTranslations["en_US"] || 
+                         formatItemName(this.item_name);
+            return;
+        }
+        
+        // Try top-level translations
+        this.title = this.loaded_data.translations[this.language] ||
+                     this.loaded_data.translations["en_US"] ||
+                     formatItemName(this.item_name);
+    }
+
     /**
      * Add title to `element`
      * @param {HTMLElement} element root element
@@ -572,42 +602,7 @@ class BmChartData {
             this.language = window.bmUtils.detectUserLanguage(this.root_element);
 
             if (this.data_type === "trinket_compare") {
-                // Get the item name
-                this._extract_data_from_loaded_data("item_name", ["item_name"]);
-
-                // Set title based on translations if available
-                if (this.loaded_data.hasOwnProperty("translations")) {
-
-                    // Check if translations has the item name as a key
-                    if (this.loaded_data.translations.hasOwnProperty(this.item_name)) {
-                        const itemTranslations = this.loaded_data.translations[this.item_name];
-
-                        // Try user's language, then fall back to English
-                        if (itemTranslations.hasOwnProperty(this.language)) {
-                            this.title = itemTranslations[this.language];
-                        } else if (itemTranslations.hasOwnProperty("en_US")) {
-                            this.title = itemTranslations["en_US"];
-                        } else {
-                            // Format the item name as a fallback
-                            this.title = this.item_name.replace(/_/g, ' ')
-                                .replace(/\b\w/g, l => l.toUpperCase());
-                        }
-                    }
-                    // Some data formats might have translations at the top level
-                    else if (this.loaded_data.translations.hasOwnProperty(this.language)) {
-                        this.title = this.loaded_data.translations[this.language];
-                    } else if (this.loaded_data.translations.hasOwnProperty("en_US")) {
-                        this.title = this.loaded_data.translations["en_US"];
-                    } else {
-                        // Format as fallback
-                        this.title = this.item_name.replace(/_/g, ' ')
-                            .replace(/\b\w/g, l => l.toUpperCase());
-                    }
-                } else {
-                    // No translations, format item name
-                    this.title = this.item_name.replace(/_/g, ' ')
-                        .replace(/\b\w/g, l => l.toUpperCase());
-                }
+                this._setTrinketCompareTitle();
             } else {
                 // For all other chart types, use the standard method
                 this._extract_data_from_loaded_data("title", ["data_type"]);
