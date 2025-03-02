@@ -150,6 +150,57 @@ const createUnitTextNode = (unit) => {
     return span;
 };
 
+/**
+ * Helper for creating DOM elements with attributes and children
+ */
+const createElement = (tag, attributes = {}, children = []) => {
+    const element = document.createElement(tag);
+    Object.entries(attributes).forEach(([key, value]) => {
+      if (key === 'className') {
+        element.className = value;
+      } else if (key === 'innerText') {
+        element.innerText = value;
+      } else if (key === 'events') {
+        Object.entries(value).forEach(([event, handler]) => {
+          element.addEventListener(event, handler);
+        });
+      } else {
+        element.setAttribute(key, value);
+      }
+    });
+    
+    children.forEach(child => {
+      if (typeof child === 'string') {
+        element.appendChild(document.createTextNode(child));
+      } else {
+        element.appendChild(child);
+      }
+    });
+    
+    return element;
+  };
+  
+  /**
+   * Safely parse JSON with error handling
+   */
+  const safeJsonParse = (jsonString, defaultValue = null) => {
+    if (!jsonString) return defaultValue;
+    try {
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return defaultValue;
+    }
+  };
+
+  /**
+   * Get chart data from a chart element
+   */
+  const getChartData = (chart) => {
+    if (!chart || !chart.dataset.loadedData) return null;
+    return safeJsonParse(chart.dataset.loadedData);
+  };
+
 // Export functions for use in other files
 window.bmUtils = {
     detectUserLanguage,
@@ -162,5 +213,8 @@ window.bmUtils = {
     getLanguageFromCookie,
     getLanguageFromDataset,
     getLanguageFromBrowser,
-    normalizeLanguageCode
+    normalizeLanguageCode,
+    createElement,
+    safeJsonParse,
+    getChartData
 };
