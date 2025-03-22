@@ -64,7 +64,7 @@ class Simulation(models.Model):
         ),
     )
     custom_fight_style = models.TextField(
-        max_length=2048,
+        max_length=65536,
         blank=True,
         help_text=_("Define your own fight_style."),
     )

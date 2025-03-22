@@ -300,7 +300,7 @@ function create_talent_iframe(talent_string, title) {
     iframe.title = title;
     iframe.width = width + 10;
     iframe.height = height;
-    iframe.src = "https://www.raidbots.com/simbot/render/talents/" + talent_string + "?width=" + width;
+    iframe.src = "https://www.raidbots.com/simbot/render/talents/" + talent_string + "?width=" + width + "&bgcolor=343a40";
 
     return iframe;
 }

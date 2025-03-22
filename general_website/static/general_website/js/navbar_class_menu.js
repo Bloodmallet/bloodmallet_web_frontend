@@ -129,7 +129,7 @@ function update_navbarClassMenu(state) {
     for (tmp_spec of classes_specs[state.wow_class]) {
         // build navv for these specs
         if ([
-            // "death_knight_blood",
+            "death_knight_blood",
             "death_knight_frost",
             "death_knight_unholy",
             "demon_hunter_havoc",
