@@ -81,6 +81,11 @@ function provide_meta_data(state, data) {
         }
 
         // character profile - items
+        let item_ids = [];
+        for (let item_key in data["profile"]["items"]) {
+            item_ids.push(data["profile"]["items"][item_key]["id"]);
+        }
+        item_ids = item_ids.join(":");
         for (let item_key in data["profile"]["items"]) {
             let icon = document.createElement("a");
             icon.href = "";
@@ -104,6 +109,13 @@ function provide_meta_data(state, data) {
                     boni.push("gems=" + gem_ids);
                 }
             } catch (error) { }
+            try {
+                if (data["profile"]["items"][item_key].hasOwnProperty("enchant_id")) {
+                    let enchant_ids = data["profile"]["items"][item_key]["enchant_id"].split("/").join(":");
+                    boni.push("ench=" + enchant_ids);
+                }
+            } catch (error) { }
+            boni.push("pcs=" + item_ids);
             if (boni.length > 0) {
                 icon.href += "?" + boni.join("&");
             }
