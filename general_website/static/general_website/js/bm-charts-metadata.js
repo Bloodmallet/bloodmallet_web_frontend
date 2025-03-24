@@ -88,11 +88,20 @@ function provide_meta_data(state, data) {
             icon.href += "item=" + data["profile"]["items"][item_key]["id"];
             let boni = [];
             try {
-                boni.push("bonus=" + data["profile"]["items"][item_key]["bonus_id"].split("/").join(":"));
+                if (data["profile"]["items"][item_key].hasOwnProperty("bonus_id")) {
+                    let bonus_ids = data["profile"]["items"][item_key]["bonus_id"].split("/").join(":")
+                    boni.push("bonus=" + bonus_ids);
+                }
             } catch (error) { }
             try {
                 if (data["profile"]["items"][item_key].hasOwnProperty("ilevel")) {
                     boni.push("ilvl=" + data["profile"]["items"][item_key]["ilevel"]);
+                }
+            } catch (error) { }
+            try {
+                if (data["profile"]["items"][item_key].hasOwnProperty("gem_id")) {
+                    let gem_ids = data["profile"]["items"][item_key]["gem_id"].split("/").join(":");
+                    boni.push("gems=" + gem_ids);
                 }
             } catch (error) { }
             if (boni.length > 0) {
