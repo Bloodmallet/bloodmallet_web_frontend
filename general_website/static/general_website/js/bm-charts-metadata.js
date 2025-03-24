@@ -94,7 +94,7 @@ function provide_meta_data(state, data) {
             let boni = [];
             try {
                 if (data["profile"]["items"][item_key].hasOwnProperty("bonus_id")) {
-                    let bonus_ids = data["profile"]["items"][item_key]["bonus_id"].split("/").join(":")
+                    let bonus_ids = data["profile"]["items"][item_key]["bonus_id"].toString().split("/").join(":")
                     boni.push("bonus=" + bonus_ids);
                 }
             } catch (error) { }
