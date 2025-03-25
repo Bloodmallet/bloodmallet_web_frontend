@@ -128,6 +128,10 @@ function provide_meta_data(state, data) {
                 item.appendChild(icon);
             }
         }
+
+        // Set profile source
+        document.getElementById("character-profile-source").innerHTML = "";
+        document.getElementById("character-profile-source").appendChild(document.createTextNode("(Source: " + data["profile"]["character"]["# source"] + ")"));
     } else {
         let element = document.getElementById("character-profile-label");
         if (element !== undefined && element !== null) {
