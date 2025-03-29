@@ -115,6 +115,12 @@ function provide_meta_data(state, data) {
                     boni.push("ench=" + enchant_ids);
                 }
             } catch (error) { }
+            try {
+                if (data["profile"]["items"][item_key].hasOwnProperty("crafted_stats")) {
+                    let crafted_stats = data["profile"]["items"][item_key]["crafted_stats"].split("/").join(":");
+                    boni.push("crafted-stats=" + crafted_stats);
+                }
+            } catch (error) { }
             boni.push("pcs=" + item_ids);
             if (boni.length > 0) {
                 icon.href += "?" + boni.join("&");
