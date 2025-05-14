@@ -89,7 +89,7 @@ const normalizeLanguageCode = (langCode) => {
  * @returns {string} The full language code (e.g., "en_US")
  */
 const detectUserLanguage = (element = null) => {
-    let langCode =  getLanguageFromDataset(element) || getLanguageFromCookie() || getLanguageFromBrowser();
+    let langCode = getLanguageFromDataset(element) || getLanguageFromCookie() || getLanguageFromBrowser();
     return normalizeLanguageCode(langCode || "en_US");
 };
 
