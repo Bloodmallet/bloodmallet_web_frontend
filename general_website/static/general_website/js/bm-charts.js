@@ -26,10 +26,17 @@ const getTrinketDataAsync = async (itemName, itemLevel, fightStyle) => {
 
     try {
         data = await fetchAndProcessDataAsync(fightStyle);
-        firstItemKey = Object.keys(data.items)[0];
+
+        // Use provided itemName or get first available
+        firstItemKey = Object.keys(data.items).find(key => key !== "baseline");
         itemData = data.items[itemName] || data.items[firstItemKey];
 
-        const firstItemLevelKey = Object.keys(itemData.itemLevels)[0];
+        // Use provided itemLevel or get highest available
+        const availableLevels = Object.keys(itemData.itemLevels)
+            .map(level => parseInt(level))
+            .sort((a, b) => b - a); // Sort descending
+            
+        const firstItemLevelKey = availableLevels[0].toString();
         const { sorted_data_keys, ...itemLevelData } = itemData.itemLevels[itemLevel] || itemData.itemLevels[firstItemLevelKey];
 
         return {
@@ -822,7 +829,18 @@ class BmChartData {
      * Build wowhead URL for an item or spell
      */
     _get_wowhead_url(key) {
-        const subdomain = window.bmUtils.wowheadSubdomains;
+        const subdomain = {
+            "en_US": "www",
+            "cn_CN": "cn",
+            "de_DE": "de",
+            "es_ES": "es",
+            "fr_FR": "fr",
+            "it_IT": "it",
+            "ko_KR": "ko",
+            "pt_BR": "pt",
+            "ru_RU": "ru"
+        };
+
         let base = "https://" + subdomain[this.language] + ".wowhead.com/";
         if (key in this.spell_id_dict) {
             base += "spell=";
@@ -1869,27 +1887,19 @@ async function bm_import_charts() {
             request_endpoint = endpoint + "/" + chart_id;
         } else if ("wowClass" in chart_anchor.dataset && "wowSpec" in chart_anchor.dataset &&
             chart_anchor.dataset.wowClass && chart_anchor.dataset.wowSpec) {
-            let wow_class = chart_anchor.dataset?.wowClass;
-            let wow_spec = chart_anchor.dataset?.wowSpec;
-            chart_type = "trinkets";
-            fight_style = "castingpatchwerk";
-
-            if (chart_anchor.dataset.hasOwnProperty("type")) {
-                chart_type = chart_anchor.dataset?.type;
-            }
-
-            if (chart_anchor.dataset.hasOwnProperty("fightStyle")) {
-                fight_style = chart_anchor.dataset?.fightStyle;
-            }
+            let wow_class = chart_anchor.dataset.wowClass;
+            let wow_spec = chart_anchor.dataset.wowSpec;
+            chart_type = chart_anchor.dataset.type || "trinkets";
+            fight_style = chart_anchor.dataset.fightStyle || "castingpatchwerk";
 
             // console.log("Identified chart_import for standard", chart_type, "chart of fight_style", fight_style, "for", wow_spec, wow_class);
             request_endpoint = [endpoint, chart_type, fight_style, wow_class, wow_spec].join("/");
         } else if ("type" in chart_anchor.dataset && chart_anchor.dataset.type === "trinket_compare") {
             // Handle trinket_compare
-            item_name = chart_anchor.dataset?.itemName || "aberrant_spellforge";
-            item_level = chart_anchor.dataset?.itemLevel || "636";
-            chart_type = chart_anchor.dataset?.type;
-            fight_style = chart_anchor.dataset?.fightStyle || "castingpatchwerk";
+            item_name = chart_anchor.dataset.itemName;
+            item_level = chart_anchor.dataset.itemLevel;
+            chart_type = chart_anchor.dataset.type;
+            fight_style = chart_anchor.dataset.fightStyle || "castingpatchwerk";
             request_endpoint = [endpoint, chart_type, fight_style, item_name, item_level].join("/");
         }
         // console.log("bloodmallet.com: loading chart from", request_endpoint);
@@ -1907,7 +1917,18 @@ async function bm_import_charts() {
 
             chart_anchor.dataset.loadedData = JSON.stringify(data);
             let bm_data = new BmChartData(chart_anchor);
-            let chart = bm_data.data_type === "secondary_distributions" ? BmRadarChart : BmBarChart;
+            
+            let chart;
+            switch (bm_data.data_type) {
+                case "secondary_distributions":
+                    chart = BmRadarChart;
+                    break;
+                case "power_infusion":
+                case "trinket_compare":
+                default:
+                    chart = BmBarChart;
+            }
+
             new chart(bm_data);
 
         } catch (error) {
