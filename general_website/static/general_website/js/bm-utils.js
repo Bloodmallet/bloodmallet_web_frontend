@@ -89,33 +89,42 @@ const normalizeLanguageCode = (langCode) => {
  * @returns {string} The full language code (e.g., "en_US")
  */
 const detectUserLanguage = (element = null) => {
-    let langCode = getLanguageFromCookie() || getLanguageFromDataset(element) || getLanguageFromBrowser();
+    let langCode =  getLanguageFromDataset(element) || getLanguageFromCookie() || getLanguageFromBrowser();
     return normalizeLanguageCode(langCode || "en_US");
 };
 
 /**
+ * Format types for text processing
+ * @readonly
+ * @enum {string}
+ */
+const FormatTypes = Object.freeze({
+  SLUG: "slug",
+  ITEM_LEVEL: "item_level",
+  FIGHT_STYLE: "fight_style",
+  ITEM_NAME: "item_name",
+});
+
+/**
  * Formats text based on the specified type
  * @param {string} text The text to format
- * @param {string} type The type of formatting to apply (e.g., "slug", "fight_style")
- * @param {Object} formatDictionary Optional dictionary for special formatting like fight styles
+ * @param {FormatTypes} type The type of formatting to apply (e.g., "SLUG", "FIGHT_STYLE")
  * @returns {string} The formatted text
  */
 const formatText = (text, type) => {
     if (!text) return "Loading...";
 
     switch (type) {
-        case "slug":
-            return text.replaceAll(" ", "_").toLowerCase();
-        case "item_level":
-            return text;
-        case "fight_style":
-            return fightStyles[text] || text;
-        case "item_name":
-            return text.split('_')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-        default:
-            return text;
+      case FormatTypes.SLUG:
+        return text.replaceAll(" ", "_").toLowerCase();
+      case FormatTypes.ITEM_LEVEL:
+        return text;
+      case FormatTypes.FIGHT_STYLE:
+        return fightStyles[text] || text;
+      case FormatTypes.ITEM_NAME:
+        return text.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+      default:
+        return text;
     }
 };
 
@@ -204,6 +213,7 @@ const createElement = (tag, attributes = {}, children = []) => {
 // Export functions for use in other files
 window.bmUtils = {
     detectUserLanguage,
+    FormatTypes,
     formatText,
     capitalizeFirstLetters,
     createUnitTextNode,
