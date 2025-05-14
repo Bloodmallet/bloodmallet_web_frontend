@@ -49,7 +49,7 @@ function build_table() {
             let snake_case = wow_class + "_" + wow_spec;
             // It's a simulated spec
             if ([
-                // "death_knight_blood",
+                "death_knight_blood",
                 "death_knight_frost",
                 "death_knight_unholy",
                 "demon_hunter_havoc",
