@@ -44,6 +44,11 @@
     try {
       const fetchFunction = window.fetchAndProcessDataAsync ?? fetchAndProcessDataAsync;
       const data = await fetchFunction?.(fightStyle);
+
+      if (!data) {
+        throw new Error("No data returned from fetchAndProcessDataAsync");
+      }
+
       return processTrinketsFromData(data);
     } catch (error) {
       console.error("Error fetching available trinkets:", error);
@@ -66,10 +71,11 @@
       const userLanguage = window.bmUtils?.detectUserLanguage() || 'en_US';
   
       for (const trinketKey in data.items) {
-        if (trinketKey === "baseline") continue;
-  
-        let trinketName = trinketKey.replace(/_/g, ' ')
-          .replace(/\b\w/g, c => c.toUpperCase()); // Default formatting
+        if (trinketKey === "baseline") {
+          continue;
+        }
+
+        let trinketName = formatText(trinketKey, "item_name"); // Default formatting
   
         // Try to get localized name if available
         if (data.items[trinketKey].translations) {
