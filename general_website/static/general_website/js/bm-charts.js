@@ -608,6 +608,7 @@ class BmChartData {
         } else if (key in this.item_id_dict) {
             base += "item=";
             base += this.item_id_dict[key];
+            base += "?ilvl=" + Math.max(...Object.keys(this.data[key]).map(v => { return parseInt(v) }));
         } else {
             return undefined;
         }
