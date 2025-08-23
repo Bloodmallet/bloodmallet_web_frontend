@@ -568,6 +568,28 @@ def chart_power_infusion(request):
     return render(request, "general_website/chart.html", context=context)
 
 
+def chart_trinket_compare(
+    request,
+    item_name="eye_of_kezan",
+    item_level="636",
+    fight_style="castingpatchwerk",
+):
+    """Shows the trinket chart"""
+    logger.debug("chart_trinket_compare called")
+
+    context = {
+        "trinket_compare": True,
+        "simulation_type": "trinket_compare",
+        "item_name": item_name,
+        "item_level": item_level,
+        "fight_style": fight_style,
+    }
+
+    logger.info(context)
+    logger.debug(request)
+
+    return render(request, "general_website/chart.html", context=context)
+
 def standard_chart(
     request, simulation_type: str, fight_style: str, wow_class: str, wow_spec: str
 ):

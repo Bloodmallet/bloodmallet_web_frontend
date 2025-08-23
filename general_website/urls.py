@@ -37,6 +37,9 @@ urlpatterns = [
     path(
         "chart/power_infusion", views.chart_power_infusion, name="chart_power_infusion"
     ),
+    path(
+        "chart/trinket_compare", views.chart_trinket_compare, name="chart_trinket_compare"
+    ),
     path("chart/<uuid:chart_id>", views.chart, name="chart"),
     path(
         "chart/<str:wow_class>/<str:wow_spec>/<str:simulation_type>/<str:fight_style>",

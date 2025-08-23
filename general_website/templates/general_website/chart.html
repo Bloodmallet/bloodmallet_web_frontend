@@ -12,7 +12,7 @@
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 {% if chart %}
 <meta property="og:title"
-    content="{% if not windfury and not power_infusion %}{{ chart.wow_spec.name }} {{ chart.wow_class.name }}, {% endif %}{{ chart.simulation_type.name }}, {{ chart.fight_style.name }}">
+    content="{% if not windfury and not power_infusion and not trinket_compare %}{{ chart.wow_spec.name }} {{ chart.wow_class.name }}, {% endif %}{% if trinket_compare %}{{ chart.item_name}}, {{ chart.item_level }}, {% endif %}{{ chart.simulation_type.name }}, {{ chart.fight_style.name }}">
 {% else %}
 <meta property="og:title" content="404 chart not found">
 {% endif %}
@@ -25,20 +25,21 @@
 
 {% endblock %}
 
-
-{% block precontent%}
-{% if general_result %}
+{% block precontent %}
+{% if general_result or trinket_compare %}
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top" id="navBarDataMenu">
     <div class="container-fluid">
 
         <!-- Menu button if device is too small for full menu -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClassMenu"
-            aria-controls="navbarClassMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="{% if general_result %}#navbarClassMenu{% endif %}{% if trinket_compare %}#navbarTrinketMenu{% endif %}"
+            aria-controls="{% if general_result %}navbarClassMenu{% endif %}{% if trinket_compare %}navbarTrinketMenu{% endif %}"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Menu list -->
-        <div class="collapse navbar-collapse" id="navbarClassMenu">
-            <!--  Created by navbar_class_menu.js -->
+        <div class="collapse navbar-collapse" id="{% if general_result %}navbarClassMenu{% endif %}{% if trinket_compare %}navbarTrinketMenu{% endif %}">
+            <!--  Created by navbar_class_menu.js or navbar_trinket_menu.js-->
         </div>
     </div>
 </nav>
@@ -120,6 +121,7 @@
                 </div>
             </div>
         </div>
+        {% if not trinket_compare %}
         <div class="accordion-item">
             <div class="accordion-header bg-dark" id="simulationcraft-settings">
                 <h2 class="mb-0">
@@ -173,6 +175,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% if chart.simulation_type.command == "trinkets" %}
         <div class="accordion-item">
             <div class="accordion-header bg-dark" id="advanced_options-label">
@@ -217,7 +220,7 @@
     </div>
     <div id="selected_data_key-area" hidden></div>
     <div id="value_style_switch" class="form-group form-check float-end" hidden>
-        <input type="checkbox" class="form-check-input" id="absolute_values" {% if windfury or power_infusion %} checked
+        <input type="checkbox" class="form-check-input" id="absolute_values" {% if windfury or power_infusion or trinket_compare %} checked
             {% endif %}>
         <label class="form-check-label" for="absolute_values">{% translate "Use absolute values" %}</label>
     </div>
@@ -226,10 +229,10 @@
 {% include 'general_website/chart_information/class_and_spec_information_importer.html' %}
 
 <!-- <div align="center"> -->
-<div id="chart" class="bloodmallet_chart mt-3" {% if general_result or windfury or power_infusion %}
+<div id="chart" class="bloodmallet_chart mt-3" {% if general_result or windfury or power_infusion or trinket_compare %}
     data-wow-class="{{ wow_class }}" data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}"
     data-type="{{ simulation_type }}" {% else %} data-chart-id="{{ chart_id }}" {% endif %} data-show-top="-1"
-    data-value-calculation="{% if windfury or power_infusion %}absolute{% elif simulation_type == 'talent_target_scaling' or simulation_type == 'races' %}total{% else %}relative{% endif %}"
+    data-value-calculation="{% if windfury or power_infusion or trinket_compare %}absolute{% elif simulation_type == 'talent_target_scaling' or simulation_type == 'races' %}total{% else %}relative{% endif %}"
     data-loaded-data="">
 </div>
 <div class="d-flex flex-row-reverse">
@@ -257,7 +260,9 @@
 <div id="chart{{ forloop.counter }}" class="bloodmallet_chart mt-3" data-wow-class="{{ wow_class }}"
     data-wow-spec="{{ wow_spec }}" data-fight-style="{{ fight_style }}" data-type="{{ simulation_type }}"
     data-show-top="-1"
-    data-value-calculation="{% if windfury or power_infusion %}absolute{% else %}relative{% endif %}"></div>
+    data-value-calculation="{% if windfury or power_infusion or trinket_compare %}absolute{% else %}relative{% endif %}">
+</div>
+
 <div class="d-flex flex-row-reverse">
     <button id="chart{{ forloop.counter }}_raw_data_copy" type="button" class="btn btn-primary" data-type="bm-tooltip"
         data-bm-tooltip-placement="bottom" data-bm-tooltip-text="Copy raw chart data to clipboard">📋</button>&nbsp;
@@ -267,10 +272,8 @@
         data-bm-tooltip-placement="bottom" data-bm-tooltip-text="Show raw chart data">
         👀
     </button>
-
-    <!-- <div class="form-group">
-        </div> -->
 </div>
+
 <div class="collapse" id="chart{{ forloop.counter }}_raw_data_collapsable">
     <div class="card card-body form-group">
         <label for="custom_fight_style">Raw chart data</label>
@@ -309,6 +312,9 @@
 {% if general_result %}
 <script src="{% static 'general_website/js/classes_specs.js' %}"></script>
 <script src="{% static 'general_website/js/navbar_class_menu.js' %}"></script>
+{% endif %}
+{% if trinket_compare %}
+<script src="{% static 'general_website/js/navbar_trinket_menu.js' %}"></script>
 {% endif %}
 {% include 'general_website/layout/chart_import.html' %}
 
