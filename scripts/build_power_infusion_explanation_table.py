@@ -12,7 +12,7 @@ except ImportError:
 
 PATH_SIMC = "D:/repositories/simc"
 EXPANSION_ABBREVIATION = "TWW"
-SEASON = 1
+SEASON = 3
 SEASON_ID = f"{EXPANSION_ABBREVIATION}{SEASON}"
 GENERATED_START = "<!-- auto generated power infusion section start -->"
 GENERATED_END = "<!-- auto generated power infusion section end -->"
