@@ -49,6 +49,43 @@ function build_table() {
             let snake_case = wow_class + "_" + wow_spec;
             // It's a simulated spec
             if ([
+                // "death_knight_blood",
+                // "death_knight_frost",
+                // "death_knight_unholy",
+                // "demon_hunter_havoc",
+                // "demon_hunter_vengeance",
+                // "druid_balance",
+                // "druid_feral",
+                // "druid_guardian",
+                // "evoker_devastation",
+                // "evoker_preservation",
+                // "evoker_augmentation",
+                // "hunter_beast_mastery",
+                // "hunter_marksmanship",
+                // "hunter_survival",
+                // "mage_arcane",
+                // "mage_fire",
+                // "mage_frost",
+                // "monk_brewmaster",
+                // "monk_windwalker",
+                // "paladin_protection",
+                // "paladin_retribution",
+                // "priest_shadow",
+                // "rogue_assassination",
+                // "rogue_outlaw",
+                // "rogue_subtlety",
+                // "shaman_elemental",
+                // "shaman_enhancement",
+                // "warlock_affliction",
+                // "warlock_demonology",
+                // "warlock_destruction",
+                // "warrior_arms",
+                // "warrior_fury",
+                // "warrior_protection"
+            ].indexOf(snake_case) > -1) {
+                a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
+                a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/trinkets/castingpatchwerk';
+            } else if ([
                 "death_knight_blood",
                 "death_knight_frost",
                 "death_knight_unholy",
@@ -56,10 +93,11 @@ function build_table() {
                 "demon_hunter_vengeance",
                 "druid_balance",
                 "druid_feral",
+                "druid_restoration",
                 "druid_guardian",
                 "evoker_devastation",
-                // "evoker_preservation",
-                // "evoker_augmentation",
+                "evoker_preservation",
+                "evoker_augmentation",
                 "hunter_beast_mastery",
                 "hunter_marksmanship",
                 "hunter_survival",
@@ -67,15 +105,19 @@ function build_table() {
                 "mage_fire",
                 "mage_frost",
                 "monk_brewmaster",
+                "monk_mistweaver",
                 "monk_windwalker",
                 "paladin_protection",
                 "paladin_retribution",
+                "paladin_holy",
                 "priest_shadow",
+                "priest_discipline",
                 "rogue_assassination",
                 "rogue_outlaw",
                 "rogue_subtlety",
                 "shaman_elemental",
                 "shaman_enhancement",
+                "shaman_restoration",
                 "warlock_affliction",
                 "warlock_demonology",
                 "warlock_destruction",
@@ -83,15 +125,10 @@ function build_table() {
                 "warrior_fury",
                 "warrior_protection"
             ].indexOf(snake_case) > -1) {
-                a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec;
-                a_spec_btn.href = '/chart/' + wow_class + '/' + wow_spec + '/trinkets/castingpatchwerk';
-            } else if ([
-                "not-a-spec",
-            ].indexOf(snake_case) > -1) {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
                 a_spec_btn.href = '';
                 a_spec_btn.setAttribute("data-type", "bm-tooltip");
-                a_spec_btn.setAttribute("data-bm-tooltip-text", "Alternative custom message.");
+                a_spec_btn.setAttribute("data-bm-tooltip-text", "Pre-patch is not supported.");
                 a_spec_btn.setAttribute("data-bm-tooltip-placement", "top");
             } else {
                 a_spec_btn.className = 'spec-btn ' + wow_class + '-button col-12 translate_' + wow_spec + ' btn-disabled';
