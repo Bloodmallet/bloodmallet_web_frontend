@@ -1,17 +1,17 @@
 {% if wow_class %}
-    {% with class_name=wow_class|add:".html" %}
-        <div>
-            {% include 'general_website/chart_information/wow_class/'|add:class_name %}
-        </div>  
-    {% endwith %}
+{% with class_name=wow_class|add:".html" %}
+<div>
+    {% include 'general_website/chart_information/wow_class/'|add:class_name %}
+</div>
+{% endwith %}
 
-    {% if wow_spec %}
-        {% with class_spec_name=wow_class|add:"_"|add:wow_spec|add:".html" %}
-        <div>
-            {% include 'general_website/chart_information/wow_spec/'|add:class_spec_name %}
-        </div>
-        {% endwith %}
-    {% endif %}
+{% if wow_spec %}
+{% with class_spec_name=wow_class|add:"_"|add:wow_spec|add:".html" %}
+<div>
+    {% include 'general_website/chart_information/wow_spec/'|add:class_spec_name %}
+</div>
+{% endwith %}
+{% endif %}
 {% endif %}
 
 {% comment %}
@@ -31,8 +31,4 @@ example import of simulation type and spec specific disclaimer
 
 {% if simulation_type == "weapon_enchantments" and wow_class == "death_knight" and wow_spec == "blood" %}
 {% include 'general_website/chart_information/disclaimers/weapon_enchantments_death_knight_blood.html' %}
-{% endif %}
-
-{% if general_result and simulation_type == "tier_set" and wow_class == "death_knight" and wow_spec == "blood" %}
-{% include 'general_website/chart_information/disclaimers/tier_set_death_knight_blood.html' %}
 {% endif %}

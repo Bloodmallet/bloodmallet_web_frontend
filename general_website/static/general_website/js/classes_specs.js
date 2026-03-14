@@ -3,7 +3,7 @@ let classes_specs = {
         "blood", "frost", "unholy"
     ],
     "demon_hunter": [
-        "havoc", "vengeance"
+        "havoc", "vengeance", "devourer"
     ],
     "druid": [
         "feral", "guardian", "balance", "restoration"
