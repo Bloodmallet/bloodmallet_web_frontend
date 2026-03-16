@@ -19,7 +19,7 @@ class Endpoint:
 def load_endpoints() -> typing.List[Endpoint]:
     classes_specs = {
         "death_knight": ["blood", "frost", "unholy"],
-        "demon_hunter": ["havoc", "vengeance"],
+        "demon_hunter": ["havoc", "vengeance", "devourer"],
         "druid": ["feral", "guardian", "balance"],
         "hunter": ["beast_mastery", "marksmanship", "survival"],
         "mage": ["arcane", "fire", "frost"],

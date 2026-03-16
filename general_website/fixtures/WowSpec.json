@@ -46,6 +46,15 @@
     },
     {
         "model": "general_website.wowspec",
+        "pk": 31,
+        "fields": {
+            "wow_class": 2,
+            "name": "Devourer",
+            "tokenized_name": "devourer"
+        }
+    },
+    {
+        "model": "general_website.wowspec",
         "pk": 6,
         "fields": {
             "wow_class": 3,
