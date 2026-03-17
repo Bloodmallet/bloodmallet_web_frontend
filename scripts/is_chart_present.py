@@ -30,6 +30,7 @@ SPECS = [
     ("death_knight", "unholy"),
     ("demon_hunter", "havoc"),
     ("demon_hunter", "vengeance"),
+    ("demon_hunter", "devourer"),
     ("druid", "balance"),
     ("druid", "feral"),
     ("druid", "guardian"),

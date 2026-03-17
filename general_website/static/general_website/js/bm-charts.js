@@ -68,6 +68,7 @@ const fetchAndProcessDataAsync = async (fightStyle) => {
         ["death_knight", "unholy", "Unholy Death Knight"],
         ["demon_hunter", "havoc", "Havoc Demon Hunter"],
         ["demon_hunter", "vengeance", "Vengeance Demon Hunter"],
+        ["demon_hunter", "devourer", "Devourer Demon Hunter"],
         ["druid", "balance", "Balance Druid"],
         ["druid", "feral", "Feral Druid"],
         ["druid", "guardian", "Guardian Druid"],
@@ -107,12 +108,17 @@ const fetchAndProcessDataAsync = async (fightStyle) => {
     const promises = specs.map(async ([wowClass, wowSpec, key]) => {
         const response = await fetch(`https://bloodmallet.com/chart/get/trinkets/${fightStyle}/${wowClass}/${wowSpec}`);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.warn(`Skipping missing trinket data for ${wowClass}/${wowSpec}: HTTP ${response.status}`);
+            return;
         }
         data[key] = await response.json();
     });
 
     await Promise.all(promises);
+
+    if (Object.keys(data).length === 0) {
+        throw new Error("No trinket data returned for any spec.");
+    }
 
     const processedData = processData(data);
     const sortedData = sortData(processedData);
