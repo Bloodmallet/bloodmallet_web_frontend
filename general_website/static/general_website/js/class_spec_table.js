@@ -78,7 +78,7 @@ function build_table() {
                 "shaman_elemental",
                 "shaman_enhancement",
                 "warlock_affliction",
-                // "warlock_demonology",
+                "warlock_demonology",
                 "warlock_destruction",
                 // "warrior_arms",
                 // "warrior_fury",
