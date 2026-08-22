@@ -6,10 +6,10 @@ let classes_specs = {
         "havoc", "vengeance", "devourer"
     ],
     "druid": [
-        "feral", "guardian", "balance", "restoration"
+        "feral", "guardian", "balance"
     ],
     "evoker": [
-        "devastation", "preservation", "augmentation"
+        "devastation", "augmentation"
     ],
     "hunter": [
         "beast_mastery", "marksmanship", "survival"
@@ -18,19 +18,19 @@ let classes_specs = {
         "arcane", "fire", "frost"
     ],
     "monk": [
-        "brewmaster", "windwalker", "mistweaver"
+        "brewmaster", "windwalker"
     ],
     "paladin": [
-        "protection", "retribution", "holy"
+        "protection", "retribution"
     ],
     "priest": [
-        "shadow", "holy", "discipline"
+        "shadow"
     ],
     "rogue": [
         "assassination", "outlaw", "subtlety"
     ],
     "shaman": [
-        "elemental", "enhancement", "restoration"
+        "elemental", "enhancement"
     ],
     "warlock": [
         "affliction", "demonology", "destruction"
