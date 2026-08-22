@@ -52,13 +52,13 @@ function build_table() {
                 "death_knight_blood",
                 "death_knight_frost",
                 "death_knight_unholy",
-                "demon_hunter_havoc",
+                // "demon_hunter_havoc",
                 "demon_hunter_vengeance",
-                "demon_hunter_devourer",
+                // "demon_hunter_devourer",
                 // "druid_balance",
-                "druid_feral",
+                // "druid_feral",
                 // "druid_guardian",
-                "evoker_devastation",
+                // "evoker_devastation",
                 // "evoker_preservation",
                 // "evoker_augmentation",
                 "hunter_beast_mastery",
@@ -68,17 +68,17 @@ function build_table() {
                 "mage_fire",
                 "mage_frost",
                 "monk_brewmaster",
-                "monk_windwalker",
+                // "monk_windwalker",
                 "paladin_protection",
                 // "paladin_retribution",
                 "priest_shadow",
-                // "rogue_assassination",
+                "rogue_assassination",
                 "rogue_outlaw",
                 "rogue_subtlety",
                 "shaman_elemental",
                 "shaman_enhancement",
                 "warlock_affliction",
-                // "warlock_demonology",
+                "warlock_demonology",
                 "warlock_destruction",
                 // "warrior_arms",
                 // "warrior_fury",
@@ -137,7 +137,8 @@ function build_table() {
                 a_spec_btn.href = '';
                 a_spec_btn.setAttribute("data-type", "bm-tooltip");
                 // a_spec_btn.title = "Missing SimulationCraft profile or lack of dps support for the spec.";
-                a_spec_btn.setAttribute("data-bm-tooltip-text", "Missing SimulationCraft profile or lack of dps support for the spec.");
+                // a_spec_btn.setAttribute("data-bm-tooltip-text", "Missing SimulationCraft profile or lack of dps support for the spec.");
+                a_spec_btn.setAttribute("data-bm-tooltip-text", "Missing SimulationCraft profile for the current season.");
                 a_spec_btn.setAttribute("data-bm-tooltip-placement", "top");
             }
 
